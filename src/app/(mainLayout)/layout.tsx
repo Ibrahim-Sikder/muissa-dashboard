@@ -1,7 +1,8 @@
+import LandingPageProvider from "@/lib/LandingPageProvider";
 import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
-  return <div>{children}</div>;
+  return <LandingPageProvider>{children}</LandingPageProvider>;
 };
 
 export default layout;
