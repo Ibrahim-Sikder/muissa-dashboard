@@ -61,7 +61,7 @@ const VerifyPage = () => {
             <MUIInput
               type="text"
               name="otp"
-              label="Enter Your OTP"
+              label="Verify OTP"
               fullWidth
             />
           </Box>

@@ -6,7 +6,7 @@ import Container from "@/components/ui/HomePage/Container/Container";
 import logo from "../../../assets/images/logo.jpg";
 const Footer = () => {
   return (
-    <Box sx={{ background: "#002140" }} py={5}>
+    <Box sx={{ background: "#002140", marginTop: '80px' }} py={5} >
       <Container>
       
         <div className="flex text-center flex-col md:flex-row justify-center gap-14  md:justify-between text-white  md:text-left ">
