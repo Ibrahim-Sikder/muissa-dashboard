@@ -140,37 +140,7 @@ const Login = () => {
               
                 }}
               >
-                {/* <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    color: "#059669",
-                  }}
-                >
-                  <Checkbox
-                    sx={{
-                      "& .MuiIconButton-root": {
-                        color: "#fff",
-                        borderColor: "#002140",
-                      },
-                      "& .MuiSvgIcon-root": {
-                        color: "#002140",
-                      },
-                      "& .MuiCheckbox-indeterminate": {
-                        color: "#002140",
-                      },
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      color: "#002140",
-                      fontSize: isSmallDevice ? "12px" : "inherit",
-                    }}
-                    component="small"
-                  >
-                    Remember me
-                  </Typography>
-                </Box> */}
+                
                 <Typography
                   sx={{
                     color: "#002140",
