@@ -5,7 +5,7 @@ import { Button, Typography } from "@mui/material";
 const Banner = () => {
   return (
     <div className="bg-header">
-      <Container className="pt-20 sm:pb-24 px-6">
+      <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           <div className="col-span-7 flex flex-col justify-evenly relative">
             <Image

@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className="navbar z-50">
       <>
-        <Container className="mx-auto max-w-7xl px-6 md:py-2 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 md:py-2 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               {/* LOGO */}
@@ -100,7 +100,7 @@ const Navbar = () => {
               <Drawerdata />
             </Drawer>
           </div>
-        </Container>
+        </div>
       </>
     </div>
   );

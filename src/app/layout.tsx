@@ -19,12 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <Providers>
-    <html lang="en">
-      <body className={inter.className}>
-        <Toaster position="bottom-right" richColors />
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
-      </body>
-    </html>
-  </Providers>
+      <html lang="en">
+        <body className={inter.className}>
+          <Toaster position="bottom-right" richColors />
+          <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        </body>
+      </html>
+    </Providers>
   );
 }
