@@ -52,10 +52,21 @@ const Register = () => {
     },
   };
 
-  const handleSubmit = async (data: FieldValues) => {};
+
+
+  const handleSubmit = async (data: FieldValues) => {
+   
+  };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#f8f8f8] ">
+    <div
+      className="min-h-screen w-full flex items-center justify-center bg-[#f8f8f8] "
+      style={{
+        background: isLargeDevice
+          ? "linear-gradient(to left , #002140 50%, white 50%)"
+          : "",
+      }}
+    >
       <Stack
         direction="row"
         sx={{
@@ -63,16 +74,10 @@ const Register = () => {
             xs: "100%",
             sm: "100%",
             md: "80%",
-            lg: "70%",
+            lg: "60%",
             xl: "50%",
           },
           mx: "auto",
-          py: {
-            xs: "20px",
-            sm: "40px",
-            md: "50px",
-            lg: "60px",
-          },
         }}
       >
         <Box
@@ -90,21 +95,19 @@ const Register = () => {
           }}
         >
           <Typography variant="h4" fontWeight="bold">
-            Welcome To Muissa Business Consulting Ltd.
+            Welcome To Muissa Business Consulting Ltd. 
           </Typography>
           <Typography component="p" sx={{ marginTop: "10px", color: "#fff" }}>
-            Elevate your business with our expert support in Product, Sales,
-            Marketing, Delivery, IT, Funding, and Investment. Transform
-            potential into performance with seamless, tailored solutions.
+          Elevate your business with our expert support in Product, Sales, Marketing, Delivery, IT, Funding, and Investment. Transform potential into performance with seamless, tailored solutions.
           </Typography>
         </Box>
-        <Box className="bg-[#fff]  px-5 py-16  md:p-20 mx-3 md:m-aut0 lg:m-0 lg:mx-0 rounded-md md:rounded-none  w-full md:w-[600px]  flex items-center text-[#002140] ">
+        <Box className="bg-[#fff] shadow-md px-5 py-16  md:p-20 mx-3 md:m-aut0 lg:m-0 lg:mx-0 rounded-md md:rounded-none  w-full md:w-[600px]  flex items-center text-[#002140] ">
           <MUIForm
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
             defaultValues={{
-              user: "",
-              password: "",
+              user: '',
+              password: ''
             }}
           >
             <Box>
@@ -113,7 +116,7 @@ const Register = () => {
                 variant="h4"
                 sx={{ textAlign: "center", marginBottom: "10px" }}
               >
-                Register Now !
+                Register Now  !
               </Typography>
               <Box>
                 <MUIInput
@@ -135,6 +138,7 @@ const Register = () => {
                   fullWidth={true}
                 />
               </Box>
+             
 
               <Button
                 type="submit"
@@ -155,25 +159,20 @@ const Register = () => {
                 variant="outlined"
                 color="primary"
               >
-                Register
+               Register
               </Button>
               <Typography
-                sx={{
-                  color: "#002140",
-                  fontSize: "12px",
-                  justifyContent: "center",
-                  display: "flex",
-                  marginTop: "10px",
-                }}
-                component="small"
-              >
-                Already have an account? &nbsp;
-                <Link href="/login">
-                  <span className="text-[#002140] hover:text-[#059669] transition-all">
-                    Login
-                  </span>
-                </Link>
-              </Typography>
+                  sx={{
+                    color: "#002140",
+                    fontSize:  "12px",
+                    justifyContent: "right",
+                    display:'flex',
+                    marginTop: '5px'
+                  }}
+                  component="small"
+                >
+                  Already have an account ? <Link href='/login'>Login</Link>
+                </Typography>
             </Box>
           </MUIForm>
         </Box>
