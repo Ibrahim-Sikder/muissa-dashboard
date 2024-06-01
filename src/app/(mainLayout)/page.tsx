@@ -1,11 +1,16 @@
-import { Box, Button } from "@mui/material";
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { Box } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import Header from "@/components/ui/Header";
+import Navbar from "@/components/ui/Navbar/Navbar";
+import Banner from "@/components/ui/HomePage/Banner";
 
 const Home = () => {
   return (
-    <Box className="text-center">
-      <h4>Welcome to MUISSA </h4>
-      <Button>Click me </Button>
+    <Box>
+      <Banner />
     </Box>
   );
 };
