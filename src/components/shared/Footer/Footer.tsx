@@ -3,24 +3,32 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
-import logo from "../../../assets/images/logo.jpg";
+
 const Footer = () => {
   return (
     <Box sx={{ background: "#002140" }} py={5}>
       <Container>
-      
         <div className="flex text-center flex-col md:flex-row justify-center gap-14  md:justify-between text-white  md:text-left ">
-       <div className="w-[300px]">
-       <div className="flex md:justify-normal justify-center items-center mb-5">
-          <Image src={logo} alt="logo" width={50} />
-          <h4 className="text-white ml-2">Muissa Consulting </h4>
-         
-        </div>
-        <p className="leading-9"> Elevate your business with our expert support in Product, Sales, Marketing, Delivery, IT, Funding, and Investment. Transform potential into performance with seamless, tailored solutions.</p>
-       </div>
+          <div className="w-[300px]">
+            <div className="flex md:justify-normal justify-center items-center mb-5">
+              <Image
+                src="/assets/logo/logo.jpg"
+                height={50}
+                alt="logo"
+                width={50}
+              />
+              <h4 className="text-white ml-2">Muissa Consulting </h4>
+            </div>
+            <p className="leading-9">
+              {" "}
+              Elevate your business with our expert support in Product, Sales,
+              Marketing, Delivery, IT, Funding, and Investment. Transform
+              potential into performance with seamless, tailored solutions.
+            </p>
+          </div>
           <div className="tex-left">
             <h4>Our Company</h4>
-           
+
             <ul className="space-y-5 mt-5">
               <li>About Use</li>
               <li>Agency partner </li>
@@ -32,7 +40,7 @@ const Footer = () => {
           <div className="tex-left">
             <h4>Services</h4>
             <ul className="space-y-5 mt-5">
-              <li > Product Support </li>
+              <li> Product Support </li>
               <li> Sale Support </li>
               <li>Marketing Support </li>
               <li>Delivery Supports </li>

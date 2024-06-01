@@ -1,13 +1,13 @@
 "use client";
 
-import { Disclosure } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React from "react";
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
-import Signdialog from "./Signdialog";
-import Registerdialog from "./Registerdialog";
+import Image from "next/image";
+import { Button } from "@mui/material";
+import Container from "../HomePage/Container/Container";
 
 interface NavigationItem {
   name: string;
@@ -29,57 +29,59 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <Disclosure as="nav" className="navbar">
+    <div className="navbar z-50">
       <>
-        <div className="mx-auto max-w-7xl px-6 md:py-4 lg:px-8">
+        <Container className="mx-auto max-w-7xl px-6 md:py-2 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               {/* LOGO */}
 
               <div className="flex flex-shrink-0 items-center">
-                <img
-                  className="block h-12 w-40 lg:hidden"
-                  src={"/assets/logo/logo.svg"}
-                  alt="paidin-logo"
-                />
-                <img
-                  className="hidden h-full w-full lg:block"
-                  src={"/assets/logo/logo.svg"}
-                  alt="paidin-logo"
-                />
+                <Link href="/">
+                  <Image
+                    className="block h-16 w-16 lg:hidden rounded-full"
+                    src="/assets/logo/logo.jpg"
+                    alt="paidin-logo"
+                    width={100}
+                    height={100}
+                  />
+                  <Image
+                    className="hidden h-full w-full lg:block rounded-full"
+                    src="/assets/logo/logo.jpg"
+                    alt="paidin-logo"
+                    width={50}
+                    height={50}
+                  />
+                </Link>
               </div>
 
               {/* LINKS */}
-
-              <div className="hidden lg:block ml-20">
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? " text-black hover:opacity-75"
-                          : "hover:text-black hover:opacity-75",
-                        "px-3 py-4 text-lg font-normal text-black space-links"
-                      )}
-                      aria-current={item.href ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+            </div>
+            <div className="hidden lg:block ml-20">
+              <div className="flex space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? " text-black hover:opacity-75"
+                        : "hover:text-black hover:opacity-75",
+                      "px-3 py-4 text-lg font-normal text-black space-links"
+                    )}
+                    aria-current={item.href ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
             </div>
-
-            {/* SIGNIN DIALOG */}
-
-            <Signdialog />
-
-            {/* REGISTER DIALOG */}
-
-            <Registerdialog />
-
+            {/* BUTTONS */}
+            <div className="hidden lg:block">
+              <Button variant="outlined" className="mr-5">
+                <Link href="/login">Get Started</Link>
+              </Button>
+            </div>
             {/* DRAWER FOR MOBILE VIEW */}
 
             {/* DRAWER ICON */}
@@ -98,9 +100,9 @@ const Navbar = () => {
               <Drawerdata />
             </Drawer>
           </div>
-        </div>
+        </Container>
       </>
-    </Disclosure>
+    </div>
   );
 };
 

@@ -8,13 +8,13 @@ interface NavigationItem {
 }
 
 const navigation: NavigationItem[] = [
-  { name: 'Product', href: '#product', current: true },
-  { name: 'Pricing', href: '#pricing', current: false },
-  { name: 'Features', href: '#features', current: false },
-]
+  { name: "Product", href: "#product", current: true },
+  { name: "Pricing", href: "#pricing", current: false },
+  { name: "Features", href: "#features", current: false },
+];
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const Data = () => {
@@ -28,10 +28,12 @@ const Data = () => {
                 key={item.name}
                 href={item.href}
                 className={classNames(
-                  item.current ? 'text-black hover:opacity-100' : 'hover:text-black hover:opacity-100',
-                  'px-2 py-1 text-lg font-normal opacity-75 block'
+                  item.current
+                    ? "text-black hover:opacity-100"
+                    : "hover:text-black hover:opacity-100",
+                  "px-2 py-1 text-lg font-normal opacity-75 block"
                 )}
-                aria-current={item.current ? 'page' : undefined}
+                aria-current={item.current ? "page" : undefined}
               >
                 {item.name}
               </Link>
@@ -48,6 +50,6 @@ const Data = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Data;

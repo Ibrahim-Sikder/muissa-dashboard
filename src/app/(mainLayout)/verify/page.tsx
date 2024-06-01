@@ -10,7 +10,6 @@ import { Box, Button, Stack } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 
-
 export const validationSchema = z.object({
   otp: z.string().min(4, "Please enter your 6 digit OTP"),
 });
@@ -53,17 +52,15 @@ const VerifyPage = () => {
           </Box>
         </Stack>
 
-        <MUIForm onSubmit={onSubmit} resolver={zodResolver(validationSchema)}
-            defaultValues={{
-              otp: ""
-            }}>
+        <MUIForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(validationSchema)}
+          defaultValues={{
+            otp: "",
+          }}
+        >
           <Box sx={{ width: "100%", mb: 2 }}>
-            <MUIInput
-              type="text"
-              name="otp"
-              label="Enter Your OTP"
-              fullWidth
-            />
+            <MUIInput type="text" name="otp" label="Enter Your OTP" fullWidth />
           </Box>
 
           <Box
