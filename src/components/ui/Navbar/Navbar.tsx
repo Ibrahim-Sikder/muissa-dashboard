@@ -8,7 +8,7 @@ import Drawerdata from "./Drawerdata";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import Container from "../HomePage/Container/Container";
-
+import logo from "../../../assets/logo/logo.jpg";
 interface NavigationItem {
   name: string;
   href: string;
@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className="navbar z-50">
       <>
-        <div className="mx-auto max-w-7xl px-6 md:py-2 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 md:py-4 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="flex flex-1 items-center sm:items-stretch sm:justify-start">
               {/* LOGO */}
@@ -40,14 +40,14 @@ const Navbar = () => {
                 <Link href="/">
                   <Image
                     className="block h-16 w-16 lg:hidden rounded-full"
-                    src="/assets/logo/logo.jpg"
+                    src={logo}
                     alt="paidin-logo"
                     width={100}
                     height={100}
                   />
                   <Image
                     className="hidden h-full w-full lg:block rounded-full"
-                    src="/assets/logo/logo.jpg"
+                    src={logo}
                     alt="paidin-logo"
                     width={50}
                     height={50}

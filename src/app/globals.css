@@ -31,14 +31,22 @@
   margin-top: 100px;
 }
 
+.navbar {
+  position: static;
+  width: 100%;
+  background-color: transparent;
+  transition: background-color 0.4s linear;
+}
+
+/* State when scrolled */
 html:not([data-scroll="0"]) .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   background-color: white !important;
   opacity: 1.9;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-  transition: 0.4s linear;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Reduced box shadow */
+  transition: background-color 0.4s linear;
   padding: 0px !important;
   z-index: 3;
 }
@@ -55,6 +63,7 @@ html:not([data-scroll="0"]) .ttty {
     rgba(255, 255, 255, 0) 94.83%
   );
 }
+
 .bg-navbar {
   background: linear-gradient(
     120.3deg,

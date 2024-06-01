@@ -3,6 +3,7 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
+import logo from "../../../assets/logo/logo.jpg";
 
 const Footer = () => {
   return (
@@ -11,12 +12,7 @@ const Footer = () => {
         <div className="flex text-center flex-col md:flex-row justify-center gap-14  md:justify-between text-white  md:text-left ">
           <div className="w-[300px]">
             <div className="flex md:justify-normal justify-center items-center mb-5">
-              <Image
-                src="/assets/logo/logo.jpg"
-                height={50}
-                alt="logo"
-                width={50}
-              />
+              <Image src={logo} height={50} alt="logo" width={50} />
               <h4 className="text-white ml-2">Muissa Consulting </h4>
             </div>
             <p className="leading-9">

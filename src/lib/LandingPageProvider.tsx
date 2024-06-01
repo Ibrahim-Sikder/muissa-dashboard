@@ -1,8 +1,8 @@
 "use client";
-
-import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 import Lenis from "lenis";
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function LandingPageProvider({ children }: { children: any }) {
   useEffect(() => {
@@ -13,7 +13,6 @@ function LandingPageProvider({ children }: { children: any }) {
     }
     requestAnimationFrame(raf);
   }, []);
-
   return (
     <AnimatePresence>
       <motion.div

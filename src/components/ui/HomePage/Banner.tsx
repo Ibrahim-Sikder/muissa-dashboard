@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Container from "./Container/Container";
 import { Button, Typography } from "@mui/material";
+import starImage from "../../../assets/banner/star.svg";
+import lineImage from "../../../assets/banner/lineone.svg";
+import banneImage from "../../../assets/banner/banner.png";
 
 const Banner = () => {
   return (
@@ -9,14 +12,14 @@ const Banner = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
           <div className="col-span-7 flex flex-col justify-evenly relative">
             <Image
-              src="/assets/banner/star.svg"
+              src={starImage}
               alt="star-image"
               width={95}
               height={97}
               className="absolute top-[-74px] right-[51px] lg:top-[-40px] lg:right-[30px]"
             />
             <Image
-              src="/assets/banner/lineone.svg"
+              src={lineImage}
               alt="line-image"
               width={190}
               height={148}
@@ -60,7 +63,7 @@ const Banner = () => {
           </div>
           <div className="col-span-5 flex justify-center 2xl:-mb-32 2xl:-mr-32 pt-10 lg:pt-0">
             <Image
-              src="/assets/banner/banner.png"
+              src={banneImage}
               alt="banner-image"
               width={1000}
               height={805}
