@@ -26,10 +26,21 @@
 }
 .serviceImgWrap {
   width: 370px;
-  height: 500px;
+  height: 400px;
 }
 .serviceImgWrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.swiper-button-prev, .swiper-button-next {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  .swiper-button-prev:after, .swiper-button-next:after {
+
+    font-size: 20px !important;
 }

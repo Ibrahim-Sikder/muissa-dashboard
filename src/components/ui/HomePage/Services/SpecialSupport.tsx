@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import * as React from "react";
@@ -44,9 +45,34 @@ export default function SpecialSupport() {
             <Tab label="Guaranteed " value="3" sx={tabStyles} />
           </TabList>
         </Box>
-        <TabPanel value="1">Item One</TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="1">
+          <p>
+           Tailored assistance fostering well-being and
+            independence. Our compassionate services address individual needs,
+            providing guidance and support for a fulfilling lifestyle.
+            Empowering clients with holistic care solutions for physical,
+            emotional, and mental health.
+          </p>
+          <p className="mt-5"> Comprehensive assistance tailored to individual needs, ensuring well-being and independence. Empowering clients with compassionate care solutions for a fulfilling lifestyle.</p>
+        </TabPanel>
+        <TabPanel value="2">
+        <p > Personalized assistance fostering independence and well-being. Our dedicated services cater to individual needs, offering holistic support for a fulfilling lifestyle. Empowering clients with compassionate care solutions for optimal physical, emotional, and mental health.</p>
+          <p className="mt-5">
+           Tailored assistance fostering well-being and
+            independence. Our compassionate services address individual needs,
+            providing guidance and support for a fulfilling lifestyle.
+            Empowering clients with holistic care solutions for physical,
+            emotional, and mental health.
+          </p>
+         </TabPanel>
+        <TabPanel value="3"><p>
+           Tailored assistance fostering well-being and
+            independence. Our compassionate services address individual needs,
+            providing guidance and support for a fulfilling lifestyle.
+            Empowering clients with holistic care solutions for physical,
+            emotional, and mental health.
+          </p>
+          <p className="mt-5"> Comprehensive assistance tailored to individual needs, ensuring well-being and independence. Empowering clients with compassionate care solutions for a fulfilling lifestyle.</p></TabPanel>
       </TabContext>
     </Box>
   );

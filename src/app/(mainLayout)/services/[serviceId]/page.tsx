@@ -12,15 +12,17 @@ import Image from "next/image";
 import service from "../../../../assets/images/service4.jpg";
 import service2 from "../../../../assets/images/service5.jpg";
 import SpecialSupport from "@/components/ui/HomePage/Services/SpecialSupport";
+import ServiceSlider from "@/components/ui/HomePage/Services/ServiceSlider";
 
 const buttonStyles = {
-  width: 380,
+  width: "100%",
   height: 80,
   display: "flex",
   justifyContent: "space-between",
   fontSize: "16px",
   background: "#1591A3",
 };
+
 const page = () => {
   return (
     <>
@@ -30,68 +32,26 @@ const page = () => {
         </div>
       </div>
       <Container className="sectionMargin">
-        <div className="grid grid-cols-12 gap-10 ">
-          <div className="col-span-8">
-            <h1>We give the best Services</h1>
-            <p className="mt-8 leading-8">
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don’t look even
-              slightly believable. If you are going to use a passage of Lorem
-              Ipsum, you need to be sure there isn’t anything embarrassing
-              hidden.
-            </p>
-            <p className="mt-10 ">
-              All the Lorem Ipsum generators on the Internet tend to repeat
-              predefined chunks as necessary, making this the first true
-              generator on the Internet.
-            </p>
-            <ul className="mt-5 space-y-3">
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Professional website
-                design and development
-              </li>
-              <li>
-                {" "}
-                <CheckCircle sx={{ color: "#00305C" }} /> Search Engine
-                Optimization (SEO)
-              </li>
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Website maintenance
-                and updates
-              </li>
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Landing page creation
-              </li>
-            </ul>
-            <div className="flex gap-3 mt-10 items-center">
-              <div className="serviceImgWrap">
-                <Image src={service2} alt="consulting" />
-              </div>
-              <div className="serviceImgWrap">
-                <Image src={service} alt="consulting" />
-              </div>
-            </div>
-          </div>
-          <div className="col-span-4 ">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <div className="col-span-12 lg:col-span-4">
             <Stack direction="column" gap={2}>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                Sale Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                Marketing Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                Delivery Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                IT Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                Funding Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
               <Button sx={buttonStyles}>
-                Product Support <KeyboardArrowRight sx={{ color: "#fff" }} />{" "}
+                Investment Support <KeyboardArrowRight sx={{ color: "#fff" }} />
               </Button>
             </Stack>
             <Box sx={{ marginTop: "30px" }}>
@@ -135,10 +95,61 @@ const page = () => {
                   </p>
                 </div>
               </div>
+              <div className="mt-5">
+                <h1>Brochures </h1>
+                <p className="mt-3">
+                  View our 2024 Medical prospectus of brochure for an easy to
+                  read guide on all of the services offer.
+                </p>
+              </div>
             </Box>
           </div>
+          <div className="col-span-12 lg:col-span-8">
+            <h1 className="capitalize">We give the best Services</h1>
+            <p className="mt-8 leading-8">
+              We provide unparalleled services, striving for excellence in every
+              aspect. With a commitment to quality and customer satisfaction, we
+              deliver the finest solutions tailored to your needs. Our dedicated
+              team ensures top-notch support, aiming to exceed expectations and
+              foster long-term relationships. Experience the difference with our
+              superior services, setting the standard for excellence in every
+              interaction.
+            </p>
+            <p className="mt-10">
+              Experience exceptional service quality. Our commitment to
+              excellence ensures unparalleled support tailored to your needs,
+              fostering lasting satisfaction and trust.
+            </p>
+            <ul className="mt-5 space-y-3">
+              <li>
+                <CheckCircle sx={{ color: "#00305C" }} /> Professional website
+                design and development
+              </li>
+              <li>
+                <CheckCircle sx={{ color: "#00305C" }} /> Search Engine
+                Optimization (SEO)
+              </li>
+              <li>
+                <CheckCircle sx={{ color: "#00305C" }} /> Website maintenance
+                and updates
+              </li>
+              <li>
+                <CheckCircle sx={{ color: "#00305C" }} /> Landing page creation
+              </li>
+            </ul>
+            <div className="flex flex-col md:flex-row gap-3 mt-10 items-center">
+              <div className="serviceImgWrap">
+                <Image src={service2} alt="consulting" />
+              </div>
+              <div className="serviceImgWrap">
+                <Image src={service} alt="consulting" />
+              </div>
+            </div>
+
+            <SpecialSupport />
+            <ServiceSlider />
+          </div>
         </div>
-        <SpecialSupport />
       </Container>
     </>
   );
