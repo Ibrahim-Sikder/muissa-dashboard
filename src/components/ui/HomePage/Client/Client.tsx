@@ -52,7 +52,7 @@ const Client = () => {
   ];
 
   return (
-    <div className="clientWraps">
+    <div className="clientWraps pt-24">
       <Container>
         <SectionTitle
           title="We are dedicated to satisfy clients"
@@ -69,7 +69,7 @@ const Client = () => {
         >
           {clientData.map((data) => (
             <SwiperSlide key={data.id}>
-              <div className="clientCard mt-10">
+              <div className="clientCard mt-20">
                 <div className="quoteWrap">
                   <FormatQuote sx={{ fontSize: "50px" }} />
                 </div>

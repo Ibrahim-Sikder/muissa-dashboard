@@ -6,7 +6,7 @@ import Container from "../Container/Container";
 import { Button, Stack } from "@mui/material";
 const BrandSection = () => {
   return (
-    <Container>
+    <Container className="sectionMargin">
       <div className="brandWraps grid grid-cols-1 lg:grid-cols-2 place-items-center ">
         <div className="brandImgWraps">
           <Image src={developer} alt="brand" />

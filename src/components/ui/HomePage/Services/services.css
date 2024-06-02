@@ -33,7 +33,11 @@
 .arrowWraps:hover.serviceImgWraps img {
   scale: 1.2;
 }
-
+.serviceCardWraps{
+  position: relative;
+  z-index: 99999;
+  top:-0px
+}
 .serviceCard {
   width: 314px;
   text-align: center;

@@ -11,10 +11,14 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 
 const NewsSection = () => {
   return (
-    <Container className="">
+    <Container className="sectionMargin">
+      <SectionTitle title='NEWS FROM OUR BLOG' subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo
+
+" />
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -29,7 +33,7 @@ const NewsSection = () => {
         }}
         navigation={true}
         modules={[Autoplay,  Navigation]}
-        className="mySwiper"
+        className="mySwiper mt-10"
         breakpoints={{
           // when window width is >= 320px
           320: {

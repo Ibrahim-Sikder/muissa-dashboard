@@ -1,51 +1,47 @@
-
-.clientWraps{
-    width:100%;
-    background-image: url(../../../../assets/banner/clientbanner.png);
-padding:40px 0 ;
-    background: #EAEFF2;
+.clientWraps {
+  width: 100%;
+  padding: 80px 0;
+  background: #eaeff2;
 }
-.clientCard{
-    background: #fff;
-    padding: 23px;
-    border-radius: 5px;
-    text-align: center;
-    position: relative;
-    width: 630px;
-    height: 166px;
+.clientCard {
+  background: #fff;
+  padding: 23px;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  width: 630px;
+  height: 166px;
+  background-image: url(../../../../assets/banner/clientbanner.png);
 }
-.clientWrap{
-    left: 30%;
-    position: absolute;
-    bottom: -100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-.clientImgWraps{
-    width: 100px;
-    height: 100px;
-    box-shadow: 0 5px 15px #00000059;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
+.clientWrap {
+  left: 30%;
+  position: absolute;
+  bottom: -100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
-.clientImgWraps img{
-    border-radius: 100%;
-    width: 80%;
-    height: 80%;
-}
-.quoteWrap{
-    position: absolute;
-    top: -22px;
-    rotate: 183deg;
 
+.clientImgWraps {
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 5px 15px #00000059;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.clientSlider{
-    height:400px;
+.clientImgWraps img {
+  border-radius: 100%;
+  width: 80%;
+  height: 80%;
+}
+.quoteWrap {
+  position: absolute;
+  top: -22px;
+  rotate: 183deg;
+}
+.clientSlider {
+  height: 400px;
 }

@@ -12,17 +12,19 @@ import NewsSection from "@/components/ui/HomePage/NewsSection/NewsSection";
 import BrandSection from "@/components/ui/HomePage/BrandSection/BrandSection";
 import Experience from "@/components/ui/HomePage/Experience/Experience";
 import Client from "@/components/ui/HomePage/Client/Client";
+import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
 
 const Home = () => {
     return (
         <Box >
-            {/* <Banner/> */}
-            <Client/>
-            <Experience/>
-            <BrandSection/>
-            <NewsSection/>
+            <HeroSection/>
             <Service/>
-            <CTA/>
+            <BrandSection/>
+            {/* <Banner/> */}
+            <Experience/>
+            <Client/>
+            <NewsSection/>
+            {/* <CTA/> */}
             <Services/>
         </Box>
     );
