@@ -10,11 +10,13 @@ import React from 'react';
 import Service from "@/components/ui/HomePage/Services/Service";
 import NewsSection from "@/components/ui/HomePage/NewsSection/NewsSection";
 import BrandSection from "@/components/ui/HomePage/BrandSection/BrandSection";
+import Experience from "@/components/ui/HomePage/Experience/Experience";
 
 const Home = () => {
     return (
         <Box >
             {/* <Banner/> */}
+            <Experience/>
             <BrandSection/>
             <NewsSection/>
             <Service/>
