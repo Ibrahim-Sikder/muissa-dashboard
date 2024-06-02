@@ -8,15 +8,18 @@ import Services from '@/components/ui/HomePage/Services/Services';
 import { Box, Button } from '@mui/material';
 import React from 'react';
 import Service from "@/components/ui/HomePage/Services/Service";
+import NewsSection from "@/components/ui/HomePage/NewsSection/NewsSection";
+import BrandSection from "@/components/ui/HomePage/BrandSection/BrandSection";
 
 const Home = () => {
     return (
         <Box >
-            <Banner/>
+            {/* <Banner/> */}
+            <BrandSection/>
+            <NewsSection/>
             <Service/>
             <CTA/>
             <Services/>
-   
         </Box>
     );
 
