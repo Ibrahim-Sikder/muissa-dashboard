@@ -7,7 +7,7 @@ import logo from "../../../assets/logo/logo.jpg";
 
 const Footer = () => {
   return (
-    <Box sx={{ background: "#002140", marginTop: '80px' }}  >
+    <Box sx={{ background: "#002140", marginTop: "80px" }}>
       <Container>
         <div className="flex text-center flex-col md:flex-row justify-center gap-14  md:justify-between text-white  md:text-left ">
           <div className="w-[300px]">
@@ -77,7 +77,6 @@ const Footer = () => {
           gap={2}
           justifyContent="space-between"
           alignItems="center"
-         
         >
           <Typography component="p" color="white">
             &copy;2024 Muissa Business Consulting Ltd. All Rights Reserved.
