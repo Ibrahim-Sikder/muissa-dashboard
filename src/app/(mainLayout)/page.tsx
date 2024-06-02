@@ -16,13 +16,14 @@ import CTA from "@/components/ui/HomePage/CTA";
 const Home = () => {
   return (
     <Box>
+        <HeroSection/>
+      <Service />
       {/* <Banner/> */}
+      <BrandSection />
       <Client />
       <Experience />
-      <BrandSection />
       <NewsSection />
-      <Service />
-      <CTA />
+      {/* <CTA /> */}
       <Services />
     </Box>
   );

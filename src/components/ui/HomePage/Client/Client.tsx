@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination,  Autoplay } from "swiper/modules";
 
 const Client = () => {
   const clientData = [
@@ -52,19 +52,37 @@ const Client = () => {
   ];
 
   return (
-    <div className="clientWraps pt-24">
+    <div className="clientWraps sectionMargin pt-24">
       <Container>
         <SectionTitle
           title="We are dedicated to satisfy clients"
           subtitle="Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind."
         />
         <Swiper
-  
           spaceBetween={30}
-          slidesPerView={2}
-        
-    
-          modules={[Pagination, Navigation]}
+   
+          // autoplay={{
+          //   delay: 1500,
+          //   disableOnInteraction: false,
+          // }}
+          breakpoints={{
+         
+            1024: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 1,
+            },
+            600: {
+              slidesPerView: 1,
+            },
+          }}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+      
+          modules={[Pagination, Autoplay]}
           className="mySwiper clientSlider"
         >
           {clientData.map((data) => (

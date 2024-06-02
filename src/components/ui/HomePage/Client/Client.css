@@ -45,3 +45,22 @@
 .clientSlider {
   height: 400px;
 }
+
+/* In Client.css */
+
+.swiper-pagination-bullet {
+  width: 20px !important;
+  height: 20px !important;
+  background-color:#1591A3 !important;
+  margin: 0 5px; /* Adjust spacing as needed */
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #00305C !important;
+}
+
+
+@media only screen and (max-width:768px){
+  .clientCard {
+    margin: 50px auto;
+}
+}

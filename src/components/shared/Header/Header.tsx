@@ -36,7 +36,7 @@ const Header = () => {
                 <small>Business Solution </small>
               </div>
             </div>
-            <div className="flex items-center  space-x-6 ">
+            <div className="xl:flex items-center  space-x-6  hidden ">
               <div className="flex ">
                 <FaPhoneVolume className="headerIcon -rotate-45 mr-2" />
                 <div>
@@ -88,6 +88,7 @@ const Header = () => {
         </Container>
      
     </header>
+
   );
 };
 
