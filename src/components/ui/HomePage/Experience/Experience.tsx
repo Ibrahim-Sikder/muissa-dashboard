@@ -10,7 +10,7 @@ const Experience = () => {
       <div className="experienceWraps">
         <Container>
           <div className="experienceContent">
-            <div className=" md:w-[600px] mx-auto">
+            <div className=" px-5 w-full md:w-[600px] mx-auto">
               <h1 className="mb-5">We have over 10 years experience</h1>
               <p className="my-5">
                 Far far away, behind the word mountains, far from the and
@@ -19,7 +19,7 @@ const Experience = () => {
               </p>
             </div>
             <div>
-              <div className="grid grid-cols-1   lg:grid-cols-4 mt-16 place-content-between gap-10 justify-between w-[1280px] ">
+              <div className="grid grid-cols-1   lg:grid-cols-4 mt-16 place-content-between gap-10 justify-between lg:w-[1000px]  xl:w-[1280px] ">
                 <div className="iconWraps ">
                   <FaReact size={90} />
                   <h1 className="text-6xl font-bold mt-5 mb-3 text-[#1491A3]">
