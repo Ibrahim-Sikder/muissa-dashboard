@@ -1,6 +1,6 @@
 import React from 'react';
 import './HeroSection.css';
-import hero from '../../../../assets/banner/slider.png';
+import hero from '../../../../assets/banner/slider2.png';
 import Container from '../Container/Container';
 import Image from 'next/image';
 import { Button } from '@mui/material';
@@ -8,15 +8,16 @@ import { Button } from '@mui/material';
 const HeroSection = () => {
     return (
         <div className='heroSectionWrap'>
-            <Container>
+            <div>
                 <div className="heroContentWraps">
-                    <div className="heroContent">
-                        <div className="bannerImgWrap">
-                            <Image width={500} src={hero} alt='banner' />
+                <div className="bannerImgWrap">
+                            <Image  src={hero} alt='banner' />
                         </div>
+                    <div className="heroContent">
+                       
                         <div className='space-y-5'>
-                            <h1>We Create</h1>
-                            <h2 className='mt-5 text-[#1591A3]'>Efficiancy </h2>
+                            <h1>Leading with  </h1>
+                            <h2 className='mt-5 text-[#1591A3]'>knowledge</h2>
                             <p className='mt-5'>In all your form of business</p>
                             <Button
                                 sx={{
@@ -31,7 +32,7 @@ const HeroSection = () => {
                         </div>
                     </div>
                 </div>
-            </Container>
+            </div>
         </div>
     );
 };
