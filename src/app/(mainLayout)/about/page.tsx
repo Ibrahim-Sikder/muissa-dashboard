@@ -1,5 +1,6 @@
 import Container from "@/components/ui/HomePage/Container/Container";
 import './about.css'
+import banner from '../../../assets/team/team.jpg'
 const About = () => {
   return (
     <>
