@@ -106,13 +106,52 @@
     padding: 0 20px;
 
   }
-  .mobileMenu {
+  .mobileMenu, .activeMobileMenu {
     display: block;
-    background: red;
-    position: absolute;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: fixed;
     top: 0;
     height: 100vh;
-    left: 0;
+    left: -400px;
+    z-index: 999999999999999999999;
+    color: #111;
+    background:#fff;
+    width: 255px;
+    padding: 30px;
+    transition: all .5s ease-in-out;
 }
+.activeMobileMenu{
+    left:0px;
+}
+.mobileMenu ul{
+    
+}
+.activeMobileMenu ul li , .mobileMenu ul li{
+    margin-bottom: 20px;
+}
+
+}
+@media only screen and (max-width: 768px) {
+
+    .stickyMenu{
+        width:768px;
+    
+      }
+
+}
+@media only screen and (max-width: 500px) {
+
+    .stickyMenu{
+        width:500px;
+    
+      }
+
+}
+@media only screen and (max-width: 375px) {
+
+    .stickyMenu{
+        width:100%;
+    
+      }
 
 }

@@ -29,7 +29,7 @@ const Home = () => {
       <NewsSection />
       {/* <CTA /> */}
       <Services />
-      <Investment />
+      {/* <Investment /> */}
       <Company />
     </Box>
   );

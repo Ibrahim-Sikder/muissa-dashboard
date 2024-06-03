@@ -7,7 +7,7 @@ type TProps = {
 }
 const SectionTitle = ({title, subtitle}:TProps) => {
   return (
-    <div className="w-[700px] mx-auto text-center">
+    <div className="w-full md:w-[700px] mx-auto text-center">
       <h2>{title}</h2>
       <Divider
       sx={{
@@ -18,7 +18,7 @@ const SectionTitle = ({title, subtitle}:TProps) => {
         background: "linear-gradient(to right, #00305C, #1591A3)",
       }}
     />
-    <p className="mt-5 w-[500px] mx-auto ">{subtitle}</p>
+    <p className="mt-5 md:w-[500px] mx-auto ">{subtitle}</p>
     </div>
   );
 };

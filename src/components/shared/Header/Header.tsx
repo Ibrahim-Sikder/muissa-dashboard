@@ -13,7 +13,12 @@ import {
 import "./Header.css";
 import logo from "../../../assets/logo/logo.jpg";
 import Image from "next/image";
-import { HiOutlineLocationMarker, HiOutlineMenuAlt1 } from "react-icons/hi";
+import {
+  HiOutlineLocationMarker,
+  HiOutlineMenu,
+  HiOutlineMenuAlt1,
+  HiOutlineX,
+} from "react-icons/hi";
 import { Button } from "@mui/material";
 import Link from "next/link";
 const Header = () => {
@@ -24,7 +29,8 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenu((mobileMenu) => !mobileMenu);
-    navRef.current.classList.toggle("active");
+    // navRef.current.classList.toggle("active");
+    console.log("menu click ");
   };
 
   const navRef = useRef();
@@ -39,7 +45,7 @@ const Header = () => {
 
   return (
     <header>
-      <div className=" bg-[#152644] h-10 ">
+      <div className=" bg-[#152644] h-10 hidden xl:block">
         <div className=" topBar flex items-center justify-between ">
           <small>House-08, Road-07, Block-C, Banasree,Dhka-1219 </small>
           <div className="flex space-x-3">
@@ -51,12 +57,18 @@ const Header = () => {
         </div>
       </div>
       <Container className="headerWrap ">
-        <div className=" flex items-center justify-between  ">
+        <div className=" flex items-center justify-between px-5 xl:px-0  ">
           <div className="flex items-center ">
-            <Image className="w-16 mr-2 rounded-full " src={logo} alt="logo" />
+            <Image
+              className="w-10 md:w-16 mr-2 rounded-full "
+              src={logo}
+              alt="logo"
+            />
             <div>
-              <h3>Muissa Consulting </h3>
-              <small>Business Solution </small>
+              <h3 className="text-sm md:text-xl lg:text-2xl">
+                Muissa Consulting{" "}
+              </h3>
+              <small className="md:mt-0 -mt-2 ">Business Solution </small>
             </div>
           </div>
           <div className="xl:flex items-center  space-x-6  hidden ">
@@ -82,6 +94,14 @@ const Header = () => {
               </div>
             </div>
           </div>
+
+          <div onClick={toggleMobileMenu} className="xl:hidden block">
+            {mobileMenu ? (
+              <HiOutlineMenu size={30} />
+            ) : (
+              <HiOutlineX size={30} />
+            )}
+          </div>
         </div>
         <div
           className={`${
@@ -94,12 +114,14 @@ const Header = () => {
             <div className={`${stickyMenu ? "stickyLogo" : ""}`}>
               <div className="flex items-center ">
                 <Image
-                  className="w-16 mr-2 rounded-full "
+                  className="w-10 md:w-16 mr-2 rounded-full "
                   src={logo}
                   alt="logo"
                 />
                 <div>
-                  <h3>Muissa Consulting </h3>
+                  <h3 className="text-sm md:text-xl lg:text-2xl">
+                    Muissa Consulting{" "}
+                  </h3>
                   <small>Business Solution </small>
                 </div>
               </div>
@@ -124,43 +146,59 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
-            <Button
-              sx={{
-                backgroundColor: "white",
-                color: "black",
-                width: "90px",
-                height: "40px",
-                borderRadius: "20px",
-                "&:hover": {
-                  backgroundColor: "lightgray",
-                },
-              }}
-            >
-              Login
-            </Button>
-            <HiOutlineMenuAlt1 />
-            <div className="mobileMenu">
-            <nav className="mobileMenu">
-              <ul className="flex  items-center ">
-                <li>
-                  <Link href="/">Home</Link>
-                </li>
-                <li>
-                  <Link href="/membership">Membership</Link>
-                </li>
-                <li>
-                  <Link href="/services">Services</Link>
-                </li>
-                <li>
-                  <Link href="/about">About</Link>
-                </li>
-                <li>
-                  <Link href="/contact">Contact </Link>
-                </li>
-              </ul>
-            </nav>
+            <div className="hidden xl:block">
+              <Button
+                sx={{
+                  backgroundColor: "white",
+                  color: "black",
+                  width: "90px",
+                  height: "40px",
+                  borderRadius: "20px",
+                  "&:hover": {
+                    backgroundColor: "lightgray",
+                  },
+                }}
+              >
+                Login
+              </Button>
+            </div>
+            <div onClick={toggleMobileMenu} className="xl:hidden block">
+            {mobileMenu ? (
+              <HiOutlineMenu size={30} />
+            ) : (
+              <HiOutlineX size={30} />
+            )}
+          </div>
+          </div>
+        </div>
+
+        <div className={mobileMenu ? `activeMobileMenu` : `mobileMenu`}>
+          <div className="flex items-center ">
+            <Image className="w-12 mr-2 rounded-full " src={logo} alt="logo" />
+            <div>
+              <h5>Muissa Consulting </h5>
+              <small>Business Solution </small>
             </div>
           </div>
+          <nav className="mt-5">
+            <ul className="">
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/membership">Membership</Link>
+              </li>
+              <li>
+                <Link href="/services">Services</Link>
+              </li>
+              <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </Container>
     </header>
