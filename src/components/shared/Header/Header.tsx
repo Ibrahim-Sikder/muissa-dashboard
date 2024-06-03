@@ -173,7 +173,7 @@ const Header = () => {
         </div>
 
         <div className={mobileMenu ? `activeMobileMenu` : `mobileMenu`}>
-          <div className="flex items-center ">
+          <div className="flex items-center xl:hidden ">
             <Image className="w-12 mr-2 rounded-full " src={logo} alt="logo" />
             <div>
               <h5>Muissa Consulting </h5>

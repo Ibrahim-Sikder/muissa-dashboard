@@ -11,16 +11,8 @@ const Experience = () => {
       <div className="experienceWraps sectionMargin ">
         <Container>
           <div className="experienceContent">
-            <SectionTitle title='We have over 10 years experience' subtitle="Consonantia, there live the blinds and Separated they live in
-                Bookmarksgrove language ocean. A small river named Duden flows."/>
-            {/* <div className=" px-5 w-full md:w-[600px] mx-auto">
-              <h1 className="mb-5">We have over 10 years experience</h1>
-              <p className="my-5">
-                Far far away, behind the word mountains, far from the and
-                Consonantia, there live the blinds and Separated they live in
-                Bookmarksgrove language ocean. A small river named Duden flows.
-              </p>
-            </div> */}
+            <SectionTitle title='আমাদের অভিজ্ঞতা' subtitle="Muissa এ, আমরা আমাদের দীর্ঘ বছরের অভিজ্ঞতা এবং পেশাদারিত্ব নিয়ে গর্বিত। আমাদের প্রতিটি সদস্যই ব্যবসায়িক পরামর্শ ও সমর্থন প্রদানের ক্ষেত্রে বিশেষজ্ঞ এবং প্রতিটি ক্ষেত্রে শ্রেষ্ঠত্বের দিকে অগ্রসর হওয়ার জন্য প্রতিশ্রুতিবদ্ধ।"/>
+           
             <div>
               <div className="grid grid-cols-1   lg:grid-cols-4 mt-16 place-content-between gap-10 justify-between lg:w-[1000px]  xl:w-[1280px] ">
                 <div className="iconWraps ">

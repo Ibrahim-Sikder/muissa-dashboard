@@ -1,33 +1,39 @@
 import { Button } from "@mui/material";
 import React from "react";
 import Container from "../Container/Container";
-import { BusinessCenter, Inventory, ProductionQuantityLimits, Storefront, TrendingDown } from "@mui/icons-material";
+import {
+  BusinessCenter,
+  Inventory,
+  ProductionQuantityLimits,
+  Storefront,
+  TrendingDown,
+} from "@mui/icons-material";
 
 const Service = () => {
   const serviceData = [
     {
       id: 1,
-      title: "Product Services ",
+      title: "প্রোডাক্ট সাপোর্ট  ",
       description:
-        "Products quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet.",
+        "আপনার পণ্যের গুণগত মান এবং ক্রেতাদের সন্তুষ্টি নিশ্চিত করতে আমাদের প্রোডাক্ট সাপোর্ট সেবা নিন।.",
     },
     {
       id: 2,
-      title: "Investment Support",
+      title: "সেলস সাপোর্ট ",
       description:
-        "Products quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet.",
+        "বিক্রয় বৃদ্ধির জন্য বিশেষজ্ঞ পরামর্শ এবং কার্যকরী কৌশল নিয়ে আমাদের সেলস সাপোর্ট সেবা।",
     },
     {
       id: 3,
-      title: "Sale Support ",
+      title: "মার্কেটিং সাপোর্ট  ",
       description:
-        "Products quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet.",
+        "আপনার ব্যবসার প্রসারে সমন্বিত মার্কেটিং সহায়তা মার্কেটিং কৌশল উন্নয়নে এবং কার্যকর প্রচারণায় আমাদের সাথে থাকুন। ",
     },
     {
       id: 4,
-      title: "Marketing Support",
+      title: "ডেলিভারি সাপোর্ট ",
       description:
-        "Products quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet.",
+        "দ্রুত ও নির্ভরযোগ্য ডেলিভারি সেবা পণ্য সঠিক সময়ে পৌঁছানোর নিশ্চয়তা দিতে আমাদের ডেলিভারি সাপোর্ট সেবা নিন।",
     },
   ];
   return (
@@ -42,15 +48,16 @@ const Service = () => {
                 ) : i === 1 ? (
                   <Inventory sx={{ fontSize: "75px" }} />
                 ) : i === 2 ? (
-                  <TrendingDown sx={{ fontSize: "75px" }} />
+                  <TrendingDown className='rotate-[275deg]' sx={{ fontSize: "75px" }} />
                 ) : i === 3 ? (
                   <Storefront sx={{ fontSize: "75px" }} />
                 ) : null}
               </div>
               <div className="serviceContent">
                 <h4>{data.title}</h4>
+
                 <p className="my-5">{data.description}</p>
-                <Button>Read More</Button>
+                <Button>আরো দেখুন</Button>
               </div>
             </div>
           ))}

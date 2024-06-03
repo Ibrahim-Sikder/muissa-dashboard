@@ -12,12 +12,10 @@ const BrandSection = () => {
           <Image src={developer} alt="brand" />
         </div>
         <div className="brandContent">
-          <span>SEE HOW WP ENGINE EMPOWERS</span>
-          <h1 className="text-6xl my-3">Brands</h1>
+          {/* <span>SEE HOW WP ENGINE EMPOWERS</span> */}
+          <h3 className="text-3xl my-3">আমাদের প্রতিষ্ঠান</h3>
           <p className="md:w-[500px] my-8">
-            Red Door Interactive helps luxury kitchen appliance retailer
-            Thermador achieve dramatic performance improvements by migrating its
-            WordPress site to WP Engine’s fully managed platform.
+          আমরা একটি পেশাদার ব্যবসা পরামর্শদান সংস্থা, যার মূল উদ্দেশ্য হলো ব্যবসায়িক প্রতিষ্ঠানগুলিকে উন্নতির পথে সাহায্য করা। আমাদের দল দক্ষ ও অভিজ্ঞ পরামর্শদাতা দ্বারা গঠিত, যারা বিভিন্ন ক্ষেত্রের দক্ষতার মাধ্যমে আপনাদের ব্যবসার জন্য সঠিক সমাধান প্রদান করতে প্রস্তুত।
           </p>
           <div className="flex items-center">
             <Stack direction={{sm:'column',md:'row'}}   spacing={2}>
@@ -33,22 +31,23 @@ const BrandSection = () => {
                 }
               }}
             >
-              Explore Enterprise Solution{" "}
+            Get Membership
             </Button>
             <Button
               sx={{
-                width: "200px",
+                width: "2405x",
                 height: "50px",
                 borderRadius: "30px",
                 fontSize: "12px",
-                background: "#fff",
-                color: "#00305C",
-                border: "1px solid #00305C",
-                marginTop:{xs: '10px', lg:0}
+                marginRight: "5px",
+                marginBottom: {
+                    sm: 2
+                }
               }}
             >
-              View Case Studies{" "}
+            Read More
             </Button>
+           
             </Stack>
           </div>
         </div>

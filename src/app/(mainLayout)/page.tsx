@@ -17,7 +17,6 @@ import Company from "@/components/ui/HomePage/Company/Company";
 const Home = () => {
   return (
     <Box>
-    
       <HeroSection />
 
       <Service />
@@ -28,8 +27,8 @@ const Home = () => {
       <Experience />
       <NewsSection />
       {/* <CTA /> */}
-      <Services />
-      {/* <Investment /> */}
+      {/* <Services /> */}
+      <Investment />
       <Company />
     </Box>
   );

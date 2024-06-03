@@ -86,7 +86,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.mobileMenu{
+.mobileMenu, .activeMobileMenu{
     display: none;
 }
 
