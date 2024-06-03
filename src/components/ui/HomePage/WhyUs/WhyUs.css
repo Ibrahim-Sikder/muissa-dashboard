@@ -1,0 +1,20 @@
+.whyUsWrap {
+  width: 100%;
+  background-image: url(../../../../assets//invest//invest-banner.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 50px 0;
+  position: relative;
+}
+
+.whyUsWrap::after{
+    position: absolute;
+    content: '';
+    width:100%;
+    height: 100%;
+    background: #1590a3a2;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}

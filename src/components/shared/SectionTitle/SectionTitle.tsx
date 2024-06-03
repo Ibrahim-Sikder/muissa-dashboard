@@ -8,7 +8,7 @@ type TProps = {
 const SectionTitle = ({title, subtitle}:TProps) => {
   return (
     <div className="w-[700px] mx-auto text-center">
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <Divider
       sx={{
         width: "150px",

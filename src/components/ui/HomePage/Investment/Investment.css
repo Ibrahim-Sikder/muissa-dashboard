@@ -1,0 +1,33 @@
+.investmentCardWrap {
+  width: 800px;
+  height: 500%;
+  background-repeat: none;
+  background-size: cover;
+}
+.investmentContent {
+  background: #1591a3;
+  width: 400px;
+  padding: 50px 30px;
+  color: #fff;
+  opacity: 0.9;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+@media only screen and (max-width: 1024px) {
+  .investmentCardWrap, .investmentContent{
+    width:100%;
+  }
+}
