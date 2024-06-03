@@ -63,4 +63,57 @@
   .clientCard {
     margin: 50px auto;
 }
+
+
+
+}
+
+@media only screen and (max-width:500px){
+  .clientCard {
+    margin: 50px auto;
+}
+.clientCard {
+  width: 100%;
+ 
+}
+.clientWrap {
+  bottom: -148px;
+}
+.clientSlider {
+  height: 500px;
+}
+.clientCard {
+
+  height: 230px;
+}
+.clientWrap {
+  bottom: -125px;
+}
+
+
+}
+@media only screen and (max-width:500px){
+
+.clientCard {
+
+  height: 250px;
+}
+
+
+
+
+}
+@media only screen and (max-width:375px){
+
+.clientCard {
+
+  height: 300px;
+}
+
+.clientWrap {
+  bottom: -116px;
+  left:23%;
+}
+
+
 }

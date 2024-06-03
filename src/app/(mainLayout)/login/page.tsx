@@ -56,7 +56,7 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center bg-[#f8f8f8] "
+      className="h-[900px] my-8   w-full flex items-center justify-center bg-[#f8f8f8] "
       style={{
         background: isLargeDevice
           ? "linear-gradient(to left , #002140 50%, white 50%)"
@@ -79,7 +79,7 @@ const Login = () => {
         <Box
           sx={{
             width: isLargeDevice ? "600px" : "100%",
-            height: isLargeDevice ? "700px" : "auto",
+            height: isLargeDevice ? "600px" : "auto",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
@@ -180,7 +180,7 @@ const Login = () => {
                 }}
                 component="small"
               >
-                Don't have an account ? <Link href="/login"> Register</Link>
+                Don't have an account ? <Link href="/register"> Register</Link>
               </Typography>
             </Box>
           </MUIForm>

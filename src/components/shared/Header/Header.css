@@ -40,7 +40,7 @@
 .navItems li > a {
   position: absolute;
   z-index: 999999;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -120,12 +120,10 @@
     padding: 30px;
     transition: all .5s ease-in-out;
 }
-.activeMobileMenu{
+.mobileMenu{
     left:0px;
 }
-.mobileMenu ul{
-    
-}
+
 .activeMobileMenu ul li , .mobileMenu ul li{
     margin-bottom: 20px;
 }

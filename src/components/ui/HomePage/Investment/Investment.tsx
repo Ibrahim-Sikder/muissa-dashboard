@@ -17,6 +17,7 @@ import { Button } from "@mui/material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./Investment.css";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
+import { Forward } from "@mui/icons-material";
 
 export default function Investment() {
   const [value, setValue] = React.useState("1");
@@ -56,24 +57,47 @@ export default function Investment() {
   const tabData = [
     {
       value: "1",
-      label: "Product Support",
+      label: "প্রোডাক্ট সাপোর্ট ",
       image: investment.src,
       content: (
         <div className="investmentContent">
-          <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
+          <ul className="space-y-3">
+            <li>
+              {" "}
+              ব্যবসায়ের Product যোগানে বিভিন্ন পাইকারি ও Third-Party এর নিকট এক
+              স্থান থেকে অন্য স্থানে যাতায়েত করতে হয়। শুধু তাই নয় সঠিক মূল্যের
+              চেয়ে বেশি দিয়ে Product সংগ্রহ করতে বাধ্য হন। যার ফলে প্রতিষ্ঠানের
+              সময় ও অর্থের অপচয় হয়।
+            </li>
+            <li>
+              {" "}
+              ব্যবসায়ের Product যোগানে বিভিন্ন পাইকারি ও Third-Party এর নিকট এক
+              স্থান থেকে অন্য স্থানে যাতায়েত করতে হয়। শুধু তাই নয় সঠিক মূল্যের
+              চেয়ে বেশি দিয়ে Product সংগ্রহ করতে বাধ্য হন। যার ফলে প্রতিষ্ঠানের
+              সময় ও অর্থের অপচয় হয়।
+            </li>
+            <li>
+              {" "}
+              ব্যবসায়ের Product যোগানে বিভিন্ন পাইকারি ও Third-Party এর নিকট এক
+              স্থান থেকে অন্য স্থানে যাতায়েত করতে হয়। শুধু তাই নয় সঠিক মূল্যের
+              চেয়ে বেশি দিয়ে Product সংগ্রহ করতে বাধ্য হন। যার ফলে প্রতিষ্ঠানের
+              সময় ও অর্থের অপচয় হয়।
+            </li>
+          </ul>
+          {/* <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
           <p className="my-3 leading-7">
             Ut nunc leo, sodales nec ullamcorper sit amet, pulvinar nec purus.
             Aliquam sit amet accumsan felis. Duis sollicitudin consectetur quam.
             In at lacus et tellus blandit tincidunt. Suspendisse id risus
             efficitur.
-          </p>
+          </p> */}
           <Button sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
     {
       value: "2",
-      label: "Sale Support",
+      label: "সেলস সাপোর্ট ",
       image: investment2.src,
       content: (
         <div className="investmentContent">
@@ -90,7 +114,7 @@ export default function Investment() {
     },
     {
       value: "3",
-      label: "Marketing Support",
+      label: "ডেলিভারি সাপোর্ট ",
       image: investment3.src,
       content: (
         <div className="investmentContent">
@@ -107,7 +131,7 @@ export default function Investment() {
     },
     {
       value: "4",
-      label: "Delivery Support",
+      label: "আইটি সাপোর্ট ",
       image: investment4.src,
       content: (
         <div className="investmentContent">
@@ -124,24 +148,83 @@ export default function Investment() {
     },
     {
       value: "5",
-      label: "Investment Support",
+      label: "ফান্ডিং সাপোর্ট ",
       image: investment5.src,
       content: (
         <div className="investmentContent">
-          <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
+          <ul className='space-y-3'>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              ব্যবসায়ের জরুরী ফান্ড তৈরিতে পরামর্শ ও সহযোগিতা করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              প্রতিষ্ঠানের কাগজাদি তৈরিতে পরামর্শ ও সহযোগিতা করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              ফান্ডিং প্রোপোজাল তৈরি করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              ইনভেস্টরের জন্য একটি শক্তিশালী বক্তব্য তৈরী ও পরামর্শ প্রদান।
+
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              ব্যবসায়ের মার্কেট Analysis এর মাধ্যমে বাজার তৈরি করা ও পরামর্শ প্রদান
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              প্রতিষ্ঠানের Analysis Report তৈরিতে সহযোগিতা করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              প্রতিষ্ঠানের Monitoring Report File তৈরি করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              প্রতিষ্ঠানের কার্যপদ্ধতি নির্ধারণে পরামর্শ প্রদান।
+              </span>
+            </li>
+          </ul>
+          {/* <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
           <p className="my-3 leading-7">
             Ut nunc leo, sodales nec ullamcorper sit amet, pulvinar nec purus.
             Aliquam sit amet accumsan felis. Duis sollicitudin consectetur quam.
             In at lacus et tellus blandit tincidunt. Suspendisse id risus
             efficitur.
-          </p>
+          </p> */}
           <Button sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
     {
       value: "6",
-      label: "Funding Support",
+      label: "ইনভেস্টমেন্ট সাপোর্ট ",
       image: investment5.src,
       content: (
         <div className="investmentContent">
@@ -158,7 +241,7 @@ export default function Investment() {
     },
     {
       value: "7",
-      label: "IT Support",
+      label: "মার্কেটিং সাপোর্ট ",
       image: investment5.src,
       content: (
         <div className="investmentContent">
@@ -188,10 +271,10 @@ The future of investment lies in digitalization, sustainable ventures, and AI-dr
             <Grid item xs={12} md={3}>
               <Box sx={{ height: "100%" }}>
                 <TabList
-                // orientation={{
-                //   xs: 'vertical',
-                //   md: 'vertical',
-                // }}
+                  // orientation={{
+                  //   xs: 'vertical',
+                  //   md: 'vertical',
+                  // }}
                   orientation="vertical"
                   onChange={handleChange}
                   aria-label="lab API tabs example"
@@ -224,10 +307,7 @@ The future of investment lies in digitalization, sustainable ventures, and AI-dr
                         timeout={500}
                         classNames="fade"
                       >
-                        <TabPanel
-                          value={tab.value}
-                          sx={{ border: "none", }}
-                        >
+                        <TabPanel value={tab.value} sx={{ border: "none" }}>
                           <div
                             className="investmentCardWrap"
                             style={{ backgroundImage: `url(${tab.image})` }}

@@ -8,7 +8,8 @@ import {
   Storefront,
   TrendingDown,
 } from "@mui/icons-material";
-
+import './services.css'
+import Link from "next/link";
 const Service = () => {
   const serviceData = [
     {
@@ -57,7 +58,7 @@ const Service = () => {
                 <h4>{data.title}</h4>
 
                 <p className="my-5">{data.description}</p>
-                <Button>আরো দেখুন</Button>
+                <Button component={Link} href='/services/1'>আরো দেখুন</Button>
               </div>
             </div>
           ))}

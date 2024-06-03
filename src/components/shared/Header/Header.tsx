@@ -37,7 +37,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setStickyMenu(window.scrollY > 0);
+      setStickyMenu(window.scrollY > 500);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -110,8 +110,14 @@ const Header = () => {
               : "menubarWrap flex items-center justify-between  "
           }`}
         >
-          <div className={`${stickyMenu ? "stickyContainer " : ""}`}>
-            <div className={`${stickyMenu ? "stickyLogo" : ""}`}>
+          <div
+            className={`${
+              stickyMenu
+                ? "stickyContainer "
+                : " flex items-center justify-between w-full "
+            }`}
+          >
+            <div className={`${stickyMenu ? "stickyLogo" : "hidden"}`}>
               <div className="flex items-center ">
                 <Image
                   className="w-10 md:w-16 mr-2 rounded-full "
@@ -146,8 +152,10 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
-            <div className="hidden xl:block">
+            <div className=" xl:block">
               <Button
+                LinkComponent={Link}
+                href="/login"
                 sx={{
                   backgroundColor: "white",
                   color: "black",
@@ -163,12 +171,12 @@ const Header = () => {
               </Button>
             </div>
             <div onClick={toggleMobileMenu} className="xl:hidden block">
-            {mobileMenu ? (
-              <HiOutlineMenu size={30} />
-            ) : (
-              <HiOutlineX size={30} />
-            )}
-          </div>
+              {mobileMenu ? (
+                <HiOutlineMenu size={30} />
+              ) : (
+                <HiOutlineX size={30} />
+              )}
+            </div>
           </div>
         </div>
 
