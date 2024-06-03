@@ -52,15 +52,11 @@ const Login = () => {
     },
   };
 
-
-
-  const handleSubmit = async (data: FieldValues) => {
-   
-  };
+  const handleSubmit = async (data: FieldValues) => {};
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center bg-[#f8f8f8] "
+      className="h-[900px] my-8   w-full flex items-center justify-center bg-[#f8f8f8] "
       style={{
         background: isLargeDevice
           ? "linear-gradient(to left , #002140 50%, white 50%)"
@@ -83,7 +79,7 @@ const Login = () => {
         <Box
           sx={{
             width: isLargeDevice ? "600px" : "100%",
-            height: isLargeDevice ? "700px" : "auto",
+            height: isLargeDevice ? "600px" : "auto",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
@@ -95,10 +91,12 @@ const Login = () => {
           }}
         >
           <Typography variant="h4" fontWeight="bold">
-            Welcome To Muissa Business Consulting Ltd. 
+            Welcome To Muissa Business Consulting Ltd.
           </Typography>
           <Typography component="p" sx={{ marginTop: "10px", color: "#fff" }}>
-          Elevate your business with our expert support in Product, Sales, Marketing, Delivery, IT, Funding, and Investment. Transform potential into performance with seamless, tailored solutions.
+            Elevate your business with our expert support in Product, Sales,
+            Marketing, Delivery, IT, Funding, and Investment. Transform
+            potential into performance with seamless, tailored solutions.
           </Typography>
         </Box>
         <Box className="bg-[#fff] shadow-md px-5 py-16  md:p-20 mx-3 md:m-aut0 lg:m-0 lg:mx-0 rounded-md md:rounded-none  w-full md:w-[600px]  flex items-center text-[#002140] ">
@@ -106,18 +104,17 @@ const Login = () => {
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
             defaultValues={{
-              user: '',
-              password: ''
+              user: "",
+              password: "",
             }}
           >
             <Box>
               <Typography
                 fontWeight="semibold"
-             
                 variant="h4"
                 sx={{ textAlign: "center", marginBottom: "10px" }}
               >
-                Login to Muissa  !
+                Login to Muissa !
               </Typography>
               <Box>
                 <MUIInput
@@ -137,7 +134,6 @@ const Login = () => {
                 sx={{
                   display: "flex",
                   justifyContent: "right",
-              
                 }}
               >
                 
@@ -145,7 +141,7 @@ const Login = () => {
                   sx={{
                     color: "#002140",
                     fontSize: isSmallDevice ? "12px" : "inherit",
-                    justifyContent: 'right'
+                    justifyContent: "right",
                   }}
                   component="small"
                 >
@@ -172,20 +168,20 @@ const Login = () => {
                 variant="outlined"
                 color="primary"
               >
-               Login
+                Login
               </Button>
               <Typography
-                  sx={{
-                    color: "#002140",
-                    fontSize:  "12px",
-                    justifyContent: "right",
-                    display:'flex',
-                    marginTop: '5px'
-                  }}
-                  component="small"
-                >
-                  Don't have an account ? <Link href='/login'> Register</Link>
-                </Typography>
+                sx={{
+                  color: "#002140",
+                  fontSize: "12px",
+                  justifyContent: "right",
+                  display: "flex",
+                  marginTop: "5px",
+                }}
+                component="small"
+              >
+                Don't have an account ? <Link href="/register"> Register</Link>
+              </Typography>
             </Box>
           </MUIForm>
         </Box>

@@ -1,0 +1,155 @@
+.topBar {
+  width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #fff;
+}
+.headerIcon {
+  font-size: 30px;
+  color: #1591a3;
+}
+
+.headerWrap {
+  position: relative;
+  height: 150px;
+  padding: 20px 0;
+}
+.menubarWrap {
+  background: #1591a3;
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin-top: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: -15px;
+  z-index: 9999;
+  height: 65px;
+  overflow: hidden;
+}
+
+.navItems li {
+  padding: 50px 60px;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+}
+
+.navItems li > a {
+  position: absolute;
+  z-index: 999999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.stickyContainer .navItems li > a {
+  top: 50%;
+}
+
+.navItems li::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 0px;
+  background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
+  transition: all 0.5s ease-in-out;
+  color: #fff;
+}
+.navItems li:hover::after {
+  width: 100%;
+}
+
+.stickyMenu {
+  background: #fff;
+  width: 100%;
+  color: #111;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999999;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.stickyContainer {
+  width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobileMenu, .activeMobileMenu{
+    display: none;
+}
+
+@media only screen and (max-width: 1024px) {
+
+  .menubarWrap, .navItems {
+    display: none;
+  }
+  .headerWrap {
+    height: 96px;
+  }
+  .stickyContainer{
+    width:100%;
+  }
+  .stickyMenu{
+    width: 1024px;
+    padding: 0 20px;
+
+  }
+  .mobileMenu, .activeMobileMenu {
+    display: block;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    left: -400px;
+    z-index: 999999999999999999999;
+    color: #111;
+    background:#fff;
+    width: 255px;
+    padding: 30px;
+    transition: all .5s ease-in-out;
+}
+.mobileMenu{
+    left:0px;
+}
+
+.activeMobileMenu ul li , .mobileMenu ul li{
+    margin-bottom: 20px;
+}
+
+}
+@media only screen and (max-width: 768px) {
+
+    .stickyMenu{
+        width:768px;
+    
+      }
+
+}
+@media only screen and (max-width: 500px) {
+
+    .stickyMenu{
+        width:500px;
+    
+      }
+
+}
+@media only screen and (max-width: 375px) {
+
+    .stickyMenu{
+        width:100%;
+    
+      }
+
+}

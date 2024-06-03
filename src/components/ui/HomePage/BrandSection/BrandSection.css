@@ -1,0 +1,14 @@
+.brandImgWraps {
+  width: 600px;
+}
+
+.brandImgWraps img {
+  width: 100%;
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 1024px) {
+  .brandImgWraps {
+    width: 100%;
+  }
+}

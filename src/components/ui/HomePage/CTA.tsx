@@ -5,6 +5,7 @@ import Link from "next/link";
 import paymentImage from "../../../assets/payment/payment.png";
 import businessImage from "../../../assets/business/business.png";
 import { ArrowRight } from "@mui/icons-material";
+import { Typography } from "@mui/material";
 
 const CTA = () => {
   return (
@@ -16,14 +17,14 @@ const CTA = () => {
           </div>
 
           <div className="col-span-6 flex flex-col justify-center mb-32">
-            <h2 className="text-midnightblue text-4xl sm:text-5xl font-semibold text-center lg:text-start lh-143">
+            <Typography component="h2" variant="h4">
               Now its time to change payment method.
-            </h2>
-            <h3 className="text-black text-lg font-normal text-center lg:text-start lh-173 opacity-75 pt-3">
+            </Typography>
+            <Typography component="h3" variant="subtitle1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab.
-            </h3>
+            </Typography>
             <Link
               href={"/"}
               className="text-electricblue text-lg font-medium flex gap-2 pt-4 mx-auto lg:mx-0"
@@ -35,14 +36,14 @@ const CTA = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 space-x-1">
           <div className="col-span-6 flex flex-col justify-center">
-            <h2 className="text-midnightblue text-4xl sm:text-5xl font-semibold text-center lg:text-start lh-143">
-              Make better business decisions with Paidin.
-            </h2>
-            <h3 className="text-black text-lg font-normal text-center lg:text-start lh-173 opacity-75 pt-3">
+            <Typography component="h2" variant="h4">
+              Now its time to change payment method.
+            </Typography>
+            <Typography component="h3" variant="subtitle1">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
               quae ab.
-            </h3>
+            </Typography>
             <Link
               href={"/"}
               className="text-electricblue text-lg font-medium flex gap-2 pt-4 mx-auto lg:mx-0"
