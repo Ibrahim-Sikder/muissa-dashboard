@@ -1,4 +1,3 @@
-
 import Services from "@/components/ui/HomePage/Services/Services";
 import { Box, Button } from "@mui/material";
 import React from "react";
@@ -10,13 +9,12 @@ import Client from "@/components/ui/HomePage/Client/Client";
 
 import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
 
-
 import CTA from "@/components/ui/HomePage/CTA";
 
 const Home = () => {
   return (
     <Box>
-        <HeroSection/>
+      <HeroSection />
       <Service />
       {/* <Banner/> */}
       <BrandSection />
@@ -27,7 +25,6 @@ const Home = () => {
       <Services />
     </Box>
   );
-
 };
 
 export default Home;

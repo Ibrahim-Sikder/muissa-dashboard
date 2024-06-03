@@ -60,13 +60,12 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
   return (
     <FormControl
       sx={{
-        
         width: fullWidth ? "100%" : 315,
         ...sx,
         textAlign: "center",
         justifyContent: "center",
-        minHeight: '54px', 
-        marginTop: 1.2
+        minHeight: "54px",
+        marginTop: 1.2,
       }}
       error={isError}
     >
@@ -90,23 +89,23 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
                 sx={{
                   display: "flex",
                   flexWrap: "wrap",
-                  gap:.5,
-                  maxHeight: '34px',
-                  overflow: 'auto',
+                  gap: 0.5,
+                  maxHeight: "34px",
+                  overflow: "auto",
                 }}
               >
                 {selected.map((value: string) => (
                   <Chip
                     key={value}
                     label={value}
-                    size="small" 
-                    sx={{ height: '18px' }}
+                    size="small"
+                    sx={{ height: "18px" }}
                   />
                 ))}
               </Box>
             )}
             MenuProps={MenuProps}
-            sx={{ minHeight: '25px' }}
+            sx={{ minHeight: "25px" }}
           >
             {items.map((item) => (
               <MenuItem
@@ -121,7 +120,10 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
         )}
       />
       {isError && (
-        <Typography component="small" sx={{ color: "error.main", fontSize:'10px', mt: 0.5 }}>
+        <Typography
+          component="small"
+          sx={{ color: "error.main", fontSize: "10px", mt: 0.5 }}
+        >
           {formState.errors[name]?.message as string}
         </Typography>
       )}

@@ -2,21 +2,18 @@
 
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
 import { FaBars } from "react-icons/fa";
-
 import { MobileNav } from "./MobileNav";
 import { usePopover } from "@/hooks/use-popover";
 import { UserPopover } from "./UserPropover";
 
-export function MainNav(): React.JSX.Element {
+const MainNav = (): React.JSX.Element => {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
 
-  const userPopover = usePopover<HTMLDivElement>();
+  const userPopover = usePopover();
 
   return (
     <React.Fragment>
@@ -52,8 +49,9 @@ export function MainNav(): React.JSX.Element {
           </Stack>
           <Stack sx={{ alignItems: "center" }} direction="row" spacing={2}>
             <Avatar
+              component="div"
               onClick={userPopover.handleOpen}
-              ref={userPopover.anchorRef}
+              ref={userPopover.anchorRef as React.RefObject<HTMLDivElement>}
               src="/banner-image.jpg"
               sx={{ cursor: "pointer" }}
             />
@@ -73,4 +71,6 @@ export function MainNav(): React.JSX.Element {
       />
     </React.Fragment>
   );
-}
+};
+
+export default MainNav;

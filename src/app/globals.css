@@ -7,7 +7,7 @@
   --icon-fontSize-lg: 1.5rem;
 }
 *:focus-visible {
-  outline: 2px solid var(--mui-palette-primary-main);
+  outline: 2px solid transparent;
 }
 @tailwind base;
 @tailwind components;
@@ -44,40 +44,6 @@
   width: 100%;
   background-color: transparent;
   transition: background-color 0.4s linear;
-}
-
-/* State when scrolled */
-html:not([data-scroll="0"]) .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: white !important;
-  opacity: 1.9;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Reduced box shadow */
-  transition: background-color 0.4s linear;
-  padding: 0px !important;
-  z-index: 3;
-}
-
-html:not([data-scroll="0"]) .ttty {
-  background-color: #0057ff !important;
-  color: white !important;
-}
-
-.bg-header {
-  background: linear-gradient(
-    120.3deg,
-    #d5f2ff 31.56%,
-    rgba(255, 255, 255, 0) 94.83%
-  );
-}
-
-.bg-navbar {
-  background: linear-gradient(
-    120.3deg,
-    #d5f2ff 36.56%,
-    rgba(255, 255, 255, 0) 122.83%
-  );
 }
 
 .w-270px {

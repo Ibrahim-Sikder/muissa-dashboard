@@ -61,20 +61,13 @@ export function SideNav(): React.JSX.Element {
       <Stack spacing={2} sx={{ p: "12px" }}>
         <Button
           component="a"
-          fullWidth
+          endIcon={<OpenInNewIcon fontSize="small" />}
           href=""
-          sx={{
-            mt: 2,
-            bgcolor: "#ff5c5c",
-            color: "#ffffff",
-            borderRadius: 1,
-            "&:hover": {
-              bgcolor: "#ff5c5c",
-            },
-          }}
-          variant="contained"
+          sx={{ color: "#b3b9c6" }}
+          target="_blank"
+          variant="text"
         >
-          Logout
+          Support Center
         </Button>
       </Stack>
     </Box>
@@ -156,7 +149,7 @@ function NavItem({
             cursor: "not-allowed",
           }),
           ...(active && {
-            bgcolor: "#635bff",
+            bgcolor: "#1591a3",
             color: "#ffffff",
           }),
         }}
