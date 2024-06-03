@@ -33,7 +33,17 @@ const Service = () => {
   return (
     <Container>
       <div className="serviceCardWraps">
-       div.grid.grid-cols-
+       <div className="grid grid-cols-4">
+        <div className="serviceCard">
+          <div className="serviceIconWraps">
+
+          </div>
+          <div className="serviceContent">
+            <h1>ASSET MANAGEMENT</h1>
+            <p className="my5"></p>
+          </div>
+        </div>
+       </div>
       </div>
     </Container>
   );
