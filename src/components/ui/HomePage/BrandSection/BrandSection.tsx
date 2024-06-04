@@ -21,10 +21,16 @@ const BrandSection = () => {
             <Stack direction={{sm:'row',xs:'row',md:'row'}}   spacing={2}>
             <Button
               sx={{
-                width: "240x",
+                width: {
+                  lg: '240x',
+                  xs: '200px'
+                },
                 height: "50px",
                 borderRadius: "30px",
-                fontSize: "12px",
+                fontSize: {
+                  lg: '12px',
+                  xs: '10px'
+                },
                 marginRight: "5px",
                 marginBottom: {
                     sm: 5
@@ -35,10 +41,16 @@ const BrandSection = () => {
             </Button>
             <Button
               sx={{
-                width: "240x",
+                width: {
+                  lg: '240x',
+                  xs: '200px'
+                },
                 height: "50px",
                 borderRadius: "30px",
-                fontSize: "12px",
+                fontSize: {
+                  lg: '12px',
+                  xs: '10px'
+                },
                 marginRight: "5px",
                 marginBottom: {
                     sm: 2
