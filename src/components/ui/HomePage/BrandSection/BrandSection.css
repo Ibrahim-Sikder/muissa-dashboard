@@ -12,3 +12,8 @@
     width: 100%;
   }
 }
+@media only screen and (max-width: 768px) {
+  .brandWraps {
+    margin-top: -65px;
+  }
+}

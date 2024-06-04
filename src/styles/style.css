@@ -18,11 +18,3 @@
     z-index: 1;
     opacity: 0.8;
   }
-  .serviceContent {
-    position: absolute;
-    z-index: 2;
-    color: #fff;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }

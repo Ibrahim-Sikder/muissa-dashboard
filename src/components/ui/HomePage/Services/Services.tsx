@@ -92,7 +92,7 @@ const Services = () => {
           <Image src={service2} alt="services" />
         </div>
       </div>
-      <div className="grid grid-cols-1  lg:grid-cols-2 gap-8 mb-14">
+      <div className="grid grid-cols-1  lg:grid-cols-2 gap-8 md:mb-14">
         <div className="serviceImgWraps">
           <Image src={service3} alt="services" />
         </div>
