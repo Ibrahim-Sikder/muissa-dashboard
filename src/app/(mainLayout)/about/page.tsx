@@ -1,7 +1,5 @@
 import Container from "@/components/ui/HomePage/Container/Container";
 import "./about.css";
-import Award from "@/components/ui/HomePage/Award/Award";
-import TeamSection from "@/components/TeamSection/TeamSection";
 import consult from "../../../assets/team/team6.png";
 import Image from "next/image";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -9,6 +7,8 @@ import CircleProgressBar from "./_components/CircleProgressBar";
 import BrandSection from "@/components/ui/HomePage/BrandSection/BrandSection";
 import Company from "@/components/ui/HomePage/Company/Company";
 import WorkingProcess from "./_components/WorkingProcess";
+import Award from "./_components/Award/Award";
+import TeamSection from "./_components/TeamSection/TeamSectin";
 const About = () => {
   const value = 66;
   return (

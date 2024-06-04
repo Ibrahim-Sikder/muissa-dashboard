@@ -1,9 +1,9 @@
 import React from "react";
 import "./TeamSection.css";
-import Container from "../ui/HomePage/Container/Container";
-import team from "../../assets/team/team5.jpg";
+import team from "../../../../../assets/team/team5.jpg";
 import Image from "next/image";
 import { Divider } from "@mui/material";
+import Container from "@/components/ui/HomePage/Container/Container";
 
 const TeamSection = () => {
   const teamData = [
