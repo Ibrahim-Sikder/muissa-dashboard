@@ -26,6 +26,7 @@
   align-items: center;
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
+  height: 137px;
 
 }
 .teamMembarImg img {
@@ -41,7 +42,7 @@
   transition: height 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57), all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
 }
 .teamCardWrap:hover .teamMembarImg {
-    height: 137px;
+   
     background:#1591A3;
 }
 
