@@ -14,5 +14,5 @@ export default function CreateServicePage() {
 }
 
 export const metadata = {
-  title: `Settings | Dashboard | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
+  title: `Dashboard | Service ${process.env.NEXT_PUBLIC_SITE_NAME}`,
 } satisfies Metadata;

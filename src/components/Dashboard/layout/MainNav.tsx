@@ -2,18 +2,29 @@
 
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
 import { FaBars } from "react-icons/fa";
+
 import { MobileNav } from "./MobileNav";
-import { usePopover } from "@/hooks/use-popover";
 import { UserPopover } from "./UserPropover";
 
 const MainNav = (): React.JSX.Element => {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
 
-  const userPopover = usePopover();
+  const [open, setOpen] = React.useState<boolean>(false);
+  const anchorRef = React.useRef<HTMLDivElement>(null);
+
+  const handleOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -50,8 +61,8 @@ const MainNav = (): React.JSX.Element => {
           <Stack sx={{ alignItems: "center" }} direction="row" spacing={2}>
             <Avatar
               component="div"
-              onClick={userPopover.handleOpen}
-              ref={userPopover.anchorRef as React.RefObject<HTMLDivElement>}
+              onClick={handleOpen}
+              ref={anchorRef as React.RefObject<HTMLDivElement>}
               src="/banner-image.jpg"
               sx={{ cursor: "pointer" }}
             />
@@ -59,9 +70,9 @@ const MainNav = (): React.JSX.Element => {
         </Stack>
       </Box>
       <UserPopover
-        anchorEl={userPopover.anchorRef.current}
-        onClose={userPopover.handleClose}
-        open={userPopover.open}
+        anchorEl={anchorRef.current}
+        onClose={handleClose}
+        open={open}
       />
       <MobileNav
         onClose={() => {

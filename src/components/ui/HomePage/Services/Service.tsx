@@ -1,7 +1,13 @@
 import { Button } from "@mui/material";
 import React from "react";
 import Container from "../Container/Container";
-import { BusinessCenter, Inventory, ProductionQuantityLimits, Storefront, TrendingDown } from "@mui/icons-material";
+import {
+  BusinessCenter,
+  Inventory,
+  ProductionQuantityLimits,
+  Storefront,
+  TrendingDown,
+} from "@mui/icons-material";
 
 const Service = () => {
   const serviceData = [

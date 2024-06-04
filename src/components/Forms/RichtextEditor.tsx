@@ -16,6 +16,9 @@ const modules = {
     ],
     ["link"],
     ["clean"],
+    ["code-block"],
+    ["image"],
+    ["video"],
   ],
 };
 
@@ -58,8 +61,8 @@ const RichtextEditor = ({
             modules={modules}
             formats={formats}
             {...field}
-            className="mb-2"
-            style={{ height: "200px" }}
+            className=""
+            placeholder={placeholder}
           />
         )}
       />

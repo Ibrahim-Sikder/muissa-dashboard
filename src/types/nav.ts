@@ -10,5 +10,9 @@ export interface NavItemConfig {
   icon?: IconType | ReactNode;
   href?: string;
   items?: NavItemConfig[];
-  matcher?: { type: "startsWith" | "equals" | "nested"; href: string };
+  matcher?: {
+    type: "startsWith" | "equals" | "nested" | "includes" | "match";
+    href: string;
+  };
+  childrenItems?: NavItemConfig[];
 }

@@ -22,11 +22,35 @@ export const navItems: NavItemConfig[] = [
     title: "Services",
     href: paths.dashboard.services,
     icon: <GrBusinessService />,
+    childrenItems: [
+      {
+        key: "create-service",
+        title: "Create Service",
+        href: `${paths.dashboard.services}/create`,
+      },
+      {
+        key: "edit-services",
+        title: "Manage Services",
+        href: `${paths.dashboard.services}/edit`,
+      },
+    ],
   },
   {
     key: "blogs",
     title: "Blogs",
     href: paths.dashboard.blogs,
     icon: <GrBlog />,
+    childrenItems: [
+      {
+        key: "create-blog",
+        title: "Create Blog",
+        href: `${paths.dashboard.blogs}/create`,
+      },
+      {
+        key: "edit-blogs",
+        title: "Manage Blogs",
+        href: `${paths.dashboard.blogs}/edit`,
+      },
+    ],
   },
 ];

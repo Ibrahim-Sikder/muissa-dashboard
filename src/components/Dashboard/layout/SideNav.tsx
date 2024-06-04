@@ -83,9 +83,15 @@ function renderNavItems({
 }): React.JSX.Element {
   const children = items.reduce(
     (acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
-      const { key, ...item } = curr;
-
-      acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+      const { key, childrenItems, ...item } = curr;
+      acc.push(
+        <NavItem
+          key={key}
+          pathname={pathname}
+          {...item}
+          childrenItems={childrenItems || []}
+        />
+      );
 
       return acc;
     },
@@ -99,8 +105,14 @@ function renderNavItems({
   );
 }
 
-interface NavItemProps extends Omit<NavItemConfig, "items"> {
+interface NavItemProps extends NavItemConfig {
   pathname: string;
+  childrenItems: NavItemConfig[];
+}
+
+interface NavItemProps extends NavItemConfig {
+  pathname: string;
+  childrenItems: NavItemConfig[];
 }
 
 function NavItem({
@@ -111,6 +123,7 @@ function NavItem({
   matcher,
   pathname,
   title,
+  childrenItems = [],
 }: NavItemProps): React.JSX.Element {
   const active = isNavItemActive({
     disabled,
@@ -118,6 +131,7 @@ function NavItem({
     href,
     matcher,
     pathname,
+    childrenItems,
   });
 
   return (

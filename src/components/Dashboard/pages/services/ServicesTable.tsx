@@ -11,7 +11,11 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Avatar } from "@mui/material";
+import { Avatar, Button, CardHeader, Stack } from "@mui/material";
+import Link from "next/link";
+import { FaPlus } from "react-icons/fa";
+import MUIModal from "@/components/shared/MUIModal/MUIModal";
+import ServiceCategoryForm from "./ServiceCategoryForm";
 
 function noop(): void {
   // do nothing
@@ -38,12 +42,41 @@ export function ServicesTable({
   page = 0,
   rowsPerPage = 0,
 }: ServicesTableProps): React.JSX.Element {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
   return (
     <Card
       sx={{
         boxShadow: "none",
       }}
     >
+      <CardHeader
+        title="Services"
+        subheader="List of services provided by the company"
+        action={
+          <Stack direction="row" spacing={1}>
+            <Link href="/dashboard/services/create">
+              <Button
+                color="primary"
+                size="small"
+                variant="contained"
+                startIcon={<FaPlus />}
+              >
+                Add new service
+              </Button>
+            </Link>
+            <Button
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={() => setModalOpen(true)}
+            >
+              categories
+            </Button>
+          </Stack>
+        }
+      />
+
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
@@ -82,6 +115,15 @@ export function ServicesTable({
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
       />
+      {modalOpen && (
+        <MUIModal
+          open={modalOpen}
+          setOpen={setModalOpen}
+          title="Add new service category"
+        >
+          <ServiceCategoryForm />
+        </MUIModal>
+      )}
     </Card>
   );
 }

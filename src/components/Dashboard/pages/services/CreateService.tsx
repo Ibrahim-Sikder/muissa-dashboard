@@ -14,6 +14,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { Box, Button } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
+import Link from "next/link";
 
 const validationSchema = z.object({
   name: z.string().nonempty(),
@@ -47,8 +48,13 @@ const CreateService = () => {
           }}
         >
           <CardHeader
-            subheader="Create a new service"
-            title="Service Details"
+            subheader="Service Details"
+            title="Create a new service"
+            action={
+              <Link href="/dashboard/services">
+                <Button variant="outlined">Back to Services</Button>
+              </Link>
+            }
           />
           <Divider />
           <CardContent
@@ -58,15 +64,20 @@ const CreateService = () => {
               height: "100%",
             }}
           >
-            <Stack spacing={3} sx={{ maxWidth: "sm", height: "500px" }}>
+            <Stack spacing={3}>
               <MUIInput
-                name="name"
-                label="Service Name"
+                name="shortDescription"
+                label="Short Description"
                 type="text"
+                multiline={true}
                 fullWidth={true}
               />
               <Box>
-                <RichtextEditor name="description" label="Description" />
+                <RichtextEditor
+                  name="description"
+                  label="Description"
+                  placeholder="Enter description"
+                />
               </Box>
             </Stack>
           </CardContent>

@@ -58,19 +58,6 @@ export default function Page(): React.JSX.Element {
 
   return (
     <Stack spacing={3}>
-      <Stack direction="row" justifyContent="space-between" spacing={3}>
-        <Typography variant="h4">Services</Typography>
-        <Link href="/dashboard/services/create" passHref>
-          <Button
-            color="primary"
-            size="small"
-            startIcon={<FaPlus />}
-            variant="contained"
-          >
-            Add Service
-          </Button>
-        </Link>
-      </Stack>
       <ServicesTable
         count={services.length}
         page={page}

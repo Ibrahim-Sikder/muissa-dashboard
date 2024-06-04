@@ -56,8 +56,8 @@ const CreateBlog = () => {
           <CardHeader subheader="Create a new blog post" title="Blog Details" />
           <Divider />
           <CardContent sx={{ flexGrow: 1 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
                 <MUIInput
                   name="title"
                   label="Blog Title"
@@ -65,29 +65,25 @@ const CreateBlog = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <MUIInput name="author" label="Author" type="text" fullWidth />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  name="publishDate"
-                  label="Publish Date"
-                  type="date"
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="shortDescription"
+                  label="Short Description"
+                  type="text"
                   fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  multiline
+                  rows={6}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField name="status" label="Status" select fullWidth>
-                  <MenuItem value="Published">Published</MenuItem>
-                  <MenuItem value="Draft">Draft</MenuItem>
-                </TextField>
-              </Grid>
+
               <Grid item xs={12}>
                 <Box>
-                  <RichtextEditor name="content" label="Content" />
+                  <RichtextEditor
+                    name="description"
+                    label="Description"
+                    placeholder="Write your blog post here"
+                  />
                 </Box>
               </Grid>
               <Grid item xs={12}>

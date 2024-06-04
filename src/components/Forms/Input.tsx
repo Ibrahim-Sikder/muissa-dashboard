@@ -13,6 +13,8 @@ type TInputProps = {
   required?: boolean;
   variant?: "outlined" | "filled" | "standard";
   margin?: "none" | "normal" | "dense";
+  multiline?: boolean;
+  rows?: number;
 };
 
 const MUIInput = ({
@@ -26,6 +28,8 @@ const MUIInput = ({
   required,
   variant = "outlined",
   margin = "normal",
+  multiline = false,
+  rows = 4,
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -46,6 +50,8 @@ const MUIInput = ({
           margin={margin}
           error={!!error?.message}
           helperText={error?.message}
+          multiline={multiline}
+          rows={rows}
         />
       )}
     />
