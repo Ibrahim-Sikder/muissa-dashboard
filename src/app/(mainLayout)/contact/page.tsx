@@ -5,7 +5,7 @@ import MUIInput from "@/components/Forms/Input";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Container from "@/components/ui/HomePage/Container/Container";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Grid, } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import React from "react";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -31,7 +31,7 @@ const Contact = () => {
   return (
     <>
       <div className="serviceDetailsWrap">
-        <div className="serviceContent">
+        <div className="aboutContent">
           <h1>যোগাযোগ করুন</h1>
         </div>
       </div>
@@ -56,7 +56,7 @@ const Contact = () => {
                 password: "",
               }}
             >
-              <Box >
+              <Box>
                 <Grid container direction="column">
                   <Grid item lg={6} md={12} sm={12}>
                     <MUIInput
@@ -125,7 +125,7 @@ const Contact = () => {
             </h5>
             <div className=" space-y-16">
               <div className="flex gap-5">
-              <div className="contactIconWrap">
+                <div className="contactIconWrap">
                   <HiOutlineLocationMarker className="headerIcon mr-2" />
                 </div>
                 <div>
@@ -149,10 +149,10 @@ const Contact = () => {
                 </div>
               </div>
               <div className="flex gap-5">
-              <div className="contactIconWrap">
+                <div className="contactIconWrap">
                   <FaPhoneVolume className="headerIcon -rotate-45 mr-2" />
                 </div>
-              
+
                 <div>
                   <h3 className="block text-3xl font"> Call for help:</h3>
                   <span>01403-852850</span>
@@ -185,7 +185,6 @@ const Contact = () => {
             width="100%"
             styles={{ border: 0 }}
             loading="lazy"
-           
             position="relative"
           ></Iframe>
         </section>

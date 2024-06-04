@@ -26,8 +26,8 @@ const NewsSection = () => {
           delay: 2500,
           disableOnInteraction: true,
         }}
-        speed={1000} // Smooth transition speed in milliseconds
-        loop={true} // Enable infinite loop mode
+        speed={1000} 
+        loop={true} 
         pagination={{
           clickable: true,
         }}
@@ -35,27 +35,27 @@ const NewsSection = () => {
         modules={[Autoplay,  Navigation]}
         className="mySwiper mt-10"
         breakpoints={{
-          // when window width is >= 320px
+  
           320: {
             slidesPerView: 1,
           },
-          // when window width is >= 480px
+  
           480: {
             slidesPerView: 1,
           },
-          // when window width is >= 640px
+
           640: {
             slidesPerView: 1,
           },
-          // when window width is >= 768px
+ 
           768: {
             slidesPerView: 2,
           },
-          // when window width is >= 1024px
+
           1024: {
             slidesPerView: 3,
           },
-          // when window width is >= 1280px
+
           1280: {
             slidesPerView: 4,
           },
@@ -193,7 +193,7 @@ const NewsSection = () => {
             </div>
           </div>
         </SwiperSlide>
-        {/* Add more SwiperSlide components as needed */}
+      
       </Swiper>
     </Container>
   );

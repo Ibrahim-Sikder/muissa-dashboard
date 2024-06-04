@@ -86,27 +86,28 @@
   align-items: center;
   justify-content: space-between;
 }
-.mobileMenu, .activeMobileMenu{
-    display: none;
+.mobileMenu,
+.activeMobileMenu {
+  display: none;
 }
 
 @media only screen and (max-width: 1024px) {
-
-  .menubarWrap, .navItems {
+  .menubarWrap,
+  .navItems {
     display: none;
   }
   .headerWrap {
     height: 96px;
   }
-  .stickyContainer{
-    width:100%;
+  .stickyContainer {
+    width: 100%;
   }
-  .stickyMenu{
+  .stickyMenu {
     width: 1024px;
     padding: 0 20px;
-
   }
-  .mobileMenu, .activeMobileMenu {
+  .mobileMenu,
+  .activeMobileMenu {
     display: block;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: fixed;
@@ -115,41 +116,46 @@
     left: -400px;
     z-index: 999999999999999999999;
     color: #111;
-    background:#fff;
+    background: #fff;
     width: 255px;
     padding: 30px;
-    transition: all .5s ease-in-out;
-}
-.mobileMenu{
-    left:0px;
-}
+    transition: all 0.5s ease-in-out;
+  }
+  .mobileMenu {
+    left: 0px;
+  }
 
-.activeMobileMenu ul li , .mobileMenu ul li{
+  .activeMobileMenu ul li,
+  .mobileMenu ul li {
     margin-bottom: 20px;
-}
-
+  }
 }
 @media only screen and (max-width: 768px) {
-
-    .stickyMenu{
-        width:768px;
-    
-      }
-
+  .stickyMenu {
+    width: 768px;
+  }
 }
 @media only screen and (max-width: 500px) {
-
-    .stickyMenu{
-        width:500px;
-    
-      }
-
+  .stickyMenu {
+    width: 500px;
+  }
 }
 @media only screen and (max-width: 375px) {
-
-    .stickyMenu{
-        width:100%;
-    
-      }
-
+  .stickyMenu {
+    width: 375px;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .stickyMenu {
+    width: 300px;
+  }
+}
+@media only screen and (max-width: 250px) {
+  .stickyMenu {
+    width: 250px;
+  }
+  .mobileMenu,
+  .activeMobileMenu {
+    width: 200px;
+  }
 }

@@ -115,7 +115,7 @@ const Client = () => {
                       <Image width={50} height={50} src={data.img} alt="user" />
                     </div>
                     <div>
-                      <h4>{data.name}</h4>
+                      <h4 >{data.name}</h4>
                       <small>{data.position}</small>
                     </div>
                   </div>

@@ -152,7 +152,7 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
-            <div className=" xl:block">
+            <div className=" hidden xl:block">
               <Button
                 LinkComponent={Link}
                 href="/login"

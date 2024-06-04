@@ -11,8 +11,8 @@ import {
 import Image from "next/image";
 import service from "../../../../assets/logo/service4.jpg";
 import service2 from "../../../../assets/logo/service5.jpg";
-import SpecialSupport from "@/components/ui/HomePage/Services/SpecialSupport";
-import ServiceSlider from "@/components/ui/HomePage/Services/ServiceSlider";
+import SpecialSupport from "../_component/Services/SpecialSupport";
+import ServiceSlider from "../_component/Services/ServiceSlider";
 
 const buttonStyles = {
   width: "100%",
@@ -147,7 +147,7 @@ const page = () => {
             </div>
 
             <SpecialSupport />
-            <ServiceSlider />
+            <ServiceSlider/>
           </div>
         </div>
       </Container>
