@@ -12,9 +12,11 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
 import Link from "next/link";
+import INTSelect from "@/components/Forms/Select";
+import MUIFileUploader from "@/components/Forms/FileUpload";
 
 const validationSchema = z.object({
   name: z.string().nonempty(),
@@ -64,22 +66,46 @@ const CreateService = () => {
               height: "100%",
             }}
           >
-            <Stack spacing={3}>
-              <MUIInput
-                name="shortDescription"
-                label="Short Description"
-                type="text"
-                multiline={true}
-                fullWidth={true}
-              />
-              <Box>
-                <RichtextEditor
-                  name="description"
-                  label="Description"
-                  placeholder="Enter description"
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="title"
+                  label="Service Title"
+                  type="text"
+                  fullWidth={true}
                 />
-              </Box>
-            </Stack>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <INTSelect
+                  name="category"
+                  label="Service Category"
+                  items={[
+                    "Product Support",
+                    "Technical Support",
+                    "Customer Support",
+                    "Funding Support",
+                  ]}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="shortDescription"
+                  label="Short Description"
+                  type="text"
+                  multiline={true}
+                  fullWidth={true}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <RichtextEditor name="description" label="Description" />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <MUIFileUploader name="image" />
+              </Grid>
+            </Grid>
           </CardContent>
           <Divider />
           <CardActions

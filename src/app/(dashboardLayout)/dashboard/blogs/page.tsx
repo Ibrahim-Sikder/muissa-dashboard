@@ -1,16 +1,11 @@
 import * as React from "react";
 import type { Metadata } from "next";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-
-import { FaPlus } from "react-icons/fa";
 import dayjs from "dayjs";
 import {
   Blog,
   BlogsTable,
 } from "@/components/Dashboard/pages/blogs/BlogsTable";
-import Link from "next/link";
 
 export const metadata = {
   title: `Blogs | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -55,19 +50,6 @@ export default function Page(): React.JSX.Element {
 
   return (
     <Stack spacing={3}>
-      <Stack direction="row" justifyContent="space-between" spacing={3}>
-        <Typography variant="h4">Blogs</Typography>
-        <Link href="/dashboard/blogs/create" passHref>
-          <Button
-            color="primary"
-            size="small"
-            startIcon={<FaPlus />}
-            variant="contained"
-          >
-            Create new blog
-          </Button>
-        </Link>
-      </Stack>
       <BlogsTable
         count={blogs.length}
         page={page}

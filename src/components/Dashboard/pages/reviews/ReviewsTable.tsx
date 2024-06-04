@@ -11,39 +11,43 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Avatar, Button, CardHeader, Stack } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import { Button, CardHeader } from "@mui/material";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
-import MUIModal from "@/components/shared/MUIModal/MUIModal";
-import ServiceCategoryForm from "./ServiceCategoryForm";
 
 function noop(): void {
   // do nothing
 }
 
-export interface Service {
+export interface Review {
   name: string;
-  description: string;
-  status: string;
-  lastUpdated: string;
+  designation: string;
   image: string;
+  message: string;
+  publishDate: string;
+  status: string;
 }
 
-interface ServicesTableProps {
+interface ReviewsTableProps {
   count?: number;
   page?: number;
-  rows?: Service[];
+  rows?: Review[];
   rowsPerPage?: number;
+  onPageChange?: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange?: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
-export function ServicesTable({
+export function ReviewsTable({
   count = 0,
   rows = [],
   page = 0,
   rowsPerPage = 0,
-}: ServicesTableProps): React.JSX.Element {
-  const [modalOpen, setModalOpen] = React.useState(false);
-
+  onPageChange = noop,
+  onRowsPerPageChange = noop,
+}: ReviewsTableProps): React.JSX.Element {
   return (
     <Card
       sx={{
@@ -53,43 +57,33 @@ export function ServicesTable({
       <CardHeader
         title={
           <Typography variant="h5" fontWeight={700}>
-            Services
+            Reviews
           </Typography>
         }
-        subheader="List of services provided by the company"
+        subheader="List of all reviews available in the system."
         action={
-          <Stack direction="row" spacing={1}>
-            <Link href="/dashboard/services/create">
-              <Button
-                color="primary"
-                size="small"
-                variant="contained"
-                startIcon={<FaPlus />}
-              >
-                Add new service
-              </Button>
-            </Link>
+          <Link href="/dashboard/reviews/create">
             <Button
               color="primary"
-              variant="outlined"
               size="small"
-              onClick={() => setModalOpen(true)}
+              variant="contained"
+              startIcon={<FaPlus />}
             >
-              categories
+              Add New Review
             </Button>
-          </Stack>
+          </Link>
         }
       />
-
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
             <TableRow>
               <TableCell>Image</TableCell>
-              <TableCell>Service Name</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Designation</TableCell>
+              <TableCell>Message</TableCell>
+              <TableCell>Publish Date</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Last Updated</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,9 +94,10 @@ export function ServicesTable({
                     <Avatar src={row.image} variant="square" />
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{row.designation}</TableCell>
+                  <TableCell>{row.message}</TableCell>
+                  <TableCell>{row.publishDate}</TableCell>
                   <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.lastUpdated}</TableCell>
                 </TableRow>
               );
             })}
@@ -113,21 +108,12 @@ export function ServicesTable({
       <TablePagination
         component="div"
         count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
       />
-      {modalOpen && (
-        <MUIModal
-          open={modalOpen}
-          setOpen={setModalOpen}
-          title="Add new service category"
-        >
-          <ServiceCategoryForm />
-        </MUIModal>
-      )}
     </Card>
   );
 }

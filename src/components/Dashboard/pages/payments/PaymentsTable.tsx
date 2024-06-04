@@ -11,36 +11,40 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 import { Button, CardHeader } from "@mui/material";
-import Link from "next/link";
-import { FaPlus } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 function noop(): void {
   // do nothing
 }
 
-export interface Blog {
-  title: string;
-  author: string;
-  publishDate: string;
-  status: string;
-  image: string;
+export interface Payments {
+  transactionId: string;
+  date: string;
+  month: string;
+  amount: string;
+  paymentMethod: string;
 }
 
-interface BlogsTableProps {
+interface PaymentsTableProps {
   count?: number;
   page?: number;
-  rows?: Blog[];
+  rows?: Payments[];
   rowsPerPage?: number;
+  onPageChange?: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange?: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void;
 }
 
-export function BlogsTable({
+export function PaymentsTable({
   count = 0,
   rows = [],
   page = 0,
   rowsPerPage = 0,
-}: BlogsTableProps): React.JSX.Element {
+  onPageChange = noop,
+  onRowsPerPageChange = noop,
+}: PaymentsTableProps): React.JSX.Element {
   return (
     <Card
       sx={{
@@ -50,45 +54,42 @@ export function BlogsTable({
       <CardHeader
         title={
           <Typography variant="h5" fontWeight={700}>
-            Blogs
+            Payments History
           </Typography>
         }
-        subheader="List of all blogs available in the system."
-        action={
-          <Link href="/dashboard/blogs/create">
-            <Button
-              color="primary"
-              size="small"
-              variant="contained"
-              startIcon={<FaPlus />}
-            >
-              Add New Blogs
-            </Button>
-          </Link>
-        }
+        subheader="List of all payments made by customers."
       />
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
             <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Author</TableCell>
-              <TableCell>Publish Date</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell>Transaction ID</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Month</TableCell>
+              <TableCell>Amount</TableCell>
+              <TableCell>Payment Method</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, index) => {
               return (
                 <TableRow hover key={index}>
+                  <TableCell>{row.transactionId}</TableCell>
+                  <TableCell>{row.date}</TableCell>
+                  <TableCell>{row.month}</TableCell>
+                  <TableCell>{row.amount}</TableCell>
+                  <TableCell>{row.paymentMethod}</TableCell>
                   <TableCell>
-                    <Avatar src={row.image} variant="square" />
+                    <Button
+                      color="primary"
+                      size="small"
+                      variant="contained"
+                      startIcon={<FaEye />}
+                    >
+                      View
+                    </Button>
                   </TableCell>
-                  <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.author}</TableCell>
-                  <TableCell>{row.publishDate}</TableCell>
-                  <TableCell>{row.status}</TableCell>
                 </TableRow>
               );
             })}
@@ -99,8 +100,8 @@ export function BlogsTable({
       <TablePagination
         component="div"
         count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
+        onPageChange={onPageChange}
+        onRowsPerPageChange={onRowsPerPageChange}
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}

@@ -13,20 +13,19 @@ import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
-import RichtextEditor from "@/components/Forms/RichtextEditor";
 import MUIFileUploader from "@/components/Forms/FileUpload";
 import Link from "next/link";
 
 const validationSchema = z.object({
-  title: z.string().nonempty(),
-  author: z.string().nonempty(),
-  content: z.string().nonempty(),
-  publishDate: z.string().nonempty(),
-  status: z.string().nonempty(),
+  name: z.string().nonempty("Name is required"),
+  designation: z.string().nonempty("Designation is required"),
   image: z.any(),
+  message: z.string().nonempty("Message is required"),
+  publishDate: z.string().nonempty("Publish date is required"),
+  status: z.string().nonempty("Status is required"),
 });
 
-const CreateBlog = () => {
+const CreateReview = () => {
   const handleSubmit = async (data: FieldValues) => {
     console.log(data);
     // Send data to API or perform any other actions
@@ -38,9 +37,9 @@ const CreateBlog = () => {
         onSubmit={handleSubmit}
         resolver={zodResolver(validationSchema)}
         defaultValues={{
-          title: "",
-          author: "",
-          content: "",
+          name: "",
+          designation: "",
+          message: "",
           publishDate: "",
           status: "",
           image: null,
@@ -55,46 +54,42 @@ const CreateBlog = () => {
           }}
         >
           <CardHeader
-            subheader="Create a new blog post"
-            title="Blog Details"
+            subheader="Create a new review"
+            title="Review Details"
             action={
-              <Link href="/dashboard/blogs">
-                <Button variant="outlined">Back to Blogs</Button>
+              <Link href="/dashboard/reviews">
+                <Button variant="outlined">Back to Reviews</Button>
               </Link>
             }
           />
           <Divider />
           <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
+                <MUIInput name="name" label="Name" type="text" fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <MUIInput
-                  name="title"
-                  label="Blog Title"
+                  name="designation"
+                  label="Designation"
                   type="text"
                   fullWidth
                 />
               </Grid>
-
-              <Grid item xs={12}>
-                <MUIInput
-                  name="shortDescription"
-                  label="Short Description"
-                  type="text"
-                  fullWidth
-                  multiline
-                  rows={6}
-                />
-              </Grid>
-
               <Grid item xs={12}>
                 <Box>
-                  <RichtextEditor
-                    name="description"
-                    label="Description"
-                    placeholder="Write your blog post here"
+                  <TextField
+                    name="message"
+                    label="Message"
+                    placeholder="Write your review here"
+                    multiline
+                    rows={6}
+                    fullWidth
+                    variant="outlined"
                   />
                 </Box>
               </Grid>
+
               <Grid item xs={12}>
                 <MUIFileUploader name="image" />
               </Grid>
@@ -112,4 +107,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default CreateReview;
