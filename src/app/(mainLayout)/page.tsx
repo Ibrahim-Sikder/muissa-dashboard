@@ -18,7 +18,6 @@ const Home = () => {
   return (
     <Box>
       <HeroSection />
-
       <Service />
       {/* <Banner/> */}
       <BrandSection />
