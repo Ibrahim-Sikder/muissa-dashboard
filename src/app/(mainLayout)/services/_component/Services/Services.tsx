@@ -101,7 +101,7 @@ const Services = () => {
           </div>
         </div>
       </div>
-      <Button sx={{ padding: "10px 20px" }}>See all services</Button>
+     
     </Container>
   );
 };
