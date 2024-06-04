@@ -8,6 +8,7 @@ import {
   Storefront,
   TrendingDown,
 } from "@mui/icons-material";
+import './services.css'
 import Link from "next/link";
 const Service = () => {
   const serviceData = [
