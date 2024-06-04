@@ -1,7 +1,5 @@
-import Services from "@/components/ui/HomePage/Services/Services";
 import { Box, Button } from "@mui/material";
 import React from "react";
-import Service from "@/components/ui/HomePage/Services/Service";
 import NewsSection from "@/components/ui/HomePage/NewsSection/NewsSection";
 import BrandSection from "@/components/ui/HomePage/BrandSection/BrandSection";
 import Experience from "@/components/ui/HomePage/Experience/Experience";
@@ -13,6 +11,7 @@ import CTA from "@/components/ui/HomePage/CTA";
 import Investment from "@/components/ui/HomePage/Investment/Investment";
 import WhyUs from "@/components/ui/HomePage/WhyUs/WhyUs";
 import Company from "@/components/ui/HomePage/Company/Company";
+import Service from "./services/_component/Services/Service";
 
 const Home = () => {
   return (

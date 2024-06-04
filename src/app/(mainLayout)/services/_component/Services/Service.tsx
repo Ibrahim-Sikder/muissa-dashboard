@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import React from "react";
-import Container from "../Container/Container";
 import {
   BusinessCenter,
   Inventory,
@@ -8,8 +7,9 @@ import {
   Storefront,
   TrendingDown,
 } from "@mui/icons-material";
-import './services.css'
+import "./services.css";
 import Link from "next/link";
+import Container from "@/components/ui/HomePage/Container/Container";
 const Service = () => {
   const serviceData = [
     {
@@ -37,6 +37,13 @@ const Service = () => {
         "দ্রুত ও নির্ভরযোগ্য ডেলিভারি সেবা পণ্য সঠিক সময়ে পৌঁছানোর নিশ্চয়তা দিতে আমাদের ডেলিভারি সাপোর্ট সেবা নিন।",
     },
   ];
+  const iconStyle = {
+    fontSize: {
+      lg: "75px",
+      md: "60",
+      xs: "40px",
+    },
+  };
   return (
     <Container>
       <div className="serviceCardWraps">
@@ -45,20 +52,22 @@ const Service = () => {
             <div key={data.id} className="serviceCard">
               <div className="serviceIconWraps">
                 {i === 0 ? (
-                  <ProductionQuantityLimits sx={{ fontSize: "75px" }} />
+                  <ProductionQuantityLimits sx={iconStyle} />
                 ) : i === 1 ? (
-                  <Inventory sx={{ fontSize: "75px" }} />
+                  <Inventory sx={iconStyle} />
                 ) : i === 2 ? (
-                  <TrendingDown className='rotate-[275deg]' sx={{ fontSize: "75px" }} />
+                  <TrendingDown className="rotate-[275deg]" sx={iconStyle} />
                 ) : i === 3 ? (
-                  <Storefront sx={{ fontSize: "75px" }} />
+                  <Storefront sx={iconStyle} />
                 ) : null}
               </div>
               <div className="serviceContent">
                 <h4>{data.title}</h4>
 
                 <p className="my-5">{data.description}</p>
-                <Button component={Link} href='/services/1'>আরো দেখুন</Button>
+                <Button component={Link} href="/services/1">
+                  আরো দেখুন
+                </Button>
               </div>
             </div>
           ))}

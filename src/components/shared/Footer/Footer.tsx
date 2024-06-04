@@ -7,15 +7,11 @@ import logo from "../../../assets/logo/logo.jpg";
 
 const Footer = () => {
   return (
-
-    <Box sx={{ background: "#002140", marginTop: '80px', padding: '80px 0px' }}  >
-
-
-
+    <Box sx={{ background: "#002140", marginTop: "80px", padding: "80px 0px" }}>
       <Container>
         <div className="flex text-center flex-col md:flex-row justify-center gap-14  md:justify-between text-white  md:text-left ">
-          <div className="w-[300px]">
-            <div className="flex md:justify-normal justify-center items-center mb-5">
+          <div className="md:w-[300px]">
+            <div className="flex md:flex-row flex-col md:justify-normal justify-center items-center mb-5">
               <Image src={logo} height={50} alt="logo" width={50} />
               <h4 className="text-white ml-2">Muissa Consulting </h4>
             </div>

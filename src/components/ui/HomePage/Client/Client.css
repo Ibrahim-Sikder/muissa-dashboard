@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .clientImgWraps {
@@ -51,70 +50,85 @@
 .swiper-pagination-bullet {
   width: 20px !important;
   height: 20px !important;
-  background-color:#1591A3 !important;
+  background-color: #1591a3 !important;
   margin: 0 5px; /* Adjust spacing as needed */
 }
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background-color: #00305C !important;
+  background-color: #00305c !important;
 }
 
+@media only screen and (max-width: 1024px) {
+  .clientCard {
+    width: 100%;
+  }
+  .clientWrap {
+    bottom: -126px;
+}
 
-@media only screen and (max-width:768px){
+}
+@media only screen and (max-width: 768px) {
   .clientCard {
     margin: 50px auto;
+  }
+  .clientWrap {
+    bottom: -126px;
+    left: 39%;
 }
 
-
-
 }
 
-@media only screen and (max-width:500px){
+@media only screen and (max-width: 500px) {
   .clientCard {
     margin: 50px auto;
+  }
+  .clientCard {
+    width: 100%;
+  }
+
+  .clientSlider {
+    height: 500px;
+  }
+  .clientCard {
+    height: 230px;
+  }
+  .clientWrap {
+    bottom: -126px;
+    left: 30%;
+  }
+
 }
-.clientCard {
-  width: 100%;
- 
+@media only screen and (max-width: 500px) {
+  .clientCard {
+    height: 250px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .clientCard {
+    height: 300px;
+  }
+
+  .clientWrap {
+    bottom: -99px;
+    left: 27%;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .clientContent p {
+    font-size: 13px;
+  }
+  .clientImgWraps {
+    width: 80px;
+    height: 80px;
 }
 .clientWrap {
-  bottom: -148px;
+  bottom: -87px;
+  left: 25%;
 }
-.clientSlider {
-  height: 500px;
+.swiper-pagination-bullet {
+
+  width: 15px !important;
+  height: 15px !important;
 }
-.clientCard {
-
-  height: 230px;
-}
-.clientWrap {
-  bottom: -125px;
-}
-
-
-}
-@media only screen and (max-width:500px){
-
-.clientCard {
-
-  height: 250px;
-}
-
-
-
-
-}
-@media only screen and (max-width:375px){
-
-.clientCard {
-
-  height: 300px;
-}
-
-.clientWrap {
-  bottom: -99px;
-  left: 27%;
 
 }
 
-
-}
