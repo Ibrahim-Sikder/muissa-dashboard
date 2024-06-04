@@ -61,20 +61,13 @@ export function SideNav(): React.JSX.Element {
       <Stack spacing={2} sx={{ p: "12px" }}>
         <Button
           component="a"
-          fullWidth
+          endIcon={<OpenInNewIcon fontSize="small" />}
           href=""
-          sx={{
-            mt: 2,
-            bgcolor: "#ff5c5c",
-            color: "#ffffff",
-            borderRadius: 1,
-            "&:hover": {
-              bgcolor: "#ff5c5c",
-            },
-          }}
-          variant="contained"
+          sx={{ color: "#b3b9c6" }}
+          target="_blank"
+          variant="text"
         >
-          Logout
+          Support Center
         </Button>
       </Stack>
     </Box>
@@ -90,9 +83,15 @@ function renderNavItems({
 }): React.JSX.Element {
   const children = items.reduce(
     (acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
-      const { key, ...item } = curr;
-
-      acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+      const { key, childrenItems, ...item } = curr;
+      acc.push(
+        <NavItem
+          key={key}
+          pathname={pathname}
+          {...item}
+          childrenItems={childrenItems || []}
+        />
+      );
 
       return acc;
     },
@@ -106,8 +105,14 @@ function renderNavItems({
   );
 }
 
-interface NavItemProps extends Omit<NavItemConfig, "items"> {
+interface NavItemProps extends NavItemConfig {
   pathname: string;
+  childrenItems: NavItemConfig[];
+}
+
+interface NavItemProps extends NavItemConfig {
+  pathname: string;
+  childrenItems: NavItemConfig[];
 }
 
 function NavItem({
@@ -118,6 +123,7 @@ function NavItem({
   matcher,
   pathname,
   title,
+  childrenItems = [],
 }: NavItemProps): React.JSX.Element {
   const active = isNavItemActive({
     disabled,
@@ -125,6 +131,7 @@ function NavItem({
     href,
     matcher,
     pathname,
+    childrenItems,
   });
 
   return (
@@ -156,7 +163,7 @@ function NavItem({
             cursor: "not-allowed",
           }),
           ...(active && {
-            bgcolor: "#635bff",
+            bgcolor: "#1591a3",
             color: "#ffffff",
           }),
         }}

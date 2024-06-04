@@ -1,5 +1,4 @@
-import DashboardDrawer from "@/components/Dashboard/DashboardDrawer/DashboardDrawer";
-import { MainNav } from "@/components/Dashboard/layout/MainNav";
+import MainNav from "@/components/Dashboard/layout/MainNav";
 import { SideNav } from "@/components/Dashboard/layout/SideNav";
 import { Box, Container, GlobalStyles } from "@mui/material";
 import React, { ReactNode } from "react";
@@ -21,11 +20,11 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       />
       <Box
         sx={{
-          bgcolor: "#ffffff",
+          bgcolor: "#f2f4f8",
           display: "flex",
           flexDirection: "column",
           position: "relative",
-          minHeight: "100%",
+          minHeight: "100vh",
         }}
       >
         <SideNav />
@@ -39,7 +38,12 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         >
           <MainNav />
           <main>
-            <Container maxWidth="xl" sx={{ py: "64px" }}>
+            <Container
+              maxWidth="xl"
+              sx={{
+                py: "64px",
+              }}
+            >
               {children}
             </Container>
           </main>

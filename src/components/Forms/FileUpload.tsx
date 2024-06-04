@@ -1,3 +1,5 @@
+"use client";
+
 import BackupIcon from "@mui/icons-material/Backup";
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
@@ -24,9 +26,7 @@ const MUIFileUploader = ({ name }: INTFileUploaderProps) => {
 
   const handleUpload = async () => {
     if (!selectedFile) return;
-    setTimeout(() => {
-
-    }, 1000);
+    setTimeout(() => {}, 1000);
   };
 
   return (

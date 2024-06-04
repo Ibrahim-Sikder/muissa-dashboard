@@ -10,13 +10,21 @@ import Tooltip from "@mui/material/Tooltip";
 import { FaBars } from "react-icons/fa";
 
 import { MobileNav } from "./MobileNav";
-import { usePopover } from "@/hooks/use-popover";
 import { UserPopover } from "./UserPropover";
 
-export function MainNav(): React.JSX.Element {
+const MainNav = (): React.JSX.Element => {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
 
-  const userPopover = usePopover<HTMLDivElement>();
+  const [open, setOpen] = React.useState<boolean>(false);
+  const anchorRef = React.useRef<HTMLDivElement>(null);
+
+  const handleOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -52,8 +60,9 @@ export function MainNav(): React.JSX.Element {
           </Stack>
           <Stack sx={{ alignItems: "center" }} direction="row" spacing={2}>
             <Avatar
-              onClick={userPopover.handleOpen}
-              ref={userPopover.anchorRef}
+              component="div"
+              onClick={handleOpen}
+              ref={anchorRef as React.RefObject<HTMLDivElement>}
               src="/banner-image.jpg"
               sx={{ cursor: "pointer" }}
             />
@@ -61,9 +70,9 @@ export function MainNav(): React.JSX.Element {
         </Stack>
       </Box>
       <UserPopover
-        anchorEl={userPopover.anchorRef.current}
-        onClose={userPopover.handleClose}
-        open={userPopover.open}
+        anchorEl={anchorRef.current}
+        onClose={handleClose}
+        open={open}
       />
       <MobileNav
         onClose={() => {
@@ -73,4 +82,6 @@ export function MainNav(): React.JSX.Element {
       />
     </React.Fragment>
   );
-}
+};
+
+export default MainNav;
