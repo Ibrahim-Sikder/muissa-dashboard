@@ -18,9 +18,11 @@ import MUIInput from "@/components/Forms/Input";
 import Link from "next/link";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export const validationSchema = z.object({
+const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
   password: z.string().min(6, "Must be at least 6 characters"),
+  phone: z.number().min(11, "Must be at least 11 characters"),
+
 });
 
 const Register = () => {
@@ -55,7 +57,7 @@ const Register = () => {
 
 
   const handleSubmit = async (data: FieldValues) => {
-   
+   console.log(data)
   };
 
   return (
@@ -107,7 +109,8 @@ const Register = () => {
             resolver={zodResolver(validationSchema)}
             defaultValues={{
               user: '',
-              password: ''
+              password: '',
+              phone: ''
             }}
           >
             <Box>
@@ -128,7 +131,7 @@ const Register = () => {
                 <MUIInput
                   label="Phone Number"
                   sx={textFieldStyles}
-                  name="user"
+                  name="phone"
                   fullWidth={true}
                 />
                 <MUIInput

@@ -1,18 +1,11 @@
-import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
-import { Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
+import React from 'react';
 
-export default function CreateBlogPage() {
+const page = () => {
   return (
-    <Stack spacing={3}>
-      <div>
-        <Typography variant="h4">Create a new service</Typography>
-      </div>
-      <CreateBlog />
-    </Stack>
+    <div>
+      <h4>create new services</h4>
+    </div>
   );
-}
+};
 
-export const metadata = {
-  title: `Blogs | Dashboard | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-} satisfies Metadata;
+export default page;

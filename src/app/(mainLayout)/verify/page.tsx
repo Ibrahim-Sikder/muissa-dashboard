@@ -1,16 +1,14 @@
 "use client";
 
 import MUIForm from "@/components/Forms/Form";
-import INTForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
-import INTInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LockPerson, VerifiedUser } from "@mui/icons-material";
 import { Box, Button, Stack } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 
-export const validationSchema = z.object({
+const validationSchema = z.object({
   otp: z.string().min(4, "Please enter your 6 digit OTP"),
 });
 
@@ -56,7 +54,7 @@ const VerifyPage = () => {
           onSubmit={onSubmit}
           resolver={zodResolver(validationSchema)}
           defaultValues={{
-            otp: "",
+            otp: " ",
           }}
         >
           <Box sx={{ width: "100%", mb: 2 }}>

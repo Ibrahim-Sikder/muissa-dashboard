@@ -1,18 +1,11 @@
-import CreateService from "@/components/Dashboard/pages/services/CreateService";
-import { Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
+import React from 'react';
 
-export default function CreateServicePage() {
+const page = () => {
   return (
-    <Stack spacing={3}>
-      <div>
-        <Typography variant="h4">Create a new service</Typography>
-      </div>
-      <CreateService />
-    </Stack>
+    <div>
+      <h3>service</h3>
+    </div>
   );
-}
+};
 
-export const metadata = {
-  title: `Dashboard | Service ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-} satisfies Metadata;
+export default page;

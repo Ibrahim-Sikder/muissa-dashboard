@@ -1,27 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import { useRouter } from "next/navigation";
-import { FieldValues } from "react-hook-form";
 
+import React from "react";
+import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useForm, FieldValues } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
-import Link from "next/link";
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export const validationSchema = z.object({
+// Define the validation schema using Zod
+const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
   password: z.string().min(6, "Must be at least 6 characters"),
 });
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Login = () => {
   const router = useRouter();
@@ -52,11 +48,13 @@ const Login = () => {
     },
   };
 
-  const handleSubmit = async (data: FieldValues) => {};
+  const handleSubmit = async (data: FieldValues) => {
+    // Handle form submission
+  };
 
   return (
     <div
-      className="h-[900px] my-8   w-full flex items-center justify-center bg-[#f8f8f8] "
+      className="h-[900px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
       style={{
         background: isLargeDevice
           ? "linear-gradient(to left , #002140 50%, white 50%)"
@@ -84,7 +82,6 @@ const Login = () => {
             alignItems: "center",
             flexDirection: "column",
             background: "#002140",
-            justifyItems: "center",
             color: "#fff",
             padding: "0px 50px",
             display: isLargeDevice ? "flex" : "none",
@@ -99,7 +96,7 @@ const Login = () => {
             potential into performance with seamless, tailored solutions.
           </Typography>
         </Box>
-        <Box className="bg-[#fff] shadow-md px-5 py-16  md:p-20 mx-3 md:m-aut0 lg:m-0 lg:mx-0 rounded-md md:rounded-none  w-full md:w-[600px]  flex items-center text-[#002140] ">
+        <Box className="bg-[#fff] shadow-md px-5 py-16 md:p-20 mx-3 md:m-auto lg:m-0 lg:mx-0 rounded-md md:rounded-none w-full md:w-[600px] flex items-center text-[#002140]">
           <MUIForm
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
@@ -114,11 +111,11 @@ const Login = () => {
                 variant="h4"
                 sx={{ textAlign: "center", marginBottom: "10px" }}
               >
-                Login to Muissa !
+                Login to Muissa!
               </Typography>
               <Box>
                 <MUIInput
-                  label="Phone Number"
+                  label="Email"
                   sx={textFieldStyles}
                   name="user"
                   fullWidth={true}
@@ -128,6 +125,7 @@ const Login = () => {
                   name="password"
                   sx={textFieldStyles}
                   fullWidth={true}
+                  type="password"
                 />
               </Box>
               <Box
@@ -140,7 +138,6 @@ const Login = () => {
                   sx={{
                     color: "#002140",
                     fontSize: isSmallDevice ? "12px" : "inherit",
-                    justifyContent: "right",
                   }}
                   component="small"
                 >
@@ -173,13 +170,13 @@ const Login = () => {
                 sx={{
                   color: "#002140",
                   fontSize: "12px",
-                  justifyContent: "right",
                   display: "flex",
+                  justifyContent: "center",
                   marginTop: "5px",
                 }}
                 component="small"
               >
-                Don't have an account ? <Link href="/register"> Register</Link>
+                Don't have an account? <Link href="/register">Register</Link>
               </Typography>
             </Box>
           </MUIForm>
