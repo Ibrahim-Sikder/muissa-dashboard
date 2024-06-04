@@ -2,6 +2,7 @@ import { paths } from "@/paths";
 import { NavItemConfig } from "@/types/nav";
 import { FaChartPie, FaUsers, FaPlug } from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
+import { MdOutlineReviews, MdPayment } from "react-icons/md";
 
 export const navItems: NavItemConfig[] = [
   {
@@ -52,5 +53,29 @@ export const navItems: NavItemConfig[] = [
         href: `${paths.dashboard.blogs}/edit`,
       },
     ],
+  },
+  {
+    key: "reviews",
+    title: "Reviews",
+    href: paths.dashboard.reviews,
+    icon: <MdOutlineReviews />,
+    childrenItems: [
+      {
+        key: "create-review",
+        title: "Create Review",
+        href: `${paths.dashboard.reviews}/create`,
+      },
+      {
+        key: "edit-reviews",
+        title: "Manage Reviews",
+        href: `${paths.dashboard.reviews}/edit`,
+      },
+    ],
+  },
+  {
+    key: "payments",
+    title: "Payments",
+    href: paths.dashboard.payments,
+    icon: <MdPayment />,
   },
 ];

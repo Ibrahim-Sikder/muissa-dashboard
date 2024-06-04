@@ -11,7 +11,7 @@ interface ITextField {
   fullWidth?: boolean;
   sx?: SxProps;
   items: string[];
-  margin?: 'none' | 'normal' | 'dense';
+  margin?: "none" | "normal" | "dense";
 }
 
 const INTSelect = ({
@@ -19,7 +19,7 @@ const INTSelect = ({
   name,
   label,
   size = "small",
-  margin = 'normal',
+  margin = "normal",
   required,
   fullWidth = true,
   sx,
