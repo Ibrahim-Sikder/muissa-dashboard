@@ -23,15 +23,16 @@ const About = () => {
           <div className=" order-2 xl:order-1">
             <div className="leading-8 relative">
               <div className="divider"></div>
-              <h1> Consulting is a law firm </h1>
-              <h1> specialising in corporate</h1>
-              <h1> finance work</h1>
+              <h1> আমাদের লক্ষ্য ও উদ্দেশ্য</h1>
+              <h1> সফলতার পথে</h1>
+              <h1>  ভবিষ্যতের স্বপ্ন</h1>
             </div>
+           
+
+
 
             <p className="mt-5 leading-9">
-              We have spent 9 years working for one of Australia’s most
-              recognised and successful retailers so we have many good review of
-              works.
+            আমাদের লক্ষ্য হলো স্থানীয় এবং আন্তর্জাতিক পর্যায়ে ব্যবসায়িক প্রতিষ্ঠানগুলিকে তাদের লক্ষ্যে পৌঁছাতে সহায়তা করা এবং তাদের সাফল্যের পথে একটি শক্তিশালী সহযোগী হিসেবে নিজেদের প্রতিষ্ঠিত করা।
             </p>
 
             <div className="grid gap-10 mt-8 grid-cols-1 place-content-center place-items-center lg:grid-cols-3">

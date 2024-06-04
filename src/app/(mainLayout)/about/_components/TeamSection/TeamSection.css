@@ -53,3 +53,8 @@
     position: absolute;
     left: -14px;
 }
+@media only screen and (max-width:768px){
+  .teamCard {
+    width: 100%;
+}
+}

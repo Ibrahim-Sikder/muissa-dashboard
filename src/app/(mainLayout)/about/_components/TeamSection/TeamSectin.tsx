@@ -43,7 +43,7 @@ const TeamSection = () => {
         আমাদের বিশেষজ্ঞ দল বিভিন্ন ক্ষেত্রের দক্ষ ও অভিজ্ঞ পেশাদার দ্বারা গঠিত। তাদের অভিজ্ঞতা ও দক্ষতা আমাদের ক্লায়েন্টদের সেরা সেবা প্রদানে সক্ষম করে। আমাদের দলে রয়েছেন:
         </p>
       </div>
-      <div className="grid grid-cols-1  lg:grid-cols-3 gap-5 mt-10 place-items-center place-content-center " >
+      <div className="grid grid-cols-1  lg:grid-cols-3 gap-5 md:mt-10 place-items-center place-content-center " >
         {
             teamData.map((data)=>(
                 <div key={data.id} className="teamCardWrap">

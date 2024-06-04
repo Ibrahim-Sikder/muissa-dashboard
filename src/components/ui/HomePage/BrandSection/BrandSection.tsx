@@ -18,16 +18,16 @@ const BrandSection = () => {
           আমরা একটি পেশাদার ব্যবসা পরামর্শদান সংস্থা, যার মূল উদ্দেশ্য হলো ব্যবসায়িক প্রতিষ্ঠানগুলিকে উন্নতির পথে সাহায্য করা। আমাদের দল দক্ষ ও অভিজ্ঞ পরামর্শদাতা দ্বারা গঠিত, যারা বিভিন্ন ক্ষেত্রের দক্ষতার মাধ্যমে আপনাদের ব্যবসার জন্য সঠিক সমাধান প্রদান করতে প্রস্তুত।
           </p>
           <div className="flex items-center">
-            <Stack direction={{sm:'column',md:'row'}}   spacing={2}>
+            <Stack direction={{sm:'row',xs:'row',md:'row'}}   spacing={2}>
             <Button
               sx={{
-                width: "2405x",
+                width: "240x",
                 height: "50px",
                 borderRadius: "30px",
                 fontSize: "12px",
                 marginRight: "5px",
                 marginBottom: {
-                    sm: 2
+                    sm: 5
                 }
               }}
             >
@@ -35,7 +35,7 @@ const BrandSection = () => {
             </Button>
             <Button
               sx={{
-                width: "2405x",
+                width: "240x",
                 height: "50px",
                 borderRadius: "30px",
                 fontSize: "12px",
