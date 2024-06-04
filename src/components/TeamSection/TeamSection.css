@@ -1,0 +1,54 @@
+.teamCard {
+    width: 388px;
+    height: 267px;
+    background: #fff;
+    box-shadow: 0 2px 8px #63636333;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px;
+    position: relative;
+    line-height: 31px;
+
+}
+.teamMembar {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+.teamMembarImg {
+  width: 128px;
+  transition: height 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57), all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+
+}
+.teamMembarImg img {
+  border-radius: 100%;
+  position: relative;
+  left: 0px;
+  top: -32px;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+
+.teamCardWrap:hover .teamMembarImg img  {
+  top: 0px;
+  transition: height 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57), all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+.teamCardWrap:hover .teamMembarImg {
+    height: 137px;
+    background:#1591A3;
+}
+
+.divider{
+    background: #1591a3;
+    width: 4px;
+    height: 125px;
+    position: absolute;
+    left: -14px;
+}
