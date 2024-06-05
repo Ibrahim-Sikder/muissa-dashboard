@@ -126,9 +126,9 @@ const Header = () => {
                 />
                 <div>
                   <h3 className="text-sm md:text-xl lg:text-2xl">
-                    Muissa Consulting{" "}
+                  Muissa Business
                   </h3>
-                  <small>Business Solution </small>
+                  <small> Consulting Ltd.  </small>
                 </div>
               </div>
             </div>

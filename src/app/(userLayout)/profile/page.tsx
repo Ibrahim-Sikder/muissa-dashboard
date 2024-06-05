@@ -11,9 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
-import BusinessOwnerForm from "@/app/(mainLayout)/membership/_components/BusinessOwnerForm";
 import TabPanel from "@mui/lab/TabPanel";
-import InvestorForm from "@/app/(mainLayout)/membership/_components/InvestorForm";
 import MUIMultiSelect from "@/components/Forms/MultiSelect";
 import { supportServices } from "@/types";
 import MUITextArea from "@/components/Forms/TextArea";
@@ -83,12 +81,7 @@ const Profile = () => {
             <MUIInput name="email" label="ইমেইল " fullWidth size="medium" />
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
-            <MUIInput
-              name="address"
-              label="ঠিকানা"
-              fullWidth
-              size="medium"
-            />
+            <MUIInput name="address" label="ঠিকানা" fullWidth size="medium" />
           </Grid>
           <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
             <MUIInput name="email" label="ইমেইল " fullWidth size="medium" />

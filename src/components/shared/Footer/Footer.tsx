@@ -13,13 +13,11 @@ const Footer = () => {
           <div className="md:w-[300px]">
             <div className="flex md:flex-row flex-col md:justify-normal justify-center items-center mb-5">
               <Image src={logo} height={50} alt="logo" width={50} />
-              <h4 className="text-white ml-2">Muissa Consulting </h4>
+              <h4 className="text-white ml-2">Muissa Business Consulting Ltd.  </h4>
             </div>
             <p className="leading-9">
               {" "}
-              Elevate your business with our expert support in Product, Sales,
-              Marketing, Delivery, IT, Funding, and Investment. Transform
-              potential into performance with seamless, tailored solutions.
+              House-08, Road-07, Block-C, Banasree,Dhka-1219
             </p>
           </div>
           <div className="tex-left">
