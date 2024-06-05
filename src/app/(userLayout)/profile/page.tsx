@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import Container from '@/components/ui/HomePage/Container/Container';
-import React from 'react';
-
-const page = () => {
-    return (
-        <Container className='sectionMargin'>
-            <h4>profile home page </h4>
-        </Container>
-    );
-};
-
-export default page;
-=======
 "use client";
 
 import React, { useState } from "react";
@@ -255,4 +241,3 @@ const Profile = () => {
 };
 
 export default Profile;
->>>>>>> 1330d3f4315282460427e3f6beb64a916ee875bf
