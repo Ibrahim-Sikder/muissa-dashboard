@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -7,6 +5,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
+import type { Metadata } from "next";
 
 export default function UserProfilePage(): React.JSX.Element {
   const user = {
@@ -158,3 +157,9 @@ export default function UserProfilePage(): React.JSX.Element {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Profile",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

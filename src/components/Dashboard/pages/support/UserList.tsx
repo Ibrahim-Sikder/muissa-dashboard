@@ -1,19 +1,16 @@
 import React from "react";
 import { List, ListItem, ListItemText, Avatar, Badge } from "@mui/material";
-
 interface User {
   id: number;
   name: string;
   avatar: string;
   status: "online" | "offline";
 }
-
 interface UserListProps {
   users: User[];
   selectedUser: User | null;
   onSelectUser: (user: User) => void;
 }
-
 const UserList: React.FC<UserListProps> = ({
   users,
   selectedUser,
@@ -46,5 +43,4 @@ const UserList: React.FC<UserListProps> = ({
     </List>
   );
 };
-
 export default UserList;

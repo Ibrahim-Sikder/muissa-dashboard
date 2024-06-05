@@ -1,23 +1,22 @@
 import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
+import CreateFAQForm from "@/components/Dashboard/pages/faq/FaqForm";
+import CreateReview from "@/components/Dashboard/pages/reviews/CreateReview";
 import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
-import React from "react";
 
-const page = () => {
+export default function CreateFaqPage() {
   return (
     <Stack spacing={3}>
       <div>
-        <Typography variant="h4">Create a new service</Typography>
+        <Typography variant="h4">Add a new FAQ</Typography>
       </div>
-      <CreateBlog />
+      <CreateFAQForm />
     </Stack>
   );
-};
-
-export default page;
+}
 
 export const metadata: Metadata = {
-  title: "Muissa Consulting | Blogs",
+  title: "Muissa Consulting | FAQ ",
   description: "Muissa Consulting blogs page ",
   keywords: "blogs, Muissa Consulting",
 };

@@ -13,21 +13,18 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-
 interface Message {
   id: number;
   sender: string;
   content: string;
   timestamp: string;
 }
-
 interface ChatAreaProps {
   messages: Message[];
   newMessage: string;
   onNewMessageChange: (message: string) => void;
   onSendMessage: () => void;
 }
-
 const ChatArea: React.FC<ChatAreaProps> = ({
   messages,
   newMessage,
@@ -35,13 +32,11 @@ const ChatArea: React.FC<ChatAreaProps> = ({
   onSendMessage,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "80vh" }}>
       <Box
@@ -127,5 +122,4 @@ const ChatArea: React.FC<ChatAreaProps> = ({
     </Box>
   );
 };
-
 export default ChatArea;

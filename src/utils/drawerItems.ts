@@ -36,16 +36,8 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           path: `${role}`,
           icon: Dashboard,
         },
-        {
-          title: "Content",
-          path: `${role}/content`,
-          icon: BorderColor,
-        },
-        {
-          title: "Hotel",
-          path: `${role}/hotel`,
-          icon: Hotel,
-        }
+      
+
       );
       break;
 

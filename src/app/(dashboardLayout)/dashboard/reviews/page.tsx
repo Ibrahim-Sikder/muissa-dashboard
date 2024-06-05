@@ -12,10 +12,6 @@ import {
   ReviewsTable,
 } from "@/components/Dashboard/pages/reviews/ReviewsTable";
 
-export const metadata = {
-  title: `Reviews | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-} satisfies Metadata;
-
 // Sample reviews data
 const reviews: Review[] = [
   {
@@ -80,3 +76,9 @@ function applyPagination(
 ): Review[] {
   return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }
+
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Reviews",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

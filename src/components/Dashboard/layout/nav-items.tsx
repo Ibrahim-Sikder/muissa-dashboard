@@ -1,27 +1,26 @@
 import { paths } from "@/paths";
 import { NavItemConfig } from "@/types/nav";
-import { FaChartPie, FaUsers, FaPlug } from "react-icons/fa";
+import { FaChartPie, FaUsers, FaQuestionCircle } from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
-import { MdOutlineReviews, MdPayment } from "react-icons/md";
+import { MdOutlineReviews, MdPayment, MdPrivacyTip } from "react-icons/md";
 import { FcCustomerSupport } from "react-icons/fc";
-
 export const navItems: NavItemConfig[] = [
   {
     key: "overview",
-    title: "Overview",
+    title: "Quick Overview",
     href: paths.dashboard.overview,
     icon: <FaChartPie />,
   },
   {
     key: "customers",
-    title: "Customers",
+    title: "Manage Customers",
     href: paths.dashboard.customers,
     icon: <FaUsers />,
   },
 
   {
     key: "services",
-    title: "Services",
+    title: "Manage Services",
     href: paths.dashboard.services,
     icon: <GrBusinessService />,
     childrenItems: [
@@ -39,7 +38,7 @@ export const navItems: NavItemConfig[] = [
   },
   {
     key: "blogs",
-    title: "Blogs",
+    title: "Manage Blogs",
     href: paths.dashboard.blogs,
     icon: <GrBlog />,
     childrenItems: [
@@ -57,7 +56,7 @@ export const navItems: NavItemConfig[] = [
   },
   {
     key: "reviews",
-    title: "Reviews",
+    title: "Manage Reviews",
     href: paths.dashboard.reviews,
     icon: <MdOutlineReviews />,
     childrenItems: [
@@ -75,10 +74,42 @@ export const navItems: NavItemConfig[] = [
   },
   {
     key: "payments",
-    title: "Payments",
+    title: "Manage Payments",
     href: paths.dashboard.payments,
     icon: <MdPayment />,
   },
+  {
+    key: "terms-privacy",
+    title: "Terms & Privacy",
+    href: paths.dashboard.policies,
+    icon: <MdPrivacyTip />,
+    childrenItems: [
+      {
+        key: "edit-policies",
+        title: "Edit Policies",
+        href: `${paths.dashboard.policies}/edit`,
+      },
+    ],
+  },
+  {
+    key: "faqs",
+    title: "Manage FAQs",
+    href: paths.dashboard.faqs,
+    icon: <FaQuestionCircle />,
+    childrenItems: [
+      {
+        key: "create-faq",
+        title: "Create FAQ",
+        href: `${paths.dashboard.faqs}/create`,
+      },
+      {
+        key: "edit-faqs",
+        title: "Manage FAQs",
+        href: `${paths.dashboard.faqs}/edit`,
+      },
+    ],
+  },
+
   {
     key: "support",
     title: "Support",
