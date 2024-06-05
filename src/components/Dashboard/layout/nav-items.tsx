@@ -3,7 +3,7 @@ import { NavItemConfig } from "@/types/nav";
 import { FaChartPie, FaUsers, FaPlug } from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
 import { MdOutlineReviews, MdPayment } from "react-icons/md";
-
+import { FcCustomerSupport } from "react-icons/fc";
 export const navItems: NavItemConfig[] = [
   {
     key: "overview",
@@ -77,5 +77,11 @@ export const navItems: NavItemConfig[] = [
     title: "Payments",
     href: paths.dashboard.payments,
     icon: <MdPayment />,
+  },
+  {
+    key: "support",
+    title: "Support",
+    href: paths.dashboard.support,
+    icon: <FcCustomerSupport/>,
   },
 ];
