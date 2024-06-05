@@ -10,6 +10,8 @@ export const paths = {
     reviews: "/dashboard/reviews",
     payments: "/dashboard/payments",
     support: "/dashboard/support",
+    faqs: "/dashboard/faqs",
+    policies: "/dashboard/policies",
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },
