@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 import React from "react";
 
-const page = () => {
+export default function CreateBlogPage() {
   return (
     <Stack spacing={3}>
       <div>
@@ -12,9 +12,7 @@ const page = () => {
       <CreateBlog />
     </Stack>
   );
-};
-
-export default page;
+}
 
 export const metadata: Metadata = {
   title: "Muissa Consulting | Blogs",

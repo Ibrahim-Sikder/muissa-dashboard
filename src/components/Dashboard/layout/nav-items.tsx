@@ -114,6 +114,6 @@ export const navItems: NavItemConfig[] = [
     key: "support",
     title: "Support",
     href: paths.dashboard.support,
-    icon: <FcCustomerSupport />,
+    icon: <FcCustomerSupport/>,
   },
 ];
