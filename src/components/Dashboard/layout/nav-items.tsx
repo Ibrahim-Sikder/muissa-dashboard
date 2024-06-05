@@ -4,6 +4,7 @@ import { FaChartPie, FaUsers, FaQuestionCircle } from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
 import { MdOutlineReviews, MdPayment, MdPrivacyTip } from "react-icons/md";
 import { FcCustomerSupport } from "react-icons/fc";
+
 export const navItems: NavItemConfig[] = [
   {
     key: "overview",
@@ -16,6 +17,13 @@ export const navItems: NavItemConfig[] = [
     title: "Manage Customers",
     href: paths.dashboard.customers,
     icon: <FaUsers />,
+    childrenItems: [
+      {
+        key: "create-details",
+        title: "Create Customer Details",
+        href: `${paths.dashboard.customers}/:id`,
+      },
+    ],
   },
 
   {
@@ -114,6 +122,6 @@ export const navItems: NavItemConfig[] = [
     key: "support",
     title: "Support",
     href: paths.dashboard.support,
-    icon: <FcCustomerSupport/>,
+    icon: <FcCustomerSupport />,
   },
 ];
