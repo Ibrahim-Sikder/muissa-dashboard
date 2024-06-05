@@ -1,31 +1,93 @@
+import React from "react";
 import { Budget } from "@/components/Dashboard/pages/Budget";
-import { Grid } from "@mui/material";
+import { DashboardChart } from "@/components/Dashboard/pages/DashboardChart";
+import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
+import { TotalCustomers } from "@/components/Dashboard/TotalCustomers";
+import { TasksProgress } from "@/components/Dashboard/TaskProgress";
+import { Traffic } from "@/components/Dashboard/Traffic";
 
-const page = () => {
+const Page = () => {
   return (
-    <Grid
-      container
-      spacing={{ xs: 2, md: 3 }}
-      columns={{ xs: 4, sm: 8, md: 12 }}
-    >
-      {Array.from(Array(4)).map((_, index) => (
-        <Grid item xs={12} sm={4} md={3} key={index}>
-          <Budget
-            diff={index * 10}
-            sx={{
-              height: "100%",
-              backgroundColor: "#ffffff",
-              borderRadius: "20px",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
-              border: "1px solid rgba(0, 0, 0, 0.1)",
-            }}
-            trend={index % 2 === 0 ? "up" : "down"}
-            value={`$${index * 1000}`}
-          />
-        </Grid>
-      ))}
+    <Grid container spacing={3}>
+      <Grid item lg={3} sm={6} xs={12}>
+        <Budget diff={12} trend="up" value="$24k" />
+      </Grid>
+      <Grid item lg={3} sm={6} xs={12}>
+        <TotalCustomers diff={16} trend="down" value="1.6k" />
+      </Grid>
+      <Grid item lg={3} sm={6} xs={12}>
+        <TasksProgress value={75.5} />
+      </Grid>
+      <Grid item lg={3} sm={6} xs={12}>
+        <Budget diff={-3} trend="down" value="$18k" />
+      </Grid>
+      <Grid item lg={8} xs={12}>
+        <Card
+          sx={{
+            height: "100%",
+            backgroundColor: "white",
+            boxShadow: "none",
+          }}
+        >
+          <CardContent>
+            <DashboardChart
+              chartSeries={[
+                {
+                  name: "This year",
+                  data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20],
+                },
+                {
+                  name: "Last year",
+                  data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
+                },
+              ]}
+            />
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item lg={4} md={6} xs={12}>
+        <Traffic
+          chartSeries={[63, 15, 22]}
+          labels={["Desktop", "Tablet", "Phone"]}
+          sx={{ height: "100%" }}
+        />
+      </Grid>
+      <Grid item lg={4} md={6} xs={12}>
+        <Card
+          sx={{
+            height: "100%",
+            boxShadow: "none",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Placeholder Content
+            </Typography>
+            <Typography variant="body1">
+              This is a placeholder for additional content or widgets.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item lg={8} md={12} xs={12}>
+        <Card
+          sx={{
+            height: "100%",
+            boxShadow: "none",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Placeholder Content
+            </Typography>
+            <Typography variant="body1">
+              This is a placeholder for additional content or widgets.
+            </Typography>
+          </CardContent>
+        </Card>
+      </Grid>
     </Grid>
   );
 };
 
-export default page;
+export default Page;

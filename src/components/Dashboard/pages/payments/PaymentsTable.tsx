@@ -11,7 +11,15 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Button, CardHeader } from "@mui/material";
+import {
+  Button,
+  CardHeader,
+  Input,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+} from "@mui/material";
 import { FaEye } from "react-icons/fa";
 
 function noop(): void {
@@ -24,6 +32,9 @@ export interface Payments {
   month: string;
   amount: string;
   paymentMethod: string;
+  name?: string;
+  phone?: string;
+  membershipId?: string;
 }
 
 interface PaymentsTableProps {
@@ -58,11 +69,39 @@ export function PaymentsTable({
           </Typography>
         }
         subheader="List of all payments made by customers."
+        action={
+          <TextField
+            label="Search"
+            size="small"
+            variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <Button
+                  color="primary"
+                  size="small"
+                  variant="contained"
+                  sx={{ borderRadius: "0px 4px 4px 0px" }}
+                >
+                  Search
+                </Button>
+              ),
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "4px 0px 0px 4px",
+                paddingRight: "0 !important",
+              },
+            }}
+          />
+        }
       />
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
             <TableRow>
+              <TableCell>Membership ID</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Phone</TableCell>
               <TableCell>Transaction ID</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Month</TableCell>
@@ -74,21 +113,37 @@ export function PaymentsTable({
           <TableBody>
             {rows.map((row, index) => {
               return (
-                <TableRow hover key={index}>
+                <TableRow
+                  hover
+                  key={index}
+                  sx={{
+                    textAlign: "left",
+                  }}
+                >
+                  <TableCell>{row.membershipId}</TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.phone}</TableCell>
                   <TableCell>{row.transactionId}</TableCell>
                   <TableCell>{row.date}</TableCell>
                   <TableCell>{row.month}</TableCell>
                   <TableCell>{row.amount}</TableCell>
                   <TableCell>{row.paymentMethod}</TableCell>
                   <TableCell>
-                    <Button
-                      color="primary"
-                      size="small"
-                      variant="contained"
-                      startIcon={<FaEye />}
-                    >
-                      View
-                    </Button>
+                    <Stack direction="row" spacing={1}>
+                      <Button
+                        color="primary"
+                        size="small"
+                        variant="contained"
+                        startIcon={<FaEye />}
+                      >
+                        View
+                      </Button>
+                      <Select defaultValue={"Requested"} fullWidth size="small">
+                        <MenuItem value="Requested">Requested</MenuItem>
+                        <MenuItem value="On-progress">On-progress</MenuItem>
+                        <MenuItem value="Confirmed">Confirmed</MenuItem>
+                      </Select>
+                    </Stack>
                   </TableCell>
                 </TableRow>
               );

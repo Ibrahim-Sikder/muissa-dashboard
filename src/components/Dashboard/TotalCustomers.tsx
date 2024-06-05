@@ -5,23 +5,24 @@ import CardContent from "@mui/material/CardContent";
 import Stack from "@mui/material/Stack";
 import type { SxProps } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import { FaArrowDown as ArrowDownIcon } from "react-icons/fa";
 import { FaArrowUp as ArrowUpIcon } from "react-icons/fa";
 import { FaDollarSign as CurrencyDollarIcon } from "react-icons/fa";
+import { FaUsers as UsersIcon } from "react-icons/fa";
+import { FaArrowDown as ArrowDownIcon } from "react-icons/fa";
 
-export interface BudgetProps {
+export interface TotalCustomersProps {
   diff?: number;
   trend: "up" | "down";
   sx?: SxProps;
   value: string;
 }
 
-export function Budget({
+export function TotalCustomers({
   diff,
   trend,
   sx,
   value,
-}: BudgetProps): React.JSX.Element {
+}: TotalCustomersProps): React.JSX.Element {
   const TrendIcon = trend === "up" ? ArrowUpIcon : ArrowDownIcon;
   const trendColor = trend === "up" ? "#4caf50" : "#f44336";
 
@@ -36,7 +37,7 @@ export function Budget({
       }}
     >
       <CardContent>
-        <Stack spacing={3}>
+        <Stack spacing={2}>
           <Stack
             direction="row"
             sx={{ alignItems: "flex-start", justifyContent: "space-between" }}
@@ -44,7 +45,7 @@ export function Budget({
           >
             <Stack spacing={1}>
               <Typography color="text.secondary" variant="overline">
-                Budget
+                Total Customers
               </Typography>
               <Typography variant="h4">{value}</Typography>
             </Stack>
@@ -55,7 +56,7 @@ export function Budget({
                 width: "56px",
               }}
             >
-              <CurrencyDollarIcon fontSize="var(--icon-fontSize-lg)" />
+              <UsersIcon fontSize="var(--icon-fontSize-lg)" />
             </Avatar>
           </Stack>
           {diff ? (

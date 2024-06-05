@@ -19,6 +19,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           padding: "8px 24px",
+          boxShadow: "none",
         },
       },
     },
