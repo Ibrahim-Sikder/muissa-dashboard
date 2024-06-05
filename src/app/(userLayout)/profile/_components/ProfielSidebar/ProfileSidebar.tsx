@@ -19,9 +19,14 @@ const ProfileSidebar = () => {
             <span> My Acount</span>
           </div>
         </Link>
-        <div className="flex items-center space-x-2 ">
-          <FaBookmark size={25} />
-          <span>My Booking</span>
+
+        <div>
+          <Link href="/profile/booking">
+            <div className="flex items-center space-x-2 ">
+              <FaBookmark size={25} />
+              <span>My Booking</span>
+            </div>
+          </Link>
         </div>
         <div>
           <Link href="/profile/membership">
@@ -41,13 +46,12 @@ const ProfileSidebar = () => {
         </div>
         <div>
           <Link href="/profile/change-password">
-          <div className="flex items-center space-x-2 ">
-          <FaUserLock size={25} />
-          <span>Change Password </span>
-        </div>
+            <div className="flex items-center space-x-2 ">
+              <FaUserLock size={25} />
+              <span>Change Password </span>
+            </div>
           </Link>
         </div>
-       
       </div>
     </div>
   );
