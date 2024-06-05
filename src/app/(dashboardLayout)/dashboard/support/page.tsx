@@ -1,25 +1,21 @@
 "use client";
-
 import * as React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import UserList from "@/components/Dashboard/pages/support/UserList";
 import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
-
 interface Message {
   id: number;
   sender: string;
   content: string;
   timestamp: string;
 }
-
 interface User {
   id: number;
   name: string;
   avatar: string;
   status: "online" | "offline";
 }
-
 const mockMessages: Message[] = [
   {
     id: 1,
@@ -40,7 +36,6 @@ const mockMessages: Message[] = [
     timestamp: "10:02 AM",
   },
 ];
-
 const mockUsers: User[] = [
   {
     id: 1,
@@ -62,12 +57,10 @@ const mockUsers: User[] = [
     status: "offline",
   },
 ];
-
 export default function SupportContactPage() {
   const [messages, setMessages] = useState<Message[]>(mockMessages);
   const [newMessage, setNewMessage] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       const timestamp = new Date().toLocaleTimeString([], {
@@ -86,7 +79,6 @@ export default function SupportContactPage() {
       setNewMessage("");
     }
   };
-
   return (
     <Box
       maxWidth="lg"
@@ -112,7 +104,6 @@ export default function SupportContactPage() {
       >
         <Typography variant="h5">Support Chat</Typography>
       </Box>
-
       <Grid container sx={{ flexGrow: 1, height: "100%" }}>
         <Grid
           item
@@ -132,7 +123,6 @@ export default function SupportContactPage() {
             onSelectUser={setSelectedUser}
           />
         </Grid>
-
         <Grid
           item
           xs={12}

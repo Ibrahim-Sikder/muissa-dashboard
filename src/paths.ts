@@ -9,7 +9,7 @@ export const paths = {
     blogs: "/dashboard/blogs",
     reviews: "/dashboard/reviews",
     payments: "/dashboard/payments",
-    support: "/dashboard/support",
+    support: '/dashboard/support'
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },
