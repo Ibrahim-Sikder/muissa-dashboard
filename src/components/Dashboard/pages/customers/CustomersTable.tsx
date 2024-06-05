@@ -15,7 +15,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
-import { Button } from "@mui/material";
+import { Button, CardHeader, TextField } from "@mui/material";
 import Link from "next/link";
 
 function noop(): void {
@@ -51,6 +51,35 @@ export function CustomersTable({
         boxShadow: "none",
       }}
     >
+      <CardHeader
+        title="Customers"
+        subheader="List of all customers"
+        action={
+          <TextField
+            label="Search"
+            size="small"
+            variant="outlined"
+            InputProps={{
+              endAdornment: (
+                <Button
+                  color="primary"
+                  size="small"
+                  variant="contained"
+                  sx={{ borderRadius: "0px 4px 4px 0px" }}
+                >
+                  Search
+                </Button>
+              ),
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "4px 0px 0px 4px",
+                paddingRight: "0 !important",
+              },
+            }}
+          />
+        }
+      />
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
@@ -89,7 +118,7 @@ export function CustomersTable({
 
                   <TableCell>
                     <Link href={`/dashboard/customers/${row.id}`}>
-                      <Button color="primary" size="small" variant="contained">
+                      <Button color="primary" size="small" variant="outlined">
                         View
                       </Button>
                     </Link>

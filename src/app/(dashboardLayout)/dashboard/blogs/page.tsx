@@ -7,9 +7,11 @@ import {
   BlogsTable,
 } from "@/components/Dashboard/pages/blogs/BlogsTable";
 
-export const metadata = {
-  title: `Blogs | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-} satisfies Metadata;
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Blogs",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};
 
 const blogs: Blog[] = [
   {

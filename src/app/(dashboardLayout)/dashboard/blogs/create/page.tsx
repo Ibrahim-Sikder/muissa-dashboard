@@ -1,6 +1,8 @@
 import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
 import { Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import React from "react";
+
 export default function CreateBlogPage() {
   return (
     <Stack spacing={3}>
@@ -11,6 +13,9 @@ export default function CreateBlogPage() {
     </Stack>
   );
 }
-export const metadata = {
-  title: `Blogs | Dashboard | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-} satisfies Metadata;
+
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Blogs",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

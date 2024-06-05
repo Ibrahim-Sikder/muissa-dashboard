@@ -7,8 +7,9 @@ import {
   Customer,
   CustomersTable,
 } from "@/components/Dashboard/pages/customers/CustomersTable";
-import { FaPlus } from "react-icons/fa";
+import { FaEye, FaPlus } from "react-icons/fa";
 import dayjs from "dayjs";
+import { Box } from "@mui/material";
 
 export const metadata = {
   title: `Customers | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -168,14 +169,24 @@ export default function Page(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" justifyContent="space-between" spacing={3}>
         <Typography variant="h4">Customers</Typography>
-        <Button
-          color="primary"
-          size="small"
-          startIcon={<FaPlus />}
-          variant="contained"
-        >
-          Add customer
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button
+            color="primary"
+            size="small"
+            startIcon={<FaEye />}
+            variant="contained"
+          >
+            Investors List
+          </Button>
+          <Button
+            color="primary"
+            size="small"
+            startIcon={<FaEye />}
+            variant="contained"
+          >
+            Business Owners List
+          </Button>
+        </Stack>
       </Stack>
       <CustomersTable
         count={paginatedCustomers.length}

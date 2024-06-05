@@ -1,3 +1,4 @@
+
 "use client";
 
 import MUIForm from "@/components/Forms/Form";
@@ -55,7 +56,7 @@ const Contact = () => {
                 আমরা যত তাড়াতাড়ি সম্ভব আপনার সাথে যোগাযোগ করব:
               </p>
             </div>
-            <MUIForm onSubmit={handleSubmit}>
+            <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
               <Box>
                 <Grid container direction="column">
                   <Grid item lg={6} md={12} sm={12}>

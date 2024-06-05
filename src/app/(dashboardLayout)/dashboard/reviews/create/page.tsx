@@ -1,7 +1,7 @@
 import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
 import CreateReview from "@/components/Dashboard/pages/reviews/CreateReview";
 import { Stack, Typography } from "@mui/material";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export default function CreateBlogPage() {
   return (
@@ -14,6 +14,8 @@ export default function CreateBlogPage() {
   );
 }
 
-export const metadata = {
-  title: `Reviews | Dashboard | ${process.env.NEXT_PUBLIC_SITE_NAME}`,
-} satisfies Metadata;
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Reviews",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

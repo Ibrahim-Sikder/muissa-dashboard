@@ -11,10 +11,6 @@ import { FaPlus } from "react-icons/fa";
 import dayjs from "dayjs";
 import Link from "next/link";
 
-export const metadata = {
-  title: `Services | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-} satisfies Metadata;
-
 const services: Service[] = [
   {
     name: "Product Services",
@@ -75,3 +71,9 @@ function applyPagination(
 ): Service[] {
   return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }
+
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Services",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

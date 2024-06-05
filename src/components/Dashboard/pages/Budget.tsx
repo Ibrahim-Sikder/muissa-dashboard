@@ -26,7 +26,15 @@ export function Budget({
   const trendColor = trend === "up" ? "#4caf50" : "#f44336";
 
   return (
-    <Card sx={sx}>
+    <Card
+      sx={{
+        height: "100%",
+        backgroundColor: "#ffffff",
+        borderRadius: "10px",
+        boxShadow: "none",
+        border: "1px solid rgba(0, 0, 0, 0.1)",
+      }}
+    >
       <CardContent>
         <Stack spacing={3}>
           <Stack
@@ -42,7 +50,7 @@ export function Budget({
             </Stack>
             <Avatar
               sx={{
-                backgroundColor: "#635bff",
+                backgroundColor: "#00305c",
                 height: "56px",
                 width: "56px",
               }}

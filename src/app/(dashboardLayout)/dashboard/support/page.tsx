@@ -2,9 +2,9 @@
 import * as React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useState } from "react";
-import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
 import UserList from "@/components/Dashboard/pages/support/UserList";
-
+import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
+import type { Metadata } from "next";
 interface Message {
   id: number;
   sender: string;

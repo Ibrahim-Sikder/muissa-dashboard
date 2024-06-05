@@ -8,10 +8,6 @@ import {
   PaymentsTable,
 } from "@/components/Dashboard/pages/payments/PaymentsTable";
 
-export const metadata = {
-  title: `payments | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-} satisfies Metadata;
-
 const payments: Payments[] = [
   {
     transactionId: "D-123456",
@@ -19,6 +15,9 @@ const payments: Payments[] = [
     month: dayjs().subtract(1, "day").format("MMMM"),
     amount: "$100",
     paymentMethod: "Bkash",
+    name: "John Doe",
+    phone: "01712345678",
+    membershipId: "M-123456",
   },
   {
     transactionId: "D-123457",
@@ -26,6 +25,9 @@ const payments: Payments[] = [
     month: dayjs().subtract(2, "day").format("MMMM"),
     amount: "$200",
     paymentMethod: "Nagad",
+    name: "Jane Doe",
+    phone: "01712345679",
+    membershipId: "M-123457",
   },
   {
     transactionId: "D-123458",
@@ -33,6 +35,9 @@ const payments: Payments[] = [
     month: dayjs().subtract(3, "day").format("MMMM"),
     amount: "$300",
     paymentMethod: "Rocket",
+    name: "John Doe",
+    phone: "01712345678",
+    membershipId: "M-123456",
   },
   {
     transactionId: "D-123459",
@@ -40,6 +45,9 @@ const payments: Payments[] = [
     month: dayjs().subtract(4, "day").format("MMMM"),
     amount: "$400",
     paymentMethod: "Bkash",
+    name: "Jane Doe",
+    phone: "01712345679",
+    membershipId: "M-123457",
   },
   {
     transactionId: "D-123460",
@@ -47,6 +55,9 @@ const payments: Payments[] = [
     month: dayjs().subtract(5, "day").format("MMMM"),
     amount: "$500",
     paymentMethod: "Nagad",
+    name: "John Doe",
+    phone: "01712345678",
+    membershipId: "M-123456",
   },
 ];
 
@@ -75,3 +86,9 @@ function applyPagination(
 ): Payments[] {
   return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }
+
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Payments",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};
