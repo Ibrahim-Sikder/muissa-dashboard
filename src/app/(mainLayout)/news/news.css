@@ -1,3 +1,9 @@
-.newsDetailsRightSideWrap{
-    border: 1px solid #ddd;
+.newsDetailsRightSideWrap {
+  border: 1px solid #ddd;
+}
+
+.commentCard {
+  padding: 20px 30px;
+  background-color: #f4f7fc;
+  position: relative;
 }
