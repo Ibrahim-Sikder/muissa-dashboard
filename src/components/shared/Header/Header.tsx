@@ -47,7 +47,7 @@ const Header = () => {
     <header>
       <div className=" bg-[#152644] h-10 hidden xl:block">
         <div className=" topBar flex items-center justify-between ">
-          <small>House-08, Road-07, Block-C, Banasree,Dhka-1219 </small>
+          <small>House-08, Road-07, Block-C, Banasree,Dhaka-1219 </small>
           <div className="flex space-x-3">
             <FaFacebookF />
             <FaLinkedinIn />

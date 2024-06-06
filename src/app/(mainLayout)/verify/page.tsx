@@ -77,12 +77,12 @@ const OTPVerifyPage = () => {
   const [emptyFieldIndex, setEmptyFieldIndex] = useState<number | null>(null);
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
-  const handleSubmit = async (data: FieldValues) => {
+  const handleSubmit = async (data:any) => {
     console.log(data);
   };
   return (
-    <div className=" mt-20 flex items-center justify-center px-5">
-      <div className="border w-full lg:w-1/4 p-5 rounded-md bg-gray-50">
+    <div className=" -mt-24 h-screen flex items-center justify-center ">
+      <div className="border w-full lg:w-1/4 p-10 rounded-md bg-gray-50">
         <Image
           src={lockIcon}
           alt="logo"
