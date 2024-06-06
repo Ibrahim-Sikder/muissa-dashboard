@@ -77,7 +77,7 @@ const OTPVerifyPage = () => {
   const [emptyFieldIndex, setEmptyFieldIndex] = useState<number | null>(null);
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
-  const handleSubmit = async (data: FieldValues) => {
+  const handleSubmit = async (data:any) => {
     console.log(data);
   };
   return (
