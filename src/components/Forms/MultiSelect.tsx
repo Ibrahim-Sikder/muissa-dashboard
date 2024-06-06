@@ -65,7 +65,7 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
         textAlign: "center",
         justifyContent: "center",
         minHeight: "54px",
-        marginTop: 1.2,
+        marginTop: 1.9,
       }}
       error={isError}
     >

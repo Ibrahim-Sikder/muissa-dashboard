@@ -46,3 +46,7 @@ export const supportServices = [
   "আইটি সাপোর্ট",
   "ফান্ডিং সাপোর্ট"
 ];
+export const role = [
+  "As BUSINESS OWNER",
+  "AS A INVESTOR",
+];
