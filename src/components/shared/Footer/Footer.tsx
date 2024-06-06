@@ -13,7 +13,9 @@ const Footer = () => {
           <div className="md:w-[300px]">
             <div className="flex md:flex-row flex-col md:justify-normal justify-center items-center mb-5">
               <Image src={logo} height={50} alt="logo" width={50} />
-              <h4 className="text-white ml-2">Muissa Business Consulting Ltd.  </h4>
+              <h4 className="text-white ml-2">
+                Muissa Business Consulting Ltd.{" "}
+              </h4>
             </div>
             <p className="leading-9">
               {" "}
@@ -56,9 +58,15 @@ const Footer = () => {
             <h4>Resources </h4>
             <ul className="space-y-5 mt-5">
               <li>Support </li>
-              <li>Privacy policy </li>
-              <li>FAQs </li>
-              <li>Terms & conditions </li>
+              <li>
+                <Link href="/faq">FAQs</Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link href="/terms-conditions">Terms & conditions</Link>
+              </li>
             </ul>
           </div>
         </div>
