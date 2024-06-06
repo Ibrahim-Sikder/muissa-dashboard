@@ -47,7 +47,7 @@ const Header = () => {
     <header>
       <div className=" bg-[#152644] h-10 hidden xl:block">
         <div className=" topBar flex items-center justify-between ">
-          <small>House-08, Road-07, Block-C, Banasree,Dhka-1219 </small>
+          <small>House-08, Road-07, Block-C, Banasree,Dhaka-1219 </small>
           <div className="flex space-x-3">
             <FaFacebookF />
             <FaLinkedinIn />
@@ -59,11 +59,13 @@ const Header = () => {
       <Container className="headerWrap ">
         <div className=" flex items-center justify-between px-5 xl:px-0  ">
           <div className="flex items-center ">
-            <Image
-              className="w-10 md:w-16 mr-2 rounded-full "
-              src={logo}
-              alt="logo"
-            />
+            <Link href="/">
+              <Image
+                className="w-10 md:w-16 mr-2 rounded-full "
+                src={logo}
+                alt="logo"
+              />
+            </Link>
             <div>
               <h3 className="text-sm md:text-xl lg:text-2xl">
                 Muissa Consulting{" "}
@@ -76,7 +78,7 @@ const Header = () => {
               <FaPhoneVolume className="headerIcon -rotate-45 mr-2" />
               <div>
                 <b className="block text-sm"> 01403-852850 </b>
-                <span>(Sat-Thu)</span>
+                <span>(Mon-Friday)</span>
               </div>
             </div>
             <div className="flex ">
@@ -90,7 +92,7 @@ const Header = () => {
               <HiOutlineLocationMarker className="headerIcon mr-2" />
               <div>
                 <b className="block text-sm">House-08, Road-07, Block-C, </b>
-                <span> Banasree,Dhka-1219</span>
+                <span> Banasree,Dhaka-1219</span>
               </div>
             </div>
           </div>
@@ -119,16 +121,18 @@ const Header = () => {
           >
             <div className={`${stickyMenu ? "stickyLogo" : "hidden"}`}>
               <div className="flex items-center ">
-                <Image
-                  className="w-10 md:w-16 mr-2 rounded-full "
-                  src={logo}
-                  alt="logo"
-                />
+                <Link href="/">
+                  <Image
+                    className="w-10 md:w-16 mr-2 rounded-full "
+                    src={logo}
+                    alt="logo"
+                  />
+                </Link>
                 <div>
                   <h3 className="text-sm md:text-xl lg:text-2xl">
-                  Muissa Business
+                    Muissa Business
                   </h3>
-                  <small> Consulting Ltd.  </small>
+                  <small> Consulting Ltd. </small>
                 </div>
               </div>
             </div>
@@ -182,7 +186,14 @@ const Header = () => {
 
         <div className={mobileMenu ? `activeMobileMenu` : `mobileMenu`}>
           <div className="flex items-center xl:hidden ">
-            <Image className="w-12 mr-2 rounded-full " src={logo} alt="logo" />
+            <Link href="/">
+              {" "}
+              <Image
+                className="w-12 mr-2 rounded-full "
+                src={logo}
+                alt="logo"
+              />
+            </Link>
             <div>
               <h5>Muissa Consulting </h5>
               <small>Business Solution </small>
