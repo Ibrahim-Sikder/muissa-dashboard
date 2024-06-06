@@ -1,4 +1,3 @@
-
 "use client";
 
 import MUIForm from "@/components/Forms/Form";
@@ -30,9 +29,7 @@ const validationSchema = z.object({
 });
 
 const Contact = () => {
-
-
-  const handleSubmit = async (data:FieldValues) => {
+  const handleSubmit = async (data: FieldValues) => {
     console.log(data);
   };
 
@@ -56,24 +53,20 @@ const Contact = () => {
                 আমরা যত তাড়াতাড়ি সম্ভব আপনার সাথে যোগাযোগ করব:
               </p>
             </div>
-            <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
+            <MUIForm
+              onSubmit={handleSubmit}
+              resolver={zodResolver(validationSchema)}
+            >
               <Box>
                 <Grid container direction="column">
                   <Grid item lg={6} md={12} sm={12}>
-                    <MUIInput
-                      size="medium"
-                      label="নাম"
-                      name="name"
-                    
-                      fullWidth
-                    />
+                    <MUIInput size="medium" label="নাম" name="name" fullWidth />
                   </Grid>
                   <Grid item lg={6}>
                     <MUIInput
                       size="medium"
                       label="ইমেইল ঠিকানা"
                       name="email"
-                  
                       fullWidth
                     />
                   </Grid>
@@ -82,7 +75,6 @@ const Contact = () => {
                       size="medium"
                       label="ফোন নম্বর"
                       name="phone"
-                
                       fullWidth
                     />
                   </Grid>
@@ -91,7 +83,6 @@ const Contact = () => {
                       size="medium"
                       label="বার্তা"
                       name="message"
-                  
                       fullWidth
                     />
                   </Grid>
@@ -145,7 +136,9 @@ const Contact = () => {
                   <FaEnvelope className="headerIcon mr-2" />
                 </div>
                 <div>
-                  <h3 className="block text-3xl font">Mail us for information</h3>
+                  <h3 className="block text-3xl font">
+                    Mail us for information
+                  </h3>
                   <span>muissaltd@gmail.com</span>
                 </div>
               </div>
