@@ -29,6 +29,7 @@ const customers = [
       street: "4158 Hedge Street",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-001",
   },
   {
     id: "USR-009",
@@ -43,6 +44,7 @@ const customers = [
       street: "2188 Armbrester Drive",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-002",
   },
   {
     id: "USR-008",
@@ -57,6 +59,7 @@ const customers = [
       street: "4894 Lakeland Park Drive",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-003",
   },
   {
     id: "USR-007",
@@ -71,6 +74,7 @@ const customers = [
       street: "368 Lamberts Branch Road",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-004",
   },
   {
     id: "USR-006",
@@ -85,6 +89,7 @@ const customers = [
       street: "3934 Wildrose Lane",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-005",
   },
   {
     id: "USR-005",
@@ -99,6 +104,7 @@ const customers = [
       street: "1865 Pleasant Hill Road",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-006",
   },
 
   {
@@ -114,6 +120,7 @@ const customers = [
       street: "317 Angus Road",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-007",
   },
   {
     id: "USR-003",
@@ -128,6 +135,7 @@ const customers = [
       street: "2849 Fulton Street",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-008",
   },
   {
     id: "USR-002",
@@ -142,6 +150,7 @@ const customers = [
       street: "1798 Hickory Ridge Drive",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-009",
   },
   {
     id: "USR-001",
@@ -156,6 +165,7 @@ const customers = [
       street: "75247",
     },
     createdAt: dayjs().subtract(2, "hours").toDate(),
+    membershipId: "MEM-010",
   },
 ] satisfies Customer[];
 

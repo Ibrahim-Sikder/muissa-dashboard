@@ -9,13 +9,11 @@ const layout = ({ children }: { children: ReactNode }) => {
     <div>
       <Header />
       <Container>
-<<<<<<< HEAD
         <div className="flex justify-between w-full ">
-=======
-        <div className="flex gap-10 w-full  mt-10 ">
->>>>>>> 1330d3f4315282460427e3f6beb64a916ee875bf
-          <ProfileSidebar />
-          {children}
+          <div className="flex gap-10 w-full  mt-10 ">
+            <ProfileSidebar />
+            {children}
+          </div>
         </div>
       </Container>
       <Footer />

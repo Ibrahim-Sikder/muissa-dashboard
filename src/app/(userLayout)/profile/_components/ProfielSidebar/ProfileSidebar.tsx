@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-const ProfileSidebar = () => {
-    return (
-        <div className='h-[500[px] '>
-            <h4>this is profiel side bar </h4>
-        </div>
-    );
-};
-
-export default ProfileSidebar;
-=======
 import Link from "next/link";
 import React from "react";
 import {
@@ -71,4 +58,3 @@ const ProfileSidebar = () => {
 };
 
 export default ProfileSidebar;
->>>>>>> 1330d3f4315282460427e3f6beb64a916ee875bf
