@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Container from "@/components/ui/HomePage/Container/Container";
 import { useState } from "react";
 
-
 export default function AskAndQuestion() {
   const [isOpen, setIsOpen] = useState(null);
   const accordionsData = [
     {
-      title: "Why is Muissa Business Consulting Ltd. the best company for business consulting?",
+      title:
+        "Why is Muissa Business Consulting Ltd. the best company for business consulting?",
       description:
         "Muissa Business Consulting Ltd. is the best business consulting company because of our commitment to delivering exceptional outcomes tailored to your needs. Our proven efficiency and results speak louder than words.",
     },
@@ -24,7 +24,8 @@ export default function AskAndQuestion() {
         "Our consultants analyze your business, identify areas for improvement, and develop customized strategies. We then implement and monitor these strategies to ensure your business achieves its goals.",
     },
     {
-      title: "Can I protect my business idea with Muissa Business Consulting Ltd.?",
+      title:
+        "Can I protect my business idea with Muissa Business Consulting Ltd.?",
       description:
         "Yes, you can. If your idea is unique and new, we can assist you in taking the necessary steps to protect it. Confidentiality is guaranteed through our non-disclosure agreements.",
     },
@@ -89,19 +90,26 @@ export default function AskAndQuestion() {
         "There are around 1200 startup tech consulting companies in Bangladesh. Muissa Business Consulting Ltd. excels due to our highly skilled team and comprehensive service offerings, making us the best choice for your consulting needs.",
     },
   ];
-  
-  const toggle = (idx:any) =>
+
+  const toggle = (idx: any) =>
     setIsOpen((prevIdx) => (prevIdx === idx ? null : idx));
 
   return (
     <Container>
-      <div className="mt-20">
-        <SectionTitle
-          title="Frequently Asked Questions"
-          subtitle=" Most Common Questions asked by our Clients"
-        />
+      <div className="sectionMargin ">
+        <div className="grid grid-cols-1  md:grid-cols-2 place-items-center  gap-10">
+          <p className="lg:w-[400px] leading-9">
+          Lorem ipsum dolor sit amet consecte tur adipiscing elit sed do eiu smod tempor incididunt ut labore.
+          </p>
+          <div className="leading-8 relative">
+            <div className="divider"></div>
+            <h1> You can learn more</h1>
+            <h1> from our asked questions</h1>
+           
+          </div>
+        </div>
       </div>
-      <div className="mx-4 rounded-lg border font-sans my-10">
+      <div className="mx-4 mt-10 rounded-lg border font-sans my-10">
         {accordionsData.map((PerAccordion, idx) => (
           <div key={idx} className="border-b p-4">
             <button
@@ -109,7 +117,7 @@ export default function AskAndQuestion() {
               className="flex h-full w-full items-center justify-between py text-black font-medium"
             >
               <span className="text-xl">{PerAccordion.title}</span>
-              <span  className="rounded-full bg-blue-100 p-2">
+              <span className="rounded-full bg-blue-100 p-2">
                 <svg
                   className="ml-8 mr-7 shrink-0 fill-[#00A2FF]"
                   width="16"
