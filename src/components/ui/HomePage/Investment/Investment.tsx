@@ -152,62 +152,60 @@ export default function Investment() {
       image: investment5.src,
       content: (
         <div className="investmentContent">
-          <ul className='space-y-3'>
+          <ul className="space-y-3">
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              ব্যবসায়ের জরুরী ফান্ড তৈরিতে পরামর্শ ও সহযোগিতা করা।
+                ব্যবসায়ের জরুরী ফান্ড তৈরিতে পরামর্শ ও সহযোগিতা করা।
               </span>
             </li>
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              প্রতিষ্ঠানের কাগজাদি তৈরিতে পরামর্শ ও সহযোগিতা করা।
+                প্রতিষ্ঠানের কাগজাদি তৈরিতে পরামর্শ ও সহযোগিতা করা।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">ফান্ডিং প্রোপোজাল তৈরি করা।</span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+                ইনভেস্টরের জন্য একটি শক্তিশালী বক্তব্য তৈরী ও পরামর্শ প্রদান।
               </span>
             </li>
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              ফান্ডিং প্রোপোজাল তৈরি করা।
+                ব্যবসায়ের মার্কেট Analysis এর মাধ্যমে বাজার তৈরি করা ও পরামর্শ
+                প্রদান
               </span>
             </li>
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              ইনভেস্টরের জন্য একটি শক্তিশালী বক্তব্য তৈরী ও পরামর্শ প্রদান।
-
+                প্রতিষ্ঠানের Analysis Report তৈরিতে সহযোগিতা করা।
               </span>
             </li>
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              ব্যবসায়ের মার্কেট Analysis এর মাধ্যমে বাজার তৈরি করা ও পরামর্শ প্রদান
+                প্রতিষ্ঠানের Monitoring Report File তৈরি করা।
               </span>
             </li>
             <li className="flex items">
               {" "}
               <Forward />{" "}
               <span className="ml-2">
-              প্রতিষ্ঠানের Analysis Report তৈরিতে সহযোগিতা করা।
-              </span>
-            </li>
-            <li className="flex items">
-              {" "}
-              <Forward />{" "}
-              <span className="ml-2">
-              প্রতিষ্ঠানের Monitoring Report File তৈরি করা।
-              </span>
-            </li>
-            <li className="flex items">
-              {" "}
-              <Forward />{" "}
-              <span className="ml-2">
-              প্রতিষ্ঠানের কার্যপদ্ধতি নির্ধারণে পরামর্শ প্রদান।
+                প্রতিষ্ঠানের কার্যপদ্ধতি নির্ধারণে পরামর্শ প্রদান।
               </span>
             </li>
           </ul>
@@ -261,9 +259,8 @@ export default function Investment() {
   return (
     <Container className="sectionMargin">
       <SectionTitle
-        title="KNOW THE FUTURE OF INVESTMENT"
-        subtitle="
-The future of investment lies in digitalization, sustainable ventures, and AI-driven strategies, reshaping portfolios for resilience and growth."
+        title="আমাদের সেবা"
+        subtitle="আমাদের ব্যবসা পরামর্শক প্রতিষ্ঠানটি আপনাকে সঠিক পরিকল্পনা এবং কৌশল প্রদান করতে প্রতিশ্রুতিবদ্ধ। আমরা ব্যবসা উন্নয়ন, বাজার গবেষণা, আর্থিক বিশ্লেষণ, এবং পরিচালনায় দক্ষতা বৃদ্ধি করতে সহায়তা করি"
       />
       <Box sx={{ width: "100%", typography: "body1", marginTop: "50px" }}>
         <TabContext value={value}>
