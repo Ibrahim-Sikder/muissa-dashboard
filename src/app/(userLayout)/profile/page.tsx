@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import profile from "../../../assets/team/team3.jpg";
 import Image from "next/image";
 import MUIForm from "@/components/Forms/Form";
-import { Box, Button, Grid, Tab, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Tab, Typography } from "@mui/material";
 import MUIInput from "@/components/Forms/Input";
 import { FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,8 +13,11 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import MUIMultiSelect from "@/components/Forms/MultiSelect";
-import { supportServices } from "@/types";
+import { role, supportServices } from "@/types";
 import MUITextArea from "@/components/Forms/TextArea";
+import MUIFileUploader from "@/components/Forms/FileUpload";
+import DocUploader from "@/components/Forms/DocUploader";
+import INTSelect from "@/components/Forms/Select";
 
 const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
@@ -114,126 +117,158 @@ const Profile = () => {
                 </TabList>
               </Box>
               <TabPanel value="1" sx={{ padding: "0px" }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="businessName"
-                      label="ব্যবসার নাম "
-                      fullWidth
-                      size="medium"
-                    />
+                <Stack direction="row" spacing={3}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <INTSelect
+                        name="role"
+                        label="Select Your role "
+                        fullWidth
+                        items={role}
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="businessName"
+                        label="ব্যবসার নাম "
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="businessType"
+                        label="ব্যবসার ধরন"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="businessAddress"
+                        label="ব্যবসার ঠিকানা"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="website"
+                        label="ওয়েবসাইট (যদি থাকে)"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="emailConfirm"
+                        label="ব্যবসার বিবরণ"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIMultiSelect
+                        items={supportServices}
+                        name="businessNeed"
+                        label="পরিষেবার প্রয়োজনীয়তা"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUITextArea
+                        name="description"
+                        placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
+                        minRows={3}
+                        sx={{
+                          border: "1px solid #ddd",
+                          padding: "10px",
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="businessType"
-                      label="ব্যবসার ধরন"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="businessAddress"
-                      label="ব্যবসার ঠিকানা"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="website"
-                      label="ওয়েবসাইট (যদি থাকে)"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="emailConfirm"
-                      label="ব্যবসার বিবরণ"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIMultiSelect
-                      sx={{ marginTop: "50px" }}
-                      items={supportServices}
-                      name="businessNeed"
-                      label="পরিষেবার প্রয়োজনীয়তা"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUITextArea
-                      name="description"
-                      placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
-                      minRows={3}
-                      sx={{
-                        border: "1px solid #ddd",
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                </Grid>
+                  <Box sx={{ marginTop: "50px" }}>
+                    <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={12}
+                      sx={{ marginTop: "10px" }}
+                    >
+                      <Button> সাবমিট করুন</Button>
+                    </Grid>
+                  </Box>
+                </Stack>
               </TabPanel>
               <TabPanel value="2" sx={{ padding: "0px" }}>
-                <Grid container spacing={1}>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="email"
-                      label="বিনিয়োগের ধরন"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="investType"
-                      label="বিনিয়োগের পরিমাণ"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="investTime"
-                      label="বিনিয়োগের সময়কাল"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUIInput
-                      name="investGoal"
-                      label="বিনিয়োগের লক্ষ্য"
-                      fullWidth
-                      size="medium"
-                    />
-                  </Grid>
+                <Stack direction="row" spacing={3}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="email"
+                        label="বিনিয়োগের ধরন"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="investType"
+                        label="বিনিয়োগের পরিমাণ"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="investTime"
+                        label="বিনিয়োগের সময়কাল"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUIInput
+                        name="investGoal"
+                        label="বিনিয়োগের লক্ষ্য"
+                        fullWidth
+                        size="medium"
+                      />
+                    </Grid>
 
-                  <Grid item xs={12} sm={6} md={6} lg={6}>
-                    <MUITextArea
-                      name="investorDescription"
-                      placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
-                      minRows={3}
-                      sx={{
-                        border: "1px solid #ddd",
-                        padding: "10px",
-                      }}
-                    />
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <MUITextArea
+                        name="investorDescription"
+                        placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
+                        minRows={3}
+                        sx={{
+                          border: "1px solid #ddd",
+                          padding: "10px",
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
+                  <Box sx={{ marginTop: "50px" }}>
+                    <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={12}
+                      sx={{ marginTop: "10px" }}
+                    >
+                      <Button> সাবমিট করুন</Button>
+                    </Grid>
+                  </Box>
+                </Stack>
               </TabPanel>
             </TabContext>
           </Box>
-
-          {/* <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button type="submit" variant="contained" color="primary">
-              Update
-            </Button>
-          </Grid> */}
         </Grid>
       </MUIForm>
     </div>

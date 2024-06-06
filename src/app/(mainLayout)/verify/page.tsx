@@ -5,8 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
-import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
+
 
 const OTPInput = ({
   length,
@@ -117,3 +116,4 @@ const OTPVerifyPage = () => {
 };
 
 export default OTPVerifyPage;
+
