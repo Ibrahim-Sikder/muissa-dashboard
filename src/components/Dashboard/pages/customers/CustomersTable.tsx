@@ -30,6 +30,7 @@ export interface Customer {
   address: { city: string; state: string; country: string; street: string };
   phone: string;
   createdAt: Date;
+  membershipId: string;
 }
 
 interface CustomersTableProps {
@@ -81,9 +82,10 @@ export function CustomersTable({
         }
       />
       <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }}>
+        <Table sx={{ minWidth: "800px", textAlign: "left" }}>
           <TableHead>
             <TableRow>
+              <TableCell>Membership ID</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Location</TableCell>
@@ -96,6 +98,7 @@ export function CustomersTable({
             {rows.map((row) => {
               return (
                 <TableRow hover key={row.id}>
+                  <TableCell>{row.membershipId}</TableCell>
                   <TableCell>
                     <Stack
                       sx={{ alignItems: "center" }}

@@ -50,10 +50,10 @@ const HeroSection = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
         speed={1000}
         loop={true}
         pagination={{
