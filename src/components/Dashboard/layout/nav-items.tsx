@@ -1,6 +1,11 @@
 import { paths } from "@/paths";
 import { NavItemConfig } from "@/types/nav";
-import { FaChartPie, FaUsers, FaQuestionCircle } from "react-icons/fa";
+import {
+  FaChartPie,
+  FaUsers,
+  FaQuestionCircle,
+  FaFileInvoice,
+} from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
 import { MdOutlineReviews, MdPayment, MdPrivacyTip } from "react-icons/md";
 import { FcCustomerSupport } from "react-icons/fc";
@@ -85,6 +90,12 @@ export const navItems: NavItemConfig[] = [
     title: "Manage Payments",
     href: paths.dashboard.payments,
     icon: <MdPayment />,
+  },
+  {
+    key: "invoices",
+    title: "Manage Invoices",
+    href: paths.dashboard.invoices,
+    icon: <FaFileInvoice />,
   },
   {
     key: "terms-privacy",

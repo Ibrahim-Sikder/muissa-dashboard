@@ -12,6 +12,7 @@ export const paths = {
     support: "/dashboard/support",
     faqs: "/dashboard/faqs",
     policies: "/dashboard/policies",
+    invoices: "/dashboard/invoices",
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },
