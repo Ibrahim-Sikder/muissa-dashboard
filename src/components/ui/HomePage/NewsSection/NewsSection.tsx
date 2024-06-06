@@ -12,6 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
+import Link from "next/link";
 
 const NewsSection = () => {
   return (
@@ -75,10 +76,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -97,10 +102,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -119,10 +128,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -141,10 +154,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -163,10 +180,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -185,10 +206,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Button>
-                  Read More{" "}
-                  <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                </Button>
+                <Link href="/news">
+                  <Button>
+                    Read More{" "}
+                    <ArrowBackIos
+                      sx={{ fontSize: "15px", marginLeft: "8px" }}
+                    />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
