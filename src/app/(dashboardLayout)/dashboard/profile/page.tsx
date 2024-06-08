@@ -158,8 +158,8 @@ export default function UserProfilePage(): React.JSX.Element {
   );
 }
 
-export const metadata: Metadata = {
-  title: "Muissa Consulting | Profile",
-  description: "Muissa Consulting blogs page ",
-  keywords: "blogs, Muissa Consulting",
-};
+// export const metadata: Metadata = {
+//   title: "Muissa Consulting | Profile",
+//   description: "Muissa Consulting blogs page ",
+//   keywords: "blogs, Muissa Consulting",
+// };

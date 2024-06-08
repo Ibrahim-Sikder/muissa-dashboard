@@ -4,6 +4,7 @@ import developer from "../../../../assets/news/developer.webp";
 import Image from "next/image";
 import Container from "../Container/Container";
 import { Button, Stack } from "@mui/material";
+import Link from "next/link";
 const BrandSection = () => {
   const buttonStyle = {
     width: {
@@ -45,8 +46,12 @@ const BrandSection = () => {
               direction={{ sm: "row", xs: "column", md: "row", lg: "row" }}
               spacing={2}
             >
-              <Button sx={buttonStyle}>Get Membership</Button>
-              <Button sx={buttonStyle}>Read More</Button>
+              <Button component={Link} href="/membership" sx={buttonStyle}>
+                Get Membership
+              </Button>
+              <Button component={Link} href="/about" sx={buttonStyle}>
+                Know More
+              </Button>
             </Stack>
           </div>
         </div>

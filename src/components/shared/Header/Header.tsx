@@ -68,23 +68,23 @@ const Header = () => {
             </Link>
             <div>
               <h3 className="text-sm md:text-xl lg:text-2xl">
-                Muissa Consulting{" "}
+              Muissa Business 
               </h3>
-              <small className="md:mt-0 -mt-2 ">Business Solution </small>
+              <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
             </div>
           </div>
           <div className="xl:flex items-center  space-x-6  hidden ">
             <div className="flex ">
               <FaPhoneVolume className="headerIcon -rotate-45 mr-2" />
               <div>
-                <b className="block text-sm"> 01403-852850 </b>
-                <span>(Mon-Friday)</span>
+                <b className="block text-sm"> 09613-244844 </b>
+                <span>(Mon-Sat)</span>
               </div>
             </div>
             <div className="flex ">
               <FaEnvelope className="headerIcon mr-2" />
               <div>
-                <b className="block text-sm">muissaltd@gmail.com </b>
+                <b className="block text-sm">Mail us for help </b>
                 <small>muissaltd@gmail.com</small>
               </div>
             </div>
