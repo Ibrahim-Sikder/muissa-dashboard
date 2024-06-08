@@ -1,10 +1,14 @@
-'use client'
+'use client';
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HiArrowNarrowUp } from "react-icons/hi";
 
 const BackTopButton = () => {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
+
     const handleScroll = () => {
       const button = document.getElementById("button");
       if (button) {
@@ -20,8 +24,12 @@ const BackTopButton = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  function scrollToTop() {
+  const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (!isClient) {
+    return null;
   }
 
   return (

@@ -140,8 +140,6 @@ const Profile = () => {
                     width: {
                       lg: "430px",
                     },
-
-                    margin: "0 auto",
                   }}
                 >
                   <Tab
@@ -215,17 +213,7 @@ const Profile = () => {
                         size="medium"
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <MUIAutoComplete
-                        name="supportService"
-                        label="Support Service"
-                        options={subCategories}
-                        fullWidth
-                        required
-                        size="medium"
-                        sx={{ margin: "10px 0px" }}
-                      />
-                    </Grid>
+
                     <Grid item xs={12} sm={6} md={12} lg={12}>
                       <MUITextArea
                         name="description"
@@ -240,10 +228,7 @@ const Profile = () => {
                   </Grid>
                   <Box
                     sx={{
-                      marginTop: {
-                        md: "50px",
-                        xs: "10px",
-                      },
+                      marginTop: "100px",
                     }}
                   >
                     <DocUploader sx={{ fontSize: "20px" }} name="file" />

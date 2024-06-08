@@ -37,7 +37,7 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
       render={({ field }) => (
         <Box
           sx={{
-            marginTop: "20px",
+            marginTop: "60px",
             padding: "20px",
             borderRadius: "8px",
             border: "1px dashed #ddd",
