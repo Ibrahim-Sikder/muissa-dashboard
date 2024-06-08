@@ -34,11 +34,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <PhoneIcon className="h-6 w-6" />
-                <p>+880123456789</p>
+                <p>09613244844</p>
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <EnvelopeIcon className="h-6 w-6" />
-                <p>info@muissabusiness.com</p>
+                <p>muissaltd@gmail.com</p>
               </div>
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <FaWhatsapp size={24} />
