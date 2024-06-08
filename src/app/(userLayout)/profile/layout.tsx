@@ -9,9 +9,11 @@ const layout = ({ children }: { children: ReactNode }) => {
     <div>
       <Header />
       <Container>
-        <div className="flex gap-10 w-full  mt-10 ">
-          <ProfileSidebar />
-          {children}
+        <div className="flex lg:flex-row flex-col  gap-10 w-full  mt-10 ">
+          <div>
+            <ProfileSidebar />
+          </div>
+          <div>{children}</div>
         </div>
       </Container>
       <Footer />

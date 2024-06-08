@@ -41,8 +41,12 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
             padding: "20px",
             borderRadius: "8px",
             border: "1px dashed #ddd",
-            width: "300px",
+            width: {
+              lg:'300px',
+              xs:'200px'
+            },
             textAlign: "center",
+            margin: '0 auto'
           }}
         >
           <Box

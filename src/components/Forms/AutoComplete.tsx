@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { SxProps, useTheme } from "@mui/material";
+import { SxProps } from "@mui/material";
 
 type Option = {
   label: string;
@@ -24,6 +24,7 @@ const MUIAutoComplete = ({
   fullWidth,
   sx,
   required,
+  
   options,
   size = "small",
 }: TStateProps) => {
@@ -43,7 +44,7 @@ const MUIAutoComplete = ({
           size={size}
           getOptionLabel={(option) => option.label}
           sx={{
-            width: 300,
+          
             "& .MuiAutocomplete-listbox": {
               maxHeight: 200,
               overflow: "auto",
@@ -59,7 +60,7 @@ const MUIAutoComplete = ({
               required={required}
               error={!!error}
               helperText={error?.message}
-              sx={{ width: 300, mx: "auto" }} // Ensure the TextField width matches
+             
             />
           )}
         />

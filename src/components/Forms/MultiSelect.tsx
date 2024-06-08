@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { Theme, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -8,7 +8,18 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
-import { SxProps, Typography } from "@mui/material";
+import {
+  SxProps,
+  Typography,
+  Collapse,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import { ArrowRight } from "@mui/icons-material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 0;
@@ -24,25 +35,12 @@ const MenuProps = {
 interface TMultiSelectProps {
   name: string;
   label: string;
-  items: string[];
+  items: { category: string; subcategories?: string[] }[];
   size?: "small" | "medium";
   required?: boolean;
   fullWidth?: boolean;
   sx?: SxProps;
 }
-
-const getStyles = (
-  name: string,
-  personName: readonly string[],
-  theme: Theme
-) => {
-  return {
-    fontWeight:
-      personName?.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-};
 
 const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
   name,
@@ -54,24 +52,44 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
   sx,
 }) => {
   const theme = useTheme();
-  const { control, formState } = useFormContext();
+  const { control, setValue, getValues, formState } = useFormContext();
   const isError = formState.errors[name] !== undefined;
+
+  const [expanded, setExpanded] = useState<string[]>([]); // State to manage expanded categories
+
+  const handleCategoryClick = (category: string) => {
+    const currentIndex = expanded.indexOf(category);
+    const newExpanded = [...expanded];
+
+    if (currentIndex === -1) {
+      newExpanded.push(category); // Expand the category
+    } else {
+      newExpanded.splice(currentIndex, 1); // Collapse the category
+    }
+
+    setExpanded(newExpanded);
+  };
+
+  const handleSubcategoryChange = (subCategory: string) => {
+    const currentValues = getValues(name);
+    const updatedValues = currentValues.includes(subCategory)
+      ? currentValues.filter((value: string) => value !== subCategory)
+      : [...currentValues, subCategory];
+
+    setValue(name, updatedValues); // Update the form value with the controlled state
+  };
+
+  // Determine if a subcategory is selected
+  const isSubcategorySelected = (subCategory: string) => {
+    return getValues(name)?.includes(subCategory);
+  };
 
   return (
     <FormControl
-      sx={{
-        width: fullWidth ? "100%" : 315,
-        ...sx,
-        textAlign: "center",
-        justifyContent: "center",
-        minHeight: "54px",
-        marginTop: 1.9,
-      }}
+      sx={{ width: fullWidth ? "100%" : 315, ...sx }}
       error={isError}
     >
-      <InputLabel id={`${name}-label`} sx={{ mx: "auto" }}>
-        {label}
-      </InputLabel>
+      <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <Controller
         name={name}
         control={control}
@@ -83,38 +101,57 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
             multiple
             size={size}
             {...field}
-            input={<OutlinedInput id="select-multiple-chip" label={label} />}
+            input={<OutlinedInput label={label} />}
             renderValue={(selected) => (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 0.5,
-                  maxHeight: "34px",
-                  overflow: "auto",
-                }}
-              >
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                 {selected.map((value: string) => (
                   <Chip
                     key={value}
                     label={value}
-                    size="small"
-                    sx={{ height: "18px" }}
+                    sx={{ padding: "2px" }}
                   />
                 ))}
               </Box>
             )}
             MenuProps={MenuProps}
-            sx={{ minHeight: "25px" }}
           >
             {items.map((item) => (
-              <MenuItem
-                key={item}
-                value={item}
-                style={getStyles(item, field.value, theme)}
-              >
-                {item}
-              </MenuItem>
+              <React.Fragment key={item.category}>
+                <MenuItem onClick={() => handleCategoryClick(item.category)}>
+                  <ListItemIcon>
+                    {expanded.includes(item.category) ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </ListItemIcon>
+                  {item.category}
+                </MenuItem>
+                <Collapse in={expanded.includes(item.category)}>
+                  <List component="div" disablePadding>
+                    {item.subcategories?.map((sub) => (
+                      <ListItem
+                        key={sub}
+                        button
+                        sx={{
+                          pl: 4, // Set left padding to 20px
+                          backgroundColor: isSubcategorySelected(sub)
+                            ? "#F5F5F5"
+                            : "transparent",
+                          color: isSubcategorySelected(sub) ? "#1591A3" : "black",
+                          marginBottom: isSubcategorySelected(sub) ? "3px" : "",
+                        }}
+                        onClick={() => handleSubcategoryChange(sub)}
+                      >
+                        <ListItemIcon>
+                          <ArrowRight /> {/* You can use other icons as needed */}
+                        </ListItemIcon>
+                        <ListItemText primary={sub} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              </React.Fragment>
             ))}
           </Select>
         )}

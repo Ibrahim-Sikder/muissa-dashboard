@@ -24,10 +24,18 @@ const BusinessOwnerForm = () => {
       <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
         <Box>
           <Grid container direction="column" justifyContent="center">
-            <Grid item lg={6} md={6} sm={6}>
+            <Grid item lg={6} md={6} xs={12}>
+              <MUIInput
+                name="businessName"
+                label="AS A BUSINESS OWNER "
+                fullWidth
+                size="medium"
+              />
+            </Grid>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput size="medium" label="নাম" name="name" fullWidth />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ইমেইল ঠিকানা"
@@ -35,7 +43,7 @@ const BusinessOwnerForm = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ফোন নম্বর"
@@ -43,7 +51,7 @@ const BusinessOwnerForm = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ব্যবসার নাম"
@@ -51,7 +59,7 @@ const BusinessOwnerForm = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ব্যবসার ঠিকানা"
@@ -60,7 +68,7 @@ const BusinessOwnerForm = () => {
               />
             </Grid>
 
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <Button
                 type="submit"
                 sx={{

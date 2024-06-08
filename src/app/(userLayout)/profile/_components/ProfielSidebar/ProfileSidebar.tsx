@@ -1,52 +1,71 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
-import {
-  FaStaylinked,
-  FaUserLock,
-  FaUserTie,
-  FaUsers,
-} from "react-icons/fa";
-
+import { usePathname } from "next/navigation";
+import { FaStaylinked, FaUserLock, FaUserTie, FaUsers } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import "./Profile.css";
 const ProfileSidebar = () => {
-  return (
-    <div className="h-[500px] w-[250px] p-5  bg-[#1591A3] text-white ">
-      <div className="space-y-5">
-        <Link href="/profile">
-          <div className="flex items-center space-x-2 ">
-            <FaUserTie size={25} />
-            <span> My Acount</span>
-          </div>
-        </Link>
+  const pathname = usePathname();
+  const [activeLink, setActiveLink] = useState("");
 
-        {/* <div>
-          <Link href="/profile/booking">
-            <div className="flex items-center space-x-2 ">
-              <FaBookmark size={25} />
-              <span>My Booking</span>
+  useEffect(() => {
+    setActiveLink(pathname);
+  }, [pathname]);
+
+  const isActive = (path: string) => activeLink === path;
+
+  return (
+    <div className=" profileSideBar ">
+      <div className="xl:space-y-5 profileItems">
+        <div>
+          <Link href="/profile">
+            <div
+              className={`flex items-center space-x-2  ${
+                isActive("/profile") ? "activeProfileLink" : ""
+              }`}
+            >
+              <FaUserTie size={25} />
+              <span>My Account</span>
             </div>
           </Link>
-        </div> */}
+        </div>
+
         <div>
           <Link href="/profile/membership">
-            <div className="flex items-center space-x-2 ">
+            <div
+              className={`flex items-center space-x-2 ${
+                isActive("/profile/membership") ? "activeProfileLink" : ""
+              }`}
+            >
               <FaUsers size={25} />
               <span>Membership</span>
             </div>
           </Link>
         </div>
+
         <div>
           <Link href="/profile/services">
-            <div className="flex items-center space-x-2 ">
+            <div
+              className={`flex items-center space-x-2 ${
+                isActive("/profile/services") ? "activeProfileLink" : ""
+              }`}
+            >
               <FaStaylinked size={25} />
               <span>Services</span>
             </div>
           </Link>
         </div>
+
         <div>
           <Link href="/profile/change-password">
-            <div className="flex items-center space-x-2 ">
+            <div
+              className={`flex items-center space-x-2 ${
+                isActive("/profile/change-password") ? "activeProfileLink" : ""
+              }`}
+            >
               <FaUserLock size={25} />
-              <span>Change Password </span>
+              <span>Change Password</span>
             </div>
           </Link>
         </div>
