@@ -131,11 +131,10 @@ const Profile = () => {
                 <Stack direction="row" spacing={3}>
                   <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <INTSelect
-                        name="role"
-                        label="Select Your role "
+                    <MUIInput
+                        name="businessName"
+                        label="AS A BUSINESS OWNER "
                         fullWidth
-                        items={role}
                         size="medium"
                       />
                     </Grid>
@@ -219,13 +218,14 @@ const Profile = () => {
                 <Stack direction="row" spacing={3}>
                   <Grid container spacing={1}>
                   <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <INTSelect
-                        name="role"
-                        label="Select Your role "
+                  <Grid item xs={12} sm={6} md={6} lg={12}>
+                    <MUIInput
+                        name="investor"
+                        label="AS A INVESTOR "
                         fullWidth
-                        items={role}
                         size="medium"
                       />
+                    </Grid>
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput

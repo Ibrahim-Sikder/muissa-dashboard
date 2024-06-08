@@ -9,7 +9,7 @@ import {
 
 const ProfileSidebar = () => {
   return (
-    <div className="h-[500px] w-[400px] p-5  bg-[#1591A3] text-white ">
+    <div className="h-[500px] w-[250px] p-5  bg-[#1591A3] text-white ">
       <div className="space-y-5">
         <Link href="/profile">
           <div className="flex items-center space-x-2 ">
