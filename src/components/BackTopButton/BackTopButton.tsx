@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
 import React, { useEffect } from "react";
-import { HiArrowNarrowUp, HiChevronDoubleUp } from "react-icons/hi";
+import { HiArrowNarrowUp } from "react-icons/hi";
 
 const BackTopButton = () => {
   useEffect(() => {

@@ -49,6 +49,14 @@ const Profile = () => {
       color: "#fff",
     },
   };
+  const uploadButtonStyle = {
+    width: "100px",
+    height: "35px",
+    backgroundColor: "#1591A3",
+    borderRadius: "3px",
+    color: "#fff",
+    marginTop: "5px",
+  };
 
   return (
     <div className="">
@@ -56,7 +64,10 @@ const Profile = () => {
         <Image className="w-40 rounded-full " src={profile} alt="profile" />
         <div>
           <h3>Mr Raihan Chowdhury </h3>
-          <p>MUI-034567898</p>
+          <p>
+            <b>USER ID:</b> MUI-034567898
+          </p>
+          <Button sx={uploadButtonStyle}>Upload </Button>
         </div>
       </div>
       <MUIForm
@@ -207,6 +218,15 @@ const Profile = () => {
               <TabPanel value="2" sx={{ padding: "0px" }}>
                 <Stack direction="row" spacing={3}>
                   <Grid container spacing={1}>
+                  <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <INTSelect
+                        name="role"
+                        label="Select Your role "
+                        fullWidth
+                        items={role}
+                        size="medium"
+                      />
+                    </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
                         name="email"

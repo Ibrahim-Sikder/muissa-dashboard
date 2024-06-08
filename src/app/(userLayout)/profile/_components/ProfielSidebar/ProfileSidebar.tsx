@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import {
-  FaBookmark,
-  FaServicestack,
   FaStaylinked,
   FaUserLock,
   FaUserTie,
@@ -20,14 +18,14 @@ const ProfileSidebar = () => {
           </div>
         </Link>
 
-        <div>
+        {/* <div>
           <Link href="/profile/booking">
             <div className="flex items-center space-x-2 ">
               <FaBookmark size={25} />
               <span>My Booking</span>
             </div>
           </Link>
-        </div>
+        </div> */}
         <div>
           <Link href="/profile/membership">
             <div className="flex items-center space-x-2 ">
