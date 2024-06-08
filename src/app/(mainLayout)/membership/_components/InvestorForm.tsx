@@ -24,6 +24,14 @@ const InvestorForm = () => {
       <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
         <Box>
           <Grid container direction="column" justifyContent="center">
+          <Grid item lg={6} md={6} sm={6}>
+              <MUIInput
+                name="businessName"
+                label="AS A INVESTOR  "
+                fullWidth
+                size="medium"
+              />
+            </Grid>
             <Grid item lg={6} md={6} sm={6}>
               <MUIInput size="medium" label="নাম" name="name" fullWidth />
             </Grid>

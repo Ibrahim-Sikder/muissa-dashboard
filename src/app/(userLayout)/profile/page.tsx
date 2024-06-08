@@ -4,7 +4,16 @@ import React, { useState } from "react";
 import profile from "../../../assets/team/team3.jpg";
 import Image from "next/image";
 import MUIForm from "@/components/Forms/Form";
-import { Box, Button, Grid, Stack, Tab, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Tab,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import MUIInput from "@/components/Forms/Input";
 import { FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,11 +22,14 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import MUIMultiSelect from "@/components/Forms/MultiSelect";
-import { role, supportServices } from "@/types";
+import { role, subCategories, supportServices } from "@/types";
 import MUITextArea from "@/components/Forms/TextArea";
 import MUIFileUploader from "@/components/Forms/FileUpload";
 import DocUploader from "@/components/Forms/DocUploader";
 import INTSelect from "@/components/Forms/Select";
+import MUIAutoComplete from "@/components/Forms/AutoComplete";
+import MUIFileUploadButton from "@/components/Forms/FileUploadButton";
+import { theme } from "@/lib/Theme/Theme";
 
 const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
@@ -34,14 +46,26 @@ const Profile = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const buttonStyle = {
-    width: "200px",
+    width: isMobile ? "200px" : "200px",
     height: "50px",
-    backgroundColor: "#1591A3",
+    backgroundColor: isMobile ? "#00305C" : "#1591A3",
     borderRadius: "3px",
     color: "#fff",
     margin: "0 auto",
+    marginBottom: {
+      xs: "10px",
+    },
     padding: "0px",
+    display: "flex",
+    fontSize: {
+      lg: "15px",
+      xs: "11px",
+    },
     justifyContent: "center",
     "&.Mui-selected": {
       backgroundColor: "#00305C",
@@ -51,22 +75,27 @@ const Profile = () => {
   };
 
   return (
-    <div className="">
-      <div className="flex gap-5 items-center">
+    <MUIForm
+      onSubmit={submitHandler}
+      resolver={zodResolver(validationSchema)}
+      defaultValues={{
+        user: "",
+        password: "",
+      }}
+    >
+      <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
         <Image className="w-40 rounded-full " src={profile} alt="profile" />
         <div>
-          <h3>Mr Raihan Chowdhury </h3>
-          <p>MUI-034567898</p>
+          <h4 className="text-xl md:text-3xl font-semibold ">
+            Mr Raihan Chowdhury{" "}
+          </h4>
+          <p className="text-sm md:text-normal ">
+            <b>USER ID:</b> MUI-034567898
+          </p>
+          <MUIFileUploadButton name="file" />
         </div>
       </div>
-      <MUIForm
-        onSubmit={submitHandler}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          user: "",
-          password: "",
-        }}
-      >
+      <div>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
             <MUIInput name="name" label="নাম " fullWidth size="medium" />
@@ -104,8 +133,13 @@ const Profile = () => {
                 <TabList
                   onChange={handleChange}
                   aria-label="lab API tabs example"
+                  orientation={isMobile ? "vertical" : "horizontal"}
                   sx={{
-                    width: "430px",
+                    flexDirection: isMobile ? "column" : "row",
+                    justifyContent: "center",
+                    width: {
+                      lg: "430px",
+                    },
                   }}
                 >
                   <Tab
@@ -117,14 +151,16 @@ const Profile = () => {
                 </TabList>
               </Box>
               <TabPanel value="1" sx={{ padding: "0px" }}>
-                <Stack direction="row" spacing={3}>
+                <Stack
+                  direction={isMobile ? "column" : "row"}
+                  spacing={{ xs: 1, md: 3, lg: 3 }}
+                >
                   <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <INTSelect
-                        name="role"
-                        label="Select Your role "
+                      <MUIInput
+                        name="businessName"
+                        label="AS A BUSINESS OWNER "
                         fullWidth
-                        items={role}
                         size="medium"
                       />
                     </Grid>
@@ -177,7 +213,8 @@ const Profile = () => {
                         size="medium"
                       />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={6} lg={12}>
+
+                    <Grid item xs={12} sm={6} md={12} lg={12}>
                       <MUITextArea
                         name="description"
                         placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
@@ -189,7 +226,11 @@ const Profile = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Box sx={{ marginTop: "50px" }}>
+                  <Box
+                    sx={{
+                      marginTop: "100px",
+                    }}
+                  >
                     <DocUploader sx={{ fontSize: "20px" }} name="file" />
                     <Grid
                       item
@@ -199,14 +240,27 @@ const Profile = () => {
                       lg={12}
                       sx={{ marginTop: "10px" }}
                     >
-                      <Button> সাবমিট করুন</Button>
+                      <Button>সাবমিট করুন</Button>
                     </Grid>
                   </Box>
                 </Stack>
               </TabPanel>
               <TabPanel value="2" sx={{ padding: "0px" }}>
-                <Stack direction="row" spacing={3}>
+                <Stack
+                  direction={isMobile ? "column" : "row"}
+                  spacing={{ xs: 1, md: 3, lg: 3 }}
+                >
                   <Grid container spacing={1}>
+                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                      <Grid item xs={12} sm={6} md={6} lg={12}>
+                        <MUIInput
+                          name="investor"
+                          label="AS A INVESTOR "
+                          fullWidth
+                          size="medium"
+                        />
+                      </Grid>
+                    </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
                         name="email"
@@ -252,7 +306,11 @@ const Profile = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Box sx={{ marginTop: "50px" }}>
+                  <Box
+                    sx={{
+                      marginTop: "50px",
+                    }}
+                  >
                     <DocUploader sx={{ fontSize: "20px" }} name="file" />
                     <Grid
                       item
@@ -270,8 +328,8 @@ const Profile = () => {
             </TabContext>
           </Box>
         </Grid>
-      </MUIForm>
-    </div>
+      </div>
+    </MUIForm>
   );
 };
 

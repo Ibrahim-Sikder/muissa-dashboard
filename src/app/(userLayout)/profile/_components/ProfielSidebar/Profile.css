@@ -1,0 +1,42 @@
+.profileSideBar {
+  height: 500px;
+  background: #1591a3;
+  color: #fff;
+  padding:20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .profileSideBar {
+    background: transparent;
+    color: #111;
+    height: auto;
+  }
+  .profileItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #1591a3;
+    height: 50px;
+    margin: auto;
+    text-align: center;
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .profileItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background: transparent;
+    height: auto;
+    margin: auto;
+    text-align: center;
+    color: #111;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+
+}
