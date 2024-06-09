@@ -10,7 +10,7 @@ import icon4 from "../../../assets/services/icon4.png";
 import icon5 from "../../../assets/services/icon5.png";
 import icon6 from "../../../assets/services/icon6.png";
 import Image from "next/image";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 import Tab from "@mui/material/Tab";
@@ -82,6 +82,9 @@ const Membership = () => {
     borderRadius: "3px",
     color: "#fff",
     margin: "0 auto",
+    marginBottom: {
+      xs: "10px",
+    },
     justifyContent: "center",
     "&.Mui-selected": {
       backgroundColor: "#00305C",
@@ -89,6 +92,10 @@ const Membership = () => {
       color: "#fff",
     },
   };
+
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <>
@@ -112,7 +119,7 @@ const Membership = () => {
           </div>
         </div>
         <div className="membarshipWraps mt-14">
-          <div className="grid grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {serviceData.map((data) => (
               <div key={data.id} className="membarshipCard">
                 <Image
@@ -129,7 +136,7 @@ const Membership = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1  mt-14 w-[800px] mx-auto   ">
+        <div className="grid grid-cols-1  mt-14 w-full xl:w-[800px] lg:w-[500px] mx-auto   ">
           <div className="mb-5 ">
             <h3 className="text-2xl font-semibold ">সদস্যতা নিবন্ধন</h3>
             <p className="mt-2 ">
@@ -151,7 +158,15 @@ const Membership = () => {
                 <TabList
                   onChange={handleChange}
                   aria-label="lab API tabs example"
-                  sx={{width: '430px', margin: '0 auto ', display:'flex', justifyContent: 'center'}}
+                  orientation={isMobile ? "vertical" : "horizontal"}
+                  sx={{
+                    flexDirection: isMobile ? "column" : "row",
+                    justifyContent: "center",
+
+                    width: {
+                      lg: "430px",
+                    },
+                  }}
                 >
                   <Tab
                     sx={buttonStyle}

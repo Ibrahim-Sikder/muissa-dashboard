@@ -8,12 +8,12 @@ const Award = () => {
     <div className="awardWraps sectionMargin ">
       <Container>
         <div className="awardContent">
-          <div className="grid grid-cols-1  lg:grid-cols-2 gap-20 place-content-between justify-between  w-full ">
+          <div className="grid grid-cols-1  lg:grid-cols-2 gap-5 lg:gap-20 place-content-between justify-between  w-full ">
             <div>
-              <h1 className="leading-10 w-full ">
+              <h1 className="lg:leading-10 w-full ">
                 Don’t misread here we have random & interesting facts.
               </h1>
-              <p className="mt-10 leading-8">
+              <p className="mt-10 lg:leading-8">
                 Starfish can re-grow their arms. In fact, a single arm can
                 regenerate a whole body. Google’s founders were willing to sell
                 & consult.

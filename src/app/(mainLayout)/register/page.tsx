@@ -22,7 +22,6 @@ const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
   password: z.string().min(6, "Must be at least 6 characters"),
   phone: z.string().min(11, "Must be at least 11 characters"),
-
 });
 
 const Register = () => {
@@ -54,10 +53,8 @@ const Register = () => {
     },
   };
 
-
-
   const handleSubmit = async (data: FieldValues) => {
-   console.log(data)
+    console.log(data);
   };
 
   return (
@@ -84,7 +81,7 @@ const Register = () => {
       >
         <Box
           sx={{
-            width: isLargeDevice ? "600px" : "100%",
+            width: isLargeDevice ? "625px" : "100%",
             height: isLargeDevice ? "700px" : "auto",
             justifyContent: "center",
             alignItems: "center",
@@ -97,10 +94,12 @@ const Register = () => {
           }}
         >
           <Typography variant="h4" fontWeight="bold">
-            Welcome To Muissa Business Consulting Ltd. 
+            Welcome To Muissa Business Consulting Ltd.
           </Typography>
           <Typography component="p" sx={{ marginTop: "10px", color: "#fff" }}>
-          Elevate your business with our expert support in Product, Sales, Marketing, Delivery, IT, Funding, and Investment. Transform potential into performance with seamless, tailored solutions.
+            Elevate your business with our expert support in Product, Sales,
+            Marketing, Delivery, IT, Funding, and Investment. Transform
+            potential into performance with seamless, tailored solutions.
           </Typography>
         </Box>
         <Box className="bg-[#fff] shadow-md px-5 py-16  md:p-20 mx-3 md:m-aut0 lg:m-0 lg:mx-0 rounded-md md:rounded-none  w-full md:w-[600px]  flex items-center text-[#002140] ">
@@ -108,9 +107,9 @@ const Register = () => {
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
             defaultValues={{
-              user: '',
-              password: '',
-              phone: ''
+              user: "",
+              password: "",
+              phone: "",
             }}
           >
             <Box>
@@ -119,7 +118,7 @@ const Register = () => {
                 variant="h4"
                 sx={{ textAlign: "center", marginBottom: "10px" }}
               >
-                Register Now  !
+                Register Now !
               </Typography>
               <Box>
                 <MUIInput
@@ -141,7 +140,6 @@ const Register = () => {
                   fullWidth
                 />
               </Box>
-             
 
               <Button
                 type="submit"
@@ -162,20 +160,20 @@ const Register = () => {
                 variant="outlined"
                 color="primary"
               >
-               Register
+                Register
               </Button>
               <Typography
-                  sx={{
-                    color: "#002140",
-                    fontSize:  "12px",
-                    justifyContent: "right",
-                    display:'flex',
-                    marginTop: '5px'
-                  }}
-                  component="small"
-                >
-                  Already have an account ? <Link href='/login'>Login</Link>
-                </Typography>
+                sx={{
+                  color: "#002140",
+                  fontSize: "12px",
+                  justifyContent: "right",
+                  display: "flex",
+                  marginTop: "5px",
+                }}
+                component="small"
+              >
+                Already have an account ? <Link href="/login">Login</Link>
+              </Typography>
             </Box>
           </MUIForm>
         </Box>

@@ -295,6 +295,7 @@ export default function Investment() {
                 </TabList>
               </Box>
             </Grid>
+            
             <Grid item xs={12} md={9}>
               <TransitionGroup>
                 {tabData.map(

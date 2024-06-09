@@ -36,7 +36,7 @@ const Membership = () => {
     backgroundColor: "#1591A3",
     borderRadius: "3px",
     color: "#fff",
-    margin: "0 auto",
+    margin: "5px auto",
     justifyContent: "center",
     "&.Mui-selected": {
       backgroundColor: "#00305C",

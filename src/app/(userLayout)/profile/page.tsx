@@ -46,7 +46,7 @@ const validationSchema = z.object({
   businessAddress: z.string().min(1, "ব্যবসার ঠিকানা আবশ্যক").optional(),
   website: z.string().optional(),
   businessDetails: z.string().optional(),
-  businessNeed: z.array(z.string()).min(1, "পরিষেবার প্রয়োজনীয়তা নির্বাচন করুন").optional(),
+  // businessNeed: z.array(z.string()).min(1, "পরিষেবার প্রয়োজনীয়তা নির্বাচন করুন").optional(),
   description: z.string().optional(),
 
   investor: z.string().min(1, "বিনিয়োগকারীর নাম আবশ্যক").optional(),
@@ -70,7 +70,7 @@ const defaultValues = {
   businessAddress: "",
   website: "",
   businessDetails: "",
-  businessNeed: [],
+  // businessNeed: [],
   description: "",
   investor: "",
   investmentType: "",
@@ -268,9 +268,7 @@ const Profile = () => {
                     </Grid>
                   </Grid>
                   <Box
-                    sx={{
-                      marginTop: "100px",
-                    }}
+                    
                   >
                     <DocUploader sx={{ fontSize: "20px" }} name="file" />
                     <Grid
@@ -281,7 +279,22 @@ const Profile = () => {
                       lg={12}
                       sx={{ marginTop: "10px" }}
                     >
-                      <Button type="submit">সাবমিট করুন</Button>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                  
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          sx={{ display: "block", margin: "0 auto" }}
+                        >
+                          সাবমিট করুন
+                        </Button>
+                      </Box>
                     </Grid>
                   </Box>
                 </Stack>
@@ -361,7 +374,21 @@ const Profile = () => {
                       lg={12}
                       sx={{ marginTop: "10px" }}
                     >
-                      <Button type="submit"> সাবমিট করুন</Button>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          sx={{ display: "block", margin: "0 auto" }}
+                        >
+                          সাবমিট করুন
+                        </Button>
+                      </Box>
                     </Grid>
                   </Box>
                 </Stack>
