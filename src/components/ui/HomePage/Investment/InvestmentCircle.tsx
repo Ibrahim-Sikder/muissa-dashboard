@@ -49,8 +49,8 @@ const InvestmentCircle = () => {
               sx={{
                 borderRadius: "50%",
                 overflow: "hidden",
-                width: { xs: 300, sm: 400, md: 500 },
-                height: { xs: 300, sm: 400, md: 500 },
+                width: { xs: 350, md: 500 },
+                height: { xs: 350, md: 500 },
                 boxShadow: "none",
               }}
             >
@@ -100,7 +100,7 @@ const InvestmentCircle = () => {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "center",
+                    justifyContent: { xs: "start", md: "center" },
                     alignItems: "center",
                     bgcolor: "#1591A3",
                     color: "white",

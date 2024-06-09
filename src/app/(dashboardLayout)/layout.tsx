@@ -1,11 +1,11 @@
 import MainNav from "@/components/Dashboard/layout/MainNav";
 import { SideNav } from "@/components/Dashboard/layout/SideNav";
 import { Box, Container, GlobalStyles } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <GlobalStyles
         styles={{
           body: {
@@ -49,7 +49,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
           </main>
         </Box>
       </Box>
-    </>
+    </Suspense>
   );
 };
 
