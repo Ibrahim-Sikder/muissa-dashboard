@@ -131,6 +131,12 @@
     height: 80px;
     top: -55px;
   }
+  .serviceContent {
+    top: 40%;
+  }
+  .serviceCard {
+    height: 283px;
+  }
 }
 @media only screen and (max-width: 300px) {
   .serviceCard {

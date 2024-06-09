@@ -7,13 +7,20 @@ import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
+import INTSelect from "@/components/Forms/Select";
 
 const validationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Please enter a valid email address!"),
   phone: z.string().min(10, "Must be at least 10 digits"),
-  message: z.string().min(1, "Message is required"),
+  investor: z.string().min(1, "Role is  is required"),
 });
+const defaultValues = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
 
 const InvestorForm = () => {
   const handleSubmit = async (data: FieldValues) => {
@@ -21,15 +28,19 @@ const InvestorForm = () => {
   };
   return (
     <div>
-      <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
+      <MUIForm
+        onSubmit={handleSubmit}
+        resolver={zodResolver(validationSchema)}
+        defaultValues={defaultValues}
+      >
         <Box>
           <Grid container direction="column" justifyContent="center">
-          <Grid item lg={6} md={6} sm={6}>
-              <MUIInput
-                name="businessName"
-                label="AS A INVESTOR  "
-                fullWidth
+            <Grid item lg={6} md={6} sm={6}>
+              <INTSelect
                 size="medium"
+                name="investor"
+                label="As BUSINESS OWNER"
+                items={["AS A INVESTOR "]}
               />
             </Grid>
             <Grid item lg={6} md={6} sm={6}>

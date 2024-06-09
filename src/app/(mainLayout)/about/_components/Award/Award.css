@@ -1,70 +1,73 @@
 .awardWraps {
-    background-image: url(../../../../../assets/team/team.jpg);
-    width: 100%;
-    height: 600px;
-    position: relative;
-    background-attachment: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url(../../../../../assets/team/team.jpg);
+  width: 100%;
+  height: 600px;
+  position: relative;
+  background-attachment: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.awardWraps::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: url(../../../../../assets/team/team2.png);
+}
+.awardContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 88;
+  color: #fff;
+}
+.awardCircle {
+  width: 160px;
+  height: 160px;
+  border-radius: 100%;
+  background: #1591a3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* top: 69px; */
+  left: 50px;
+}
+.awardCircle:nth-child(1) {
+  top: 50px;
+}
+.awardCircle:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  top: 42px;
+  right: -50px;
+}
+.awardCircle:nth-child(3) {
+  width: 200px;
+  height: 200px;
+}
+.awardCircle:nth-child(4) {
+  top: 61px;
+  left: 87px;
+}
+
+@media only screen and (max-width: 500px) {
+  .awardWraps {
+    height: 650px;
   }
-  
-  .awardWraps::after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0.8;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-image: url(../../../../../assets/team/team2.png);
- 
-  }
-  .awardContent {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 88;
-    color: #fff;
-  }
+}
+@media only screen and (max-width: 1024px) {
   .awardCircle {
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    background: #1591a3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    /* top: 69px; */
-    left: 50px;
+    display: none;
   }
-  .awardCircle:nth-child(1) {
-    top: 50px;
-  }
-  .awardCircle:nth-child(2) {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    top: 42px;
-    right: -50px;
-  }
-  .awardCircle:nth-child(3) {
-    width: 200px;
-    height: 200px;
-  }
-  .awardCircle:nth-child(4) {
-    top: 61px;
-    left: 87px;
-  }
-  
-  @media only screen and (max-width: 1024px) {
-    .awardCircle {
-      display: none;
-    }
-  }
-  
+}

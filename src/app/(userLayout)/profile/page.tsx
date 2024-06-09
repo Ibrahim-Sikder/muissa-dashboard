@@ -32,9 +32,53 @@ import MUIFileUploadButton from "@/components/Forms/FileUploadButton";
 import { theme } from "@/lib/Theme/Theme";
 
 const validationSchema = z.object({
-  user: z.string().email("Please enter a valid email address!"),
-  password: z.string().min(6, "Must be at least 6 characters"),
+  user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
+  password: z.string().min(6, "অন্তত ৬টি অক্ষর থাকতে হবে").optional(),
+
+  name: z.string().min(1, "নাম আবশ্যক").optional(),
+  phone: z.string().min(10, "অন্তত ১০টি সংখ্যা থাকা আবশ্যক").optional(),
+  email: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
+  address: z.string().min(1, "ঠিকানা আবশ্যক").optional(),
+
+  businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
+  businessName: z.string().min(1, "ব্যবসার নাম আবশ্যক").optional(),
+  businessType: z.string().min(1, "ব্যবসার ধরন আবশ্যক").optional(),
+  businessAddress: z.string().min(1, "ব্যবসার ঠিকানা আবশ্যক").optional(),
+  website: z.string().optional(),
+  businessDetails: z.string().optional(),
+  // businessNeed: z.array(z.string()).min(1, "পরিষেবার প্রয়োজনীয়তা নির্বাচন করুন").optional(),
+  description: z.string().optional(),
+
+  investor: z.string().min(1, "বিনিয়োগকারীর নাম আবশ্যক").optional(),
+  investmentType: z.string().min(1, "বিনিয়োগের ধরন আবশ্যক").optional(),
+  investAmount: z.string().min(1, "বিনিয়োগের পরিমাণ আবশ্যক").optional(),
+  investTime: z.string().min(1, "বিনিয়োগের সময়কাল আবশ্যক").optional(),
+  investGoal: z.string().min(1, "বিনিয়োগের লক্ষ্য আবশ্যক").optional(),
+  investorDescription: z.string().optional(),
 });
+
+const defaultValues = {
+  user: "",
+  password: "",
+  name: "",
+  phone: "",
+  email: "",
+  address: "",
+  businessOwner: "",
+  businessName: "",
+  businessType: "",
+  businessAddress: "",
+  website: "",
+  businessDetails: "",
+  // businessNeed: [],
+  description: "",
+  investor: "",
+  investmentType: "",
+  investAmount: "",
+  investTime: "",
+  investGoal: "",
+  investorDescription: "",
+};
 
 const Profile = () => {
   const submitHandler = (data: FieldValues) => {
@@ -78,10 +122,7 @@ const Profile = () => {
     <MUIForm
       onSubmit={submitHandler}
       resolver={zodResolver(validationSchema)}
-      defaultValues={{
-        user: "",
-        password: "",
-      }}
+      defaultValues={defaultValues}
     >
       <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
         <Image className="w-40 rounded-full " src={profile} alt="profile" />
@@ -158,7 +199,7 @@ const Profile = () => {
                   <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="businessName"
+                        name="businessOwner"
                         label="AS A BUSINESS OWNER "
                         fullWidth
                         size="medium"
@@ -198,7 +239,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="emailConfirm"
+                        name="businessDetails"
                         label="ব্যবসার বিবরণ"
                         fullWidth
                         size="medium"
@@ -227,9 +268,7 @@ const Profile = () => {
                     </Grid>
                   </Grid>
                   <Box
-                    sx={{
-                      marginTop: "100px",
-                    }}
+                    
                   >
                     <DocUploader sx={{ fontSize: "20px" }} name="file" />
                     <Grid
@@ -240,7 +279,22 @@ const Profile = () => {
                       lg={12}
                       sx={{ marginTop: "10px" }}
                     >
-                      <Button>সাবমিট করুন</Button>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                  
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          sx={{ display: "block", margin: "0 auto" }}
+                        >
+                          সাবমিট করুন
+                        </Button>
+                      </Box>
                     </Grid>
                   </Box>
                 </Stack>
@@ -263,7 +317,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="email"
+                        name="investmentType"
                         label="বিনিয়োগের ধরন"
                         fullWidth
                         size="medium"
@@ -271,7 +325,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="investType"
+                        name="investAmount"
                         label="বিনিয়োগের পরিমাণ"
                         fullWidth
                         size="medium"
@@ -320,7 +374,21 @@ const Profile = () => {
                       lg={12}
                       sx={{ marginTop: "10px" }}
                     >
-                      <Button> সাবমিট করুন</Button>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          sx={{ display: "block", margin: "0 auto" }}
+                        >
+                          সাবমিট করুন
+                        </Button>
+                      </Box>
                     </Grid>
                   </Box>
                 </Stack>

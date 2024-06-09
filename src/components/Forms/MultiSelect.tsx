@@ -55,16 +55,16 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
   const { control, setValue, getValues, formState } = useFormContext();
   const isError = formState.errors[name] !== undefined;
 
-  const [expanded, setExpanded] = useState<string[]>([]); // State to manage expanded categories
+  const [expanded, setExpanded] = useState<string[]>([]); 
 
   const handleCategoryClick = (category: string) => {
     const currentIndex = expanded.indexOf(category);
     const newExpanded = [...expanded];
 
     if (currentIndex === -1) {
-      newExpanded.push(category); // Expand the category
+      newExpanded.push(category); 
     } else {
-      newExpanded.splice(currentIndex, 1); // Collapse the category
+      newExpanded.splice(currentIndex, 1); 
     }
 
     setExpanded(newExpanded);
@@ -76,10 +76,10 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
       ? currentValues.filter((value: string) => value !== subCategory)
       : [...currentValues, subCategory];
 
-    setValue(name, updatedValues); // Update the form value with the controlled state
+    setValue(name, updatedValues); 
   };
 
-  // Determine if a subcategory is selected
+
   const isSubcategorySelected = (subCategory: string) => {
     return getValues(name)?.includes(subCategory);
   };
@@ -134,7 +134,7 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
                         key={sub}
                         button
                         sx={{
-                          pl: 4, // Set left padding to 20px
+                          pl: 4, 
                           backgroundColor: isSubcategorySelected(sub)
                             ? "#F5F5F5"
                             : "transparent",
@@ -144,7 +144,7 @@ const MUIMultiSelect: React.FC<TMultiSelectProps> = ({
                         onClick={() => handleSubcategoryChange(sub)}
                       >
                         <ListItemIcon>
-                          <ArrowRight /> {/* You can use other icons as needed */}
+                          <ArrowRight /> 
                         </ListItemIcon>
                         <ListItemText primary={sub} />
                       </ListItem>
