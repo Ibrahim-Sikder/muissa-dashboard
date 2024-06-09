@@ -81,14 +81,6 @@ const Header = () => {
                 src={logo}
                 alt="logo"
               />
-<<<<<<< HEAD
-            </Link>
-            <div>
-              <h3 className="text-sm md:text-xl lg:text-2xl">
-                Muissa Business
-              </h3>
-              <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
-=======
 
               <div>
                 <h3 className="text-sm md:text-xl lg:text-2xl">
@@ -96,7 +88,6 @@ const Header = () => {
                 </h3>
                 <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
               </div>
->>>>>>> ed66a47e2d970582639fe1ab20fc06330665bc32
             </div>
           </Link>
           <div className="xl:flex items-center  space-x-6  hidden ">
