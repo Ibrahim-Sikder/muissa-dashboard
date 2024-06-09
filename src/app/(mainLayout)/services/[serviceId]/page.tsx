@@ -1,6 +1,9 @@
+"use client";
+
+import React, { useState } from "react";
 import Container from "@/components/ui/HomePage/Container/Container";
 import "../services.css";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, Tabs, Tab } from "@mui/material";
 import {
   CheckCircle,
   Drafts,
@@ -14,16 +17,97 @@ import service2 from "../../../../assets/logo/service5.jpg";
 import SpecialSupport from "../_component/Services/SpecialSupport";
 import ServiceSlider from "../_component/Services/ServiceSlider";
 
-const buttonStyles = {
-  width: "100%",
-  height: 80,
-  display: "flex",
-  justifyContent: "space-between",
-  fontSize: "16px",
-  background: "#1591A3",
-};
+const serviceDetails = [
+  {
+    id: 1,
+    title: "Sale Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service,
+  },
+  {
+    id: 2,
+    title: "Marketing Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service2,
+  },
+  {
+    id: 3,
+    title: "Delivery Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service,
+  },
+  {
+    id: 4,
+    title: "IT Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service2,
+  },
+  {
+    id: 5,
+    title: "Customer Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service,
+  },
+  {
+    id: 6,
+    title: "Technical Support",
+    description:
+      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+    list: [
+      "Professional website design and development",
+      "Search Engine Optimization (SEO)",
+      "Website maintenance and updates",
+      "Landing page creation",
+    ],
+    image: service2,
+  },
+];
 
-const page = () => {
+const Page = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const handleTabChange = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
+    setTabIndex(newValue);
+  };
+
   return (
     <>
       <div className="serviceDetailsWrap">
@@ -34,26 +118,36 @@ const page = () => {
       <Container className="sectionMargin">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="col-span-12 lg:col-span-4">
-            <Stack direction="column" gap={2}>
-              <Button sx={buttonStyles}>
-                Sale Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-              <Button sx={buttonStyles}>
-                Marketing Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-              <Button sx={buttonStyles}>
-                Delivery Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-              <Button sx={buttonStyles}>
-                IT Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-              <Button sx={buttonStyles}>
-                Funding Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-              <Button sx={buttonStyles}>
-                Investment Support <KeyboardArrowRight sx={{ color: "#fff" }} />
-              </Button>
-            </Stack>
+            <Tabs
+              value={tabIndex}
+              onChange={handleTabChange}
+              orientation="vertical"
+              variant="scrollable"
+              sx={{ borderRight: 1, borderColor: "divider" }}
+            >
+              {serviceDetails.map((service, index) => (
+                <Tab
+                  label={service.title}
+                  key={service.id}
+                  sx={{
+                    color: "#ffffff",
+                    background: tabIndex === index ? "#00305C" : "#1591A3",
+                    marginBottom: "10px",
+                    borderRadius: "5px",
+
+                    "&:hover": {
+                      background: "#00305C",
+                      color: "#ffffff",
+                    },
+
+                    "&.Mui-selected": {
+                      background: "#00305C",
+                      color: "#ffffff",
+                    },
+                  }}
+                />
+              ))}
+            </Tabs>
             <Box sx={{ marginTop: "30px" }}>
               <h1>Contact</h1>
               <div className="space-y-3">
@@ -66,7 +160,7 @@ const page = () => {
                     }}
                   />
                   <p>
-                    House-08, Road-07, Block-C, <br /> Banasree,Dhka-1219
+                    House-08, Road-07, Block-C, <br /> Banasree, Dhka-1219
                   </p>
                 </div>
                 <div className="flex mt-5 items-center">
@@ -105,49 +199,46 @@ const page = () => {
             </Box>
           </div>
           <div className="col-span-12 lg:col-span-8">
-            <h1 className="capitalize">We give the best Services</h1>
-            <p className="mt-8 leading-8">
-              We provide unparalleled services, striving for excellence in every
-              aspect. With a commitment to quality and customer satisfaction, we
-              deliver the finest solutions tailored to your needs. Our dedicated
-              team ensures top-notch support, aiming to exceed expectations and
-              foster long-term relationships. Experience the difference with our
-              superior services, setting the standard for excellence in every
-              interaction.
-            </p>
-            <p className="mt-10">
-              Experience exceptional service quality. Our commitment to
-              excellence ensures unparalleled support tailored to your needs,
-              fostering lasting satisfaction and trust.
-            </p>
-            <ul className="mt-5 space-y-3">
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Professional website
-                design and development
-              </li>
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Search Engine
-                Optimization (SEO)
-              </li>
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Website maintenance
-                and updates
-              </li>
-              <li>
-                <CheckCircle sx={{ color: "#00305C" }} /> Landing page creation
-              </li>
-            </ul>
-            <div className="flex flex-col md:flex-row gap-3 mt-10 items-center">
-              <div className="serviceImgWrap">
-                <Image src={service2} alt="consulting" />
+            <div className="serviceDetails">
+              <div className="serviceDetailsImage">
+                <div className="w-full h-96 aspect-video relative">
+                  <Image
+                    src={serviceDetails[tabIndex].image}
+                    alt={serviceDetails[tabIndex].title}
+                    width={700}
+                    height={475}
+                    className="rounded-t-lg h-full w-full object-cover absolute"
+                  />
+                </div>
               </div>
-              <div className="serviceImgWrap">
-                <Image src={service} alt="consulting" />
-              </div>
-            </div>
+              <Box
+                sx={{
+                  padding: "20px 0",
+                  background: "#ffffff",
+                  borderRadius: "0px 0px 5px 5px",
+                }}
+              >
+                <Typography variant="h4" sx={{ color: "#1591A3" }}>
+                  {serviceDetails[tabIndex].title}
+                </Typography>
+                <Typography variant="body1">
+                  {serviceDetails[tabIndex].description}
+                </Typography>
 
+                <ul className="mt-5">
+                  {serviceDetails[tabIndex].list.map((item, index) => (
+                    <li key={index}>
+                      <CheckCircle
+                        sx={{ color: "#1591A3", marginRight: "8px" }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Box>
+            </div>
             <SpecialSupport />
-            <ServiceSlider/>
+            <ServiceSlider />
           </div>
         </div>
       </Container>
@@ -155,4 +246,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

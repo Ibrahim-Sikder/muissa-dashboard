@@ -1,84 +1,136 @@
 "use client";
 
 import React from "react";
-import { Box, Button, Grid, Typography, Link, TextField } from "@mui/material";
+import { Box, Button, Grid, Typography, TextField } from "@mui/material";
+import { MdOutlineCalendarToday, MdOutlinePanTool } from "react-icons/md";
 import Container from "@/components/ui/HomePage/Container/Container";
-import MUIInput from "@/components/Forms/Input";
-import MUIForm from "@/components/Forms/Form";
 
-const NewsLetter = () => {
+export default function Example() {
   return (
-    <Box sx={{ bgcolor: "grey.100", py: 6, mt: 4 }}>
+    <Box
+      sx={{
+        bgcolor: "#f9f9f9",
+        py: 8,
+        position: "relative",
+        overflow: "hidden",
+        marginTop: 8,
+      }}
+    >
       <Container>
         <Grid
           container
-          spacing={4}
-          justifyContent="space-between"
+          spacing={20}
           alignItems="center"
+          justifyContent="space-between"
         >
-          <Grid
-            item
-            xs={12}
-            md={7}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              mb: { xs: 3, md: 0 },
-            }}
-          >
+          <Grid item xs={12} md={6}>
             <Typography
               variant="h4"
               component="h2"
               fontWeight="bold"
               gutterBottom
             >
-              Want news and updates?
+              Subscribe to our newsletter
             </Typography>
-            <Typography variant="h5" component="p" sx={{ mb: 2 }}>
-              Sign up for our newsletter.
+            <Typography variant="body1" sx={{ mb: 4 }}>
+              Stay updated with the latest news and exclusive offers. Sign up
+              for our newsletter now.
             </Typography>
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <MUIForm
+            <Box
+              component="form"
               onSubmit={(e) => {
                 e.preventDefault();
                 alert("Subscribed");
               }}
+              sx={{
+                display: "flex",
+                gap: 2,
+                flexDirection: { xs: "column", sm: "row" },
+              }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
+              <TextField
+                id="email-address"
+                name="email"
+                type="email"
+                required
+                variant="outlined"
+                placeholder="Enter your email"
+                fullWidth
+                size="small"
+                sx={{ bgcolor: "white", borderRadius: 1 }}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ flexShrink: 0, mt: { xs: 2, sm: 0 } }}
               >
-                <MUIInput
-                  placeholder="Enter your email"
-                  fullWidth
-                  name="email"
-                  size="small"
-                  sx={{ borderRadius: 1, mr: 2 }}
-                />
-                <Button type="submit" variant="contained" color="primary">
-                  Subscribe
-                </Button>
-              </Box>
-              <Typography
-                variant="body2"
-                sx={{ mt: 2, textAlign: { xs: "center", md: "left" } }}
-              >
-                We care about your data. Read our{" "}
-                <Link href="#" color="primary" underline="hover">
-                  privacy&nbsp;policy
-                </Link>
-                .
-              </Typography>
-            </MUIForm>
+                Subscribe
+              </Button>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={6}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Box>
+                    <Box
+                      sx={{
+                        p: 2,
+                        bgcolor: "primary.main",
+                        borderRadius: "20%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: 56,
+                        width: 56,
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
+                      <MdOutlineCalendarToday color="white" size={24} />
+                    </Box>
+                    <Typography variant="h6" fontWeight="bold">
+                      Weekly articles
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Non laboris consequat cupidatat laborum magna. Eiusmod non
+                      irure cupidatat duis commodo amet.
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  <Box>
+                    <Box
+                      sx={{
+                        p: 2,
+                        bgcolor: "primary.main",
+                        borderRadius: "20%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: 56,
+                        width: 56,
+                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
+                      <MdOutlinePanTool color="white" size={24} />
+                    </Box>
+                    <Typography variant="h6" fontWeight="bold">
+                      No spam
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      Officia excepteur ullamco ut sint duis proident non
+                      adipisicing. Voluptate incididunt anim.
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
     </Box>
   );
-};
-
-export default NewsLetter;
+}

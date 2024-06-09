@@ -28,53 +28,6 @@ const Footer = () => {
                   Muissa Business Consulting Ltd.
                 </h4>
               </div>
-<<<<<<< HEAD
-              <div className="leading-9 mt-4">
-                <div className="flex items-center gap-2 justify-center md:justify-start">
-                  <MapIcon className="h-6 w-6 hidden md:block" />
-                  <p className="text-white">
-                    House-08, Road-07, Block-C, Banasree, Dhaka-1219
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 justify-center md:justify-start">
-                  <PhoneIcon className="h-6 w-6" />
-                  <p>+880123456789</p>
-                </div>
-                <div className="flex items-center gap-2 justify-center md:justify-start">
-                  <EnvelopeIcon className="h-6 w-6" />
-                  <p>info@muissabusiness.com</p>
-                </div>
-                <div className="flex items-center gap-2 justify-center md:justify-start">
-                  <FaWhatsapp size={24} />
-                  <p>01403-852850</p>
-                </div>
-                <div className="flex items-center gap-2 mt-4 justify-center md:justify-start">
-                  <a
-                    href="https://www.facebook.com/profile.php?id=61558510933789"
-                    className="text-white"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaFacebook size={24} />
-                  </a>
-                  <a
-                    href="https://www.instagram.com/muissaltd?igsh=Nnp4M2d1M2pvMGtr"
-                    className="text-white"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaInstagram size={24} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/company/muissa-business-consulting-ltd/"
-                    className="text-white"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaLinkedin size={24} />
-                  </a>
-                </div>
-=======
               <div className="flex items-center gap-2 justify-center md:justify-start">
                 <PhoneIcon className="h-6 w-6" />
                 <p>09613244844</p>
@@ -112,7 +65,6 @@ const Footer = () => {
                 >
                   <FaLinkedin size={24} />
                 </a>
->>>>>>> 10334b7e965679d8b3d557d33d4fbad8d0cd3214
               </div>
             </div>
 
