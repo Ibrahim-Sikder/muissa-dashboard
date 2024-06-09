@@ -12,6 +12,7 @@ import Investment from "@/components/ui/HomePage/Investment/Investment";
 import WhyUs from "@/components/ui/HomePage/WhyUs/WhyUs";
 import Company from "@/components/ui/HomePage/Company/Company";
 import Service from "./services/_component/Services/Service";
+import InvestmentCircle from "@/components/ui/HomePage/Investment/InvestmentCircle";
 
 const Home = () => {
   return (
@@ -26,6 +27,7 @@ const Home = () => {
       <NewsSection />
       {/* <CTA /> */}
       {/* <Services /> */}
+      <InvestmentCircle />
       <Investment />
       <Company />
     </Box>

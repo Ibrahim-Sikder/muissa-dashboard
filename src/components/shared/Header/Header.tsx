@@ -49,10 +49,26 @@ const Header = () => {
         <div className=" topBar flex items-center justify-between ">
           <small>House-08, Road-07, Block-C, Banasree,Dhaka-1219 </small>
           <div className="flex space-x-3">
-            <FaFacebookF />
-            <FaLinkedinIn />
-            <FaTwitter />
-            <FaInstagram />
+            <a
+              href="https://www.facebook.com/profile.php?id=61558510933789"
+              target="_blank"
+            >
+              <FaFacebookF className="topIcon" />
+            </a>
+
+            <a
+              href="https://www.instagram.com/muissaltd?igsh=Nnp4M2d1M2pvMGtr"
+              target="_blank"
+            >
+              <FaInstagram className="topIcon" />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/company/muissa-business-consulting-ltd/"
+              target="_blank"
+            >
+              <FaLinkedinIn className="topIcon" />
+            </a>
           </div>
         </div>
       </div>
@@ -68,7 +84,7 @@ const Header = () => {
             </Link>
             <div>
               <h3 className="text-sm md:text-xl lg:text-2xl">
-              Muissa Business 
+                Muissa Business
               </h3>
               <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
             </div>
