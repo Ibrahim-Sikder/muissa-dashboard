@@ -84,14 +84,14 @@ nav.menuItemsBarWraps {
 }
 
 .membershipBtn {
-  background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
+  /* background-image: -webkit-linear-gradient(left, #05afec, #94ca36); */
   color: #fff;
   width: 177px;
   height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #152644; */
+  background: #152644;
 }
 .stickyContainer .membershipBtn {
   background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
