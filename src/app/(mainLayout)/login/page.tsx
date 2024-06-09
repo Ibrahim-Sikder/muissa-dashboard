@@ -49,12 +49,12 @@ const Login = () => {
   };
 
   const handleSubmit = async (data: FieldValues) => {
-    // Handle form submission
+    console.log(data);
   };
 
   return (
     <div
-      className="h-[900px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
+      className="lg:h-[900px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
       style={{
         background: isLargeDevice
           ? "linear-gradient(to left , #002140 50%, white 50%)"
@@ -76,7 +76,7 @@ const Login = () => {
       >
         <Box
           sx={{
-            width: isLargeDevice ? "600px" : "100%",
+            width: isLargeDevice ? "625px" : "100%",
             height: isLargeDevice ? "600px" : "auto",
             justifyContent: "center",
             alignItems: "center",
@@ -109,13 +109,19 @@ const Login = () => {
               <Typography
                 fontWeight="semibold"
                 variant="h4"
-                sx={{ textAlign: "center", marginBottom: "10px" }}
+                sx={{
+                  textAlign: "center",
+                  marginBottom: "10px",
+                  fontSize: {
+                    xs: "30px",
+                  },
+                }}
               >
                 Login to Muissa!
               </Typography>
               <Box>
                 <MUIInput
-                  label="Email"
+                  label="Phone number "
                   sx={textFieldStyles}
                   name="user"
                   fullWidth={true}

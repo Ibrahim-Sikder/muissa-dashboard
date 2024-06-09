@@ -45,14 +45,7 @@ export const role = [
 ];
 
 
-// export const supportServices = [
-//   "প্রোডাক্ট সাপোর্ট",
-//   "বিক্রয় সাপোর্ট",
-//   "মার্কেটিং সাপোর্ট",
-//   "ডেলিভারি সাপোর্ট",
-//   "আইটি সাপোর্ট",
-//   "ফান্ডিং সাপোর্ট"
-// ];
+
 export const supportServices = [
   {
     category: "প্রোডাক্ট সাপোর্ট",
@@ -79,6 +72,7 @@ export const supportServices = [
     subcategories: ["Financial Advice", "Investment"]
   }
 ];
+
 
 
 type Option = {

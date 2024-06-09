@@ -20,13 +20,20 @@ import {
 } from "react-icons/fa";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import Iframe from "react-iframe";
+import MUITextArea from "@/components/Forms/TextArea";
 
 const validationSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Please enter a valid email address!"),
-  phone: z.string().min(10, "Must be at least 10 digits"),
-  message: z.string().min(1, "Message is required"),
+  name: z.string().min(1, "নাম আবশ্যক"),
+  email: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!"),
+  phone: z.string().min(10, "অন্তত ১১টি অঙ্ক থাকা আবশ্যক"),
+  message: z.string().min(1, "বার্তা আবশ্যক"),
 });
+const defaultValues = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
 
 const Contact = () => {
   const handleSubmit = async (data: FieldValues) => {
@@ -56,6 +63,7 @@ const Contact = () => {
             <MUIForm
               onSubmit={handleSubmit}
               resolver={zodResolver(validationSchema)}
+              defaultValues={defaultValues}
             >
               <Box>
                 <Grid container direction="column">
@@ -79,11 +87,23 @@ const Contact = () => {
                     />
                   </Grid>
                   <Grid item lg={6}>
-                    <MUIInput
+                    {/* <MUIInput
                       size="medium"
                       label="বার্তা"
                       name="message"
                       fullWidth
+                    /> */}
+                    <MUITextArea
+                      placeholder="বার্তা"
+                      name="message"
+                      minRows={3}
+                      sx={{
+                        border: "1px solid #ddd",
+                        padding: "10px",
+                        resize: "none",
+                        borderRadius: "3px",
+                        marginTop: "15px",
+                      }}
                     />
                   </Grid>
                   <Grid item lg={6}>

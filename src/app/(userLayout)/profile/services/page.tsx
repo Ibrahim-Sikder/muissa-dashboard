@@ -28,6 +28,7 @@ const Services = () => {
       opacity: "0.5",
     },
   };
+  
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>

@@ -58,6 +58,7 @@
   padding: 20px 40px;
   border-radius: 5px;
   font-size: 13px;
+  margin: 0 auto;
 }
 
 .activeProfileLink {
@@ -67,4 +68,18 @@
   width: 172px;
   border-radius: 3px;
   font-size: 14px;
+}
+
+.responsiveTypography {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 500px) {
+  .membarshipCard {
+    width: 100%;
+  }
+  .responsiveTypography {
+    font-size: 0.5rem;
+    background-color: red;
+  }
 }

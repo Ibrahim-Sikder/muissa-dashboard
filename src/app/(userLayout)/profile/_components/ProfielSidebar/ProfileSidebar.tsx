@@ -17,7 +17,7 @@ const ProfileSidebar = () => {
 
   return (
     <div className=" profileSideBar ">
-      <div className="xl:space-y-5 profileItems">
+      <div className="lg:space-y-5 profileItems">
         <div>
           <Link href="/profile">
             <div
