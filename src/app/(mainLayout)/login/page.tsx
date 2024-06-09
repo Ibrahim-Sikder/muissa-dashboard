@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (data: FieldValues) => {
-    // Handle form submission
+    console.log(data)
   };
 
   return (
@@ -115,7 +115,7 @@ const Login = () => {
               </Typography>
               <Box>
                 <MUIInput
-                  label="Email"
+                  label="Phone number "
                   sx={textFieldStyles}
                   name="user"
                   fullWidth={true}

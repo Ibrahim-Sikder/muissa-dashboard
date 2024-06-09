@@ -31,7 +31,7 @@ export default function Investment() {
     textAlign: "left",
     pl: 2,
     "& .MuiTab-wrapper": {
-      justifyContent: "flex-start", // Aligns the text to the left
+      justifyContent: "flex-start",
     },
     
     "&.Mui-selected": {

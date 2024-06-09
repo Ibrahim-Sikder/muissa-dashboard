@@ -21,7 +21,7 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 const validationSchema = z.object({
   user: z.string().email("Please enter a valid email address!"),
   password: z.string().min(6, "Must be at least 6 characters"),
-  phone: z.number().min(11, "Must be at least 11 characters"),
+  phone: z.string().min(11, "Must be at least 11 characters"),
 
 });
 
@@ -126,19 +126,19 @@ const Register = () => {
                   label="Name"
                   sx={textFieldStyles}
                   name="user"
-                  fullWidth={true}
+                  fullWidth
                 />
                 <MUIInput
                   label="Phone Number"
                   sx={textFieldStyles}
                   name="phone"
-                  fullWidth={true}
+                  fullWidth
                 />
                 <MUIInput
                   label="Password"
                   name="password"
                   sx={textFieldStyles}
-                  fullWidth={true}
+                  fullWidth
                 />
               </Box>
              

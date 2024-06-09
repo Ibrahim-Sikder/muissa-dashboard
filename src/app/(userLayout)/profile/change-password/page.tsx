@@ -8,12 +8,27 @@ import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 
 const validationSchema = z.object({
+  oldPassword: z
+    .string()
+    .min(6, "Old password must be at least 6 characters long"),
+  newPassword: z
+    .string()
+    .min(6, "New password must be at least 6 characters long"),
+  confirmPassword: z
+    .string()
+    .min(6, "Confirm password must be at least 6 characters long"),
   otp: z.string().min(4, "Please enter your 6 digit OTP"),
 });
 
+const defaultValues = {
+  oldPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+};
+
 const ChangePassword = () => {
   const onSubmit = async (values: FieldValues) => {
-    // console.log(values);
+    console.log(values);
   };
 
   return (
@@ -26,11 +41,18 @@ const ChangePassword = () => {
           width: "100%",
           boxShadow: 1,
           borderRadius: 1,
-          padding: 5,
+          padding: {
+            xs:2,
+            md:5
+          },
           margin: "0 auto",
         }}
       >
-        <MUIForm onSubmit={onSubmit} resolver={zodResolver(validationSchema)}>
+        <MUIForm
+          onSubmit={onSubmit}
+          resolver={zodResolver(validationSchema)}
+          defaultValues={defaultValues}
+        >
           <Typography
             component="div"
             variant="h5"
@@ -40,26 +62,26 @@ const ChangePassword = () => {
             Change Password{" "}
           </Typography>
           <Grid container spacing={1}>
-            <Grid item xs={12} sm={6} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
               <MUIInput
-                name="email"
+                name="oldPassword"
                 label="Old Password"
                 fullWidth
                 size="medium"
               />
             </Grid>
 
-            <Grid item xs={12} sm={6} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
               <MUIInput
-                name="investType"
+                name="newPassword"
                 label="New Password"
                 fullWidth
                 size="medium"
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={12}>
               <MUIInput
-                name="investType"
+                name="confirmPassword"
                 label="Confirm Password"
                 fullWidth
                 size="medium"
@@ -67,13 +89,9 @@ const ChangePassword = () => {
             </Grid>
           </Grid>
 
-          <Box
-            sx={{ width: "100%", display: "flex", justifyContent: "center" }}
-          >
-            <Button type="submit" sx={{ width: "100%" }}>
-              Update Password
-            </Button>
-          </Box>
+          <Button type="submit" sx={{ width: "100%", marginTop: "10px" }}>
+            Update Password
+          </Button>
         </MUIForm>
       </Box>
     </Stack>
