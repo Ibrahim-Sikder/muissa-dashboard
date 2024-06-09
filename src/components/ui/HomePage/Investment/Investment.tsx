@@ -33,6 +33,7 @@ export default function Investment() {
     "& .MuiTab-wrapper": {
       justifyContent: "flex-start", // Aligns the text to the left
     },
+    
     "&.Mui-selected": {
       borderLeft: "2px solid #1591A3",
       borderRight: "none",

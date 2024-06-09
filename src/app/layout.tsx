@@ -5,6 +5,14 @@ import Providers from "@/lib/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Toaster } from "sonner";
 import MessageIcon from "@/components/Message/MessageIcon";
+import dynamic from "next/dynamic";
+
+const BackTopButton = dynamic(
+  () => import("@/components/BackTopButton/BackTopButton"),
+  {
+    ssr: false,
+  }
+);
 
 const inter = Inter({ subsets: ["latin"] });
 const notoSansBengali = Noto_Sans_Bengali({ subsets: ["bengali"] });
@@ -27,7 +35,7 @@ export default function RootLayout({
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
         </body>
       </Providers>
-
+      {/* <BackTopButton /> */}
       <MessageIcon />
     </html>
   );
