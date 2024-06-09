@@ -74,6 +74,34 @@
   font-weight: bold;
 }
 
+.commonContent a {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+  width: 200px;
+  border-radius: 30px;
+}
+.commonContent a span {
+  position: absolute;
+  z-index: 9;
+}
+
+.commonContent a::after {
+  color: #fff;
+  background-image: -webkit-linear-gradient(right, #05afec, #94ca36);
+  width: 0%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 30px;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+.commonContent a:hover::after {
+  width: 100%;
+}
+
 @media only screen and (max-width: 500px) {
   .membarshipCard {
     width: 100%;
