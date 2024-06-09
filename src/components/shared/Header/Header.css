@@ -17,19 +17,6 @@
   height: 150px;
   padding: 20px 0;
 }
-.menubarWrap {
-  background: #1591a3;
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 20px;
-  margin-top: 20px;
-  position: absolute;
-  width: 100%;
-  bottom: -15px;
-  z-index: 9999;
-  height: 65px;
-  overflow: hidden;
-}
 
 .navItems li {
   padding: 50px 60px;
@@ -62,8 +49,59 @@
 }
 .navItems li:hover::after {
   width: 100%;
+  color: #fff;
+}
+.navItems li:hover a {
+  color: #fff;
+}
+.stickyContainer .navItems li::after {
+  height: 95%;
 }
 
+.menubarWrap {
+  /* background: #1591a3; */
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 20px;
+  margin-top: 20px;
+  position: absolute;
+  width: 100%;
+  bottom: -15px;
+  z-index: 9999;
+  height: 65px;
+  overflow: hidden;
+}
+nav.menuItemsBarWraps {
+  background: #1591a3;
+  width: 86%;
+}
+.stickyMenu .menubarWrap {
+  background: #1591a3;
+}
+.stickyContainer .menuItemsBarWraps {
+  width: auto;
+  background: transparent;
+}
+
+.membershipBtn {
+  background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
+  color: #fff;
+  width: 177px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #152644; */
+}
+.stickyContainer .membershipBtn {
+  background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
+}
+.membershipBtn a {
+  font-size: 18px;
+}
+.membershipIcon {
+  font-size: 30px !important;
+}
 .stickyMenu {
   background: #fff;
   width: 100%;
@@ -129,18 +167,26 @@
   .mobileMenu ul li {
     margin-bottom: 20px;
   }
+  .membershipBtn {
+    display: none;
+  }
 }
 @media only screen and (max-width: 768px) {
   .stickyMenu {
-    width: 768px;
+    width: 100%;
   }
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
+  .stickyMenu {
+    width: 100%;
+  }
+}
+/* @media only screen and (max-width: 500px) {
   .stickyMenu {
     width: 500px;
   }
-}
-@media only screen and (max-width: 375px) {
+} */
+/* @media only screen and (max-width: 375px) {
   .stickyMenu {
     width: 375px;
   }
@@ -149,7 +195,7 @@
   .stickyMenu {
     width: 300px;
   }
-}
+} */
 @media only screen and (max-width: 250px) {
   .stickyMenu {
     width: 250px;

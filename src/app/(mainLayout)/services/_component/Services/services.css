@@ -108,10 +108,10 @@
 .serviceCard a {
   transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
 }
-
+ 
 .serviceCard:hover a {
-  color: #fff;
-  background-image: -webkit-linear-gradient(left, #05afec, #94ca36) !important;
+  color: #111;
+  background:#fff;
 }
 
 @media only screen and (max-width: 1024px) {
