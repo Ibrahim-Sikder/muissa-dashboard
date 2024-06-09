@@ -62,8 +62,8 @@ const News = () => {
         </div>
       </div>
       <Container>
-        <div className="grid grid-cols-12 mt-10  ">
-          <div className="col-span-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 mt-10  gap-10 ">
+          <div className="lg:col-span-4   ">
             <div className="px-10 ">
               <h4 className="mb-5">Categories </h4>
               <div className="space-y-5">
@@ -110,7 +110,7 @@ const News = () => {
                 <h4 className="mb-5">Recent News </h4>
                 <div className="space-y-5">
                   <div className="space-y-8">
-                    <div className="flex items-center justify-between gap-10 ">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-10 ">
                       <Image
                         className="w-20 h-20 rounded-full object-cover "
                         src={news}
@@ -123,7 +123,7 @@ const News = () => {
                         <small>June 5, 2024</small>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between gap-10 ">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-10 ">
                       <Image
                         className="w-20 h-20 rounded-full object-cover "
                         src={news}
@@ -136,7 +136,7 @@ const News = () => {
                         <small>June 5, 2024</small>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between gap-10 ">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-10 ">
                       <Image
                         className="w-20 h-20 rounded-full object-cover "
                         src={news}
@@ -155,7 +155,7 @@ const News = () => {
             </div>
             <div className="mt-100 px-10">
               <h4 className="mb-5">Gallery </h4>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 <Image className="w-28" src={gallery2} alt="gallery" />
                 <Image className="w-28" src={gallery3} alt="gallery2" />
                 <Image className="w-28" src={gallery4} alt="gallery3" />
@@ -164,9 +164,9 @@ const News = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-8">
+          <div className="lg:col-span-8 ">
             <div className="newsDetailsRightSideWrap text-[15px]">
-              <Image src={news} alt="news" />
+              <Image src={news} className="rightSideImg" alt="news" />
               <div className="my-5 px-5 ">
                 <div className="flex items-center space-x-3 ">
                   <FaCalendarAlt />
@@ -253,14 +253,14 @@ const News = () => {
               </div>
             </div>
 
-            <div className="socialMedia flex justify-between   mt-10 ">
-              <div className="flex space-x-2 items-center ">
+            <div className="socialMedia flex-col md:flex-row gap-5 lg:gap-0  flex justify-between   mt-10 ">
+              <div className="flex flex-wrap gap-2 space-x-2 items-center ">
                 <b>Tags:</b>
                 <Button sx={buttonStyle}>Builder </Button>
                 <Button sx={buttonStyle}>Cloud </Button>
                 <Button sx={buttonStyle}>Map</Button>
               </div>
-              <div className="flex items-center space-x-3 ">
+              <div className="flex  items-center space-x-3 ">
                 <span>Share: </span>
                 <Image className="w-10" src={facebook} alt="facebook" />
                 <Image className="w-10" src={instagram} alt="facebook" />
@@ -275,7 +275,10 @@ const News = () => {
               </div>
               <div className="grid grid-rows-1 gap-10">
                 {commentData.map((data) => (
-                  <div key={data.id} className="flex  justify-between gap-10 ">
+                  <div
+                    key={data.id}
+                    className="flex flex-col  justify-between gap-10 "
+                  >
                     <Image
                       className="w-20 h-20 rounded-full "
                       src={user}
@@ -307,7 +310,7 @@ const News = () => {
                   }}
                 >
                   <Grid container spacing={1}>
-                    <Grid item lg={12} sx={{ marginRight: "0px" }}>
+                    <Grid item xs={12} lg={12} sx={{ marginRight: "0px" }}>
                       <MUITextArea
                         name="comment"
                         placeholder="Comment"

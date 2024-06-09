@@ -20,7 +20,7 @@ import {
   HiOutlineMenuAlt1,
   HiOutlineX,
 } from "react-icons/hi";
-import { Box, Button, Divider } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Link from "next/link";
 import { TrendingFlat } from "@mui/icons-material";
 const Header = () => {
@@ -157,12 +157,14 @@ const Header = () => {
               </Box>
             </div>
 
-            <nav className="menuItemsBarWraps">
+            <nav>
               <ul className="flex navItems items-center ">
                 <li>
                   <Link href="/">Home</Link>
                 </li>
-                
+                <li>
+                  <Link href="/membership">Membership</Link>
+                </li>
                 <li>
                   <Link href="/services">Services</Link>
                 </li>
@@ -172,19 +174,33 @@ const Header = () => {
                 <li>
                   <Link href="/contact">Contact </Link>
                 </li>
-                <li>
-                  <Link href="/login">Login</Link>
-                </li>
               </ul>
             </nav>
-            <div className=" membershipBtn">
+            <div className=" hidden xl:block">
+              {/* <Button
+                LinkComponent={Link}
+                href="/login"
+                sx={{
+                  backgroundColor: "white",
+                  color: "black",
+                  width: "90px",
+                  height: "40px",
+                  borderRadius: "20px",
+                  "&:hover": {
+                    backgroundColor: "lightgray",
+                  },
+                }}
+                
+              >
+                Login
+              </Button> */}
               <Button
                 className="membershipBtn"
                 LinkComponent={Link}
                 href="/login"
               >
                 <span>Membership</span>
-                <TrendingFlat className="membershipIcon" />
+                <TrendingFlat />
               </Button>
             </div>
             <div onClick={toggleMobileMenu} className="xl:hidden block">
@@ -217,7 +233,9 @@ const Header = () => {
               <li>
                 <Link href="/">Home</Link>
               </li>
-             
+              <li>
+                <Link href="/membership">Membership</Link>
+              </li>
               <li>
                 <Link href="/services">Services</Link>
               </li>
@@ -227,23 +245,8 @@ const Header = () => {
               <li>
                 <Link href="/contact">Contact </Link>
               </li>
-              <li>
-                <Link href="/membership">Login</Link>
-              </li>
             </ul>
           </nav>
-          <div>
-            <Divider />
-            <ul className="mt-3">
-              <li>
-                <Link href="/profile">Account</Link>
-              </li>
-              <li>
-                <Link href="/profile/service">My services</Link>
-              </li>
-              
-            </ul>
-          </div>
         </div>
       </Container>
     </header>

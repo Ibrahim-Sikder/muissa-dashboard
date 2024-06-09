@@ -70,20 +70,20 @@ const NewsSection = () => {
                 <h1> 21</h1>
                 <small>SEP</small>
               </div>
-              <div className="newsContent">
+              <div className="newsContent ">
                 <h4>Praesent iaculis tortor viverra</h4>
                 <p className="my-4">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
+                <Button component={Link} href="/news">
+                  <span>
                     Read More{" "}
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -102,14 +102,15 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
+                <Button component={Link} href="/news">
+                  <span>
+                    {" "}
                     Read More{" "}
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -128,14 +129,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
+                <Button component={Link} href="/news">
+                  <span>
                     Read More{" "}
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -154,14 +155,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
+                <Button component={Link} href="/news">
+                  <span>
                     Read More{" "}
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -180,14 +181,15 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
-                    Read More{" "}
+
+                <Button component={Link} href="/news">
+                  <span>
+                    Read More
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
@@ -206,14 +208,14 @@ const NewsSection = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore...
                 </p>
-                <Link href="/news">
-                  <Button>
+                <Button component={Link} href="/news">
+                  <span>
                     Read More{" "}
                     <ArrowBackIos
                       sx={{ fontSize: "15px", marginLeft: "8px" }}
                     />
-                  </Button>
-                </Link>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
