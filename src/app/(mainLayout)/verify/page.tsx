@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 
-
 const OTPInput = ({
   length,
   setOTPValues,
@@ -116,4 +115,3 @@ const OTPVerifyPage = () => {
 };
 
 export default OTPVerifyPage;
-
