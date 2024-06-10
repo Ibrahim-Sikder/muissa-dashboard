@@ -49,9 +49,7 @@
   animation: fadeInRight 1s ease forwards;
   animation-delay: 1s;
 }
-.heroContent2 h1 {
-  animation: fadeInLeft 1s ease forwards;
-}
+
 
 .heroContent h2,
 .heroContent2 h2 {
@@ -60,9 +58,7 @@
   animation: fadeInLeft 1s ease forwards;
   animation-delay: 2s;
 }
-.heroContent2 h2 {
-  animation: fadeInRight 1s ease forwards;
-}
+
 
 .heroContent p,
 .heroContent2 p {
