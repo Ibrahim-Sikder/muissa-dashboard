@@ -1,10 +1,13 @@
 "use client";
 import * as React from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
-import { useState } from "react";
 import UserList from "@/components/Dashboard/pages/support/UserList";
 import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
 import type { Metadata } from "next";
+import { useForm } from "react-hook-form";
+import { getCookie } from "@/helpers/Cookies";
+import { io, Socket } from "socket.io-client";
+import { ChangeEvent, useEffect, useState } from "react";
 interface Message {
   id: number;
   sender: string;
@@ -59,27 +62,147 @@ const mockUsers: User[] = [
   },
 ];
 export default function SupportContactPage() {
-  const [messages, setMessages] = useState<Message[]>(mockMessages);
-  const [newMessage, setNewMessage] = useState("");
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      const timestamp = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      setMessages([
-        ...messages,
-        {
-          id: messages.length + 1,
-          sender: "User",
-          content: newMessage.trim(),
-          timestamp,
-        },
-      ]);
-      setNewMessage("");
+  // const [messages, setMessages] = useState<Message[]>(mockMessages);
+  // const [newMessage, setNewMessage] = useState("");
+  // const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  // const handleSendMessage = () => {
+  //   if (newMessage.trim()) {
+  //     const timestamp = new Date().toLocaleTimeString([], {
+  //       hour: "2-digit",
+  //       minute: "2-digit",
+  //     });
+  //     setMessages([
+  //       ...messages,
+  //       {
+  //         id: messages.length + 1,
+  //         sender: "User",
+  //         content: newMessage.trim(),
+  //         timestamp,
+  //       },
+  //     ]);
+  //     setNewMessage("");
+  //   }
+  // };
+
+
+ 
+
+  const [senderUser, setSenderUser] = useState({
+    _id: "",
+    name: "",
+    token: "",
+  });
+  const [allMessage, setAllMessage] = useState([]);
+  const [message, setMessage] = useState({
+    text: "",
+    imageUrl: "",
+  });
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [onlineUser, setOnlineUser] = useState([]);
+
+  const [userDetails, setUserDetails] = useState({
+    _id: "",
+    name: "",
+    token: "",
+    online: false,
+  });
+
+  const token = getCookie("token");
+
+  const userId = '666033cff9dc2324dde3c27b'
+
+  useEffect(() => {
+    const socketConnection = io("http://localhost:5000/", {
+      auth: {
+        token: token,
+      },
+    });
+    setSocket(socketConnection);
+    socketConnection.on("onlineUser", (data) => {
+      // console.log({ data });
+      setOnlineUser(data);
+    });
+
+    socketConnection.emit("message-page", userId);
+
+
+    //  pasci token theke 
+    socketConnection.on(
+      "sender-user",
+      (data: { _id: string; name: string; token: string }) => {
+        // console.log(data);
+        setSenderUser(data);
+      }
+    );
+
+
+    // receiver id theke 
+    socketConnection.on(
+      "message-user",
+      (data: { _id: string; name: string; token: string; online: boolean }) => {
+        // console.log({data});
+        setUserDetails(data);
+      }
+    );
+
+    
+
+
+   
+
+    socketConnection.on('message',(data)=>{
+      // console.log('message data',data)
+      setAllMessage(data)
+    })
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, [token]);
+
+ 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+
+
+
+  console.log("senderUser?._id", senderUser?._id)
+
+  const onSubmit = async () => {
+    if (message.text || message.imageUrl) {
+      if (socket) {
+        socket.emit("new-message", {
+          sender: senderUser?._id,
+          receiver: userId,
+          text: message.text,
+          imageUrl: message.imageUrl,
+          msgByUserId: senderUser?._id,
+        });
+        setMessage({
+          text: "",
+          imageUrl: "",
+        });
+      }
     }
   };
+
+  const handleMessageOnChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target;
+    setMessage((prevState) => ({
+      ...prevState,
+      text: value,
+    }));
+  };
+  // console.log({senderUser})
+  console.log({allMessage})
+  // console.log(userDetails);
+
   return (
     <Box
       maxWidth="lg"
@@ -118,11 +241,11 @@ export default function SupportContactPage() {
             backgroundColor: "#f9f9f9",
           }}
         >
-          <UserList
+          {/* <UserList
             users={mockUsers}
-            selectedUser={selectedUser}
-            onSelectUser={setSelectedUser}
-          />
+            // selectedUser={selectedUser}
+            // onSelectUser={setSelectedUser}
+          /> */}
         </Grid>
         <Grid
           item
@@ -131,11 +254,19 @@ export default function SupportContactPage() {
           lg={9}
           sx={{ display: "flex", flexDirection: "column" }}
         >
-          <ChatArea
-            messages={messages}
-            newMessage={newMessage}
-            onNewMessageChange={setNewMessage}
+          {/* <ChatArea
+            // messages={messages}
+            allMessage={allMessage}
+            onNewMessageChange={handleMessageOnChange}
             onSendMessage={handleSendMessage}
+          /> */}
+          <ChatArea
+            message={message}
+            allMessage={allMessage}
+            handleMessageOnChange={handleMessageOnChange}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            user={senderUser}
           />
         </Grid>
       </Grid>

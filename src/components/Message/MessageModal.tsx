@@ -2,13 +2,14 @@
 "use client";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaLink, FaUserTie } from "react-icons/fa";
 import logo from "../../assets/logo/logo.jpg";
 import Image from "next/image";
 import { VscClose } from "react-icons/vsc";
 import { IoLinkOutline } from "react-icons/io5";
+import { setCookie } from "@/helpers/Cookies";
 
 type TProps = {
   close: () => void;
@@ -44,6 +45,13 @@ const MessageModal = ({ close }: TProps) => {
   //         messageContainerRef.current.scrollHeight;
   //     }
   //   }, [messages]);
+
+  // useEffect(() => {
+  //     setCookie(
+  //       "token",
+  //       "0001|098e2102c8f8df75021f76538d2b714eeaee06f7bd6d3bf4a7cc5d66fd8d9d21ed1976cb7b49759508397ee90343d76a8885fd21366817a4bf83ca118acfe3be"
+  //     );
+  //   }, []);
 
   return (
     <div className="w-[300px] md:w-[360px] md:h-[600px] h-[400px]  bg-white fixed right-3 md:right-8 bottom-24  rounded-2xl text-black shadow-xl z-[9999999999] overflow-hidden shadowStyle">
