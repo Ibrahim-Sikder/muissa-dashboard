@@ -86,6 +86,7 @@ const PaymentForm = () => {
                 ))}
               </Select>
             </FormControl>
+            <div className="flex">
             <TextField
               label="কুপন কোড"
               variant="outlined"
@@ -94,6 +95,8 @@ const PaymentForm = () => {
               placeholder="123456"
               sx={{ width: "150px" }}
             />
+            <Button>Apply</Button>
+            </div>
           </div>
 
           <div className="mb-4">
