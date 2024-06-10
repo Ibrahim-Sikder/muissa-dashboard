@@ -67,7 +67,7 @@ const CreateService = () => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <MUIInput
                   name="title"
                   label="Service Title"
@@ -75,10 +75,24 @@ const CreateService = () => {
                   fullWidth={true}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <INTSelect
                   name="category"
                   label="Service Category"
+                  items={[
+                    "Product Support",
+                    "Technical Support",
+                    "Customer Support",
+                    "Funding Support",
+                  ]}
+                />
+              </Grid>
+
+              {/* subcategory */}
+              <Grid item xs={12} md={4}>
+                <INTSelect
+                  name="subcategory"
+                  label="Service Subcategory"
                   items={[
                     "Product Support",
                     "Technical Support",

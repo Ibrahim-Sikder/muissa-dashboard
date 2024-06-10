@@ -52,33 +52,54 @@ const ServiceCategoryTable = () => {
         overflow: "hidden",
         boxShadow: "none",
         border: "1px solid #e0e0e0",
+        borderRadius: "8px",
         p: 2,
+        mb: 4,
       }}
     >
-      <Stack spacing={2} sx={{ p: 2 }}>
-        <Typography variant="h6">Service Categories</Typography>
+      <Stack spacing={2} sx={{ mb: 2 }}>
+        <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+          Service Categories
+        </Typography>
       </Stack>
       <Table
         sx={{
+          minWidth: 650,
           border: "1px solid #e0e0e0",
+          borderRadius: "8px",
         }}
       >
-        <TableHead>
+        <TableHead
+          sx={{
+            backgroundColor: "#f5f5f5",
+          }}
+        >
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Actions</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }} align="right">
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {categories.map((category) => (
-            <TableRow key={category.id}>
+            <TableRow
+              key={category.id}
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+                "&:hover": {
+                  backgroundColor: "#f9f9f9",
+                },
+              }}
+            >
               <TableCell>{category.id}</TableCell>
               <TableCell>{category.name}</TableCell>
               <TableCell align="right">
                 <IconButton
                   color="error"
                   onClick={() => handleDelete(category.id)}
+                  aria-label="delete"
                 >
                   <DeleteIcon />
                 </IconButton>
