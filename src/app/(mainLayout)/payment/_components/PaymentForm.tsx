@@ -15,7 +15,6 @@ import { SetStateAction, useState } from "react";
 
 const PaymentForm = () => {
   const [selectedValue, setSelectedValue] = useState("bkash");
-  const [month, setMonth] = useState("");
 
   const handleBankChange = (event: {
     target: { value: SetStateAction<string> };
@@ -23,11 +22,15 @@ const PaymentForm = () => {
     setSelectedValue(event.target.value);
   };
 
-  const handleMonthChange = (event: {
+  const [year, setYear] = useState("");
+
+  const handleYearChange = (event: {
     target: { value: SetStateAction<string> };
   }) => {
-    setMonth(event.target.value);
+    setYear(event.target.value);
   };
+
+  const years = Array.from({ length: 7 }, (_, i) => 2024 + i);
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
@@ -65,40 +68,34 @@ const PaymentForm = () => {
               margin="normal"
               placeholder="1000"
             />
-            <FormControl variant="outlined" fullWidth margin="normal">
-              <InputLabel>Month/মাস</InputLabel>
-              <Select
-                value={month}
-                onChange={handleMonthChange}
-                label="Month/মাস"
-              >
-                <MenuItem value="January">January/জানুয়ারি</MenuItem>
-                <MenuItem value="February">February/ফেব্রুয়ারি</MenuItem>
-                <MenuItem value="March">March/মার্চ</MenuItem>
-                <MenuItem value="April">April/এপ্রিল</MenuItem>
-                <MenuItem value="May">May/মে</MenuItem>
-                <MenuItem value="June">June/জুন</MenuItem>
-                <MenuItem value="July">July/জুলাই</MenuItem>
-                <MenuItem value="August">August/আগস্ট</MenuItem>
-                <MenuItem value="September">September/সেপ্টেম্বর</MenuItem>
-                <MenuItem value="October">October/অক্টোবর</MenuItem>
-                <MenuItem value="November">November/নভেম্বর</MenuItem>
-                <MenuItem value="December">December/ডিসেম্বর</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-          <div className="mb-4">
-            <p className="mb-2">
-              3. Your Payment Account/ আপনার পেমেন্ট অ্যাকাউন্ট
-            </p>
+
             <TextField
-              label="Transaction ID/লেনদেন আইডি লিখুন"
+              label="আপনার অ্যাকাউন্ট নাম্বার"
               variant="outlined"
               fullWidth
               margin="normal"
               placeholder="123456"
             />
+            <FormControl variant="outlined" fullWidth margin="normal">
+              <InputLabel>Year/বছর</InputLabel>
+              <Select value={year} onChange={handleYearChange} label="Year/বছর">
+                {years.map((year) => (
+                  <MenuItem key={year} value={year}>
+                    {year}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              label="কুপন কোড"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              placeholder="123456"
+              sx={{ width: "150px" }}
+            />
           </div>
+
           <div className="mb-4">
             <p className="text-sm mb-2">
               Tip: Cash Out to the account below and fill in the required

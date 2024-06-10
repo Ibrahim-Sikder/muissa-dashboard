@@ -85,10 +85,10 @@ const Header = () => {
               />
 
               <div>
-                <h3 className="text-sm md:text-xl lg:text-2xl">
-                  Muissa Business
-                </h3>
-                <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
+                <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
+                <small className="md:mt-0 -mt-2 ">
+                  Business Consulting Ltd.
+                </small>
               </div>
             </div>
           </Link>
@@ -148,10 +148,8 @@ const Header = () => {
                   />
 
                   <div>
-                    <h3 className="text-sm md:text-xl lg:text-2xl">
-                      Muissa Business
-                    </h3>
-                    <small> Consulting Ltd. </small>
+                    <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
+                    <small>Business Consulting Ltd. </small>
                   </div>
                 </div>
               </Box>
@@ -162,7 +160,7 @@ const Header = () => {
                 <li>
                   <Link href="/">Home</Link>
                 </li>
-                
+
                 <li>
                   <Link href="/services">Services</Link>
                 </li>
@@ -207,8 +205,8 @@ const Header = () => {
                 alt="logo"
               />
               <div>
-                <h5>Muissa Consulting </h5>
-                <small>Business Solution </small>
+                <h5>Muissa </h5>
+                <small>Business Consulting Ltd </small>
               </div>
             </div>
           </Link>
@@ -217,7 +215,7 @@ const Header = () => {
               <li>
                 <Link href="/">Home</Link>
               </li>
-             
+
               <li>
                 <Link href="/services">Services</Link>
               </li>
@@ -241,7 +239,6 @@ const Header = () => {
               <li>
                 <Link href="/profile/service">My services</Link>
               </li>
-              
             </ul>
           </div>
         </div>

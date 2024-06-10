@@ -9,6 +9,7 @@ import icon3 from "../../../assets/services/icon3.png";
 import icon4 from "../../../assets/services/icon4.png";
 import icon5 from "../../../assets/services/icon5.png";
 import icon6 from "../../../assets/services/icon6.png";
+import icon7 from "../../../assets/services/icon7.png";
 import Image from "next/image";
 import {
   Box,
@@ -127,6 +128,13 @@ const Membership = () => {
         "ফান্ডিং সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো ফান্ডিং সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
       img: icon5,
     },
+    {
+      id: 1,
+      title: "ইনভেস্টমেন্ট সাপোর্ট",
+      description:
+        "ফান্ডিং সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো ফান্ডিং সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
+      img: icon7,
+    },
   ];
   const handleSubmit = (data: FieldValues) => {
     console.log(data);
@@ -167,7 +175,7 @@ const Membership = () => {
         </div>
       </div>
       <Container>
-        <div className="grid grid-cols-1  md:grid-cols-2 place-items-center  gap-10 sectionMargin">
+        <div className="grid grid-cols-1  md:grid-cols-2 place-items-center  gap-10 sectionMargin ">
           <p className="lg:w-[400px] leading-9">
             আমাদের ব্যবসা পরামর্শদান সেবার সদস্য হতে এবং বিশেষ সুবিধাগুলি উপভোগ
             করতে আজই সাবস্ক্রিপশন নিন। আমাদের সদস্যতা সাবস্ক্রিপশনের ফি মাত্র
@@ -181,7 +189,7 @@ const Membership = () => {
           </div>
         </div>
         <div className="membarshipWraps mt-14">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-10">
             {serviceData.map((data) => (
               <div key={data.id} className="membarshipCard">
                 <Image
