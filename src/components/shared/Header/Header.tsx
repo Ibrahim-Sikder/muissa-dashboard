@@ -181,7 +181,7 @@ const Header = () => {
               <Button
                 className="membershipBtn"
                 LinkComponent={Link}
-                href="/login"
+                href="/membership"
               >
                 <span>Membership</span>
                 <TrendingFlat className="membershipIcon" />
@@ -228,7 +228,7 @@ const Header = () => {
                 <Link href="/contact">Contact </Link>
               </li>
               <li>
-                <Link href="/membership">Login</Link>
+                <Link href="/login">Login</Link>
               </li>
             </ul>
           </nav>
