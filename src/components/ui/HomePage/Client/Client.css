@@ -13,7 +13,7 @@
   height: 166px;
   background-image: url(../../../../assets/banner/clientbanner.png);
   transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
-  top:0px;
+  top: 0px;
 }
 .clientCard:hover {
   top: -30px;
@@ -63,9 +63,6 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .clientCard {
-    width: 100%;
-  }
   .clientWrap {
     bottom: -126px;
   }
@@ -82,36 +79,37 @@
 
 @media only screen and (max-width: 500px) {
   .clientCard {
-    margin: 50px auto;
-  }
-  .clientCard {
     width: 100%;
+    margin: 50px auto;
   }
 
   .clientSlider {
-    height: 500px;
-  }
-  .clientCard {
-    height: 230px;
+    height: 435px;
   }
   .clientWrap {
     bottom: -126px;
-    left: 30%;
-  }
-}
-@media only screen and (max-width: 500px) {
-  .clientCard {
-    height: 250px;
-  }
-}
-@media only screen and (max-width: 375px) {
-  .clientCard {
-    height: 300px;
+    left: 37%;
   }
 
+  .clientCard {
+    width: 100%;
+    height: 204px;
+  }
+  .clientWraps {
+    padding: 19px 0;
+  }
+}
+
+@media only screen and (max-width: 375px) {
   .clientWrap {
-    bottom: -99px;
-    left: 27%;
+    bottom: -115px;
+    left: 24%;
+  }
+  .clientCard {
+    height: 260px;
+  }
+  .clientSlider {
+    height: 475px;
   }
 }
 @media only screen and (max-width: 300px) {
@@ -122,10 +120,11 @@
     width: 80px;
     height: 80px;
   }
+
   .clientWrap {
-    bottom: -87px;
-    left: 25%;
-  }
+    bottom: -95px;
+    left: 32%;
+}
   .swiper-pagination-bullet {
     width: 15px !important;
     height: 15px !important;

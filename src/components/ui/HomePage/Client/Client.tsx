@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Pagination,  Autoplay } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 const Client = () => {
   const clientData = [
@@ -77,13 +77,11 @@ const Client = () => {
         />
         <Swiper
           spaceBetween={30}
-   
           // autoplay={{
           //   delay: 1500,
           //   disableOnInteraction: false,
           // }}
           breakpoints={{
-         
             1024: {
               slidesPerView: 2,
             },
@@ -98,7 +96,6 @@ const Client = () => {
           pagination={{
             clickable: true,
           }}
-      
           modules={[Pagination, Autoplay]}
           className="mySwiper clientSlider"
         >
@@ -109,13 +106,13 @@ const Client = () => {
                   <FormatQuote sx={{ fontSize: "50px" }} />
                 </div>
                 <div className="clientContent">
-                  <p className="leading-7">{data.review}</p>
+                  <p className="leading-7">{data.review.slice(0, 200)}</p>
                   <div className="clientWrap">
                     <div className="clientImgWraps">
                       <Image width={50} height={50} src={data.img} alt="user" />
                     </div>
                     <div>
-                      <h4 >{data.name}</h4>
+                      <h4>{data.name}</h4>
                       <small>{data.position}</small>
                     </div>
                   </div>

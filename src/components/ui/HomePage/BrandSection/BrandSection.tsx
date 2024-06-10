@@ -10,7 +10,8 @@ const BrandSection = () => {
     width: {
       lg: "240x",
       md: "200px",
-      xs: "140px",
+      sm: "140px",
+      xs: "120px",
     },
     height: {
       lg: "50px",
@@ -43,14 +44,14 @@ const BrandSection = () => {
           </p>
           <div className="flex items-center">
             <Stack
-              direction={{ sm: "row", xs: "column", md: "row", lg: "row" }}
+              direction={{ sm: "row", xs: "row", md: "row", lg: "row" }}
               spacing={2}
             >
               <Button component={Link} href="/membership" sx={buttonStyle}>
-               <span> Get Membership</span>
+                <span> Get Membership</span>
               </Button>
               <Button component={Link} href="/about" sx={buttonStyle}>
-              <span>  Know More</span>
+                <span> Know More</span>
               </Button>
             </Stack>
           </div>
