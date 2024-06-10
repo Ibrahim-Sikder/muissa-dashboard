@@ -71,10 +71,13 @@ export function PaymentsTable({
         subheader="List of all payments made by customers."
         action={
           <Stack direction="row" spacing={1}>
-            <Select defaultValue={"Requested"} size="small">
-              <MenuItem value="Requested">Requested</MenuItem>
-              <MenuItem value="On-progress">On-progress</MenuItem>
-              <MenuItem value="Confirmed">Confirmed</MenuItem>
+            <Select defaultValue={"processing"} size="small">
+              <MenuItem value="processing">Processing</MenuItem>
+              <MenuItem value="pending">Pending payment</MenuItem>
+              <MenuItem value="hold">On Hold</MenuItem>
+              <MenuItem value="completed">Completed</MenuItem>
+              <MenuItem value="cancelled">Cancelled</MenuItem>
+              <MenuItem value="refunded">Refunded</MenuItem>
             </Select>
 
             <TextField
@@ -143,13 +146,14 @@ export function PaymentsTable({
                         View
                       </Button>
 
-                      <Button color="success" size="small" variant="outlined">
-                        Confirm
-                      </Button>
-
-                      <Button color="error" size="small" variant="outlined">
-                        Cancel
-                      </Button>
+                      <Select defaultValue={"processing"} size="small">
+                        <MenuItem value="processing">Processing</MenuItem>
+                        <MenuItem value="pending">Pending payment</MenuItem>
+                        <MenuItem value="hold">On Hold</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="cancelled">Cancelled</MenuItem>
+                        <MenuItem value="refunded">Refunded</MenuItem>
+                      </Select>
                     </Stack>
                   </TableCell>
                 </TableRow>
