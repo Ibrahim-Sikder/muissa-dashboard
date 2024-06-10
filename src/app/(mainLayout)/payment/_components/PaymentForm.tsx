@@ -86,17 +86,24 @@ const PaymentForm = () => {
                 ))}
               </Select>
             </FormControl>
-            <div className="flex">
+            <div className="flex items-center gap-2">
+              <TextField
+                label="কুপন কোড"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                placeholder="123456"
+                sx={{ width: "150px" }}
+              />
+              <Button sx={{ width: "80px", height: "40px", marginTop:'20px' }}>Apply</Button>
+            </div>
             <TextField
-              label="কুপন কোড"
+              label="পরিশোধিত অর্থ"
               variant="outlined"
               fullWidth
               margin="normal"
               placeholder="123456"
-              sx={{ width: "150px" }}
             />
-            <Button>Apply</Button>
-            </div>
           </div>
 
           <div className="mb-4">
