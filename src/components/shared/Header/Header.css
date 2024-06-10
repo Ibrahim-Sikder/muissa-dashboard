@@ -113,7 +113,7 @@ nav.menuItemsBarWraps {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999999999;
+  z-index: 9999999;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -152,7 +152,7 @@ nav.menuItemsBarWraps {
     top: 0;
     height: 100vh;
     left: -400px;
-    z-index: 999999999999999999999;
+    z-index: 99999;
     color: #111;
     background: #fff;
     width: 255px;

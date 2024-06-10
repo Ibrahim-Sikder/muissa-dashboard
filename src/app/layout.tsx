@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { Toaster } from "sonner";
 import MessageIcon from "@/components/Message/MessageIcon";
 import dynamic from "next/dynamic";
+import MessageIcons from "@/components/Message/MessageIcons";
 
 const BackTopButton = dynamic(
   () => import("@/components/BackTopButton/BackTopButton"),
@@ -36,7 +37,8 @@ export default function RootLayout({
         </body>
       </Providers>
       {/* <BackTopButton /> */}
-      <MessageIcon />
+      {/* <MessageIcon /> */}
+      <MessageIcons />
     </html>
   );
 }
