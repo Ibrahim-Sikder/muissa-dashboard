@@ -179,11 +179,29 @@ const Contact = () => {
               </h5>
               <div className="flex space-x-5">
                 <div className="socialIconWrap">
-                  <FaFacebookF size={35} className="text-[#1591A3]" />
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61558510933789"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaFacebookF size={35} className="text-[#1591A3]" />
+                  </a>
                 </div>
-                <FaLinkedinIn size={35} className="text-[#1591A3]" />
-                <FaTwitter size={35} className="text-[#1591A3]" />
-                <FaInstagram size={35} className="text-[#1591A3]" />
+
+                <a
+                  href="https://www.instagram.com/muissaltd?igsh=Nnp4M2d1M2pvMGtr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaInstagram size={35} className="text-[#1591A3]" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/muissa-business-consulting-ltd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedinIn size={35} className="text-[#1591A3]" />
+                </a>
               </div>
             </div>
           </div>
