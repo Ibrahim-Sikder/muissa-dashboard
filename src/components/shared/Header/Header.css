@@ -144,21 +144,20 @@ nav.menuItemsBarWraps {
     width: 1024px;
     padding: 0 20px;
   }
-  .mobileMenu,
-  .activeMobileMenu {
+  .mobileMenu, .activeMobileMenu {
     display: block;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: fixed;
     top: 0;
     height: 100vh;
     left: -400px;
-    z-index: 99999;
+    z-index: 99999999999;
     color: #111;
     background: #fff;
     width: 255px;
     padding: 30px;
     transition: all 0.5s ease-in-out;
-  }
+}
   .mobileMenu {
     left: 0px;
   }

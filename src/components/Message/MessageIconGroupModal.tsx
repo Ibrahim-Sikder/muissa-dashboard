@@ -18,7 +18,7 @@ const MessageIconGroupModal: React.FC<MessageIconGroupModalProps> = ({
   const handleClose = () => setMessageOpen(false);
   return (
     <div
-      className={`fixed right-3 bottom-[80px] transition-all duration-300 cursor-pointer ${
+      className={`fixed right-3 bottom-[80px] transition-all message duration-300 cursor-pointer z-[9999999999999] ${
         open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       } space-y-2 z-[99]`}
     >

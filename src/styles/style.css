@@ -106,7 +106,7 @@
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-/* .rotate-90 {
+ .rotate-90 {
   transform: rotate(90deg);
 }
 
@@ -116,7 +116,8 @@
 
 .message {
   transition: transform 0.5s ease-in-out;
-} */
+  z-index: 999999999999999 !important;
+} 
 
 .shadowStyle{
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
@@ -131,4 +132,11 @@
     font-size: 0.5rem;
     background-color: red;
   }
+
+}
+@media only screen and (max-width: 500px) {
+
+  .commonContent a {
+    width: 120px;
+}
 }

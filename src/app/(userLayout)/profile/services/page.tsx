@@ -28,13 +28,18 @@ const Services = () => {
       opacity: "0.5",
     },
   };
-  
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="services tabs" centered>
+          <TabList
+            onChange={handleChange}
+            scrollButtons="auto"
+            variant="scrollable"
+            aria-label="scrollable auto tabs example"
+            centered
+          >
             <Tab sx={tabStyle} label="ফান্ডিং সাপোর্ট" value="1" />
             <Tab sx={tabStyle} label="মার্কেটিং সাপোর্ট" value="2" />
             <Tab sx={tabStyle} label="আইটি সাপোর্ট" value="3" />
