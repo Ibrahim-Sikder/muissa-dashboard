@@ -13,7 +13,7 @@ import investment2 from "../../../../assets/invest/investment2.jpg";
 import investment3 from "../../../../assets/invest/investment3.jpg";
 import investment4 from "../../../../assets/invest/ivestment4.jpg";
 import investment5 from "../../../../assets/invest/investment5.jpg";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./Investment.css";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
@@ -31,8 +31,9 @@ export default function Investment() {
     textAlign: "left",
     pl: 2,
     "& .MuiTab-wrapper": {
-      justifyContent: "flex-start", // Aligns the text to the left
+      justifyContent: "flex-start",
     },
+
     "&.Mui-selected": {
       borderLeft: "2px solid #1591A3",
       borderRight: "none",
@@ -84,13 +85,7 @@ export default function Investment() {
               সময় ও অর্থের অপচয় হয়।
             </li>
           </ul>
-          {/* <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
-          <p className="my-3 leading-7">
-            Ut nunc leo, sodales nec ullamcorper sit amet, pulvinar nec purus.
-            Aliquam sit amet accumsan felis. Duis sollicitudin consectetur quam.
-            In at lacus et tellus blandit tincidunt. Suspendisse id risus
-            efficitur.
-          </p> */}
+
           <Button sx={buttonStyle}>Know More</Button>
         </div>
       ),
@@ -256,6 +251,9 @@ export default function Investment() {
     },
   ];
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Container className="sectionMargin">
       <SectionTitle
@@ -268,13 +266,11 @@ export default function Investment() {
             <Grid item xs={12} md={3}>
               <Box sx={{ height: "100%" }}>
                 <TabList
-                  // orientation={{
-                  //   xs: 'vertical',
-                  //   md: 'vertical',
-                  // }}
-                  orientation="vertical"
+                  orientation={isSmallScreen ? "horizontal" : "vertical"}
+                  scrollButtons="auto"
+                  variant="scrollable"
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
+                  aria-label="scrollable auto tabs example"
                   sx={{
                     borderRight: "none",
                     border: "none",
@@ -294,6 +290,7 @@ export default function Investment() {
                 </TabList>
               </Box>
             </Grid>
+
             <Grid item xs={12} md={9}>
               <TransitionGroup>
                 {tabData.map(

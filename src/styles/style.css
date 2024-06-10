@@ -29,9 +29,114 @@
   transform: translate(-50%, -50%);
 }
 
-.faqWraps{
-
+.faqWraps {
   background-image: url(../assets/team/faq.jpg);
   object-fit: contain;
+}
 
+.scrollToTopBtn {
+  width: 40px;
+  height: 40px;
+  background: #1591a3;
+  color: white;
+  border-radius: 100%;
+  right: 12px;
+  position: fixed;
+  bottom: 87px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999 !important;
+}
+
+.membarshipCard {
+  width: 630px;
+  box-shadow: 0 8px 40px rgba(12, 12, 12, 0.1);
+  padding-top: 8px;
+  text-align: center;
+  border-top: 3px solid #02d3f7;
+  padding: 20px 40px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin: 0 auto;
+}
+
+.activeProfileLink {
+  background: #e9fdff;
+  color: #1591a3;
+  padding: 8px 10px;
+  width: 172px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.responsiveTypography {
+  font-weight: bold;
+}
+
+.commonContent a {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+  width: 200px;
+  border-radius: 30px;
+}
+.commonContent a span {
+  position: absolute;
+  z-index: 9;
+}
+
+.commonContent a::after {
+  color: #fff;
+  background-image: -webkit-linear-gradient(right, #05afec, #94ca36);
+  width: 0%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 30px;
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+.commonContent a:hover::after {
+  width: 100%;
+}
+
+.messageIcon {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+ .rotate-90 {
+  transform: rotate(90deg);
+}
+
+.rotate-0 {
+  transform: rotate(0deg);
+}
+
+.message {
+  transition: transform 0.5s ease-in-out;
+  z-index: 999999999999999 !important;
+} 
+
+.shadowStyle{
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .membarshipCard {
+    width: 100%;
+  }
+  .responsiveTypography {
+    font-size: 0.5rem;
+    background-color: red;
+  }
+
+}
+@media only screen and (max-width: 500px) {
+
+  .commonContent a {
+    width: 120px;
+}
 }

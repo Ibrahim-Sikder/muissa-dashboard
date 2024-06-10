@@ -14,13 +14,15 @@ import "./Header.css";
 import logo from "../../../assets/logo/logo.jpg";
 import Image from "next/image";
 import {
+  HiOutlineArrowNarrowRight,
   HiOutlineLocationMarker,
   HiOutlineMenu,
   HiOutlineMenuAlt1,
   HiOutlineX,
 } from "react-icons/hi";
-import { Button } from "@mui/material";
+import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
+import { TrendingFlat } from "@mui/icons-material";
 const Header = () => {
   const [user, setUser] = useState({});
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -49,30 +51,47 @@ const Header = () => {
         <div className=" topBar flex items-center justify-between ">
           <small>House-08, Road-07, Block-C, Banasree,Dhaka-1219 </small>
           <div className="flex space-x-3">
-            <FaFacebookF />
-            <FaLinkedinIn />
-            <FaTwitter />
-            <FaInstagram />
+            <a
+              href="https://www.facebook.com/profile.php?id=61558510933789"
+              target="_blank"
+            >
+              <FaFacebookF className="topIcon" />
+            </a>
+
+            <a
+              href="https://www.instagram.com/muissaltd?igsh=Nnp4M2d1M2pvMGtr"
+              target="_blank"
+            >
+              <FaInstagram className="topIcon" />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/company/muissa-business-consulting-ltd/"
+              target="_blank"
+            >
+              <FaLinkedinIn className="topIcon" />
+            </a>
           </div>
         </div>
       </div>
       <Container className="headerWrap ">
         <div className=" flex items-center justify-between px-5 xl:px-0  ">
-          <div className="flex items-center ">
-            <Link href="/">
+          <Link href="/">
+            <div className="flex items-center ">
               <Image
                 className="w-10 md:w-16 mr-2 rounded-full "
                 src={logo}
                 alt="logo"
               />
-            </Link>
-            <div>
-              <h3 className="text-sm md:text-xl lg:text-2xl">
-              Muissa Business 
-              </h3>
-              <small className="md:mt-0 -mt-2 ">Consulting Ltd.</small>
+
+              <div>
+                <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
+                <small className="md:mt-0 -mt-2 ">
+                  Business Consulting Ltd.
+                </small>
+              </div>
             </div>
-          </div>
+          </Link>
           <div className="xl:flex items-center  space-x-6  hidden ">
             <div className="flex ">
               <FaPhoneVolume className="headerIcon -rotate-45 mr-2" />
@@ -120,31 +139,28 @@ const Header = () => {
             }`}
           >
             <div className={`${stickyMenu ? "stickyLogo" : "hidden"}`}>
-              <div className="flex items-center ">
-                <Link href="/">
+              <Box component={Link} href="/">
+                <div className="flex items-center ">
                   <Image
                     className="w-10 md:w-16 mr-2 rounded-full "
                     src={logo}
                     alt="logo"
                   />
-                </Link>
-                <div>
-                  <h3 className="text-sm md:text-xl lg:text-2xl">
-                    Muissa Business
-                  </h3>
-                  <small> Consulting Ltd. </small>
+
+                  <div>
+                    <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
+                    <small>Business Consulting Ltd. </small>
+                  </div>
                 </div>
-              </div>
+              </Box>
             </div>
 
-            <nav>
+            <nav className="menuItemsBarWraps">
               <ul className="flex navItems items-center ">
                 <li>
                   <Link href="/">Home</Link>
                 </li>
-                <li>
-                  <Link href="/membership">Membership</Link>
-                </li>
+
                 <li>
                   <Link href="/services">Services</Link>
                 </li>
@@ -154,24 +170,19 @@ const Header = () => {
                 <li>
                   <Link href="/contact">Contact </Link>
                 </li>
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
               </ul>
             </nav>
-            <div className=" hidden xl:block">
+            <div className=" membershipBtn">
               <Button
+                className="membershipBtn"
                 LinkComponent={Link}
-                href="/login"
-                sx={{
-                  backgroundColor: "white",
-                  color: "black",
-                  width: "90px",
-                  height: "40px",
-                  borderRadius: "20px",
-                  "&:hover": {
-                    backgroundColor: "lightgray",
-                  },
-                }}
+                href="/membership"
               >
-                Login
+                <span>Membership</span>
+                <TrendingFlat className="membershipIcon" />
               </Button>
             </div>
             <div onClick={toggleMobileMenu} className="xl:hidden block">
@@ -185,28 +196,26 @@ const Header = () => {
         </div>
 
         <div className={mobileMenu ? `activeMobileMenu` : `mobileMenu`}>
-          <div className="flex items-center xl:hidden ">
-            <Link href="/">
+          <Link href="/">
+            <div className="flex items-center xl:hidden ">
               {" "}
               <Image
                 className="w-12 mr-2 rounded-full "
                 src={logo}
                 alt="logo"
               />
-            </Link>
-            <div>
-              <h5>Muissa Consulting </h5>
-              <small>Business Solution </small>
+              <div>
+                <h5>Muissa </h5>
+                <small>Business Consulting Ltd </small>
+              </div>
             </div>
-          </div>
+          </Link>
           <nav className="mt-5">
             <ul className="">
               <li>
                 <Link href="/">Home</Link>
               </li>
-              <li>
-                <Link href="/membership">Membership</Link>
-              </li>
+
               <li>
                 <Link href="/services">Services</Link>
               </li>
@@ -216,8 +225,22 @@ const Header = () => {
               <li>
                 <Link href="/contact">Contact </Link>
               </li>
+              <li>
+                <Link href="/login">Login</Link>
+              </li>
             </ul>
           </nav>
+          <div>
+            <Divider />
+            <ul className="mt-3">
+              <li>
+                <Link href="/profile">Account</Link>
+              </li>
+              <li>
+                <Link href="/profile/service">My services</Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </Container>
     </header>

@@ -10,7 +10,8 @@ const BrandSection = () => {
     width: {
       lg: "240x",
       md: "200px",
-      xs: "140px",
+      sm: "140px",
+      xs: "120px",
     },
     height: {
       lg: "50px",
@@ -32,7 +33,7 @@ const BrandSection = () => {
         <div className="brandImgWraps">
           <Image src={developer} alt="brand" />
         </div>
-        <div className="brandContent">
+        <div className="brandContent commonContent">
           {/* <span>SEE HOW WP ENGINE EMPOWERS</span> */}
           <h3 className="text-3xl my-3">আমাদের প্রতিষ্ঠান</h3>
           <p className="md:w-[500px] my-8">
@@ -43,14 +44,14 @@ const BrandSection = () => {
           </p>
           <div className="flex items-center">
             <Stack
-              direction={{ sm: "row", xs: "column", md: "row", lg: "row" }}
+              direction={{ sm: "row", xs: "row", md: "row", lg: "row" }}
               spacing={2}
             >
               <Button component={Link} href="/membership" sx={buttonStyle}>
-                Get Membership
+                <span> Get Membership</span>
               </Button>
               <Button component={Link} href="/about" sx={buttonStyle}>
-                Know More
+                <span> Know More</span>
               </Button>
             </Stack>
           </div>

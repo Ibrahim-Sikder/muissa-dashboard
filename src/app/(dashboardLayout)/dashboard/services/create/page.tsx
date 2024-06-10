@@ -1,27 +1,27 @@
-// import { Stack, Typography } from "@mui/material";
-// import CreateService from "@/components/Dashboard/pages/services/CreateService";
-// import type { Metadata } from "next";
+import { Stack, Typography } from "@mui/material";
+import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
-// export default function CreateServicePage() {
-//   return (
-//     <Stack spacing={3}>
-//       <div>
-//         <Typography variant="h4">Create a new service</Typography>
-//       </div>
-//       <CreateService />
-//     </Stack>
-//   );
-// }
+const CreateService = dynamic(
+  () => import("@/components/Dashboard/pages/services/CreateService"),
+  {
+    ssr: false,
+  }
+);
 
-
-import React from 'react';
-
-const page = () => {
+export default function CreateServicePage() {
   return (
-    <div>
-      <h4>services</h4>
-    </div>
+    <Stack spacing={3}>
+      <div>
+        <Typography variant="h4">Create a new service</Typography>
+      </div>
+      <CreateService />
+    </Stack>
   );
-};
+}
 
-export default page;
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Services",
+  description: "Muissa Consulting services page ",
+  keywords: "services, Muissa Consulting",
+};

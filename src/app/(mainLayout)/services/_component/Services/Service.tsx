@@ -40,14 +40,26 @@ const Service = () => {
   const iconStyle = {
     fontSize: {
       lg: "75px",
-      md: "60",
-      xs: "40px",
+      md: "60px",
+      sm: "40px",
+      xs: "30px",
     },
+  };
+  const buttonStyle = {
+    fontSize: {
+      xs: "10px",
+      md: "12px",
+    },
+    width: {
+      xs: "100px",
+    },
+    height: "30px",
+    padding: "0px",
   };
   return (
     <Container>
       <div className="serviceCardWraps">
-        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 ">
+        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 ">
           {serviceData.map((data, i) => (
             <div key={data.id} className="serviceCard">
               <div className="serviceIconWraps">
@@ -64,8 +76,8 @@ const Service = () => {
               <div className="serviceContent">
                 <h4>{data.title}</h4>
 
-                <p className="my-5">{data.description}</p>
-                <Button component={Link} href="/services/1">
+                <p className="my-2 md:my-5">{data.description.slice(0, 100)}</p>
+                <Button sx={buttonStyle} component={Link} href="/services/1">
                   আরো দেখুন
                 </Button>
               </div>

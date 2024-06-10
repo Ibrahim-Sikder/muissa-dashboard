@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 
-
 const OTPInput = ({
   length,
   setOTPValues,
@@ -80,7 +79,7 @@ const OTPVerifyPage = () => {
     console.log(data);
   };
   return (
-    <div className=" -mt-24 h-screen flex items-center justify-center ">
+    <div className=" lg:-mt-24 lg:h-screen flex items-center justify-center ">
       <div className="border w-full lg:w-1/4 p-10 rounded-md bg-gray-50">
         <Image
           src={lockIcon}
@@ -116,4 +115,3 @@ const OTPVerifyPage = () => {
 };
 
 export default OTPVerifyPage;
-

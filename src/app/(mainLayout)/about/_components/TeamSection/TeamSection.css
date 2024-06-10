@@ -57,4 +57,13 @@
   .teamCard {
     width: 100%;
 }
+
+}
+@media only screen and (max-width:375px){
+  .teamCard {
+    width: 100%;
+}
+.teamCard {
+  height: 315px;
+}
 }

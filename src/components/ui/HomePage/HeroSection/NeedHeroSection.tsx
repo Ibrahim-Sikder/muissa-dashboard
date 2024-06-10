@@ -3,7 +3,7 @@
 import React from "react";
 import "./HeroSection.css";
 import hero from "../../../../assets/banner/slider2.png";
-import hero2 from "../../../../assets/banner/slider.jpeg";
+import hero2 from "../../../../assets/banner/slider2.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { Button } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = () => {
   const slides = [
@@ -66,11 +67,11 @@ const HeroSection = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="heroContentWraps">
+            <div className="heroContentWraps ">
               <div className="bannerImgWrap">
                 <Image src={slide.img} alt="banner" />
               </div>
-              <div className="heroContent">
+              <div className="heroContent commonContent ">
                 <div className="space-y- md:space-y-5">
                   <h1 className="animate-fadeInRight">{slide.title}</h1>
                   <h2 className="md:mt-5 text-[#1591A3] animate-fadeInLeft">
@@ -79,7 +80,7 @@ const HeroSection = () => {
                   <p className="mb-2 md:mb-0 md:mt- animate-fadeInRight">
                     {slide.description}
                   </p>
-                  <Button sx={buttonStyle}>Get Membership</Button>
+                  <Button component={Link} href='/membership' sx={buttonStyle}><span>Get Membership</span></Button>
                 </div>
               </div>
             </div>

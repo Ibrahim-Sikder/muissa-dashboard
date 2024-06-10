@@ -7,25 +7,22 @@ import Client from "@/components/ui/HomePage/Client/Client";
 
 import HeroSection from "@/components/ui/HomePage/HeroSection/HeroSection";
 
-import CTA from "@/components/ui/HomePage/CTA";
+
 import Investment from "@/components/ui/HomePage/Investment/Investment";
-import WhyUs from "@/components/ui/HomePage/WhyUs/WhyUs";
 import Company from "@/components/ui/HomePage/Company/Company";
 import Service from "./services/_component/Services/Service";
+import InvestmentCircle from "@/components/ui/HomePage/Investment/InvestmentCircle";
 
 const Home = () => {
   return (
     <Box>
       <HeroSection />
       <Service />
-      {/* <Banner/> */}
       <BrandSection />
-      {/* <WhyUs/> */}
       <Client />
       <Experience />
       <NewsSection />
-      {/* <CTA /> */}
-      {/* <Services /> */}
+      <InvestmentCircle />
       <Investment />
       <Company />
     </Box>

@@ -8,7 +8,7 @@ import { Controller, useFormContext } from "react-hook-form";
 
 type INTFileUploaderProps = {
   name: string;
-  sx: SxProps
+  sx: SxProps;
 };
 
 const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
@@ -37,17 +37,22 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
       render={({ field }) => (
         <Box
           sx={{
-            marginTop: "20px",
             padding: "20px",
             borderRadius: "8px",
             border: "1px dashed #ddd",
-            width: "300px",
+            width: {
+              lg: "300px",
+              xs: "200px",
+            },
             textAlign: "center",
+            margin: "0 auto",
+            marginTop: {
+              lg: "25px",
+              sm: "0px",
+            },
           }}
         >
-          <Box
-            sx={sx}
-          >
+          <Box sx={sx}>
             <input
               type="file"
               id="files"

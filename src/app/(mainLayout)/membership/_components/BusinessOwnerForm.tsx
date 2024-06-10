@@ -7,6 +7,7 @@ import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import { z } from "zod";
+import INTSelect from "@/components/Forms/Select";
 
 const validationSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -15,19 +16,38 @@ const validationSchema = z.object({
   message: z.string().min(1, "Message is required"),
 });
 
+const defaultValues = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+};
+
 const BusinessOwnerForm = () => {
   const handleSubmit = async (data: FieldValues) => {
     console.log(data);
   };
   return (
     <div>
-      <MUIForm onSubmit={handleSubmit} resolver={zodResolver(validationSchema)}>
+      <MUIForm
+        onSubmit={handleSubmit}
+        resolver={zodResolver(validationSchema)}
+        defaultValues={defaultValues}
+      >
         <Box>
           <Grid container direction="column" justifyContent="center">
-            <Grid item lg={6} md={6} sm={6}>
+            <Grid item lg={6} md={6} xs={12}>
+              <INTSelect
+                size="medium"
+                name="businessOwner"
+                label="As BUSINESS OWNER"
+                items={["As BUSINESS OWNER"]}
+              />
+            </Grid>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput size="medium" label="নাম" name="name" fullWidth />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ইমেইল ঠিকানা"
@@ -35,7 +55,7 @@ const BusinessOwnerForm = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ফোন নম্বর"
@@ -43,24 +63,24 @@ const BusinessOwnerForm = () => {
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ব্যবসার নাম"
-                name="message"
+                name="businessName"
                 fullWidth
               />
             </Grid>
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <MUIInput
                 size="medium"
                 label="ব্যবসার ঠিকানা"
-                name="message"
+                name="businessAddress"
                 fullWidth
               />
             </Grid>
 
-            <Grid item lg={6}>
+            <Grid item lg={6} md={6} xs={12}>
               <Button
                 type="submit"
                 sx={{

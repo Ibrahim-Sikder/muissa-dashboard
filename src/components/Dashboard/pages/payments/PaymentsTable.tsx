@@ -20,7 +20,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 
 function noop(): void {
   // do nothing
@@ -70,29 +70,41 @@ export function PaymentsTable({
         }
         subheader="List of all payments made by customers."
         action={
-          <TextField
-            label="Search"
-            size="small"
-            variant="outlined"
-            InputProps={{
-              endAdornment: (
-                <Button
-                  color="primary"
-                  size="small"
-                  variant="contained"
-                  sx={{ borderRadius: "0px 4px 4px 0px" }}
-                >
-                  Search
-                </Button>
-              ),
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "4px 0px 0px 4px",
-                paddingRight: "0 !important",
-              },
-            }}
-          />
+          <Stack direction="row" spacing={1}>
+            <Select defaultValue={"processing"} size="small">
+              <MenuItem value="processing">Processing</MenuItem>
+              <MenuItem value="pending">Pending payment</MenuItem>
+              <MenuItem value="hold">On Hold</MenuItem>
+              <MenuItem value="completed">Completed</MenuItem>
+              <MenuItem value="cancelled">Cancelled</MenuItem>
+              <MenuItem value="refunded">Refunded</MenuItem>
+            </Select>
+
+            <TextField
+              label="Search"
+              size="small"
+              variant="outlined"
+              fullWidth
+              InputProps={{
+                endAdornment: (
+                  <Button
+                    color="primary"
+                    size="small"
+                    variant="contained"
+                    sx={{ borderRadius: "0px 4px 4px 0px" }}
+                  >
+                    Search
+                  </Button>
+                ),
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "4px 0px 0px 4px",
+                  paddingRight: "0 !important",
+                },
+              }}
+            />
+          </Stack>
         }
       />
       <Box sx={{ overflowX: "auto" }}>
@@ -130,18 +142,17 @@ export function PaymentsTable({
                   <TableCell>{row.paymentMethod}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <Button
-                        color="primary"
-                        size="small"
-                        variant="contained"
-                        startIcon={<FaEye />}
-                      >
+                      <Button color="primary" size="small" variant="contained">
                         View
                       </Button>
-                      <Select defaultValue={"Requested"} fullWidth size="small">
-                        <MenuItem value="Requested">Requested</MenuItem>
-                        <MenuItem value="On-progress">On-progress</MenuItem>
-                        <MenuItem value="Confirmed">Confirmed</MenuItem>
+
+                      <Select defaultValue={"processing"} size="small">
+                        <MenuItem value="processing">Processing</MenuItem>
+                        <MenuItem value="pending">Pending payment</MenuItem>
+                        <MenuItem value="hold">On Hold</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        <MenuItem value="cancelled">Cancelled</MenuItem>
+                        <MenuItem value="refunded">Refunded</MenuItem>
                       </Select>
                     </Stack>
                   </TableCell>

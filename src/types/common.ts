@@ -38,15 +38,107 @@ export type IGenericErrorMessage = {
 };
 
 
-export const supportServices = [
-  "প্রোডাক্ট সাপোর্ট",
-  "বিক্রয় সাপোর্ট",
-  "মার্কেটিং সাপোর্ট",
-  "ডেলিভারি সাপোর্ট",
-  "আইটি সাপোর্ট",
-  "ফান্ডিং সাপোর্ট"
-];
+
 export const role = [
   "As BUSINESS OWNER",
   "AS A INVESTOR",
+];
+
+
+
+export const supportServices = [
+  {
+    category: "প্রোডাক্ট সাপোর্ট",
+    subcategories: ["Product Issues", "Product Warranty"]
+  },
+  {
+    category: "বিক্রয় সাপোর্ট",
+    subcategories: ["Sales Queries", "Sales Follow-up"]
+  },
+  {
+    category: "মার্কেটিং সাপোর্ট",
+    subcategories: ["Campaign Management", "Market Research"]
+  },
+  {
+    category: "ডেলিভারি সাপোর্ট",
+    subcategories: ["Shipping", "Delivery Tracking"]
+  },
+  {
+    category: "আইটি সাপোর্ট",
+    subcategories: ["Technical Support", "System Maintenance"]
+  },
+  {
+    category: "ফান্ডিং সাপোর্ট",
+    subcategories: ["Financial Advice", "Investment"]
+  }
+];
+
+
+
+type Option = {
+  label: string;
+  subCategories?: Option[];
+};
+
+export const subCategories: Option[] = [
+  {
+    label: "আইটি সাপোর্ট",
+    subCategories: [
+      { label: "হার্ডওয়্যার সাপোর্ট" },
+      { label: "সফটওয়্যার সাপোর্ট" },
+      { label: "নেটওয়ার্ক সাপোর্ট" },
+      { label: "সাইবার সিকিউরিটি সাপোর্ট" },
+      { label: "ডাটা ব্যাকআপ ও রিকভারি সাপোর্ট" }
+    ]
+  },
+  {
+    label: "ফান্ডিং সাপোর্ট",
+    subCategories: [
+      { label: "সরকারি অনুদান ও সহায়তা" },
+      { label: "ব্যাংক ঋণ" },
+      { label: "ভেঞ্চার ক্যাপিটাল" },
+      { label: "এঞ্জেল ইনভেস্টর" },
+      { label: "ক্রাউডফান্ডিং" }
+    ]
+  },
+  {
+    label: "মার্কেটিং সাপোর্ট",
+    subCategories: [
+      { label: "ব্র্যান্ডিং ও পজিশনিং" },
+      { label: "বাজার গবেষণা ও বিশ্লেষণ" },
+      { label: "বিজ্ঞাপন ও প্রচারণা" },
+      { label: "ডিজিটাল মার্কেটিং" },
+      { label: "কন্টেন্ট মার্কেটিং" }
+    ]
+  },
+  {
+    label: "ডেলিভারি সাপোর্ট",
+    subCategories: [
+      { label: "সরবরাহ চেইন ব্যবস্থাপনা" },
+      { label: "লজিস্টিক সাপোর্ট" },
+      { label: "কুরিয়ার সেবা" },
+      { label: "ইনভেন্টরি ম্যানেজমেন্ট" },
+      { label: "ডেলিভারি ট্র্যাকিং সিস্টেম" }
+    ]
+  },
+  {
+    label: "বিক্রয় সাপোর্ট",
+    subCategories: [
+      { label: "বিক্রয় কৌশল ও প্রশিক্ষণ" },
+      { label: "ক্রেতা সম্পর্ক ব্যবস্থাপনা (CRM)" },
+      { label: "বিক্রয় পূর্বানুমান ও পরিকল্পনা" },
+      { label: "বিক্রয় ডেটা বিশ্লেষণ" },
+      { label: "বিক্রয় প্রযুক্তি সমাধান" }
+    ]
+  },
+  {
+    label: "প্রোডাক্ট সাপোর্ট",
+    subCategories: [
+      { label: "পণ্য উন্নয়ন ও ডিজাইন" },
+      { label: "পণ্যের মান নিয়ন্ত্রণ" },
+      { label: "প্রোডাক্ট লাইফসাইকেল ম্যানেজমেন্ট" },
+      { label: "গ্রাহক প্রতিক্রিয়া ও সমীক্ষা" },
+      { label: "পণ্য পুনর্বিবেচনা ও আপগ্রেড" }
+    ]
+  }
 ];

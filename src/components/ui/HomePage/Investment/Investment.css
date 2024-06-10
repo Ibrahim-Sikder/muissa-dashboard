@@ -26,6 +26,39 @@
   transition: opacity 500ms;
 }
 
+
+
+/* General styles for Tabs */
+.tabContainer {
+  width: 100%;
+  typography: "body1";
+}
+
+.verticalTabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Adjust width as necessary */
+}
+
+.horizontalTabs {
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Prevents tabs from wrapping */
+}
+
+/* Media query for smaller devices */
+@media (max-width: 768px) {
+  .verticalTabs {
+    display: none; /* Hide vertical tabs */
+  }
+
+  .horizontalTabs {
+    display: flex; /* Show horizontal tabs */
+    flex-direction: row; /* Align tabs in a row */
+  }
+}
+
+
+
 @media only screen and (max-width: 1024px) {
   .investmentCardWrap, .investmentContent{
     width:100%;

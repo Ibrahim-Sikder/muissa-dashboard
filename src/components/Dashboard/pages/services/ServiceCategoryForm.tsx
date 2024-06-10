@@ -65,7 +65,6 @@ const ServiceCategoryForm = () => {
         </MUIForm>
       </Card>
       <Divider />
-      <ServiceCategoryTable />
     </Stack>
   );
 };

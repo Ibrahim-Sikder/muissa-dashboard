@@ -16,6 +16,9 @@ import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import MUIModal from "@/components/shared/MUIModal/MUIModal";
 import ServiceCategoryForm from "./ServiceCategoryForm";
+import ServiceSubcategoryTable from "./ServiceSubcategoryTable";
+import ServiceCategoryTable from "./ServiceCategoryTable";
+import ServiceSubcategoryForm from "./ServiceSubcategoryForm";
 
 function noop(): void {
   // do nothing
@@ -43,6 +46,7 @@ export function ServicesTable({
   rowsPerPage = 0,
 }: ServicesTableProps): React.JSX.Element {
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [openSubModal, setOpenSubModal] = React.useState(false);
 
   return (
     <Card
@@ -76,6 +80,15 @@ export function ServicesTable({
               onClick={() => setModalOpen(true)}
             >
               categories
+            </Button>
+
+            <Button
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={() => setOpenSubModal(true)}
+            >
+              subcategories
             </Button>
           </Stack>
         }
@@ -126,6 +139,18 @@ export function ServicesTable({
           title="Add new service category"
         >
           <ServiceCategoryForm />
+          <ServiceCategoryTable />
+        </MUIModal>
+      )}
+
+      {openSubModal && (
+        <MUIModal
+          open={openSubModal}
+          setOpen={setOpenSubModal}
+          title="Add new service subcategory"
+        >
+          <ServiceSubcategoryForm />
+          <ServiceSubcategoryTable />
         </MUIModal>
       )}
     </Card>

@@ -1,18 +1,269 @@
+"use client";
 
-import React from "react";
-import Services from "./_component/Services/Services";
+import React, { useState } from "react";
+import "./services.css";
+import {
+  Box,
+  Typography,
+  Tabs,
+  Tab,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  CheckCircle,
+  Drafts,
+  LocalPhone,
+  LocationOn,
+} from "@mui/icons-material";
+import Image from "next/image";
+import service from "../../../assets/logo/service4.jpg";
+import SpecialSupport from "./_component/Services/SpecialSupport";
+import ServiceSlider from "./_component/Services/ServiceSlider";
+import Container from "@/components/ui/HomePage/Container/Container";
 
-const page = () => {
+const serviceDetails = [
+  {
+    id: 1,
+    category: "Marketing Support",
+    subCategory: [
+      {
+        id: 1,
+        title: "Subcategory 1",
+        sub_description:
+          "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+        description: `Description for Subcategory 1.`,
+      },
+      {
+        id: 2,
+        title: "Subcategory 2",
+        sub_description: `Description for Subcategory 2.`,
+      },
+    ],
+  },
+  {
+    id: 2,
+    category: "Technical Support",
+    subCategory: [
+      {
+        id: 1,
+        title: "Subcategory A",
+        sub_description: `Description for Subcategory A.`,
+      },
+      {
+        id: 2,
+        title: "Subcategory B",
+        sub_description: `Description for Subcategory B.`,
+      },
+    ],
+  },
+];
+
+const Page = () => {
+  const [expanded, setExpanded] = useState<string | false>(false);
+  const [subTabIndex, setSubTabIndex] = useState(0);
+
+  const handleAccordionChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      setSubTabIndex(0); // Reset subTabIndex when accordion changes
+    };
+
+  const handleSubTabChange = (
+    event: any,
+    newValue: React.SetStateAction<number>
+  ) => {
+    setSubTabIndex(newValue);
+  };
+
   return (
-    <div>
+    <>
       <div className="serviceDetailsWrap">
-        <div className="aboutContent">
-          <h1>আমাদের সেবা</h1>
+        <div className="serviceContent">
+          <h1>Our Services</h1>
         </div>
       </div>
-      <Services />
-    </div>
+      <Container className="sectionMargin">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <div className="col-span-12 lg:col-span-4">
+            {serviceDetails.map((service, index) => (
+              <Accordion
+                key={service.id}
+                expanded={expanded === `panel${index}`}
+                onChange={handleAccordionChange(`panel${index}`)}
+                sx={{
+                  marginBottom: "10px",
+                  "&.Mui-expanded": {
+                    marginBottom: "10px",
+                  },
+                  boxShadow: "none !important",
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon sx={{ color: "#ffffff" }} />}
+                  aria-controls={`panel${index}bh-content`}
+                  id={`panel${index}bh-header`}
+                  sx={{
+                    background:
+                      expanded === `panel${index}` ? "#00305C" : "#1591A3",
+                    color: "#ffffff",
+                    borderRadius: "5px 5px 0px 0px",
+                    "&:hover": {
+                      background: "#00305C",
+                    },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "#ffffff",
+                    }}
+                  >
+                    {service.category}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{
+                    background: "#f4f4f4",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <Tabs
+                    value={subTabIndex}
+                    onChange={handleSubTabChange}
+                    orientation="vertical"
+                    variant="scrollable"
+                    sx={{
+                      padding: "10px",
+                    }}
+                  >
+                    {service.subCategory.map((sub, subIndex) => (
+                      <Tab
+                        label={sub.title}
+                        key={sub.id}
+                        sx={{
+                          color:
+                            subTabIndex === subIndex ? "#00305C" : "#1591A3",
+                          background:
+                            subTabIndex === subIndex ? "#d0e8f2" : "#ffffff",
+                          marginBottom: "10px",
+                          borderRadius: "5px",
+                          "&:hover": {
+                            background: "#d0e8f2",
+                            color: "#00305C",
+                          },
+                          "&.Mui-selected": {
+                            background: "#d0e8f2",
+                            color: "#00305C",
+                          },
+                        }}
+                      />
+                    ))}
+                  </Tabs>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+            <Box sx={{ marginTop: "30px" }}>
+              <h1>Contact</h1>
+              <div className="space-y-3">
+                <div className="flex mt-5 items-center">
+                  <LocationOn
+                    sx={{
+                      color: "#1591A3",
+                      fontSize: "50px",
+                      marginRight: "8px",
+                    }}
+                  />
+                  <p>
+                    House-08, Road-07, Block-C, <br /> Banasree, Dhka-1219
+                  </p>
+                </div>
+                <div className="flex mt-5 items-center">
+                  <LocalPhone
+                    sx={{
+                      color: "#1591A3",
+                      fontSize: "50px",
+                      marginRight: "8px",
+                    }}
+                  />
+                  <p>
+                    <b> Whats App:</b> 01403-852850 <br />
+                    <b> Hot Line:</b> 09613-244844
+                  </p>
+                </div>
+                <div className="flex mt-5 items-center">
+                  <Drafts
+                    sx={{
+                      color: "#1591A3",
+                      fontSize: "50px",
+                      marginRight: "8px",
+                    }}
+                  />
+                  <p>
+                    muissaltd@gmail.com <br />
+                  </p>
+                </div>
+              </div>
+              <div className="mt-5">
+                <h1>Brochures </h1>
+                <p className="mt-3">
+                  View our 2024 Medical prospectus of brochure for an easy to
+                  read guide on all of the services offer.
+                </p>
+              </div>
+            </Box>
+          </div>
+          <div className="col-span-12 lg:col-span-8">
+            <div className="serviceDetails">
+              <div className="serviceDetailsImage">
+                <div className="w-full h-96 aspect-video relative">
+                  <Image
+                    src={service}
+                    alt={
+                      serviceDetails[expanded ? Number(expanded.slice(5)) : 0]
+                        .category
+                    }
+                    width={700}
+                    height={475}
+                    className="rounded-t-lg h-full w-full object-cover absolute"
+                  />
+                </div>
+              </div>
+              <Box
+                sx={{
+                  padding: "20px 0",
+                  background: "#ffffff",
+                  borderRadius: "0px 0px 5px 5px",
+                }}
+              >
+                {expanded && (
+                  <>
+                    <Typography variant="h4" sx={{ color: "#1591A3" }}>
+                      {
+                        serviceDetails[Number(expanded.slice(5))].subCategory[
+                          subTabIndex
+                        ].title
+                      }
+                    </Typography>
+                    <Typography variant="body1">
+                      {
+                        serviceDetails[Number(expanded.slice(5))].subCategory[
+                          subTabIndex
+                        ].sub_description
+                      }
+                    </Typography>
+                  </>
+                )}
+              </Box>
+            </div>
+            <SpecialSupport />
+            <ServiceSlider />
+          </div>
+        </div>
+      </Container>
+    </>
   );
 };
 
-export default page;
+export default Page;

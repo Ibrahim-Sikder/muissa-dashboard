@@ -105,9 +105,13 @@
 .serviceCard:hover button {
   transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
 }
+.serviceCard a {
+  transition: all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+}
+
 .serviceCard:hover a {
-  background: #fff !important;
   color: #111;
+  background: #fff;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -115,8 +119,31 @@
     width: 100%;
   }
 }
+@media only screen and (max-width: 768px) {
+  .serviceIconWraps {
+    width: 100px;
+    height: 100px;
+  }
+  .serviceCard {
+    height: 365px;
+  }
+  .serviceContent {
+    top: 23%;
+  }
+}
 
 @media only screen and (max-width: 500px) {
+  .serviceIconWraps {
+    width: 70px;
+    height: 70px;
+    top: -55px;
+  }
+  .serviceContent {
+    top: 35%;
+  }
+  .serviceCard {
+    height: 283px;
+  }
   .arrowWraps {
     width: 50px;
     height: 50px;
@@ -124,16 +151,29 @@
   .serviceCard {
     margin-bottom: 80px;
   }
-}
-@media only screen and (max-width: 500px) {
-  .serviceIconWraps {
-    width: 80px;
-    height: 80px;
-    top: -55px;
+
+  .serviceCard {
+    height: 100%;
+    font-size: 12px;
+    height: 250px;
+  }
+  .serviceCard:hover .serviceIconWraps {
+    top: -80px;
   }
 }
-@media only screen and (max-width: 300px) {
-  .serviceCard {
-    height: 355px;
+@media only screen and (max-width: 375px) {
+  .serviceIconWraps {
+    width: 60px;
+    height: 60px;
+    top: -47px;
+  }
+  .serviceContent {
+    top: 50%;
+  }
+  .serviceCard:hover::after {
+    height: 110%;
+  }
+  .serviceCard:hover .serviceIconWraps {
+    top: -55px;
   }
 }
