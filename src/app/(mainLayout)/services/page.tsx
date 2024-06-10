@@ -2,17 +2,24 @@
 
 import React, { useState } from "react";
 import "./services.css";
-import { Box, Button, Stack, Typography, Tabs, Tab } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Tabs,
+  Tab,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   CheckCircle,
   Drafts,
-  KeyboardArrowRight,
   LocalPhone,
   LocationOn,
 } from "@mui/icons-material";
 import Image from "next/image";
 import service from "../../../assets/logo/service4.jpg";
-import service2 from "../../../assets/logo/service5.jpg";
 import SpecialSupport from "./_component/Services/SpecialSupport";
 import ServiceSlider from "./_component/Services/ServiceSlider";
 import Container from "@/components/ui/HomePage/Container/Container";
@@ -20,134 +27,143 @@ import Container from "@/components/ui/HomePage/Container/Container";
 const serviceDetails = [
   {
     id: 1,
-    title: "Sale Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
+    category: "Marketing Support",
+    subCategory: [
+      {
+        id: 1,
+        title: "Subcategory 1",
+        sub_description:
+          "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
+        description: `Description for Subcategory 1.`,
+      },
+      {
+        id: 2,
+        title: "Subcategory 2",
+        sub_description: `Description for Subcategory 2.`,
+      },
     ],
-    image: service,
   },
   {
     id: 2,
-    title: "Marketing Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
+    category: "Technical Support",
+    subCategory: [
+      {
+        id: 1,
+        title: "Subcategory A",
+        sub_description: `Description for Subcategory A.`,
+      },
+      {
+        id: 2,
+        title: "Subcategory B",
+        sub_description: `Description for Subcategory B.`,
+      },
     ],
-    image: service2,
-  },
-  {
-    id: 3,
-    title: "Delivery Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
-    ],
-    image: service,
-  },
-  {
-    id: 4,
-    title: "IT Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
-    ],
-    image: service2,
-  },
-  {
-    id: 5,
-    title: "Customer Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
-    ],
-    image: service,
-  },
-  {
-    id: 6,
-    title: "Technical Support",
-    description:
-      "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-    list: [
-      "Professional website design and development",
-      "Search Engine Optimization (SEO)",
-      "Website maintenance and updates",
-      "Landing page creation",
-    ],
-    image: service2,
   },
 ];
 
 const Page = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [expanded, setExpanded] = useState<string | false>(false);
+  const [subTabIndex, setSubTabIndex] = useState(0);
 
-  const handleTabChange = (
+  const handleAccordionChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      setSubTabIndex(0); // Reset subTabIndex when accordion changes
+    };
+
+  const handleSubTabChange = (
     event: any,
     newValue: React.SetStateAction<number>
   ) => {
-    setTabIndex(newValue);
+    setSubTabIndex(newValue);
   };
 
   return (
     <>
       <div className="serviceDetailsWrap">
         <div className="serviceContent">
-          <h1>Marketing Support</h1>
+          <h1>Our Services</h1>
         </div>
       </div>
       <Container className="sectionMargin">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="col-span-12 lg:col-span-4">
-            <Tabs
-              value={tabIndex}
-              onChange={handleTabChange}
-              orientation="vertical"
-              variant="scrollable"
-              sx={{ borderRight: 1, borderColor: "divider" }}
-            >
-              {serviceDetails.map((service, index) => (
-                <Tab
-                  label={service.title}
-                  key={service.id}
-                  sx={{
-                    color: "#ffffff",
-                    background: tabIndex === index ? "#00305C" : "#1591A3",
+            {serviceDetails.map((service, index) => (
+              <Accordion
+                key={service.id}
+                expanded={expanded === `panel${index}`}
+                onChange={handleAccordionChange(`panel${index}`)}
+                sx={{
+                  marginBottom: "10px",
+                  "&.Mui-expanded": {
                     marginBottom: "10px",
-                    borderRadius: "5px",
-
+                  },
+                  boxShadow: "none !important",
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon sx={{ color: "#ffffff" }} />}
+                  aria-controls={`panel${index}bh-content`}
+                  id={`panel${index}bh-header`}
+                  sx={{
+                    background:
+                      expanded === `panel${index}` ? "#00305C" : "#1591A3",
+                    color: "#ffffff",
+                    borderRadius: "5px 5px 0px 0px",
                     "&:hover": {
                       background: "#00305C",
-                      color: "#ffffff",
-                    },
-
-                    "&.Mui-selected": {
-                      background: "#00305C",
-                      color: "#ffffff",
                     },
                   }}
-                />
-              ))}
-            </Tabs>
+                >
+                  <Typography
+                    sx={{
+                      color: "#ffffff",
+                    }}
+                  >
+                    {service.category}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails
+                  sx={{
+                    background: "#f4f4f4",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <Tabs
+                    value={subTabIndex}
+                    onChange={handleSubTabChange}
+                    orientation="vertical"
+                    variant="scrollable"
+                    sx={{
+                      padding: "10px",
+                    }}
+                  >
+                    {service.subCategory.map((sub, subIndex) => (
+                      <Tab
+                        label={sub.title}
+                        key={sub.id}
+                        sx={{
+                          color:
+                            subTabIndex === subIndex ? "#00305C" : "#1591A3",
+                          background:
+                            subTabIndex === subIndex ? "#d0e8f2" : "#ffffff",
+                          marginBottom: "10px",
+                          borderRadius: "5px",
+                          "&:hover": {
+                            background: "#d0e8f2",
+                            color: "#00305C",
+                          },
+                          "&.Mui-selected": {
+                            background: "#d0e8f2",
+                            color: "#00305C",
+                          },
+                        }}
+                      />
+                    ))}
+                  </Tabs>
+                </AccordionDetails>
+              </Accordion>
+            ))}
             <Box sx={{ marginTop: "30px" }}>
               <h1>Contact</h1>
               <div className="space-y-3">
@@ -203,8 +219,11 @@ const Page = () => {
               <div className="serviceDetailsImage">
                 <div className="w-full h-96 aspect-video relative">
                   <Image
-                    src={serviceDetails[tabIndex].image}
-                    alt={serviceDetails[tabIndex].title}
+                    src={service}
+                    alt={
+                      serviceDetails[expanded ? Number(expanded.slice(5)) : 0]
+                        .category
+                    }
                     width={700}
                     height={475}
                     className="rounded-t-lg h-full w-full object-cover absolute"
@@ -218,23 +237,24 @@ const Page = () => {
                   borderRadius: "0px 0px 5px 5px",
                 }}
               >
-                <Typography variant="h4" sx={{ color: "#1591A3" }}>
-                  {serviceDetails[tabIndex].title}
-                </Typography>
-                <Typography variant="body1">
-                  {serviceDetails[tabIndex].description}
-                </Typography>
-
-                <ul className="mt-5">
-                  {serviceDetails[tabIndex].list.map((item, index) => (
-                    <li key={index}>
-                      <CheckCircle
-                        sx={{ color: "#1591A3", marginRight: "8px" }}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {expanded && (
+                  <>
+                    <Typography variant="h4" sx={{ color: "#1591A3" }}>
+                      {
+                        serviceDetails[Number(expanded.slice(5))].subCategory[
+                          subTabIndex
+                        ].title
+                      }
+                    </Typography>
+                    <Typography variant="body1">
+                      {
+                        serviceDetails[Number(expanded.slice(5))].subCategory[
+                          subTabIndex
+                        ].sub_description
+                      }
+                    </Typography>
+                  </>
+                )}
               </Box>
             </div>
             <SpecialSupport />
