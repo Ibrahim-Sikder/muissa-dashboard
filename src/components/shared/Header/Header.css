@@ -19,7 +19,7 @@
 }
 
 .navItems li {
-  padding: 50px 60px;
+  padding: 50px 50px;
   transition: all 0.5s ease-in-out;
   position: relative;
 }
@@ -92,6 +92,26 @@ nav.menuItemsBarWraps {
   justify-content: center;
   align-items: center;
   background: #152644;
+  position: relative;
+}
+.membershipBtn::after {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 100%;
+  background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
+  transition: height 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57),
+    all 0.5s cubic-bezier(0.48, 0.46, 0.6, 0.57);
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.membershipBtn span {
+  position: absolute;
+  z-index: 5;
+}
+.membershipBtn:hover::after {
+  width: 100%;
 }
 .stickyContainer .membershipBtn {
   background-image: -webkit-linear-gradient(left, #05afec, #94ca36);
@@ -129,6 +149,9 @@ nav.menuItemsBarWraps {
   display: none;
 }
 
+.stickyContainer .notificationIcon {
+  color: #1591a3 !important;
+}
 @media only screen and (max-width: 1024px) {
   .menubarWrap,
   .navItems {
@@ -144,7 +167,8 @@ nav.menuItemsBarWraps {
     width: 1024px;
     padding: 0 20px;
   }
-  .mobileMenu, .activeMobileMenu {
+  .mobileMenu,
+  .activeMobileMenu {
     display: block;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: fixed;
@@ -157,7 +181,7 @@ nav.menuItemsBarWraps {
     width: 255px;
     padding: 30px;
     transition: all 0.5s ease-in-out;
-}
+  }
   .mobileMenu {
     left: 0px;
   }

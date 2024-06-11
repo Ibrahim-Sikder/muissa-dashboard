@@ -67,6 +67,7 @@
     bottom: -126px;
   }
 }
+
 @media only screen and (max-width: 768px) {
   .clientCard {
     margin: 50px auto;
@@ -74,6 +75,12 @@
   .clientWrap {
     bottom: -126px;
     left: 39%;
+  }
+}
+@media only screen and (min-width: 300px) and (max-width: 851px) {
+  .clientWrap {
+    bottom: -126px;
+    left: 20%;
   }
 }
 
@@ -103,7 +110,7 @@
 @media only screen and (max-width: 375px) {
   .clientWrap {
     bottom: -115px;
-    left: 24%;
+    left: 33%;
   }
   .clientCard {
     height: 260px;
@@ -124,7 +131,7 @@
   .clientWrap {
     bottom: -95px;
     left: 32%;
-}
+  }
   .swiper-pagination-bullet {
     width: 15px !important;
     height: 15px !important;

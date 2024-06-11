@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import MessageIcon from "@/components/Message/MessageIcon";
 import dynamic from "next/dynamic";
 import MessageIcons from "@/components/Message/MessageIcons";
+import SubscriptionAlert from "@/components/Preloader/SubscriptionAlert";
 
 const BackTopButton = dynamic(
   () => import("@/components/BackTopButton/BackTopButton"),
@@ -38,6 +39,7 @@ export default function RootLayout({
       </Providers>
       {/* <BackTopButton /> */}
       {/* <MessageIcon /> */}
+      <SubscriptionAlert />
       <MessageIcons />
     </html>
   );
