@@ -168,7 +168,7 @@ const Profile = () => {
             setErrorMessage(["An unexpected error occurred."]);
           }
         } else {
-          setErrorMessage(["Network error occurred."]); // Handle network errors
+          setErrorMessage(["Network error occurred."]);
         }
       } finally {
         setLoading(false);
@@ -183,7 +183,7 @@ const Profile = () => {
   }, [token]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token || !member_type || !id) return;
 
     const fetchedData = async () => {
       setSuccessMessage("");
@@ -236,23 +236,7 @@ const Profile = () => {
   }
 
   const submitHandler = async (data: FieldValues) => {
-    // Filter out fields with undefined, null, or empty arrays
-    const filteredData = Object.keys(data)
-      .filter((key) => {
-        const value = data[key];
-        return (
-          value !== undefined &&
-          value !== null &&
-          !(Array.isArray(value) && value.length === 0)
-        );
-      })
-      .reduce((obj: FieldValues, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-
-    console.log(filteredData);
-
+    data.profile_pic = imageUrl;
     data.upload_file = uploadedImage;
     data.token = token;
     data.member_type = userType;
@@ -290,21 +274,26 @@ const Profile = () => {
         setLoading(false);
         console.log(response);
 
-        router.push(
-          `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
-        );
+        if (response?.data?.data?.redirectUrl === "payment") {
+          router.push(
+            `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
+          );
+        }
       }
       if (response.status === 200 && response.data.data.success === false) {
         toast.error(response.data.data.message);
         setErrorMessage([response.data.data.message]);
         setLoading(false);
         console.log(response);
-        router.push(
-          `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
-        );
+        if (response?.data?.data?.redirectUrl === "payment") {
+          router.push(
+            `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
+          );
+        }
       }
     } catch (error: any) {
       if (error.response) {
+        console.log(error);
         const { status, data } = error.response;
         if ([400, 404, 409, 500].includes(status)) {
           setErrorMessage(data.message);
@@ -373,7 +362,7 @@ const Profile = () => {
             {userData?.userId}
           </p>
           <MUIFileUploadButton
-            name="file"
+            name="profile_pic"
             setImageUrl={setImageUrl}
             imageUrl={imageUrl}
           />
