@@ -1,4 +1,3 @@
-
 import { USER_ROLE } from "@/constant/role";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
@@ -37,43 +36,34 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-
-
-export const role = [
-  "As BUSINESS OWNER",
-  "AS A INVESTOR",
-];
-
-
+export const role = ["As BUSINESS OWNER", "AS A INVESTOR"];
 
 export const supportServices = [
   {
     category: "প্রোডাক্ট সাপোর্ট",
-    subcategories: ["Product Issues", "Product Warranty"]
+    subcategories: ["Product Issues", "Product Warranty"],
   },
   {
     category: "বিক্রয় সাপোর্ট",
-    subcategories: ["Sales Queries", "Sales Follow-up"]
+    subcategories: ["Sales Queries", "Sales Follow-up"],
   },
   {
     category: "মার্কেটিং সাপোর্ট",
-    subcategories: ["Campaign Management", "Market Research"]
+    subcategories: ["Campaign Management", "Market Research"],
   },
   {
     category: "ডেলিভারি সাপোর্ট",
-    subcategories: ["Shipping", "Delivery Tracking"]
+    subcategories: ["Shipping", "Delivery Tracking"],
   },
   {
     category: "আইটি সাপোর্ট",
-    subcategories: ["Technical Support", "System Maintenance"]
+    subcategories: ["Technical Support", "System Maintenance"],
   },
   {
     category: "ফান্ডিং সাপোর্ট",
-    subcategories: ["Financial Advice", "Investment"]
-  }
+    subcategories: ["Financial Advice", "Investment"],
+  },
 ];
-
-
 
 type Option = {
   label: string;
@@ -88,8 +78,8 @@ export const subCategories: Option[] = [
       { label: "সফটওয়্যার সাপোর্ট" },
       { label: "নেটওয়ার্ক সাপোর্ট" },
       { label: "সাইবার সিকিউরিটি সাপোর্ট" },
-      { label: "ডাটা ব্যাকআপ ও রিকভারি সাপোর্ট" }
-    ]
+      { label: "ডাটা ব্যাকআপ ও রিকভারি সাপোর্ট" },
+    ],
   },
   {
     label: "ফান্ডিং সাপোর্ট",
@@ -98,8 +88,8 @@ export const subCategories: Option[] = [
       { label: "ব্যাংক ঋণ" },
       { label: "ভেঞ্চার ক্যাপিটাল" },
       { label: "এঞ্জেল ইনভেস্টর" },
-      { label: "ক্রাউডফান্ডিং" }
-    ]
+      { label: "ক্রাউডফান্ডিং" },
+    ],
   },
   {
     label: "মার্কেটিং সাপোর্ট",
@@ -108,8 +98,8 @@ export const subCategories: Option[] = [
       { label: "বাজার গবেষণা ও বিশ্লেষণ" },
       { label: "বিজ্ঞাপন ও প্রচারণা" },
       { label: "ডিজিটাল মার্কেটিং" },
-      { label: "কন্টেন্ট মার্কেটিং" }
-    ]
+      { label: "কন্টেন্ট মার্কেটিং" },
+    ],
   },
   {
     label: "ডেলিভারি সাপোর্ট",
@@ -118,8 +108,8 @@ export const subCategories: Option[] = [
       { label: "লজিস্টিক সাপোর্ট" },
       { label: "কুরিয়ার সেবা" },
       { label: "ইনভেন্টরি ম্যানেজমেন্ট" },
-      { label: "ডেলিভারি ট্র্যাকিং সিস্টেম" }
-    ]
+      { label: "ডেলিভারি ট্র্যাকিং সিস্টেম" },
+    ],
   },
   {
     label: "বিক্রয় সাপোর্ট",
@@ -128,8 +118,8 @@ export const subCategories: Option[] = [
       { label: "ক্রেতা সম্পর্ক ব্যবস্থাপনা (CRM)" },
       { label: "বিক্রয় পূর্বানুমান ও পরিকল্পনা" },
       { label: "বিক্রয় ডেটা বিশ্লেষণ" },
-      { label: "বিক্রয় প্রযুক্তি সমাধান" }
-    ]
+      { label: "বিক্রয় প্রযুক্তি সমাধান" },
+    ],
   },
   {
     label: "প্রোডাক্ট সাপোর্ট",
@@ -138,7 +128,9 @@ export const subCategories: Option[] = [
       { label: "পণ্যের মান নিয়ন্ত্রণ" },
       { label: "প্রোডাক্ট লাইফসাইকেল ম্যানেজমেন্ট" },
       { label: "গ্রাহক প্রতিক্রিয়া ও সমীক্ষা" },
-      { label: "পণ্য পুনর্বিবেচনা ও আপগ্রেড" }
-    ]
-  }
+      { label: "পণ্য পুনর্বিবেচনা ও আপগ্রেড" },
+    ],
+  },
 ];
+
+export const subscriptions = ["1 year subscription fee", "2 year subscription fee"];

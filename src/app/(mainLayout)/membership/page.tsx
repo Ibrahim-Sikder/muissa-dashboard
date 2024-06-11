@@ -34,13 +34,16 @@ import MUIMultiSelect from "@/components/Forms/MultiSelect";
 import { supportServices } from "@/types";
 import MUIForm from "@/components/Forms/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
+ 
 import { getCookie } from "@/helpers/Cookies";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-
+ 
+import consult from "../../../assets/news/sub.png";
+ 
 const validationSchema = z.object({
   // businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
   business_name: z.string().min(1, "ব্যবসার নাম আবশ্যক"),
@@ -240,19 +243,35 @@ const Membership = () => {
         </div>
       </div>
       <Container>
-        <div className="grid grid-cols-1  md:grid-cols-2 place-items-center  gap-10 sectionMargin ">
-          <p className="lg:w-[400px] leading-9">
-            আমাদের ব্যবসা পরামর্শদান সেবার সদস্য হতে এবং বিশেষ সুবিধাগুলি উপভোগ
-            করতে আজই সাবস্ক্রিপশন নিন। আমাদের সদস্যতা সাবস্ক্রিপশনের ফি মাত্র
-            ৫০০ টাকা।
-          </p>
-          <div className="leading-8 relative">
-            {/* <div className="divider"></div> */}
-            <h1>সদস্যতা সাবস্ক্রিপশন </h1>
-            {/* <h1> that the work we do, has</h1>
-          <h1>positively reviews.</h1> */}
+        <div className="grid grid-cols-1  xl:grid-cols-2 place-items-center  gap-10 sectionMargin ">
+          <div className=" order-2 xl:order-1">
+            <h1 className="mb-5">সদস্যতা সাবস্ক্রিপশন </h1>
+            <div className="leading-8 relative">
+              <div className="divider"></div>
+              <div className="space-y-3">
+                <h2> আমাদের ব্যবসা পরামর্শদান </h2>
+                <h2>সেবার সদস্য হতে এবং বিশেষ সুবিধাগুলি উপভোগ করতে </h2>
+                <h2> আজই সাবস্ক্রিপশন নিন। </h2>
+                <h2> আমাদের সদস্যতা সাবস্ক্রিপশনের </h2>
+                <h2> ফি মাত্র ৫০০ টাকা।</h2>
+              </div>
+            </div>
+            <p className="mt-10">
+              আমাদের ব্যবসা পরামর্শদান সেবার সদস্য হয়ে বিশেষ সুবিধাগুলি উপভোগ
+              করুন। আজই মাত্র ৫০০ টাকার বিনিময়ে সদস্যতা সাবস্ক্রিপশন নিন এবং
+              আমাদের বিশেষজ্ঞ পরামর্শদাতাদের সহায়তায় আপনার ব্যবসার উন্নয়ন করুন।
+              সদস্য হিসেবে আপনি পাবেন বিশেষজ্ঞের নিকট থেকে ব্যক্তিগত পরামর্শ,
+              ব্যবসার কৌশলগত দিকনির্দেশনা, এবং বিভিন্ন ব্যবসায়িক চ্যালেঞ্জ
+              মোকাবেলায় সহায়তা। আমাদের সেবার অংশ হয়ে আপনার ব্যবসাকে এক নতুন
+              উচ্চতায় নিয়ে যান। এখনই সাবস্ক্রিপশন নিন এবং আমাদের এক্সক্লুসিভ
+              সদস্যপদ সুবিধাগুলি উপভোগ করুন।
+            </p>
+          </div>
+          <div className="order-1 xl:order-2 subcriptionImgWrap">
+            <Image src={consult} alt="consult" />
           </div>
         </div>
+
         <div className="membarshipWraps mt-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 place-items-center gap-10">
             {serviceData.map((data) => (

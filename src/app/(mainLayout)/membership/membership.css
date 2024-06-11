@@ -7,3 +7,21 @@
   content: "";
   position: absolute;
 }
+
+.subcriptionImgWrap {
+  width: 100%;
+  object-fit: cover;
+}
+.subcriptionImgWrap img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.divider {
+  background: #1591a3;
+  width: 4px;
+  height: 260px;
+  position: absolute;
+  left: -14px;
+}

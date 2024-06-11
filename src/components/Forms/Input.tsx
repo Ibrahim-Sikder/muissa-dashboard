@@ -15,6 +15,8 @@ type TInputProps = {
   margin?: "none" | "normal" | "dense";
   multiline?: boolean;
   rows?: number;
+  disabled?: boolean;
+  value?:string
 };
 
 const MUIInput = ({
@@ -24,7 +26,9 @@ const MUIInput = ({
   type = "text",
   fullWidth,
   sx,
+  disabled,
   placeholder,
+  value,
   required,
   variant = "outlined",
   margin = "normal",
@@ -52,6 +56,8 @@ const MUIInput = ({
           helperText={error?.message}
           multiline={multiline}
           rows={rows}
+          value={value}
+          disabled={disabled}
         />
       )}
     />
