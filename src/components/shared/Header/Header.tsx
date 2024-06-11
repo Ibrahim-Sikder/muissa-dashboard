@@ -23,7 +23,6 @@ import {
 import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
  
-import { TrendingFlat } from "@mui/icons-material";
 import { getCookie, removeCookie } from "@/helpers/Cookies";
 import { usePathname, useRouter } from "next/navigation";
  

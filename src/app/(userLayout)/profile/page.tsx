@@ -100,6 +100,7 @@ interface UserData {
   status: string;
   isVerified: boolean;
   isCompleted: boolean;
+  profile_pic: string
 }
 
 const isEmailValid = (auth: string): boolean => {
@@ -129,6 +130,7 @@ const Profile = () => {
     auth: "",
     role: "",
     status: "",
+    profile_pic: "",
     isVerified: false,
     isCompleted: false,
   });
@@ -348,7 +350,7 @@ const Profile = () => {
       <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
         <Image
           className="w-40 rounded-full "
-          src={imageUrl ? imageUrl : profile}
+          src={imageUrl ? imageUrl : userData?.profile_pic}
           alt="profile"
           height={100}
           width={100}
