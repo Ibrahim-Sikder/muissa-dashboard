@@ -108,7 +108,7 @@ export default function SupportContactPage() {
     online: false,
   });
 
-  const token = getCookie("token");
+  const token = getCookie("mui-token");
 
   const userId = '666033cff9dc2324dde3c27b'
 

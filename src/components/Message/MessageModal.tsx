@@ -48,7 +48,7 @@ const MessageModal = ({ close }: TProps) => {
 
   // useEffect(() => {
   //     setCookie(
-  //       "token",
+  //       "mui-token",
   //       "0001|098e2102c8f8df75021f76538d2b714eeaee06f7bd6d3bf4a7cc5d66fd8d9d21ed1976cb7b49759508397ee90343d76a8885fd21366817a4bf83ca118acfe3be"
   //     );
   //   }, []);

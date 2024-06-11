@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@/components/ui/HomePage/Container/Container";
 
 import {
@@ -19,12 +19,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import BusinessOwnerForm from "@/app/(mainLayout)/membership/_components/BusinessOwnerForm";
 import InvestorForm from "@/app/(mainLayout)/membership/_components/InvestorForm";
-import icon from "../../../../assets/services/icon.png";
-import icon2 from "../../../../assets/services/icon2.png";
-import icon3 from "../../../../assets/services/icon3.png";
-import icon4 from "../../../../assets/services/icon4.png";
-import icon5 from "../../../../assets/services/icon5.png";
-import icon6 from "../../../../assets/services/icon6.png";
+
 import Image from "next/image";
 import "./membership.css";
 import DocUploader from "@/components/Forms/DocUploader";
@@ -34,6 +29,11 @@ import MUIMultiSelect from "@/components/Forms/MultiSelect";
 import { supportServices } from "@/types";
 import MUIForm from "@/components/Forms/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { serviceData } from "./serviceData";
+import { getCookie } from "@/helpers/Cookies";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 const validationSchema = z.object({
   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -85,13 +85,18 @@ const defaultValues = {
 };
 
 const Membership = () => {
+  const [uploadedImage, setUploadedImage] = useState<string>("");
+  const [userType, setUserType] = useState("business_owner");
+
+ 
+
   const handleSubmit = (data: FieldValues) => {
     console.log(data);
   };
   const [value, setValue] = useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+    setUserType(newValue);
   };
   const buttonStyle = {
     width: "200px",
@@ -108,51 +113,6 @@ const Membership = () => {
     },
   };
 
-  const serviceData = [
-    {
-      id: 1,
-      title: "প্রোডাক্ট সাপোর্ট",
-      description:
-        "প্রোডাক্ট সাপোর্টের জন্য আমাদের টিম সবসময় প্রস্তুত। কোনো সমস্যা বা প্রশ্ন থাকলে, আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করব। আপনার সন্তুষ্টি আমাদের প্রধান লক্ষ্য, তাই যে কোনো সময় আমাদের সহযোগিতা পেতে পারেন।",
-      img: icon,
-    },
-    {
-      id: 1,
-      title: "বিক্রয় সাপোর্ট",
-      description:
-        "বিক্রয় সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো বিক্রয় সম্পর্কিত সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
-      img: icon3,
-    },
-    {
-      id: 1,
-      title: "মার্কেটিং সাপোর্ট",
-      description:
-        "মার্কেটিং সাপোর্টের জন্য  Muissa Business Consulting Ltd.  সবসময় প্রস্তুত। আপনার যেকোনো মার্কেটিং সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
-      img: icon2,
-    },
-    {
-      id: 1,
-      title: "ডেলিভারি সাপোর্ট",
-      description:
-        "ডেলিভারি সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো ডেলিভারি সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
-      img: icon6,
-    },
-    {
-      id: 1,
-      title: "আইটি সাপোর্ট",
-      description:
-        "আইটি সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো আইটি সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
-      img: icon4,
-    },
-    {
-      id: 1,
-      title: "ফান্ডিং সাপোর্ট",
-      description:
-        "ফান্ডিং সাপোর্টের জন্য Muissa Business Consulting Ltd.   সবসময় প্রস্তুত। আপনার যেকোনো ফান্ডিং সমস্যা বা প্রশ্নের সমাধান পেতে আমাদের সাথে যোগাযোগ করুন। আমরা দ্রুত এবং কার্যকর সমাধান প্রদান করে আপনার ব্যবসার উন্নতিতে সহায়তা করব।",
-      img: icon5,
-    },
-  ];
-
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -162,7 +122,7 @@ const Membership = () => {
       <Container>
         <div className="membarshipWraps mt-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {serviceData.map((data) => (
+            {serviceData?.map((data) => (
               <div key={data.id} className="membarshipCard userMembershipt">
                 <Image
                   className="w-[65px] mx-auto "
@@ -188,8 +148,8 @@ const Membership = () => {
 
           <MUIForm
             onSubmit={handleSubmit}
-            resolver={zodResolver(validationSchema)}
-            defaultValues={defaultValues}
+            // resolver={zodResolver(validationSchema)}
+            // defaultValues={defaultValues}
           >
             <Grid container spacing={1}>
               <Box
@@ -201,7 +161,7 @@ const Membership = () => {
                   marginTop: "10px",
                 }}
               >
-                <TabContext value={value}>
+                <TabContext value={userType}>
                   <Box>
                     <TabList
                       onChange={handleChange}
@@ -218,12 +178,16 @@ const Membership = () => {
                       <Tab
                         sx={buttonStyle}
                         label=" As a Business Owner "
-                        value="1"
+                        value="business_owner"
                       />
-                      <Tab sx={buttonStyle} label="As a Investor  " value="2" />
+                      <Tab
+                        sx={buttonStyle}
+                        label="As a Investor  "
+                        value="investor"
+                      />
                     </TabList>
                   </Box>
-                  <TabPanel value="1" sx={{ padding: "0px" }}>
+                  <TabPanel value="business_owner" sx={{ padding: "0px" }}>
                     <Stack
                       direction={isMobile ? "column" : "row"}
                       spacing={{ xs: 1, md: 3, lg: 3 }}
@@ -300,7 +264,12 @@ const Membership = () => {
                         </Grid>
                       </Grid>
                       <Box>
-                        <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                        <DocUploader
+                          sx={{ fontSize: "20px" }}
+                          name="file"
+                          setUploadedImage={setUploadedImage}
+                          uploadedImage={uploadedImage}
+                        />
                         <Grid
                           item
                           xs={12}
@@ -328,7 +297,7 @@ const Membership = () => {
                       </Box>
                     </Stack>
                   </TabPanel>
-                  <TabPanel value="2" sx={{ padding: "0px" }}>
+                  <TabPanel value="investor" sx={{ padding: "0px" }}>
                     <Stack
                       direction={isMobile ? "column" : "row"}
                       spacing={{ xs: 1, md: 3, lg: 3 }}
@@ -394,7 +363,12 @@ const Membership = () => {
                           marginTop: "50px",
                         }}
                       >
-                        <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                        <DocUploader
+                          sx={{ fontSize: "20px" }}
+                          name="file"
+                          setUploadedImage={setUploadedImage}
+                          uploadedImage={uploadedImage}
+                        />
                         <Grid
                           item
                           xs={12}

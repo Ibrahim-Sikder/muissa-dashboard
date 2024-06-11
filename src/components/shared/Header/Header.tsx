@@ -23,11 +23,16 @@ import {
 import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
 import { TrendingFlat } from "@mui/icons-material";
+import { getCookie, removeCookie } from "@/helpers/Cookies";
+import { usePathname, useRouter } from "next/navigation";
 const Header = () => {
   const [user, setUser] = useState({});
   const [stickyMenu, setStickyMenu] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const { push } = useRouter();
+  const pathname = usePathname()
+  const token = getCookie("mui-token");
 
   const toggleMobileMenu = () => {
     setMobileMenu((mobileMenu) => !mobileMenu);
@@ -44,6 +49,20 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      setAuthenticated(true);
+    } else if (!token) {
+      setAuthenticated(false);
+    }
+  }, [pathname, token]);
+
+  const logOut = () => {
+    setAuthenticated(false);
+    removeCookie("mui-token");
+    return push("/");
+  };
 
   return (
     <header>
@@ -170,9 +189,13 @@ const Header = () => {
                 <li>
                   <Link href="/contact">Contact </Link>
                 </li>
-                <li>
-                  <Link href="/login">Login</Link>
-                </li>
+                {authenticated ? (
+                  <li onClick={logOut} className="cursor-pointer text-white">Logout</li>
+                ) : (
+                  <li>
+                    <Link href="/login">Login</Link>
+                  </li>
+                )}
               </ul>
             </nav>
             <div className=" membershipBtn">
@@ -225,9 +248,13 @@ const Header = () => {
               <li>
                 <Link href="/contact">Contact </Link>
               </li>
-              <li>
-                <Link href="/login">Login</Link>
-              </li>
+              {authenticated ? (
+                <li onClick={logOut} className=" cursor-pointer text-white">Logout</li>
+              ) : (
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
+              )}
             </ul>
           </nav>
           <div>
