@@ -12,6 +12,7 @@ interface ITextField {
   sx?: SxProps;
   items: string[];
   margin?: "none" | "normal" | "dense";
+  onChange?: (value: any) => void;
 }
 
 const INTSelect = ({
@@ -23,6 +24,7 @@ const INTSelect = ({
   required,
   fullWidth = true,
   sx,
+  onChange,
 }: ITextField) => {
   const { control, formState } = useFormContext();
   const isError = formState.errors[name] !== undefined;
@@ -44,13 +46,19 @@ const INTSelect = ({
           fullWidth={fullWidth}
           error={isError}
           margin={margin}
+          onChange={(e) => {
+            field.onChange(e);
+            if (onChange) {
+              onChange(e.target.value);
+            }
+          }}
           helperText={
             isError ? (formState.errors[name]?.message as string) : ""
           }
         >
-          {items.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
+          {items.map((item) => (
+            <MenuItem key={item} value={item}>
+              {item}
             </MenuItem>
           ))}
         </TextField>

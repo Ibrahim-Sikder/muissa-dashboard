@@ -22,7 +22,12 @@ import {
 } from "react-icons/hi";
 import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
-import { TrendingFlat } from "@mui/icons-material";
+import { Notifications, TrendingFlat } from "@mui/icons-material";
+
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import MailIcon from "@mui/icons-material/Mail";
+
 const Header = () => {
   const [user, setUser] = useState({});
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -44,6 +49,16 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  function notificationsLabel(count: number) {
+    if (count === 0) {
+      return "no notifications";
+    }
+    if (count > 99) {
+      return "more than 99 notifications";
+    }
+    return `${count} notifications`;
+  }
 
   return (
     <header>
@@ -173,6 +188,14 @@ const Header = () => {
                 <li>
                   <Link href="/login">Login</Link>
                 </li>
+                <IconButton aria-label={notificationsLabel(100)}>
+                  <Badge badgeContent={100} color="primary">
+                    <Notifications
+                      className="notificationIcon"
+                      sx={{ fontSize: "30px", color: "#fff" }}
+                    />
+                  </Badge>
+                </IconButton>
               </ul>
             </nav>
             <div className=" membershipBtn">
@@ -181,8 +204,10 @@ const Header = () => {
                 LinkComponent={Link}
                 href="/membership"
               >
-                <span>Membership</span>
-                <TrendingFlat className="membershipIcon" />
+                <span>
+                  Membership
+                  <TrendingFlat className="membershipIcon" />
+                </span>
               </Button>
             </div>
             <div onClick={toggleMobileMenu} className="xl:hidden block">
