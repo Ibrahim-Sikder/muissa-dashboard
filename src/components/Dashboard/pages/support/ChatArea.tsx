@@ -13,30 +13,40 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-interface Message {
-  id: number;
-  sender: string;
-  content: string;
-  timestamp: string;
-}
+import { format } from "timeago.js";
+// interface Message {
+//   id: number;
+//   sender: string;
+//   receiver: string;
+//   content: string;
+//   timestamp: string;
+// }
 interface ChatAreaProps {
-  messages: Message[];
-  newMessage: string;
-  onNewMessageChange: (message: string) => void;
-  onSendMessage: () => void;
+  message: any;
+  allMessage: any;
+  handleSubmit: any;
+  handleMessageOnChange: any;
+  onSubmit: any;
+  user: any;
 }
 const ChatArea: React.FC<ChatAreaProps> = ({
-  messages,
-  newMessage,
-  onNewMessageChange,
-  onSendMessage,
+  message,
+  allMessage,
+  handleSubmit,
+  handleMessageOnChange,
+  onSubmit,
+  user,
 }) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
     }
-  }, [messages]);
+  }, [allMessage]);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "80vh" }}>
       <Box
@@ -48,13 +58,15 @@ const ChatArea: React.FC<ChatAreaProps> = ({
         }}
       >
         <List>
-          {messages.map((message) => (
+          {allMessage?.map((message: any) => (
             <ListItem
-              key={message.id}
+              key={message?.id}
               sx={{
                 display: "flex",
                 justifyContent:
-                  message.sender === "User" ? "flex-end" : "flex-start",
+                  user?._id === message?.msgByUserId
+                    ? "flex-end"
+                    : "flex-start",
               }}
             >
               <Box sx={{ maxWidth: "60%" }}>
@@ -63,14 +75,17 @@ const ChatArea: React.FC<ChatAreaProps> = ({
                     p: 2,
                     borderRadius: 2,
                     backgroundColor:
-                      message.sender === "User" ? "#f0f0f0" : "#e0e0e0",
+                      user?._id === message?.msgByUserId
+                        ? "#f0f0f0"
+                        : "#e0e0e0",
                     boxShadow: "none",
-                    textAlign: message.sender === "User" ? "right" : "left",
+                    textAlign:
+                      user?._id === message?.msgByUserId ? "right" : "left",
                   }}
                 >
                   <ListItemText
-                    primary={message.content}
-                    secondary={message.timestamp}
+                    primary={message.text}
+                    secondary={format(message.updatedAt)}
                   />
                 </Paper>
               </Box>
@@ -90,12 +105,24 @@ const ChatArea: React.FC<ChatAreaProps> = ({
       >
         <Grid container spacing={2} alignItems="center">
           <Grid item xs>
-            <TextField
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col items-start "
+            >
+              <input
+                type="text"
+                placeholder="Compose your message...."
+                className="w-[100%] bg-transparent  h-10 placeholder:text-[14px] "
+                value={message?.text}
+                onChange={handleMessageOnChange}
+              />
+            </form>
+            {/* <TextField
               fullWidth
               variant="outlined"
               placeholder="Type your message..."
-              value={newMessage}
-              onChange={(e) => onNewMessageChange(e.target.value)}
+              value={allMessage}
+              onChange={onNewMessageChange}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   onSendMessage();
@@ -110,10 +137,10 @@ const ChatArea: React.FC<ChatAreaProps> = ({
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
           </Grid>
           <Grid item>
-            <IconButton color="primary" onClick={onSendMessage}>
+            <IconButton color="primary">
               <SendIcon />
             </IconButton>
           </Grid>

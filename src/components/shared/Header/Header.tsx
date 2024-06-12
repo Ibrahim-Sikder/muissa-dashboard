@@ -22,17 +22,25 @@ import {
 } from "react-icons/hi";
 import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
+ 
+import { getCookie, removeCookie } from "@/helpers/Cookies";
+import { usePathname, useRouter } from "next/navigation";
+ 
 import { Notifications, TrendingFlat } from "@mui/icons-material";
 
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 
+ 
 const Header = () => {
   const [user, setUser] = useState({});
   const [stickyMenu, setStickyMenu] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const { push } = useRouter();
+  const pathname = usePathname()
+  const token = getCookie("mui-token");
 
   const toggleMobileMenu = () => {
     setMobileMenu((mobileMenu) => !mobileMenu);
@@ -50,6 +58,21 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+ 
+  useEffect(() => {
+    if (token) {
+      setAuthenticated(true);
+    } else if (!token) {
+      setAuthenticated(false);
+    }
+  }, [pathname, token]);
+
+  const logOut = () => {
+    setAuthenticated(false);
+    removeCookie("mui-token");
+    return push("/");
+  };
+ 
   function notificationsLabel(count: number) {
     if (count === 0) {
       return "no notifications";
@@ -59,6 +82,7 @@ const Header = () => {
     }
     return `${count} notifications`;
   }
+ 
 
   return (
     <header>
@@ -185,6 +209,15 @@ const Header = () => {
                 <li>
                   <Link href="/contact">Contact </Link>
                 </li>
+ 
+                {authenticated ? (
+                  <li onClick={logOut} className="cursor-pointer text-white">Logout</li>
+                ) : (
+                  <li>
+                    <Link href="/login">Login</Link>
+                  </li>
+                )}
+ 
                 <li>
                   <Link href="/login">Login</Link>
                 </li>
@@ -196,6 +229,7 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
+ 
               </ul>
             </nav>
             <div className=" membershipBtn">
@@ -250,9 +284,13 @@ const Header = () => {
               <li>
                 <Link href="/contact">Contact </Link>
               </li>
-              <li>
-                <Link href="/login">Login</Link>
-              </li>
+              {authenticated ? (
+                <li onClick={logOut} className=" cursor-pointer text-white">Logout</li>
+              ) : (
+                <li>
+                  <Link href="/login">Login</Link>
+                </li>
+              )}
             </ul>
           </nav>
           <div>
