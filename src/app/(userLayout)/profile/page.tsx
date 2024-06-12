@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import profile from "../../../assets/team/team3.jpg";
 import Image from "next/image";
 import MUIForm from "@/components/Forms/Form";
@@ -30,6 +30,17 @@ import INTSelect from "@/components/Forms/Select";
 import MUIAutoComplete from "@/components/Forms/AutoComplete";
 import MUIFileUploadButton from "@/components/Forms/FileUploadButton";
 import { theme } from "@/lib/Theme/Theme";
+import { getCookie } from "@/helpers/Cookies";
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
+import { SuccessMessage } from "@/components/success-message";
+import { ErrorMessage } from "@/components/error-message";
 
 const validationSchema = z.object({
   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -80,15 +91,225 @@ const defaultValues = {
   investorDescription: "",
 };
 
+interface UserData {
+  _id: string;
+  userId: string;
+  name: string;
+  auth: string;
+  role: string;
+  status: string;
+  isVerified: boolean;
+  isCompleted: boolean;
+  profile_pic: string
+}
+
+const isEmailValid = (auth: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(auth);
+};
+
+const isPhoneValid = (auth: string): boolean => {
+  const phoneRegex = /^\d{10,11}$/;
+  return phoneRegex.test(auth);
+};
 const Profile = () => {
-  const submitHandler = (data: FieldValues) => {
-    console.log(data);
+  const [uploadedImage, setUploadedImage] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [userType, setUserType] = useState("business_owner");
+
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [memberShip, setMembership] = useState({});
+
+  const [userData, setUserData] = useState<UserData>({
+    _id: "",
+    userId: "",
+    name: "",
+    auth: "",
+    role: "",
+    status: "",
+    profile_pic: "",
+    isVerified: false,
+    isCompleted: false,
+  });
+
+  const token = getCookie("mui-token");
+  const router = useRouter();
+  const params = useSearchParams();
+
+  const member_type = params.get("member_type");
+  const id = params.get("id");
+
+  useEffect(() => {
+    if (!token) return;
+
+    const fetchedData = async () => {
+      setSuccessMessage("");
+      setErrorMessage([]);
+      setLoading(true);
+
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
+          { token }
+        );
+
+        if (response?.status === 200) {
+          setUserData(response?.data?.data);
+          toast.success(response?.data?.message);
+        }
+      } catch (error: any) {
+        console.error("Error fetching data:", error);
+        if (error?.response) {
+          const { status, data } = error.response;
+          if ([400, 404, 409, 500].includes(status)) {
+            setErrorMessage(data.message);
+          } else {
+            setErrorMessage(["An unexpected error occurred."]);
+          }
+        } else {
+          setErrorMessage(["Network error occurred."]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchedData();
+
+    return () => {
+      setLoading(false);
+    };
+  }, [token]);
+
+  useEffect(() => {
+    if (!token || !member_type || !id) return;
+
+    const fetchedData = async () => {
+      setSuccessMessage("");
+      setErrorMessage([]);
+      setLoading(true);
+
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/get-member?member_type=${member_type}&id=${id}`,
+          { token }
+        );
+
+        if (response?.status === 200) {
+          setMembership(response?.data?.data);
+          toast.success(response?.data?.message);
+        }
+      } catch (error: any) {
+        console.error("Error fetching data:", error);
+        if (error?.response) {
+          const { status, data } = error.response;
+          if ([400, 404, 409, 500].includes(status)) {
+            setErrorMessage(data.message);
+          } else {
+            setErrorMessage(["An unexpected error occurred."]);
+          }
+        } else {
+          setErrorMessage(["Network error occurred."]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchedData();
+
+    return () => {
+      setLoading(false);
+    };
+  }, [id, member_type, token]);
+
+  let email;
+  let phone;
+
+  if (userData) {
+    if (isEmailValid(userData.auth)) {
+      email = userData.auth;
+    } else if (isPhoneValid(userData.auth)) {
+      phone = userData.auth;
+    }
+  }
+
+  const submitHandler = async (data: FieldValues) => {
+    data.profile_pic = imageUrl;
+    data.upload_file = uploadedImage;
+    data.token = token;
+    data.member_type = userType;
+
+    if (userType === "investor") {
+      const investmentAmount = Number(data.investment_amount);
+      data.investment_amount = investmentAmount;
+    }
+
+    setSuccessMessage("");
+    setErrorMessage([]);
+    setLoading(true);
+
+    try {
+      const endpoint =
+        userType === "business_owner"
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
+          : userType === "investor"
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+          : null;
+
+      if (!endpoint) {
+        throw new Error("Invalid user type");
+      }
+
+      const response = await axios.post(endpoint, data);
+      console.log(response);
+      if (
+        response.status === 200 &&
+        response.data.success === true &&
+        response.data.data.success !== false
+      ) {
+        toast.success(response.data.message);
+        setSuccessMessage(response.data.message);
+        setLoading(false);
+        console.log(response);
+
+        if (response?.data?.data?.redirectUrl === "payment") {
+          router.push(
+            `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
+          );
+        }
+      }
+      if (response.status === 200 && response.data.data.success === false) {
+        toast.error(response.data.data.message);
+        setErrorMessage([response.data.data.message]);
+        setLoading(false);
+        console.log(response);
+        if (response?.data?.data?.redirectUrl === "payment") {
+          router.push(
+            `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
+          );
+        }
+      }
+    } catch (error: any) {
+      if (error.response) {
+        console.log(error);
+        const { status, data } = error.response;
+        if ([400, 404, 409, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const [value, setValue] = useState("1");
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
+    setUserType(newValue);
   };
   const theme = useTheme();
 
@@ -118,22 +339,35 @@ const Profile = () => {
     },
   };
 
+  console.log(imageUrl);
+
   return (
     <MUIForm
       onSubmit={submitHandler}
-      resolver={zodResolver(validationSchema)}
-      defaultValues={defaultValues}
+      // resolver={zodResolver(validationSchema)}
+      // defaultValues={defaultValues}
     >
       <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
-        <Image className="w-40 rounded-full " src={profile} alt="profile" />
+        <Image
+          className="w-40 rounded-full "
+          src={imageUrl ? imageUrl : userData?.profile_pic}
+          alt="profile"
+          height={100}
+          width={100}
+        />
         <div>
           <h4 className="text-xl md:text-3xl font-semibold ">
-            Mr Raihan Chowdhury{" "}
+            {userData?.name}
           </h4>
           <p className="text-sm md:text-normal ">
-            <b>USER ID:</b> MUI-034567898
+            <b>USER ID:</b>
+            {userData?.userId}
           </p>
-          <MUIFileUploadButton name="file" />
+          <MUIFileUploadButton
+            name="profile_pic"
+            setImageUrl={setImageUrl}
+            imageUrl={imageUrl}
+          />
         </div>
       </div>
       <div>
@@ -156,9 +390,9 @@ const Profile = () => {
           <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
             <MUIInput name="address" label="ঠিকানা" fullWidth size="medium" />
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
+          {/* <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
             <MUIInput name="email" label="ইমেইল " fullWidth size="medium" />
-          </Grid>
+          </Grid> */}
 
           <Box
             sx={{
@@ -169,7 +403,7 @@ const Profile = () => {
               marginTop: "10px",
             }}
           >
-            <TabContext value={value}>
+            <TabContext value={userType}>
               <Box>
                 <TabList
                   onChange={handleChange}
@@ -186,28 +420,32 @@ const Profile = () => {
                   <Tab
                     sx={buttonStyle}
                     label=" As a Business Owner "
-                    value="1"
+                    value="business_owner"
                   />
-                  <Tab sx={buttonStyle} label="As a Investor  " value="2" />
+                  <Tab
+                    sx={buttonStyle}
+                    label="As a Investor  "
+                    value="investor"
+                  />
                 </TabList>
               </Box>
-              <TabPanel value="1" sx={{ padding: "0px" }}>
+              <TabPanel value="business_owner" sx={{ padding: "0px" }}>
                 <Stack
                   direction={isMobile ? "column" : "row"}
                   spacing={{ xs: 1, md: 3, lg: 3 }}
                 >
                   <Grid container spacing={1}>
-                    <Grid item xs={12} sm={6} md={6} lg={12}>
+                    {/* <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
                         name="businessOwner"
                         label="AS A BUSINESS OWNER "
                         fullWidth
                         size="medium"
                       />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="businessName"
+                        name="business_name"
                         label="ব্যবসার নাম "
                         fullWidth
                         size="medium"
@@ -215,7 +453,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="businessType"
+                        name="business_type"
                         label="ব্যবসার ধরন"
                         fullWidth
                         size="medium"
@@ -223,7 +461,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="businessAddress"
+                        name="business_address"
                         label="ব্যবসার ঠিকানা"
                         fullWidth
                         size="medium"
@@ -239,7 +477,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="businessDetails"
+                        name="business_description"
                         label="ব্যবসার বিবরণ"
                         fullWidth
                         size="medium"
@@ -248,7 +486,7 @@ const Profile = () => {
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIMultiSelect
                         items={supportServices}
-                        name="businessNeed"
+                        name="need_of_service"
                         label="পরিষেবার প্রয়োজনীয়তা"
                         fullWidth
                         size="medium"
@@ -257,7 +495,7 @@ const Profile = () => {
 
                     <Grid item xs={12} sm={6} md={12} lg={12}>
                       <MUITextArea
-                        name="description"
+                        name="additional_info"
                         placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
                         minRows={3}
                         sx={{
@@ -267,10 +505,19 @@ const Profile = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Box
-                    
-                  >
-                    <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                  <Box>
+                    <DocUploader
+                      sx={{ fontSize: "20px" }}
+                      name="upload_file"
+                      setUploadedImage={setUploadedImage}
+                      uploadedImage={uploadedImage}
+                    />
+                    <div className="my-1">
+                      {successMessage && (
+                        <SuccessMessage message={successMessage} />
+                      )}
+                      {errorMessage && <ErrorMessage message={errorMessage} />}
+                    </div>
                     <Grid
                       item
                       xs={12}
@@ -285,39 +532,42 @@ const Profile = () => {
                           justifyContent: "center",
                           alignItems: "center",
                           width: "100%",
-                  
                         }}
                       >
                         <Button
                           type="submit"
                           sx={{ display: "block", margin: "0 auto" }}
                         >
-                          সাবমিট করুন
+                          {loading ? (
+                            <span>অপেক্ষা করুন</span>
+                          ) : (
+                            <span>সাবমিট করুন</span>
+                          )}
                         </Button>
                       </Box>
                     </Grid>
                   </Box>
                 </Stack>
               </TabPanel>
-              <TabPanel value="2" sx={{ padding: "0px" }}>
+              <TabPanel value="investor" sx={{ padding: "0px" }}>
                 <Stack
                   direction={isMobile ? "column" : "row"}
                   spacing={{ xs: 1, md: 3, lg: 3 }}
                 >
                   <Grid container spacing={1}>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <Grid item xs={12} sm={6} md={6} lg={12}>
+                      {/* <Grid item xs={12} sm={6} md={6} lg={12}>
                         <MUIInput
                           name="investor"
                           label="AS A INVESTOR "
                           fullWidth
                           size="medium"
                         />
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="investmentType"
+                        name="investment_type"
                         label="বিনিয়োগের ধরন"
                         fullWidth
                         size="medium"
@@ -325,7 +575,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="investAmount"
+                        name="investment_amount"
                         label="বিনিয়োগের পরিমাণ"
                         fullWidth
                         size="medium"
@@ -333,7 +583,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="investTime"
+                        name="investment_period"
                         label="বিনিয়োগের সময়কাল"
                         fullWidth
                         size="medium"
@@ -341,7 +591,7 @@ const Profile = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUIInput
-                        name="investGoal"
+                        name="investment_goal"
                         label="বিনিয়োগের লক্ষ্য"
                         fullWidth
                         size="medium"
@@ -350,7 +600,7 @@ const Profile = () => {
 
                     <Grid item xs={12} sm={6} md={6} lg={12}>
                       <MUITextArea
-                        name="investorDescription"
+                        name="additional_info"
                         placeholder="আপনার কোন বিশেষ চাহিদা বা অনুরোধ আছে?"
                         minRows={3}
                         sx={{
@@ -365,7 +615,18 @@ const Profile = () => {
                       marginTop: "50px",
                     }}
                   >
-                    <DocUploader sx={{ fontSize: "20px" }} name="file" />
+                    <DocUploader
+                      sx={{ fontSize: "20px" }}
+                      name="upload_file"
+                      setUploadedImage={setUploadedImage}
+                      uploadedImage={uploadedImage}
+                    />
+                    <div className="my-1">
+                      {successMessage && (
+                        <SuccessMessage message={successMessage} />
+                      )}
+                      {errorMessage && <ErrorMessage message={errorMessage} />}
+                    </div>
                     <Grid
                       item
                       xs={12}

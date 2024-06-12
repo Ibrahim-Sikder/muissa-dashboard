@@ -1,10 +1,15 @@
 "use client";
+import { SuccessMessage } from "@/components/success-message";
 import lockIcon from "../../../assets/icon/lock-icon.svg";
 import { Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import axios from "axios";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
+import { ErrorMessage } from "@/components/error-message";
+import { toast } from "sonner";
+import { setCookie } from "@/helpers/Cookies";
 
 const OTPInput = ({
   length,
@@ -66,17 +71,55 @@ const OTPInput = ({
 };
 
 const OTPVerifyPage = () => {
-  const [error, setError] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
-  const userEmail = searchParams.get("email");
+  const userAuth = searchParams.get("auth");
   const router = useRouter();
   const [otpValues, setOTPValues] = useState<string[]>(new Array(6).fill(""));
   const [emptyFieldIndex, setEmptyFieldIndex] = useState<number | null>(null);
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
-  const handleSubmit = async (data: any) => {
-    console.log(data);
+  const otpNumber = otpValues.join("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    setSuccessMessage("")
+    setErrorMessage([])
+    try {
+      const data = {
+        auth: userAuth,
+        otp: otpNumber,
+      };
+
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/verify-user`,
+        data
+      );
+ 
+      if (response?.status === 200) {
+        toast.success(response?.data?.message)
+        setSuccessMessage(response?.data?.message);
+        setCookie("mui-token", response?.data?.data)
+        router.push("/profile")
+        setIsLoading(false);
+      }
+      console.log("Response:", response);
+    } catch (error: any) {
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div className=" lg:-mt-24 lg:h-screen flex items-center justify-center ">
@@ -99,6 +142,7 @@ const OTPVerifyPage = () => {
             emptyFieldIndex={emptyFieldIndex}
             inputsRef={inputsRef}
           />
+
           <Button
             fullWidth
             type="submit"
@@ -109,6 +153,10 @@ const OTPVerifyPage = () => {
             {isLoading ? "Verifying..." : "Verify"}
           </Button>
         </form>
+       <div className="mt-2">
+       {successMessage && <SuccessMessage message={successMessage} />}
+       {errorMessage && <ErrorMessage message={errorMessage} />}
+       </div>
       </div>
     </div>
   );
