@@ -82,6 +82,25 @@ interface UserData {
   profile_pic: string;
 }
 
+interface MemberShip {
+  profile_pic?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  business_name?: string;
+  business_type?: string;
+  business_address?: string;
+  website?: string;
+  business_description?: string;
+  need_of_service?: string[];
+  additional_info?: string;
+  investment_type?: string;
+  investment_amount?: string;
+  investment_period?: string;
+  investment_goal?: string;
+  memberShip?: string;
+}
 const isEmailValid = (auth: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(auth);
@@ -102,6 +121,7 @@ const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [memberShip, setMembership] = useState({});
+
   console.log(memberShip)
   const defaultValues = {
     profile_pic: memberShip?.profile_pic || "", 
