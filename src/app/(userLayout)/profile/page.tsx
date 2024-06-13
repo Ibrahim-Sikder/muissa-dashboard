@@ -42,54 +42,33 @@ import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 
-const validationSchema = z.object({
-  user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
-  password: z.string().min(6, "অন্তত ৬টি অক্ষর থাকতে হবে").optional(),
+// const validationSchema = z.object({
+//   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
+//   password: z.string().min(6, "অন্তত ৬টি অক্ষর থাকতে হবে").optional(),
 
-  name: z.string().min(1, "নাম আবশ্যক").optional(),
-  phone: z.string().min(10, "অন্তত ১০টি সংখ্যা থাকা আবশ্যক").optional(),
-  email: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
-  address: z.string().min(1, "ঠিকানা আবশ্যক").optional(),
+//   name: z.string().min(1, "নাম আবশ্যক").optional(),
+//   phone: z.string().min(10, "অন্তত ১০টি সংখ্যা থাকা আবশ্যক").optional(),
+//   email: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
+//   address: z.string().min(1, "ঠিকানা আবশ্যক").optional(),
 
-  businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
-  businessName: z.string().min(1, "ব্যবসার নাম আবশ্যক").optional(),
-  businessType: z.string().min(1, "ব্যবসার ধরন আবশ্যক").optional(),
-  businessAddress: z.string().min(1, "ব্যবসার ঠিকানা আবশ্যক").optional(),
-  website: z.string().optional(),
-  businessDetails: z.string().optional(),
-  // businessNeed: z.array(z.string()).min(1, "পরিষেবার প্রয়োজনীয়তা নির্বাচন করুন").optional(),
-  description: z.string().optional(),
+//   businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
+//   businessName: z.string().min(1, "ব্যবসার নাম আবশ্যক").optional(),
+//   businessType: z.string().min(1, "ব্যবসার ধরন আবশ্যক").optional(),
+//   businessAddress: z.string().min(1, "ব্যবসার ঠিকানা আবশ্যক").optional(),
+//   website: z.string().optional(),
+//   businessDetails: z.string().optional(),
+//   // businessNeed: z.array(z.string()).min(1, "পরিষেবার প্রয়োজনীয়তা নির্বাচন করুন").optional(),
+//   description: z.string().optional(),
 
-  investor: z.string().min(1, "বিনিয়োগকারীর নাম আবশ্যক").optional(),
-  investmentType: z.string().min(1, "বিনিয়োগের ধরন আবশ্যক").optional(),
-  investAmount: z.string().min(1, "বিনিয়োগের পরিমাণ আবশ্যক").optional(),
-  investTime: z.string().min(1, "বিনিয়োগের সময়কাল আবশ্যক").optional(),
-  investGoal: z.string().min(1, "বিনিয়োগের লক্ষ্য আবশ্যক").optional(),
-  investorDescription: z.string().optional(),
-});
+//   investor: z.string().min(1, "বিনিয়োগকারীর নাম আবশ্যক").optional(),
+//   investmentType: z.string().min(1, "বিনিয়োগের ধরন আবশ্যক").optional(),
+//   investAmount: z.string().min(1, "বিনিয়োগের পরিমাণ আবশ্যক").optional(),
+//   investTime: z.string().min(1, "বিনিয়োগের সময়কাল আবশ্যক").optional(),
+//   investGoal: z.string().min(1, "বিনিয়োগের লক্ষ্য আবশ্যক").optional(),
+//   investorDescription: z.string().optional(),
+// });
 
-const defaultValues = {
-  user: "",
-  password: "",
-  name: "",
-  phone: "",
-  email: "",
-  address: "",
-  businessOwner: "",
-  businessName: "",
-  businessType: "",
-  businessAddress: "",
-  website: "",
-  businessDetails: "",
-  // businessNeed: [],
-  description: "",
-  investor: "",
-  investmentType: "",
-  investAmount: "",
-  investTime: "",
-  investGoal: "",
-  investorDescription: "",
-};
+
 
 interface UserData {
   _id: string;
@@ -100,7 +79,7 @@ interface UserData {
   status: string;
   isVerified: boolean;
   isCompleted: boolean;
-  profile_pic: string
+  profile_pic: string;
 }
 
 const isEmailValid = (auth: string): boolean => {
@@ -117,11 +96,33 @@ const Profile = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [userType, setUserType] = useState("business_owner");
 
+
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [memberShip, setMembership] = useState({});
+  console.log(memberShip)
+  const defaultValues = {
+    profile_pic: memberShip?.profile_pic || "", 
+    name: memberShip?.name || "",
+    phone: memberShip?.phone || "",
+    email: memberShip?.email || "",
+    address: memberShip?.address || "",
+    business_name: memberShip?.business_name || "",
+    business_type: memberShip?.business_type || "",
+    business_address: memberShip?.business_address || "",
+    website: memberShip?.website || "",
+    business_description: memberShip?.business_description || "",
+    need_of_service: memberShip?.need_of_service || [],
+    additional_info: memberShip?.additional_info || "",
+    investment_type: memberShip?.investment_type || "",
+    investment_amount: memberShip?.investment_amount || "",
+    investment_period: memberShip?.investment_period || "",
+    investment_goal: memberShip?.investment_goal || "",
+    memberShip: memberShip?.memberShip || "", 
+
+  };
 
   const [userData, setUserData] = useState<UserData>({
     _id: "",
@@ -342,10 +343,14 @@ const Profile = () => {
   console.log(imageUrl);
 
   return (
-    <MUIForm
+    <>
+      {loading ? (
+        <p>Loading.......</p>
+      ): (
+        <MUIForm
       onSubmit={submitHandler}
       // resolver={zodResolver(validationSchema)}
-      // defaultValues={defaultValues}
+      defaultValues={memberShip && defaultValues}
     >
       <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
         <Image
@@ -659,6 +664,8 @@ const Profile = () => {
         </Grid>
       </div>
     </MUIForm>
+      )}
+    </>
   );
 };
 
