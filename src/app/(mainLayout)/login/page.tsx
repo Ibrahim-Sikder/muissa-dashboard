@@ -86,6 +86,7 @@ const Login = () => {
         setLoading(false);
       }
     } catch (error: any) {
+      console.log(error)
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 500].includes(status)) {
@@ -221,7 +222,7 @@ const Login = () => {
                 color="primary"
               >
                 {loading ? (
-                  <span className="text-white">Loading...</span>
+                  <span>Loading...</span>
                 ) : (
                   " Login"
                 )}
