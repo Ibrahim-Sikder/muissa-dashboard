@@ -339,7 +339,7 @@ const Profile = () => {
     },
   };
 
-  console.log(imageUrl);
+ 
 
   return (
     <MUIForm

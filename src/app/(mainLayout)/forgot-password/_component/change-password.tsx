@@ -3,7 +3,6 @@ import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
-import { getCookie } from "@/helpers/Cookies";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LockPerson, VerifiedUser } from "@mui/icons-material";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
@@ -15,9 +14,6 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const validationSchema = z.object({
-  oldPassword: z
-    .string()
-    .min(6, "Old password must be at least 6 characters long"),
   newPassword: z
     .string()
     .min(6, "New password must be at least 6 characters long"),
@@ -27,25 +23,25 @@ const validationSchema = z.object({
 });
 
 const defaultValues = {
-  oldPassword: "",
   newPassword: "",
   confirmPassword: "",
 };
 
-const ChangePassword = () => {
+const ChangeForgotPassword = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const token = getCookie("mui-token");
+  const searchParams = useSearchParams();
+  const userAuth = searchParams.get("auth");
+  const router = useRouter()
 
   const onSubmit = async (values: FieldValues) => {
     setIsLoading(true);
 
     setSuccessMessage("");
     setErrorMessage([]);
-    values.token = token;
+    values.auth = userAuth
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/update-password`,
@@ -55,7 +51,7 @@ const ChangePassword = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-
+        router.push("/login")
         setIsLoading(false);
       }
       console.log("Response:", response);
@@ -73,22 +69,23 @@ const ChangePassword = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <Stack>
       <Box
-        sx={{
-          px: 5,
-          py: 2,
-          maxWidth: "500px",
-          width: "100%",
-          boxShadow: 1,
-          borderRadius: 1,
-          padding: {
-            xs: 2,
-            md: 5,
-          },
-          margin: "0 auto",
-        }}
+      // sx={{
+      //   px: 5,
+      //   py: 2,
+      //   maxWidth: "500px",
+      //   width: "100%",
+      //   boxShadow: 1,
+      //   borderRadius: 1,
+      //   padding: {
+      //     xs:2,
+      //     md:5
+      //   },
+      //   margin: "0 auto",
+      // }}
       >
         <MUIForm
           onSubmit={onSubmit}
@@ -104,16 +101,6 @@ const ChangePassword = () => {
             Change Password{" "}
           </Typography>
           <Grid container spacing={1}>
-            <Grid item xs={12} md={12} lg={12}>
-              <MUIInput
-                name="oldPassword"
-                label="Old Password"
-                fullWidth
-                size="medium"
-                type="password"
-              />
-            </Grid>
-
             <Grid item xs={12} md={12} lg={12}>
               <MUIInput
                 name="newPassword"
@@ -133,7 +120,6 @@ const ChangePassword = () => {
               />
             </Grid>
           </Grid>
-
           {successMessage && <SuccessMessage message={successMessage} />}
           {errorMessage && <ErrorMessage message={errorMessage} />}
           <Button type="submit" sx={{ width: "100%", marginTop: "10px" }}>
@@ -145,4 +131,4 @@ const ChangePassword = () => {
   );
 };
 
-export default ChangePassword;
+export default ChangeForgotPassword;

@@ -1,6 +1,14 @@
 "use client";
 import * as React from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Badge,
+  Box,
+  Container,
+  Grid,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import UserList from "@/components/Dashboard/pages/support/UserList";
 import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
 import type { Metadata } from "next";
@@ -8,11 +16,23 @@ import { useForm } from "react-hook-form";
 import { getCookie } from "@/helpers/Cookies";
 import { io, Socket } from "socket.io-client";
 import { ChangeEvent, useEffect, useState } from "react";
+import uploadFile from "@/helpers/uploadFile";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { toast } from "sonner";
 interface Message {
   id: number;
   sender: string;
   content: string;
   timestamp: string;
+}
+
+interface UserDetails {
+  _id: string;
+  name: string;
+  token: string;
+  profile_pic: string;
+  online: boolean;
 }
 interface User {
   id: number;
@@ -84,33 +104,28 @@ export default function SupportContactPage() {
   //     setNewMessage("");
   //   }
   // };
-
-
- 
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [senderUser, setSenderUser] = useState({
     _id: "",
     name: "",
     token: "",
   });
+  const [allSenderUser, setAllSenderUser] = useState([]);
+  const [allSenderForAdmin, setAllSenderForAdmin] = useState([]);
   const [allMessage, setAllMessage] = useState([]);
   const [message, setMessage] = useState({
     text: "",
     imageUrl: "",
   });
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [onlineUser, setOnlineUser] = useState([]);
+  const [onlineUser, setOnlineUser] = useState<string[]>([]);
 
-  const [userDetails, setUserDetails] = useState({
-    _id: "",
-    name: "",
-    token: "",
-    online: false,
-  });
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
   const token = getCookie("mui-token");
-
-  const userId = '666033cff9dc2324dde3c27b'
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("id");
 
   useEffect(() => {
     const socketConnection = io("http://localhost:5000/", {
@@ -119,60 +134,77 @@ export default function SupportContactPage() {
       },
     });
     setSocket(socketConnection);
-    socketConnection.on("onlineUser", (data) => {
-      // console.log({ data });
-      setOnlineUser(data);
-    });
-
-    socketConnection.emit("message-page", userId);
-
-
-    //  pasci token theke 
-    socketConnection.on(
-      "sender-user",
-      (data: { _id: string; name: string; token: string }) => {
-        // console.log(data);
-        setSenderUser(data);
-      }
-    );
-
-
-    // receiver id theke 
-    socketConnection.on(
-      "message-user",
-      (data: { _id: string; name: string; token: string; online: boolean }) => {
-        // console.log({data});
-        setUserDetails(data);
-      }
-    );
-
-    
-
-
-   
-
-    socketConnection.on('message',(data)=>{
-      // console.log('message data',data)
-      setAllMessage(data)
-    })
 
     return () => {
       socketConnection.disconnect();
     };
   }, [token]);
 
- 
+  useEffect(() => {
+    if (socket) {
+      socket.on("onlineUser", (data: string[]) => {
+        // console.log({ data });
+        setOnlineUser(data);
+      });
+
+      if (userId) {
+        socket.emit("message-page", userId);
+      }
+
+      //  pasci token theke
+      socket.on(
+        "sender-user",
+        (data: { _id: string; name: string; token: string }) => {
+          // console.log(data);
+          setSenderUser(data);
+        }
+      );
+
+      socket.emit("seen", userId);
+      // receiver id theke
+      socket.on("message-user", (data: UserDetails) => {
+        // console.log({data});
+        setUserDetails(data);
+      });
+
+      if (userId) {
+        socket.on("message", (data) => {
+          // console.log("message data", data);
+          setAllMessage(data);
+        });
+      }
+
+      socket.on("conversation", (data) => {
+        const filteredData = data.filter(
+          (con: { sender: { _id: string } }) =>
+            con.sender._id !== senderUser._id
+        );
+        setAllSenderUser(filteredData);
+      });
+
+      socket.on("all-admin-conversation", (data) => {
+        console.log("Received all-admin-conversation:", data);
+        // const filteredAdminData = data.filter(
+        //   (con: { sender: { _id: string } }) =>
+        //     con.sender._id !== senderUser._id
+        // );
+
+        setAllSenderForAdmin(data);
+        // setAllSenderUser(filteredData);
+      });
+
+      socket.on("error", (data) => {
+        return toast.error(data);
+      });
+    }
+  }, [senderUser._id, socket, userId]);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-
-
-
-
-  console.log("senderUser?._id", senderUser?._id)
 
   const onSubmit = async () => {
     if (message.text || message.imageUrl) {
@@ -199,9 +231,44 @@ export default function SupportContactPage() {
       text: value,
     }));
   };
-  // console.log({senderUser})
-  console.log({allMessage})
-  // console.log(userDetails);
+
+  const handleFileChange = async (file: File | null) => {
+    if (!file) return;
+
+    setLoading(true);
+
+    try {
+      const uploadPhoto = await uploadFile(file);
+
+      setMessage((prev) => {
+        return {
+          ...prev,
+          imageUrl: uploadPhoto?.secure_url,
+        };
+      });
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleClearUploadImage = () => {
+    setMessage((prev) => {
+      return {
+        ...prev,
+        imageUrl: "",
+      };
+    });
+  };
+
+  const handleUserAccept = (id: string) => {
+    if (socket) {
+      socket.emit("accept-message", id, senderUser._id);
+      socket.on("error", (data) => {
+        return toast.error(data);
+      });
+    }
+  };
 
   return (
     <Box
@@ -226,7 +293,35 @@ export default function SupportContactPage() {
           backgroundColor: "#f9f9f9",
         }}
       >
-        <Typography variant="h5">Support Chat</Typography>
+        {userDetails ? (
+          <div className="flex justify-center">
+            <>
+              <Badge
+                color={
+                  onlineUser.includes(userDetails?._id ?? "")
+                    ? "success"
+                    : "default"
+                }
+                variant="dot"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                overlap="circular"
+              >
+                <Avatar alt={userDetails?.name} src={userDetails.profile_pic} />
+              </Badge>
+              <ListItemText
+                primary={userDetails?.name}
+                secondary={
+                  onlineUser.includes(userDetails?._id ?? "")
+                    ? "online"
+                    : "offline"
+                }
+                sx={{ ml: 2 }}
+              />
+            </>
+          </div>
+        ) : (
+          <Typography variant="h5">Support Chat</Typography>
+        )}
       </Box>
       <Grid container sx={{ flexGrow: 1, height: "100%" }}>
         <Grid
@@ -241,11 +336,13 @@ export default function SupportContactPage() {
             backgroundColor: "#f9f9f9",
           }}
         >
-          {/* <UserList
-            users={mockUsers}
-            // selectedUser={selectedUser}
-            // onSelectUser={setSelectedUser}
-          /> */}
+          <UserList
+            users={allSenderUser}
+            onlineUser={onlineUser}
+            userId={userId}
+            userForAdmin={allSenderForAdmin}
+            handleUserAccept={handleUserAccept}
+          />
         </Grid>
         <Grid
           item
@@ -254,19 +351,16 @@ export default function SupportContactPage() {
           lg={9}
           sx={{ display: "flex", flexDirection: "column" }}
         >
-          {/* <ChatArea
-            // messages={messages}
-            allMessage={allMessage}
-            onNewMessageChange={handleMessageOnChange}
-            onSendMessage={handleSendMessage}
-          /> */}
           <ChatArea
             message={message}
             allMessage={allMessage}
             handleMessageOnChange={handleMessageOnChange}
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
-            user={senderUser}
+            senderUser={senderUser}
+            handleFileChange={handleFileChange}
+            handleClearUploadImage={handleClearUploadImage}
+            loading={loading}
           />
         </Grid>
       </Grid>
