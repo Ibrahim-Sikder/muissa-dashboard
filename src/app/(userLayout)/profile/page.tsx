@@ -120,10 +120,10 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [memberShip, setMembership] = useState({});
+  const [memberShip, setMembership] = useState<MemberShip>({});
 
   console.log(memberShip)
-  const defaultValues = {
+  const defaultValues:MemberShip = {
     profile_pic: memberShip?.profile_pic || "", 
     name: memberShip?.name || "",
     phone: memberShip?.phone || "",
@@ -369,7 +369,7 @@ const Profile = () => {
       ): (
         <MUIForm
       onSubmit={submitHandler}
-      // resolver={zodResolver(validationSchema)}
+     
       defaultValues={memberShip && defaultValues}
     >
       <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
