@@ -34,16 +34,16 @@ import MUIMultiSelect from "@/components/Forms/MultiSelect";
 import { supportServices } from "@/types";
 import MUIForm from "@/components/Forms/Form";
 import { zodResolver } from "@hookform/resolvers/zod";
- 
+
 import { getCookie } from "@/helpers/Cookies";
 import axios from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
- 
+
 import consult from "../../../assets/news/sub.png";
- 
+
 const validationSchema = z.object({
   // businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
   business_name: z.string().min(1, "ব্যবসার নাম আবশ্যক"),
@@ -147,7 +147,6 @@ const Membership = () => {
   ];
   const handleSubmit = async (data: FieldValues) => {
     data.upload_file = uploadedImage;
-    data.token = token;
     data.member_type = userType;
 
     if (userType === "investor") {
@@ -171,8 +170,13 @@ const Membership = () => {
         throw new Error("Invalid user type");
       }
 
-      const response = await axios.post(endpoint, data);
-      console.log(response);
+      const response = await axios.post(endpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
       if (
         response.status === 200 &&
         response.data.success === true &&

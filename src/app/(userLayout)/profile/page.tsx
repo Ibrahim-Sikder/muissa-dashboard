@@ -100,7 +100,7 @@ interface UserData {
   status: string;
   isVerified: boolean;
   isCompleted: boolean;
-  profile_pic: string
+  profile_pic: string;
 }
 
 const isEmailValid = (auth: string): boolean => {
@@ -143,17 +143,19 @@ const Profile = () => {
   const id = params.get("id");
 
   useEffect(() => {
-    if (!token) return;
-
     const fetchedData = async () => {
       setSuccessMessage("");
       setErrorMessage([]);
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response?.status === 200) {
@@ -185,7 +187,7 @@ const Profile = () => {
   }, [token]);
 
   useEffect(() => {
-    if (!token || !member_type || !id) return;
+    if (!member_type || !id) return;
 
     const fetchedData = async () => {
       setSuccessMessage("");
@@ -193,9 +195,13 @@ const Profile = () => {
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/get-member?member_type=${member_type}&id=${id}`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response?.status === 200) {
@@ -240,7 +246,6 @@ const Profile = () => {
   const submitHandler = async (data: FieldValues) => {
     data.profile_pic = imageUrl;
     data.upload_file = uploadedImage;
-    data.token = token;
     data.member_type = userType;
 
     if (userType === "investor") {
@@ -264,7 +269,11 @@ const Profile = () => {
         throw new Error("Invalid user type");
       }
 
-      const response = await axios.post(endpoint, data);
+      const response = await axios.post(endpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response);
       if (
         response.status === 200 &&
@@ -339,8 +348,8 @@ const Profile = () => {
     },
   };
 
- 
 
+  
   return (
     <MUIForm
       onSubmit={submitHandler}

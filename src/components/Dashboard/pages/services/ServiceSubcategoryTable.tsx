@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -15,103 +12,119 @@ import {
   Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getCookie } from "@/helpers/Cookies";
+import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
 
-interface ServiceCategory {
-  id: number;
-  name: string;
-  subcategories: {
-    id: number;
-    name: string;
-  }[];
+export interface ServiceCategory {
+  _id: string;
+  category: string;
+  sub_category: [
+    {
+      _id: string;
+      sub_category: string;
+    }
+  ];
 }
 
 const ServiceSubcategoryTable = () => {
-  const [categories, setCategories] = useState<ServiceCategory[]>([]);
 
-  useEffect(() => {
-    // Fetch the categories from API or any data source
-    // For now, we'll use mock data
-    const mockCategories: ServiceCategory[] = [
-      {
-        id: 1,
-        name: "Category 1",
-        subcategories: [
-          {
-            id: 1,
-            name: "Subcategory 1",
-          },
-          {
-            id: 2,
-            name: "Subcategory 2",
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "Category 2",
-        subcategories: [
-          {
-            id: 1,
-            name: "Subcategory 1",
-          },
-          {
-            id: 2,
-            name: "Subcategory 2",
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: "Category 3",
-        subcategories: [
-          {
-            id: 1,
-            name: "Subcategory 1",
-          },
-          {
-            id: 2,
-            name: "Subcategory 2",
-          },
-        ],
-      },
-      {
-        id: 4,
-        name: "Category 4",
-        subcategories: [
-          {
-            id: 1,
-            name: "Subcategory 1",
-          },
-          {
-            id: 2,
-            name: "Subcategory 2",
-          },
-        ],
-      },
-      {
-        id: 5,
-        name: "Category 5",
-        subcategories: [
-          {
-            id: 1,
-            name: "Subcategory 1",
-          },
-          {
-            id: 2,
-            name: "Subcategory 2",
-          },
-        ],
-      },
-    ];
-    setCategories(mockCategories);
-  }, []);
+  const token = getCookie("mui-token");
 
-  const handleDelete = (id: number) => {
+  const {
+    data: category,
+    
+    isLoading,
+  } = useGetAllCategoryQuery({
+     
+  });
+
+  // useEffect(() => {
+  //   // Fetch the categories from API or any data source
+  //   // For now, we'll use mock data
+  //   const mockCategories: ServiceCategory[] = [
+  //     {
+  //       id: 1,
+  //       name: "Category 1",
+  //       subcategories: [
+  //         {
+  //           id: 1,
+  //           name: "Subcategory 1",
+  //         },
+  //         {
+  //           id: 2,
+  //           name: "Subcategory 2",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Category 2",
+  //       subcategories: [
+  //         {
+  //           id: 1,
+  //           name: "Subcategory 1",
+  //         },
+  //         {
+  //           id: 2,
+  //           name: "Subcategory 2",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Category 3",
+  //       subcategories: [
+  //         {
+  //           id: 1,
+  //           name: "Subcategory 1",
+  //         },
+  //         {
+  //           id: 2,
+  //           name: "Subcategory 2",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: 4,
+  //       name: "Category 4",
+  //       subcategories: [
+  //         {
+  //           id: 1,
+  //           name: "Subcategory 1",
+  //         },
+  //         {
+  //           id: 2,
+  //           name: "Subcategory 2",
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       id: 5,
+  //       name: "Category 5",
+  //       subcategories: [
+  //         {
+  //           id: 1,
+  //           name: "Subcategory 1",
+  //         },
+  //         {
+  //           id: 2,
+  //           name: "Subcategory 2",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  //   setCategories(mockCategories);
+  // }, []);
+
+  const handleDelete = (id: string) => {
     // Mock delete functionality
-    setCategories((prevCategories) =>
-      prevCategories.filter((category) => category.id !== id)
-    );
+    // setCategories((prevCategories) =>
+    //   prevCategories.filter((category) => category.id !== id)
+    // );
   };
+  if(isLoading){
+    return <div>Loading...</div>
+  }
 
   return (
     <Paper
@@ -141,15 +154,15 @@ const ServiceSubcategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {categories.map((category) => (
-            <TableRow key={category.id}>
-              <TableCell>{category.id}</TableCell>
-              <TableCell>{category.name}</TableCell>
+          {category?.map((category: ServiceCategory, index: number) => (
+            <TableRow key={category._id}>
+              <TableCell>{index + 1}</TableCell>
+              <TableCell>{category.category}</TableCell>
               <TableCell>
                 <Box display="flex" flexWrap="wrap">
-                  {category.subcategories.map((subcategory) => (
+                  {category.sub_category.map((subcategory) => (
                     <Box
-                      key={subcategory.id}
+                      key={subcategory._id}
                       sx={{
                         backgroundColor: "#f0f0f0",
                         borderRadius: "4px",
@@ -157,7 +170,7 @@ const ServiceSubcategoryTable = () => {
                         margin: "4px",
                       }}
                     >
-                      {subcategory.name}
+                      {subcategory.sub_category}
                     </Box>
                   ))}
                 </Box>
@@ -166,7 +179,7 @@ const ServiceSubcategoryTable = () => {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => handleDelete(category.id)}
+                  onClick={() => handleDelete(category._id)}
                 >
                   <DeleteIcon />
                 </IconButton>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./services.css";
 import {
   Box,
@@ -23,6 +23,14 @@ import service from "../../../assets/logo/service4.jpg";
 import SpecialSupport from "./_component/Services/SpecialSupport";
 import ServiceSlider from "./_component/Services/ServiceSlider";
 import Container from "@/components/ui/HomePage/Container/Container";
+import {
+  useGetAllCategoryQuery,
+  useGetAllServicesForHomeQuery,
+  
+} from "@/redux/api/baseApi";
+import { ServiceCategory } from "@/components/Dashboard/pages/services/ServiceSubcategoryTable";
+import { ErrorMessage } from "@/components/error-message";
+import DOMPurify from "dompurify";
 
 const serviceDetails = [
   {
@@ -62,13 +70,73 @@ const serviceDetails = [
 ];
 
 const Page = () => {
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
   const [expanded, setExpanded] = useState<string | false>(false);
   const [subTabIndex, setSubTabIndex] = useState(0);
 
+  const {
+    data: categories,
+    error: categoriesError,
+    isLoading: categoriesLoading,
+  } = useGetAllCategoryQuery({});
+
+  const selectedCategoryData = categories?.find(
+    (cat: ServiceCategory) => cat?.category === selectedCategory
+  );
+
+  const subCategories = selectedCategoryData?.sub_category || [];
+
+  const getCategoryName = (categoryId: any) => {
+    const category = categories?.find((cat: any) => cat._id === categoryId);
+    return category ? category.category : "Unknown Category";
+  };
+
+  const getSubCategoryName = (subCategoryId: any) => {
+    if (!subCategoryId) {
+      return "Unknown sub category";
+    }
+
+    let subCategoryName = "Unknown sub category";
+
+    categories.forEach((category: any) => {
+      const subCategory = category.sub_category?.find(
+        (sub: any) => sub._id === subCategoryId
+      );
+      if (subCategory) {
+        subCategoryName = subCategory.sub_category;
+      }
+    });
+
+    return subCategoryName;
+  };
+
   const handleAccordionChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: string, categoryId: string) =>
+    (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
       setSubTabIndex(0); // Reset subTabIndex when accordion changes
+      if (isExpanded) {
+        const categoryName = getCategoryName(categoryId);
+
+        setSelectedCategory(categoryName);
+        setErrorMessage([]);
+
+        const firstSubCategoryId = categories.find(
+          (cat: any) => cat.category === categoryName
+        )?.sub_category[0]?._id;
+
+        if (firstSubCategoryId !== undefined) {
+          const subCategoryName = getSubCategoryName(
+            firstSubCategoryId.toString()
+          );
+
+          setSelectedSubCategory(subCategoryName);
+        } else {
+          setSelectedSubCategory("");
+        }
+      }
     };
 
   const handleSubTabChange = (
@@ -77,6 +145,46 @@ const Page = () => {
   ) => {
     setSubTabIndex(newValue);
   };
+
+  const query = {
+    selectedCategory,
+    selectedSubCategory,
+  };
+
+  const {
+    data: services,
+    error: servicesError,
+    isLoading: servicesLoading,
+    refetch: refetchServices,
+  } = useGetAllServicesForHomeQuery(
+    selectedCategory && selectedSubCategory ? query : {}
+  );
+
+  const handleGetSubCategory = (newValue: any) => {
+    setErrorMessage([]);
+
+    const subCategoryName = getSubCategoryName(newValue);
+    refetchServices();
+    setSelectedSubCategory(subCategoryName);
+  };
+
+  useEffect(() => {
+    if (servicesError) {
+      const { status, data } = servicesError;
+      if ([400, 401, 404, 409, 500].includes(status)) {
+        setErrorMessage(data.message);
+        setSelectedSubCategory("");
+      } else {
+        setErrorMessage(["An unexpected error occurred."]);
+
+        setSelectedSubCategory("");
+      }
+    }
+  }, [servicesError]);
+
+  if (categoriesLoading || servicesLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -88,11 +196,11 @@ const Page = () => {
       <Container className="sectionMargin">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="col-span-12 lg:col-span-4">
-            {serviceDetails.map((service, index) => (
+            {categories?.map((service: any, index: number) => (
               <Accordion
-                key={service.id}
+                key={service._id}
                 expanded={expanded === `panel${index}`}
-                onChange={handleAccordionChange(`panel${index}`)}
+                onChange={handleAccordionChange(`panel${index}`, service._id)}
                 sx={{
                   marginBottom: "10px",
                   "&.Mui-expanded": {
@@ -120,7 +228,7 @@ const Page = () => {
                       color: "#ffffff",
                     }}
                   >
-                    {service.category}
+                    {service?.category}
                   </Typography>
                 </AccordionSummary>
                 <AccordionDetails
@@ -138,10 +246,11 @@ const Page = () => {
                       padding: "10px",
                     }}
                   >
-                    {service.subCategory.map((sub, subIndex) => (
+                    {subCategories?.map((sub: any, subIndex: number) => (
                       <Tab
-                        label={sub.title}
-                        key={sub.id}
+                        onClick={() => handleGetSubCategory(sub?._id)}
+                        label={sub?.sub_category}
+                        key={sub?._id}
                         sx={{
                           color:
                             subTabIndex === subIndex ? "#00305C" : "#1591A3",
@@ -219,16 +328,19 @@ const Page = () => {
               <div className="serviceDetailsImage">
                 <div className="w-full h-96 aspect-video relative">
                   <Image
-                    src={service}
+                    src={services[0]?.service_image || service}
                     alt={
-                      serviceDetails[expanded ? Number(expanded.slice(5)) : 0]
-                        .category
+                      services[0]
+                        ?.category
                     }
                     width={700}
                     height={475}
                     className="rounded-t-lg h-full w-full object-cover absolute"
                   />
                 </div>
+              </div>
+              <div className="mt-5">
+                {errorMessage && <ErrorMessage message={errorMessage} />}
               </div>
               <Box
                 sx={{
@@ -237,21 +349,53 @@ const Page = () => {
                   borderRadius: "0px 0px 5px 5px",
                 }}
               >
+                {/* {expanded && (
+                  <>
+                    <Typography variant="h4" sx={{ color: "#1591A3" }}>
+                      {services[Number(expanded.slice(5))]?.category}
+                    </Typography>
+                    <Typography variant="h6" sx={{ color: "#1591A3" }}>
+                      {services[Number(expanded.slice(5))]?.sub_category}
+                    </Typography>
+                    <Typography variant="body1">
+                      {services[Number(expanded.slice(5))]?.short_description}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          services[Number(expanded.slice(5))]?.description
+                        ),
+                      }}
+                    >
+                      {
+                        services[Number(expanded.slice(5))]?.description
+                      }
+                    </Typography>
+                  </>
+                )} */}
                 {expanded && (
                   <>
                     <Typography variant="h4" sx={{ color: "#1591A3" }}>
-                      {
-                        serviceDetails[Number(expanded.slice(5))].subCategory[
-                          subTabIndex
-                        ].title
-                      }
+                      {services[0]?.category}
+                    </Typography>
+                    <Typography variant="h6" sx={{ color: "#1591A3" }}>
+                      {services[0]?.sub_category}
                     </Typography>
                     <Typography variant="body1">
-                      {
-                        serviceDetails[Number(expanded.slice(5))].subCategory[
-                          subTabIndex
-                        ].sub_description
-                      }
+                      {services[0]?.short_description}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          services[0]?.description
+                        ),
+                      }}
+                    >
+                      {/* {
+                        services[Number(expanded.slice(5))]?.description
+                      } */}
                     </Typography>
                   </>
                 )}
