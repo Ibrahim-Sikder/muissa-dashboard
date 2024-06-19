@@ -32,7 +32,7 @@ interface Message {
 interface ReceiverUserDetails {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   online: boolean;
   profile_pic: string;
 }
@@ -42,7 +42,7 @@ type OnlineUser = string;
 interface Sender {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   userId: string;
   profile_pic: string;
   updatedAt: Date;
@@ -50,7 +50,7 @@ interface Sender {
 interface Receiver {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   userId: string;
   profile_pic: string;
   updatedAt: Date;
@@ -90,7 +90,8 @@ const MessageModal = ({ close }: TProps) => {
   const [senderUser, setSenderUser] = useState({
     _id: "",
     name: "",
-    token: "",
+    auth: "",
+    profile_pic: "",
   });
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState({
@@ -118,7 +119,7 @@ const MessageModal = ({ close }: TProps) => {
   const userId = myReceiverUser?.receiver?._id || "6669c62807906bce8720ec94";
 
   useEffect(() => {
-    const socketConnection = io("http://localhost:5000/", {
+    const socketConnection = io(`${process.env.NEXT_PUBLIC_SOCKET_API_URL}`, {
       auth: {
         token: token,
       },
@@ -145,7 +146,7 @@ const MessageModal = ({ close }: TProps) => {
         (data: {
           _id: string;
           name: string;
-          token: string;
+          auth: string;
           profile_pic: string;
         }) => {
           // console.log(data);
