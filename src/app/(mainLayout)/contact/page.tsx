@@ -21,6 +21,7 @@ import {
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import Iframe from "react-iframe";
 import MUITextArea from "@/components/Forms/TextArea";
+import { useCreateClientMutation } from "@/redux/api/clientApi";
 
 const validationSchema = z.object({
   name: z.string().min(1, "নাম আবশ্যক"),
@@ -36,8 +37,16 @@ const defaultValues = {
 };
 
 const Contact = () => {
+  const [createClient, { isError }] = useCreateClientMutation();
+
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data);
+
+    try {
+      const res = await createClient(data).unwrap;
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -212,7 +221,7 @@ const Contact = () => {
         <section className="flex flex-row items-center justify-center w-full mx-auto">
           <Iframe
             className="lg:h-[400px] h-[300px]"
-            url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.0928658240487!2d90.41446837602358!3d23.779707187649365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c729f12d1e81%3A0xf1af6c2806888e76!2sSoftyPy%20Pvt%20Ltd!5e0!3m2!1sen!2sbd!4v1712120567130!5m2!1sen!2sbd"
+            url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.6004046481885!2d90.4282006!3d23.761625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d3453c872c87237%3A0x8e37e15d15090297!2sMuissa%20Business%20Consulting%20Ltd.!5e0!3m2!1sen!2sbd!4v1718278412461!5m2!1sen!2sbd"
             width="100%"
             styles={{ border: 0 }}
             loading="lazy"
