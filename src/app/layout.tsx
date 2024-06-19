@@ -39,7 +39,7 @@ export default function RootLayout({
       </Providers>
       {/* <BackTopButton /> */}
       {/* <MessageIcon /> */}
-      <SubscriptionAlert />
+      {/* <SubscriptionAlert /> */}
       <MessageIcons />
     </html>
   );
