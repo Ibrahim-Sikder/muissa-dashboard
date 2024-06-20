@@ -185,7 +185,7 @@ const Membership = () => {
         toast.success(response.data.message);
         setSuccessMessage(response.data.message);
         setLoading(false);
-        console.log(response);
+  
 
         router.push(
           `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
@@ -195,7 +195,7 @@ const Membership = () => {
         toast.error(response.data.data.message);
         setErrorMessage([response.data.data.message]);
         setLoading(false);
-        console.log(response);
+       
         router.push(
           `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
         );
@@ -203,7 +203,7 @@ const Membership = () => {
     } catch (error: any) {
       if (error.response) {
         const { status, data } = error.response;
-        if ([400, 404, 409, 500].includes(status)) {
+        if ([400, 404,401, 409, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);

@@ -43,19 +43,10 @@ export const baseApi: any = createApi({
       }),
     }),
     getAllServices: builder.query({
-      query: ({
-        token,
-        page,
-        limit,
-        selectedCategory: category,
-        selectedSubCategory: sub_category,
-      }) => ({
+      query: ({ page, limit }) => ({
         url: "/services/get-services",
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: { page, limit, category, sub_category },
+        params: { page, limit },
       }),
     }),
     getSingleService: builder.query({
@@ -69,10 +60,60 @@ export const baseApi: any = createApi({
         selectedCategory: category,
         selectedSubCategory: sub_category,
       }) => ({
-        url: "/services/get-services-for-home",
+        url: "/services/get-services/home",
         method: "GET",
 
         params: { category, sub_category },
+      }),
+    }),
+    getAllBlogs: builder.query({
+      query: ({ page, limit }) => ({
+        url: "/blogs/get-blogs",
+        method: "GET",
+
+        params: { page, limit },
+      }),
+    }),
+    getSingleBlog: builder.query({
+      query: ({ id }) => ({
+        url: `/blogs/${id}`,
+        method: "GET",
+      }),
+    }),
+    getAllReviews: builder.query({
+      query: ({ page, limit }) => ({
+        url: "/reviews/get-reviews",
+        method: "GET",
+
+        params: { page, limit },
+      }),
+    }),
+    getSingleReview: builder.query({
+      query: ({ id }) => ({
+        url: `/reviews/${id}`,
+        method: "GET",
+      }),
+    }),
+    getAllPayments: builder.query({
+      query: ({ token, page, limit, filterType }) => ({
+        url: "/payments/get-all-payment",
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: { page, limit, filterType },
+      }),
+    }),
+    getSinglePayment: builder.query({
+      query: ({ id }) => ({
+        url: `/payments/${id}`,
+        method: "GET",
+      }),
+    }),
+    getAllFaqs: builder.query({
+      query: () => ({
+        url: "/faq/get-faq",
+        method: "GET",
       }),
     }),
   }),
@@ -82,7 +123,16 @@ export const {
   useGetSingleMemberQuery,
   useGetAllCategoryQuery,
   useGetAllServicesQuery,
+
   useGetSingleServiceQuery,
+  useGetSingleReviewQuery,
+  useGetSingleBlogQuery,
   useGetAllServicesForHomeQuery,
+  useGetAllBlogsQuery,
+  useGetAllReviewsQuery,
+
+  useGetAllPaymentsQuery,
+  useGetSinglePaymentQuery,
+  useGetAllFaqsQuery,
 } = baseApi;
 export const {} = baseApi;

@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { getCookie } from "@/helpers/Cookies";
 import { useGetAllServicesQuery } from "@/redux/api/baseApi";
+import { usePathname } from "next/navigation";
 
 // const services: Service[] = [
 //   {
@@ -54,19 +55,23 @@ export default function Page(): React.JSX.Element {
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [limit, setLimit] = React.useState(10);
+  const pathName= usePathname()
 
-  const token = getCookie("mui-token");
+ 
 
-  const { data, error, isLoading } = useGetAllServicesQuery({
-    token,
+  const { data, error, isLoading, refetch } = useGetAllServicesQuery({
     page: currentPage,
     limit,
   });
 
+  React.useEffect(() => {
+    refetch();
+  }, [pathName, refetch]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
- 
+
   return (
     <Stack spacing={3}>
       <ServicesTable

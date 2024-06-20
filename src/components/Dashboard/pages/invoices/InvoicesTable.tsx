@@ -20,19 +20,34 @@ import {
   MenuItem,
 } from "@mui/material";
 import { FaEye, FaPrint } from "react-icons/fa";
+import dayjs from "dayjs";
 
 function noop(): void {
   // do nothing
 }
 
+interface UserDetails {
+  _id: string;
+  auth: string;
+
+  name: string;
+
+  profile_pic: string;
+  phone: string;
+  email: string;
+  address: string;
+  userId: string;
+}
 export interface Invoice {
-  invoiceId: string;
-  date: string;
-  dueDate: string;
+  _id: string;
+  transaction_id: string;
+  createdAt: string;
+  payment_status: string;
   amount: string;
-  status: string;
-  clientName: string;
-  clientEmail: string;
+  payment_method: string;
+  name?: string;
+  phone?: string;
+  userDetails: UserDetails;
 }
 
 interface InvoicesTableProps {
@@ -44,6 +59,10 @@ interface InvoicesTableProps {
   onRowsPerPageChange?: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+
+  setFilterType: (value: string) => void;
+  
+
 }
 
 export function InvoicesTable({
@@ -53,7 +72,12 @@ export function InvoicesTable({
   rowsPerPage = 0,
   onPageChange = noop,
   onRowsPerPageChange = noop,
+  setFilterType,
+  
 }: InvoicesTableProps): React.JSX.Element {
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
   return (
     <Card
       sx={{
@@ -69,6 +93,9 @@ export function InvoicesTable({
         subheader="List of all invoices issued to clients."
         action={
           <TextField
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFilterType(e.target.value)
+          }
             label="Search"
             size="small"
             variant="outlined"
@@ -99,9 +126,9 @@ export function InvoicesTable({
             <TableRow>
               <TableCell>Invoice ID</TableCell>
               <TableCell>Client Name</TableCell>
-              <TableCell>Client Email</TableCell>
+              <TableCell>Client Email/Phone</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell>Due Date</TableCell>
+              {/* <TableCell>Due Date</TableCell> */}
               <TableCell>Amount</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
@@ -117,13 +144,15 @@ export function InvoicesTable({
                     textAlign: "left",
                   }}
                 >
-                  <TableCell>{row.invoiceId}</TableCell>
-                  <TableCell>{row.clientName}</TableCell>
-                  <TableCell>{row.clientEmail}</TableCell>
-                  <TableCell>{row.date}</TableCell>
-                  <TableCell>{row.dueDate}</TableCell>
+                  <TableCell>{row?.userDetails?.userId}</TableCell>
+                  <TableCell>{row?.userDetails?.name}</TableCell>
+                  <TableCell>{row?.userDetails?.auth}</TableCell>
+                  <TableCell>
+                  {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
+                </TableCell>
+                  {/* <TableCell>{row.dueDate}</TableCell> */}
                   <TableCell>{row.amount}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{capitalizeFirstLetter(row?.payment_status)}</TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Button

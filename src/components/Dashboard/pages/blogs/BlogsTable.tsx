@@ -25,7 +25,7 @@ export interface Blog {
   author: string;
   publishDate: string;
   status: string;
-  image: string;
+  blog_image: string;
 }
 
 interface BlogsTableProps {
@@ -79,16 +79,16 @@ export function BlogsTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => {
+            {rows?.map((row, index) => {
               return (
                 <TableRow hover key={index}>
                   <TableCell>
-                    <Avatar src={row.image} variant="square" />
+                    <Avatar src={row?.blog_image} variant="square" />
                   </TableCell>
-                  <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.author}</TableCell>
-                  <TableCell>{row.publishDate}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row?.title}</TableCell>
+                  <TableCell>{row?.author}</TableCell>
+                  <TableCell>{row?.publishDate}</TableCell>
+                  <TableCell>{row?.status}</TableCell>
                 </TableRow>
               );
             })}

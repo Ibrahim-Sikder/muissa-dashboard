@@ -23,7 +23,7 @@ function noop(): void {
 export interface Review {
   name: string;
   designation: string;
-  image: string;
+  review_image: string;
   message: string;
   publishDate: string;
   status: string;
@@ -48,6 +48,8 @@ export function ReviewsTable({
   onPageChange = noop,
   onRowsPerPageChange = noop,
 }: ReviewsTableProps): React.JSX.Element {
+
+  console.log(rows)
   return (
     <Card
       sx={{
@@ -91,7 +93,7 @@ export function ReviewsTable({
               return (
                 <TableRow hover key={index}>
                   <TableCell>
-                    <Avatar src={row.image} variant="square" />
+                    <Avatar src={row?.review_image} variant="square" />
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.designation}</TableCell>

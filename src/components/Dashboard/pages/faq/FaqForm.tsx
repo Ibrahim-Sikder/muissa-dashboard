@@ -3,7 +3,7 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -15,18 +15,64 @@ import Stack from "@mui/material/Stack";
 import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getCookie } from "@/helpers/Cookies";
+import axios from "axios";
+import { toast } from "sonner";
+import { SuccessMessage } from "@/components/success-message";
+import { ErrorMessage } from "@/components/error-message";
 
 const validationSchema = z.object({
-  question: z.string().nonempty("Question is required"),
-  answer: z.string().nonempty("Answer is required"),
-  category: z.string().nonempty("Category is required"),
-  status: z.string().nonempty("Status is required"),
+  question: z.string({ required_error: "Question is required" }),
+  answer: z.string({ required_error: "Answer is required" }),
 });
 
 const CreateFAQForm = () => {
+  
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const token = getCookie("mui-token");
+
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data);
-    // Send data to API or perform any other actions
+    setLoading(true);
+
+    setSuccessMessage("");
+    setErrorMessage([]);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/faq/create-faq`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+
+        router.push("/dashboard/faqs");
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 401, 409, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,8 +83,7 @@ const CreateFAQForm = () => {
         defaultValues={{
           question: "",
           answer: "",
-          category: "",
-          status: "",
+           
         }}
       >
         <Card
@@ -84,9 +129,13 @@ const CreateFAQForm = () => {
             </Grid>
           </CardContent>
           <Divider />
+          <div className="mt-2">
+            {successMessage && <SuccessMessage message={successMessage} />}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
+          </div>
           <CardActions sx={{ p: 2 }}>
-            <Button type="submit" variant="contained">
-              Create
+            <Button disabled={loading} type="submit" variant="contained">
+              {loading ? "Creating..." : "Create"}
             </Button>
           </CardActions>
         </Card>

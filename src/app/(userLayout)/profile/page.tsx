@@ -323,7 +323,7 @@ const Profile = () => {
       if (error.response) {
         console.log(error);
         const { status, data } = error.response;
-        if ([400, 404, 409, 500].includes(status)) {
+        if ([400, 404,401, 409, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
