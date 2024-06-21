@@ -17,6 +17,8 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
+import { useGetAllFaqsQuery } from "@/redux/api/baseApi";
+import { usePathname } from "next/navigation";
 
 const faqData = [
   {
@@ -47,6 +49,20 @@ const faqData = [
 ];
 
 export default function FAQTable(): React.JSX.Element {
+  const pathName = usePathname();
+  const { data, error, isLoading, refetch } = useGetAllFaqsQuery({});
+
+ 
+  React.useEffect(() => {
+    refetch();
+  }, [pathName, refetch]);
+
+  if (isLoading || error) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(data);
+
   return (
     <Card
       sx={{
@@ -89,12 +105,14 @@ export default function FAQTable(): React.JSX.Element {
               </TableRow>
             </TableHead>
             <TableBody>
-              {faqData.map((faq, index) => (
-                <TableRow key={index}>
-                  <TableCell>{faq.question}</TableCell>
-                  <TableCell>{faq.answer}</TableCell>
-                </TableRow>
-              ))}
+              {data?.map(
+                (faq: { _id: string; question: string; answer: string }) => (
+                  <TableRow key={faq._id}>
+                    <TableCell>{faq?.question}</TableCell>
+                    <TableCell>{faq?.answer}</TableCell>
+                  </TableRow>
+                )
+              )}
             </TableBody>
           </Table>
         </TableContainer>

@@ -155,13 +155,13 @@ const ForgotPassword = () => {
             </>
           )}
         </MUIForm>
-        {successMessage && !successVerifyMessage && (
+        {/* {successMessage && !successVerifyMessage && (
           <OTPVerifyPage
             successVerifyMessage={successVerifyMessage}
             setSuccessVerifyMessage={setSuccessVerifyMessage}
           />
-        )}
-        {successMessage && successVerifyMessage && <ChangeForgotPassword />}
+        )} */}
+        {successMessage && <ChangeForgotPassword />}
       </Box>
     </div>
   );

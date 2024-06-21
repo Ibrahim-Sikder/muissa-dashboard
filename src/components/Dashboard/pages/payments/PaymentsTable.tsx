@@ -17,24 +17,41 @@ import {
   Input,
   MenuItem,
   Select,
+  SelectChangeEvent,
   Stack,
   TextField,
 } from "@mui/material";
-import { FaEye, FaTrash } from "react-icons/fa";
+ 
+import dayjs from "dayjs";
+ 
+ 
 
 function noop(): void {
   // do nothing
 }
 
+interface UserDetails {
+  _id: string;
+  auth: string;
+
+  name: string;
+
+  profile_pic: string;
+  phone: string;
+  email: string;
+  address: string;
+  userId: string;
+}
 export interface Payments {
-  transactionId: string;
-  date: string;
-  month: string;
+  _id: string;
+  transaction_id: string;
+  createdAt: string;
+  payment_status: string;
   amount: string;
-  paymentMethod: string;
+  payment_method: string;
   name?: string;
   phone?: string;
-  membershipId?: string;
+  userDetails: UserDetails;
 }
 
 interface PaymentsTableProps {
@@ -46,6 +63,9 @@ interface PaymentsTableProps {
   onRowsPerPageChange?: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
+
+  setFilterType: (value: string) => void;
+  handlePaymentStatus: (id: string, status: string) => void;
 }
 
 export function PaymentsTable({
@@ -55,7 +75,16 @@ export function PaymentsTable({
   rowsPerPage = 0,
   onPageChange = noop,
   onRowsPerPageChange = noop,
+  setFilterType,
+  handlePaymentStatus,
 }: PaymentsTableProps): React.JSX.Element {
+  const handleChange = (e: SelectChangeEvent<string>) => {
+    setFilterType(e.target.value as string);
+  };
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   return (
     <Card
       sx={{
@@ -64,16 +93,27 @@ export function PaymentsTable({
     >
       <CardHeader
         title={
-          <Typography variant="h5" fontWeight={700}>
+          <Typography
+            onClick={() => setFilterType("")}
+            variant="h5"
+            fontWeight={700}
+          >
             Payments History
           </Typography>
         }
         subheader="List of all payments made by customers."
         action={
           <Stack direction="row" spacing={1}>
-            <Select defaultValue={"processing"} size="small">
+            <Select
+              defaultValue={"processing"}
+              onChange={handleChange}
+              size="small"
+            >
+              <MenuItem value="" disabled>
+                Select
+              </MenuItem>
               <MenuItem value="processing">Processing</MenuItem>
-              <MenuItem value="pending">Pending payment</MenuItem>
+              <MenuItem value="pending">Pending</MenuItem>
               <MenuItem value="hold">On Hold</MenuItem>
               <MenuItem value="completed">Completed</MenuItem>
               <MenuItem value="cancelled">Cancelled</MenuItem>
@@ -81,6 +121,9 @@ export function PaymentsTable({
             </Select>
 
             <TextField
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setFilterType(e.target.value)
+              }
               label="Search"
               size="small"
               variant="outlined"
@@ -116,50 +159,66 @@ export function PaymentsTable({
               <TableCell>Phone</TableCell>
               <TableCell>Transaction ID</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell>Month</TableCell>
               <TableCell>Amount</TableCell>
               <TableCell>Payment Method</TableCell>
+              <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {rows.map((row, index) => {
-              return (
-                <TableRow
-                  hover
-                  key={index}
-                  sx={{
-                    textAlign: "left",
-                  }}
-                >
-                  <TableCell>{row.membershipId}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.phone}</TableCell>
-                  <TableCell>{row.transactionId}</TableCell>
-                  <TableCell>{row.date}</TableCell>
-                  <TableCell>{row.month}</TableCell>
-                  <TableCell>{row.amount}</TableCell>
-                  <TableCell>{row.paymentMethod}</TableCell>
-                  <TableCell>
-                    <Stack direction="row" spacing={1}>
-                      <Button color="primary" size="small" variant="contained">
-                        View
-                      </Button>
+         {
+          rows?.length > 0 ?  <TableBody>
+          {rows.map((row, index) => {
+            return (
+              <TableRow
+                hover
+                key={index}
+                sx={{
+                  textAlign: "left",
+                }}
+              >
+                <TableCell>{row?.userDetails?.userId}</TableCell>
+                <TableCell>{row?.userDetails?.name}</TableCell>
+                <TableCell>{row?.userDetails?.phone}</TableCell>
+                <TableCell>{row?.transaction_id}</TableCell>
+                <TableCell>
+                  {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
+                </TableCell>
+                <TableCell>{row?.amount}</TableCell>
+                <TableCell>{row?.payment_method}</TableCell>
+                <TableCell>{capitalizeFirstLetter(row?.payment_status)}</TableCell>
+                <TableCell>
+                  <Stack direction="row" spacing={1}>
+                    <Button color="primary" size="small" variant="contained">
+                      View
+                    </Button>
 
-                      <Select defaultValue={"processing"} size="small">
-                        <MenuItem value="processing">Processing</MenuItem>
-                        <MenuItem value="pending">Pending payment</MenuItem>
-                        <MenuItem value="hold">On Hold</MenuItem>
-                        <MenuItem value="completed">Completed</MenuItem>
-                        <MenuItem value="cancelled">Cancelled</MenuItem>
-                        <MenuItem value="refunded">Refunded</MenuItem>
-                      </Select>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
+                    <Select
+                      onChange={(event) =>
+                        handlePaymentStatus(
+                          row?._id,
+                          event.target.value as string
+                        )
+                      }
+                      defaultValue={"processing"}
+                      size="small"
+                    >
+                      <MenuItem value="" disabled>
+                        Select
+                      </MenuItem>
+                      <MenuItem value="processing">Processing</MenuItem>
+                      <MenuItem value="pending">Pending</MenuItem>
+                      <MenuItem value="hold">On Hold</MenuItem>
+                      <MenuItem value="completed">Completed</MenuItem>
+                      <MenuItem value="cancelled">Cancelled</MenuItem>
+                      <MenuItem value="refunded">Refunded</MenuItem>
+                    </Select>
+                  </Stack>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody> : <div className="text-center py-3">No match found</div>
+         }
         </Table>
       </Box>
       <Divider />

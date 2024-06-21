@@ -160,17 +160,19 @@ const Profile = () => {
   const id = params.get("id");
 
   useEffect(() => {
-    if (!token) return;
-
     const fetchedData = async () => {
       setSuccessMessage("");
       setErrorMessage([]);
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response?.status === 200) {
@@ -202,7 +204,7 @@ const Profile = () => {
   }, [token]);
 
   useEffect(() => {
-    if (!token || !member_type || !id) return;
+    if (!member_type || !id) return;
 
     const fetchedData = async () => {
       setSuccessMessage("");
@@ -210,9 +212,13 @@ const Profile = () => {
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/get-member?member_type=${member_type}&id=${id}`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response?.status === 200) {
@@ -257,7 +263,6 @@ const Profile = () => {
   const submitHandler = async (data: FieldValues) => {
     data.profile_pic = imageUrl;
     data.upload_file = uploadedImage;
-    data.token = token;
     data.member_type = userType;
 
     if (userType === "investor") {
@@ -281,7 +286,11 @@ const Profile = () => {
         throw new Error("Invalid user type");
       }
 
-      const response = await axios.post(endpoint, data);
+      const response = await axios.post(endpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response);
       if (
         response.status === 200 &&
@@ -314,7 +323,7 @@ const Profile = () => {
       if (error.response) {
         console.log(error);
         const { status, data } = error.response;
-        if ([400, 404, 409, 500].includes(status)) {
+        if ([400, 404,401, 409, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
@@ -356,6 +365,7 @@ const Profile = () => {
     },
   };
 
+ 
   return (
     <>
       {loading ? (

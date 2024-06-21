@@ -5,8 +5,12 @@ export enum tagTypes {
  }
  
  export const tagTypesList = [
-    tagTypes.user,
-    tagTypes.admin,
+     
 
  ];
+//  export const tagTypesList = [
+//     tagTypes.user,
+//     tagTypes.admin,
+
+//  ];
  

@@ -30,7 +30,7 @@ interface Message {
 interface UserDetails {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   profile_pic: string;
   online: boolean;
 }
@@ -109,7 +109,8 @@ export default function SupportContactPage() {
   const [senderUser, setSenderUser] = useState({
     _id: "",
     name: "",
-    token: "",
+    auth: "",
+    profile_pic: ""
   });
   const [allSenderUser, setAllSenderUser] = useState([]);
   const [allSenderForAdmin, setAllSenderForAdmin] = useState([]);
@@ -128,7 +129,7 @@ export default function SupportContactPage() {
   const userId = searchParams.get("id");
 
   useEffect(() => {
-    const socketConnection = io("http://localhost:5000/", {
+    const socketConnection = io(`${process.env.NEXT_PUBLIC_SOCKET_API_URL}`, {
       auth: {
         token: token,
       },
@@ -154,7 +155,7 @@ export default function SupportContactPage() {
       //  pasci token theke
       socket.on(
         "sender-user",
-        (data: { _id: string; name: string; token: string }) => {
+        (data: { _id: string; name: string; auth: string ,profile_pic: string;}) => {
           // console.log(data);
           setSenderUser(data);
         }

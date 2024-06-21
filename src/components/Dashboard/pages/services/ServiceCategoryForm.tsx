@@ -13,14 +13,68 @@ import {
 import MUIInput from "@/components/Forms/Input";
 import ServiceCategoryTable from "./ServiceCategoryTable";
 
+import { getCookie } from "@/helpers/Cookies";
+import { useEffect, useState } from "react";
+import { SuccessMessage } from "@/components/success-message";
+import { ErrorMessage } from "@/components/error-message";
+import axios from "axios";
+import { toast } from "sonner";
+import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+
 const validationSchema = z.object({
-  name: z.string().min(1, "Service category name is required"),
+  category: z.string().min(1, "Service category name is required"),
 });
 
-const ServiceCategoryForm = () => {
+type CategoryModal = {
+  setModalOpen: (value: boolean) => void;
+};
+
+const ServiceCategoryForm = ({ setModalOpen }: CategoryModal) => {
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const token = getCookie("mui-token");
+
+  const { refetch } = useGetAllCategoryQuery({
+    
+  });
+
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data);
-    // Send data to API or perform any other actions
+    setIsLoading(true);
+
+    setSuccessMessage("");
+    setErrorMessage([]);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/categories/create-category`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+        refetch();
+        // setModalOpen(false);
+        setIsLoading(false);
+      }
+    } catch (error: any) {
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 401, 409, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -36,21 +90,23 @@ const ServiceCategoryForm = () => {
           onSubmit={handleSubmit}
           resolver={zodResolver(validationSchema)}
           defaultValues={{
-            name: "",
-            description: "",
-            status: "",
+            category: "",
           }}
         >
           <CardContent>
             <Stack spacing={2} sx={{ maxWidth: "sm" }}>
               <MUIInput
-                name="name"
+                name="category"
                 label="Service Category Name"
                 type="text"
                 fullWidth={true}
               />
             </Stack>
           </CardContent>
+          <div className="mt-2">
+            {successMessage && <SuccessMessage message={successMessage} />}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
+          </div>
           <CardActions
             sx={{
               display: "flex",
@@ -58,8 +114,8 @@ const ServiceCategoryForm = () => {
               p: 2,
             }}
           >
-            <Button type="submit" variant="contained">
-              Create
+            <Button disabled={isLoading} type="submit" variant="contained">
+              {isLoading ? "Creating.." : "Create"}
             </Button>
           </CardActions>
         </MUIForm>

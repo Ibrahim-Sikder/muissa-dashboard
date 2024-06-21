@@ -46,13 +46,18 @@ const PaymentForm = () => {
     setErrorMessage([]);
 
     data.payment_method = selectedValue;
-    data.token = token;
-    data.amount = Number(totalAmount)
-    data.member_type = member_type
+
+    data.amount = Number(totalAmount);
+    data.member_type = member_type;
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/payments/create-payment`,
-        data
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(response);
       if (response?.status === 200) {
@@ -66,7 +71,7 @@ const PaymentForm = () => {
       console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
-        if ([400, 404, 500].includes(status)) {
+        if ([400,401,409, 404, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
@@ -199,13 +204,11 @@ const PaymentForm = () => {
             />
           </div>
           <div className="mb-5">
-          {successMessage && <SuccessMessage message={successMessage} />}
-          {errorMessage && <ErrorMessage message={errorMessage} />}
+            {successMessage && <SuccessMessage message={successMessage} />}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
           </div>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-           {
-            isLoading ? <span>Loading...</span> : <span> Submit</span>
-           }
+            {isLoading ? <span>Loading...</span> : <span> Submit</span>}
           </Button>
         </MUIForm>
       </div>

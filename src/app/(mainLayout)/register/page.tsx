@@ -21,6 +21,7 @@ import { useState } from "react";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { toast } from "sonner";
+import { setCookie } from "@/helpers/Cookies";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const validationSchema = z
@@ -90,10 +91,11 @@ const Register = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        router.push(`/verify?auth=${data.auth}`);
+        // router.push(`/verify?auth=${data.auth}`);
+        setCookie("mui-token", response?.data?.data?.token, '10d');
+        router.push(`/`);
         setLoading(false);
       }
-       
     } catch (error: any) {
       if (error?.response) {
         const { status, data } = error.response;

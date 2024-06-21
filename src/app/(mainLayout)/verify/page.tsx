@@ -103,7 +103,7 @@ const OTPVerifyPage = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message)
         setSuccessMessage(response?.data?.message);
-        setCookie("mui-token", response?.data?.data)
+        setCookie("mui-token", response?.data?.data, '10d')
         router.push("/profile")
         setIsLoading(false);
       }
