@@ -43,14 +43,10 @@ const CreateService = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const token = getCookie("mui-token");
-  const {
-    data: category,
-    isLoading,
-    refetch,
-  } = useGetAllCategoryQuery({});
+  const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
@@ -74,7 +70,7 @@ const CreateService = () => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         refetch();
-        router.push("/dashboard/services")
+        router.push("/dashboard/services");
         setLoading(false);
       }
     } catch (error: any) {
@@ -97,9 +93,6 @@ const CreateService = () => {
 
   if (isLoading) {
     return <div>Loading...</div>;
-  }
-  if (!Array.isArray(category)) {
-    return null;
   }
 
   const selectedCategoryData = category?.find(
@@ -160,9 +153,13 @@ const CreateService = () => {
                 <INTSelect
                   name="category"
                   label="Category"
-                  items={category?.map(
-                    (cat: { category: string }) => cat?.category
-                  )}
+                  items={
+                    Array.isArray(category)
+                      ? category.map(
+                          (cat: { category: string }) => cat.category
+                        )
+                      : []
+                  }
                   onChange={handleCategoryChange}
                 />
               </Grid>
