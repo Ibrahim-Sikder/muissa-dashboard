@@ -3,7 +3,7 @@ import {
   Service,
   ServicesTable,
 } from "@/components/Dashboard/pages/services/ServicesTable";
-import { useGetAllServicesQuery } from "@/redux/api/baseApi";
+import { useGetAllServicesQuery } from "@/redux/api/serviceApi";
 import Stack from "@mui/material/Stack";
 import { usePathname } from "next/navigation";
 import * as React from "react";

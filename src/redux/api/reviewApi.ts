@@ -20,6 +20,4 @@ export const reviewApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {
-
-} = reviewApi;
+export const { useGetAllReviewsQuery, useGetSingleReviewQuery } = reviewApi;

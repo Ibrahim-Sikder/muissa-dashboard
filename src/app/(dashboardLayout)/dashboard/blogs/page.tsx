@@ -8,8 +8,8 @@ import {
   BlogsTable,
 } from "@/components/Dashboard/pages/blogs/BlogsTable";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllBlogsQuery } from "@/redux/api/baseApi";
 import { usePathname } from "next/navigation";
+import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
 
 // export const metadata: Metadata = {
 //   title: "Muissa Consulting | Blogs",

@@ -1,6 +1,6 @@
 import { baseApi } from "./baseApi";
 
-export const paymentApi = baseApi.injectEndpoints({
+export const faqApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getAllFaqs: build.query({
             query: () => ({
@@ -12,6 +12,4 @@ export const paymentApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {
-
-} = paymentApi;
+export const {useGetAllFaqsQuery} = faqApi;

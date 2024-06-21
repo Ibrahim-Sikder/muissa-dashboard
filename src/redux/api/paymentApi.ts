@@ -1,4 +1,3 @@
-import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 export const paymentApi = baseApi.injectEndpoints({
@@ -19,16 +18,8 @@ export const paymentApi = baseApi.injectEndpoints({
                 method: "GET",
             }),
         }),
-        getAllFaqs: build.query({
-            query: () => ({
-                url: "/faq/get-faq",
-                method: "GET",
-            }),
-        }),
 
     }),
 });
 
-export const {
-
-} = paymentApi;
+export const { useGetAllPaymentsQuery, useGetSinglePaymentQuery, } = paymentApi;

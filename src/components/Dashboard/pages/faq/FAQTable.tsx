@@ -17,8 +17,9 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
-import { useGetAllFaqsQuery } from "@/redux/api/baseApi";
+
 import { usePathname } from "next/navigation";
+import { useGetAllFaqsQuery } from "@/redux/api/faqApi";
 
 const faqData = [
   {

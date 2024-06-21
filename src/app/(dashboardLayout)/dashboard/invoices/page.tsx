@@ -8,9 +8,9 @@ import {
   InvoicesTable,
 } from "@/components/Dashboard/pages/invoices/InvoicesTable";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllPaymentsQuery } from "@/redux/api/baseApi";
 import axios from "axios";
 import { toast } from "sonner";
+import { useGetAllPaymentsQuery } from "@/redux/api/paymentApi";
 
 // const invoices: Invoice[] = [
 //   {

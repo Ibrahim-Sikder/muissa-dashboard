@@ -12,8 +12,8 @@ import {
   Review,
   ReviewsTable,
 } from "@/components/Dashboard/pages/reviews/ReviewsTable";
-import { useGetAllReviewsQuery } from "@/redux/api/baseApi";
 import { usePathname } from "next/navigation";
+import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 
 // Sample reviews data
 // const reviews: Review[] = [

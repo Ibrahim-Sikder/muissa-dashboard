@@ -17,7 +17,6 @@ import RichtextEditor from "@/components/Forms/RichtextEditor";
 import Link from "next/link";
 import INTSelect from "@/components/Forms/Select";
 import MUIFileUploader from "@/components/Forms/FileUpload";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
 import { getCookie } from "@/helpers/Cookies";
 import { ServiceCategory } from "./ServiceSubcategoryTable";
 import { toast } from "sonner";
@@ -25,6 +24,7 @@ import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { useRouter } from "next/navigation";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),

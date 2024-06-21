@@ -23,13 +23,10 @@ import service from "../../../assets/logo/service4.jpg";
 import SpecialSupport from "./_component/Services/SpecialSupport";
 import ServiceSlider from "./_component/Services/ServiceSlider";
 import Container from "@/components/ui/HomePage/Container/Container";
-import {
-  useGetAllCategoryQuery,
-  useGetAllServicesForHomeQuery,
-} from "@/redux/api/baseApi";
 import { ServiceCategory } from "@/components/Dashboard/pages/services/ServiceSubcategoryTable";
 import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
+import { useGetAllCategoryQuery, useGetAllServicesForHomeQuery } from "@/redux/api/serviceApi";
 
 // const serviceDetails = [
 //   {
@@ -113,30 +110,30 @@ const Page = () => {
 
   const handleAccordionChange =
     (panel: string, categoryId: string) =>
-    (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-      setSubTabIndex(0); // Reset subTabIndex when accordion changes
-      if (isExpanded) {
-        const categoryName = getCategoryName(categoryId);
+      (event: React.SyntheticEvent, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false);
+        setSubTabIndex(0); // Reset subTabIndex when accordion changes
+        if (isExpanded) {
+          const categoryName = getCategoryName(categoryId);
 
-        setSelectedCategory(categoryName);
-        setErrorMessage([]);
+          setSelectedCategory(categoryName);
+          setErrorMessage([]);
 
-        const firstSubCategoryId = categories.find(
-          (cat: any) => cat.category === categoryName
-        )?.sub_category[0]?._id;
+          const firstSubCategoryId = categories.find(
+            (cat: any) => cat.category === categoryName
+          )?.sub_category[0]?._id;
 
-        if (firstSubCategoryId !== undefined) {
-          const subCategoryName = getSubCategoryName(
-            firstSubCategoryId.toString()
-          );
+          if (firstSubCategoryId !== undefined) {
+            const subCategoryName = getSubCategoryName(
+              firstSubCategoryId.toString()
+            );
 
-          setSelectedSubCategory(subCategoryName);
-        } else {
-          setSelectedSubCategory("");
+            setSelectedSubCategory(subCategoryName);
+          } else {
+            setSelectedSubCategory("");
+          }
         }
-      }
-    };
+      };
 
   const handleSubTabChange = (
     event: any,

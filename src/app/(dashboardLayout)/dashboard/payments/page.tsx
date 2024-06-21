@@ -8,10 +8,10 @@ import {
   Payments,
   PaymentsTable,
 } from "@/components/Dashboard/pages/payments/PaymentsTable";
-import { useGetAllPaymentsQuery } from "@/redux/api/baseApi";
 import { getCookie } from "@/helpers/Cookies";
 import { toast } from "sonner";
 import axios from "axios";
+import { useGetAllPaymentsQuery } from "@/redux/api/paymentApi";
 
 // const payments: Payments[] = [
 //   {

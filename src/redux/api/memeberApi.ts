@@ -26,6 +26,4 @@ export const memeberApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {
-
-} = memeberApi;
+export const { useGetAllMembersQuery, useGetSingleMemberQuery, } = memeberApi;

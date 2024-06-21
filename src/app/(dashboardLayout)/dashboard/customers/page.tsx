@@ -15,7 +15,7 @@ import { getCookie } from "@/helpers/Cookies";
 import axios from "axios";
 import { toast } from "sonner";
 import { ErrorMessage } from "@/components/error-message";
-import { useGetAllMembersQuery } from "@/redux/api/baseApi";
+import { useGetAllMembersQuery } from "@/redux/api/memeberApi";
 
 // export const metadata = {
 //   title: `Customers | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
