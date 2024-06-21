@@ -11,7 +11,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import "./Header.css";
-import logo from "../../../assets/logo/logo.jpg";
+import logo from "../../../assets/logo/logo.png";
 import Image from "next/image";
 import {
   HiOutlineArrowNarrowRight,

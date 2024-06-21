@@ -1,19 +1,12 @@
 "use client";
-import * as React from "react";
-import type { Metadata } from "next";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import {
-  ServicesTable,
   Service,
+  ServicesTable,
 } from "@/components/Dashboard/pages/services/ServicesTable";
-import { FaPlus } from "react-icons/fa";
-import dayjs from "dayjs";
-import Link from "next/link";
-import { getCookie } from "@/helpers/Cookies";
 import { useGetAllServicesQuery } from "@/redux/api/baseApi";
+import Stack from "@mui/material/Stack";
 import { usePathname } from "next/navigation";
+import * as React from "react";
 
 // const services: Service[] = [
 //   {
@@ -55,9 +48,9 @@ export default function Page(): React.JSX.Element {
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [limit, setLimit] = React.useState(10);
-  const pathName= usePathname()
+  const pathName = usePathname()
 
- 
+
 
   const { data, error, isLoading, refetch } = useGetAllServicesQuery({
     page: currentPage,

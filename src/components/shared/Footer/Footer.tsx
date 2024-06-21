@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
-import logo from "../../../assets/logo/logo.jpg";
+import logo from "../../../assets/logo/logo.png";
 import { MapIcon, PhoneIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
 import {
   FaFacebook,

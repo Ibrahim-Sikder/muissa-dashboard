@@ -5,7 +5,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { FaLink, FaUserTie } from "react-icons/fa";
-import logo from "../../assets/logo/logo.jpg";
+import logo from "../../assets/logo/logo.png";
 import Image from "next/image";
 import { VscClose } from "react-icons/vsc";
 import { IoClose, IoLinkOutline } from "react-icons/io5";
