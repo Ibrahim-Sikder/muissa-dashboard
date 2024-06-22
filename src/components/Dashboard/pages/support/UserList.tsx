@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 interface Sender {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   userId: string;
   profile_pic: string;
   updatedAt: Date;
@@ -14,7 +14,7 @@ interface Sender {
 interface Receiver {
   _id: string;
   name: string;
-  token: string;
+  auth: string;
   userId: string;
   profile_pic: string;
   updatedAt: Date;

@@ -31,14 +31,17 @@ export default function SpecialSupport() {
       color: "#fff",
     },
   };
+
   return (
     <Box sx={{ width: "100%", typography: "body1", marginTop: "80px" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: "none" }}>
           <TabList
+            scrollButtons="auto"
+            variant="scrollable"
             sx={{ ".MuiTabs-indicator": { display: "none" } }}
             onChange={handleChange}
-            aria-label="lab API tabs example"
+           aria-label="scrollable auto tabs example"
           >
             <Tab label="Personal Care " value="1" sx={tabStyles} />
             <Tab label="Support Care " value="2" sx={tabStyles} />
@@ -47,7 +50,7 @@ export default function SpecialSupport() {
         </Box>
         <TabPanel value="1">
           <p>
-           Tailored assistance fostering well-being and
+            Tailored assistance fostering well-being and
             independence. Our compassionate services address individual needs,
             providing guidance and support for a fulfilling lifestyle.
             Empowering clients with holistic care solutions for physical,
@@ -56,22 +59,22 @@ export default function SpecialSupport() {
           <p className="mt-5"> Comprehensive assistance tailored to individual needs, ensuring well-being and independence. Empowering clients with compassionate care solutions for a fulfilling lifestyle.</p>
         </TabPanel>
         <TabPanel value="2">
-        <p > Personalized assistance fostering independence and well-being. Our dedicated services cater to individual needs, offering holistic support for a fulfilling lifestyle. Empowering clients with compassionate care solutions for optimal physical, emotional, and mental health.</p>
+          <p > Personalized assistance fostering independence and well-being. Our dedicated services cater to individual needs, offering holistic support for a fulfilling lifestyle. Empowering clients with compassionate care solutions for optimal physical, emotional, and mental health.</p>
           <p className="mt-5">
-           Tailored assistance fostering well-being and
+            Tailored assistance fostering well-being and
             independence. Our compassionate services address individual needs,
             providing guidance and support for a fulfilling lifestyle.
             Empowering clients with holistic care solutions for physical,
             emotional, and mental health.
           </p>
-         </TabPanel>
+        </TabPanel>
         <TabPanel value="3"><p>
-           Tailored assistance fostering well-being and
-            independence. Our compassionate services address individual needs,
-            providing guidance and support for a fulfilling lifestyle.
-            Empowering clients with holistic care solutions for physical,
-            emotional, and mental health.
-          </p>
+          Tailored assistance fostering well-being and
+          independence. Our compassionate services address individual needs,
+          providing guidance and support for a fulfilling lifestyle.
+          Empowering clients with holistic care solutions for physical,
+          emotional, and mental health.
+        </p>
           <p className="mt-5"> Comprehensive assistance tailored to individual needs, ensuring well-being and independence. Empowering clients with compassionate care solutions for a fulfilling lifestyle.</p></TabPanel>
       </TabContext>
     </Box>

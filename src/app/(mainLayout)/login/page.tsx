@@ -81,7 +81,7 @@ const Login = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        setCookie("mui-token", response?.data?.data?.token);
+        setCookie("mui-token", response?.data?.data?.token, '10d');
         router.push(`/`);
         setLoading(false);
       }

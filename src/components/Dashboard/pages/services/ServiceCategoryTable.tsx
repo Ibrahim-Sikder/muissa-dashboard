@@ -13,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getCookie } from "@/helpers/Cookies";
+import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
 
 interface ServiceCategory {
   id: number;
@@ -21,6 +23,16 @@ interface ServiceCategory {
 
 const ServiceCategoryTable = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const token = getCookie("mui-token");
+
+  const {
+    data: category,
+    error,
+    isLoading,
+    
+  } = useGetAllCategoryQuery({
+     
+  });
 
   useEffect(() => {
     // Fetch the categories from API or any data source
@@ -38,12 +50,17 @@ const ServiceCategoryTable = () => {
     setCategories(mockCategories);
   }, []);
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     // Mock delete functionality
-    setCategories((prevCategories) =>
-      prevCategories.filter((category) => category.id !== id)
-    );
+    // setCategories((prevCategories) =>
+    //   prevCategories.filter((category) => category.id !== id)
+    // );
   };
+
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+
 
   return (
     <Paper
@@ -83,9 +100,9 @@ const ServiceCategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {categories.map((category) => (
+          {category?.map((category: any, index: number) => (
             <TableRow
-              key={category.id}
+              key={category._id}
               sx={{
                 "&:last-child td, &:last-child th": { border: 0 },
                 "&:hover": {
@@ -93,12 +110,12 @@ const ServiceCategoryTable = () => {
                 },
               }}
             >
-              <TableCell>{category.id}</TableCell>
-              <TableCell>{category.name}</TableCell>
+              <TableCell>{index +1}</TableCell>
+              <TableCell>{category?.category}</TableCell>
               <TableCell align="right">
                 <IconButton
                   color="error"
-                  onClick={() => handleDelete(category.id)}
+                  onClick={() => handleDelete(category?._id)}
                   aria-label="delete"
                 >
                   <DeleteIcon />

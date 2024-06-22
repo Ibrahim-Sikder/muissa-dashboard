@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
-import logo from "../../../assets/logo/logo.jpg";
+import logo from "../../../assets/logo/logo.png";
 import { MapIcon, PhoneIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
 import {
   FaFacebook,
@@ -24,9 +24,9 @@ const Footer = () => {
             <div className="md:w-[500px] w-full px-4">
               <div className="space-y-4">
                 <div className="flex md:flex-row flex-col md:justify-normal justify-center items-center mb-5">
-                  <Image src={logo} height={50} alt="logo" width={50} />
+                  <Image src={logo} height={50} alt="logo" width={80} />
                   <h4 className="text-white ml-2">
-                    Muissa Business Consulting Ltd.
+                    Muissa Business <br /> Consulting Ltd.
                   </h4>
                 </div>
                 <div className="flex items-center gap-2 justify-center md:justify-start">

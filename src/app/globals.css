@@ -25,6 +25,9 @@
 body {
   scroll-behavior: smooth;
 } */
+ body{
+  overflow-x: hidden;
+ }
 
 @layer base {
   h1 {

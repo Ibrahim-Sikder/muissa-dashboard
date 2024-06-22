@@ -13,8 +13,29 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Link from "next/link";
+import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
+
 
 const NewsSection = () => {
+  const page = 0;
+  const rowsPerPage = 5;
+
+  // const paginatedBlogs = applyPagination(blogs, page, rowsPerPage);
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(10);
+
+  const { data: blogData, error, isLoading, refetch } = useGetAllBlogsQuery({
+    page,
+    limit: rowsPerPage,
+  });
+  if (isLoading) {
+    return <p>Loading........</p>
+  }
+  if (error) {
+    return <p>Something went to wrong.</p>
+  }
+
   return (
     <Container className="sectionMargin">
       <SectionTitle
@@ -26,13 +47,14 @@ const NewsSection = () => {
         centeredSlides={true}
         autoplay={{
           delay: 1500,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
         }}
         speed={1000}
         loop={true}
         pagination={{
           clickable: true,
         }}
+
         navigation={true}
         modules={[Autoplay, Navigation]}
         className="mySwiper mt-10"
@@ -40,186 +62,46 @@ const NewsSection = () => {
           320: {
             slidesPerView: 1,
           },
-
           480: {
             slidesPerView: 1,
           },
-
           640: {
             slidesPerView: 1,
           },
-
           768: {
             slidesPerView: 2,
           },
-
           1024: {
             slidesPerView: 3,
           },
-
           1280: {
             slidesPerView: 4,
           },
         }}
       >
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent ">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-                <Button component={Link} href="/news">
-                  <span>
-                    Read More{" "}
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
+        {blogData && blogData?.blogs?.map((blog: any) => (
+          <SwiperSlide key={blog.id}>
+            <div className="newsWraps">
+              <div className="newsCard">
+                <Image src={blog.blog_image} alt={blog.title} width={500} height={300} />
+                <div className="date">
+                  <h1>{new Date(blog.createdAt).getDate()}</h1>
+                  <small>{new Date(blog.createdAt).toLocaleString('default', { month: 'short' }).toUpperCase()}</small>
+                </div>
+                <div className="newsContent">
+                  <h4>{blog.title}</h4>
+                  <p className="my-4">{blog.short_description}</p>
+                  <Button component={Link} href={`/news/${blog._id}`}>
+                    <span>
+                      Read More
+                      <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
+                    </span>
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-                <Button component={Link} href="/news">
-                  <span>
-                    {" "}
-                    Read More{" "}
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-                <Button component={Link} href="/news">
-                  <span>
-                    Read More{" "}
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-                <Button component={Link} href="/news">
-                  <span>
-                    Read More{" "}
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-
-                <Button component={Link} href="/news">
-                  <span>
-                    Read More
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="newsWraps">
-            <div className="newsCard">
-              <Image src={news} alt="news" />
-              <div className="date">
-                <h1> 21</h1>
-                <small>SEP</small>
-              </div>
-              <div className="newsContent">
-                <h4>Praesent iaculis tortor viverra</h4>
-                <p className="my-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore...
-                </p>
-                <Button component={Link} href="/news">
-                  <span>
-                    Read More{" "}
-                    <ArrowBackIos
-                      sx={{ fontSize: "15px", marginLeft: "8px" }}
-                    />
-                  </span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Container>
   );

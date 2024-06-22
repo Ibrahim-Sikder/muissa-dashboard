@@ -1,6 +1,8 @@
 
 .aboutWraps{
     background-image: url(../../../assets/banner/about.jpg);
+    width:100%;
+    
 }
 
 .workingCard {

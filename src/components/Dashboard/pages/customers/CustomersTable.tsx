@@ -33,19 +33,60 @@ export interface Customer {
   membershipId: string;
 }
 
+interface UserDetails {
+  _id: string;
+  auth: string;
+
+  name: string;
+
+  profile_pic: string;
+  phone: string;
+  email: string;
+  address: string;
+  userId: string;
+}
+
+interface BusinessInfo {
+  _id: string;
+  userId: string;
+  member_type: string;
+  upload_file: string;
+  userDetails: UserDetails;
+  createdAt: Date;
+}
+
 interface CustomersTableProps {
   count?: number;
   page?: number;
-  rows?: Customer[];
-  rowsPerPage?: number;
+  rows?: BusinessInfo[];
+  limit: number;
+  setLimit: (page: number) => void;
+  setFilterType: (page: string) => void;
 }
-
 export function CustomersTable({
   count = 0,
   rows = [],
   page = 0,
-  rowsPerPage = 0,
+  limit,
+  setLimit,
+  setFilterType,
 }: CustomersTableProps): React.JSX.Element {
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    console.log(newPage);
+     
+  };
+
+  const handleRowsPerPageChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const newRowsPerPage = parseInt(event.target.value, 10);
+    setLimit(newRowsPerPage);
+     
+  };
+
   return (
     <Card
       sx={{
@@ -55,11 +96,15 @@ export function CustomersTable({
       <CardHeader
         title="Customers"
         subheader="List of all customers"
+        onClick={() => setFilterType("")}
         action={
           <TextField
             label="Search"
             size="small"
             variant="outlined"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFilterType(e.target.value)
+            }
             InputProps={{
               endAdornment: (
                 <Button
@@ -97,30 +142,41 @@ export function CustomersTable({
           <TableBody>
             {rows.map((row) => {
               return (
-                <TableRow hover key={row.id}>
-                  <TableCell>{row.membershipId}</TableCell>
+                <TableRow hover key={row._id}>
+                  <TableCell>{row?.userId}</TableCell>
                   <TableCell>
                     <Stack
                       sx={{ alignItems: "center" }}
                       direction="row"
                       spacing={2}
                     >
-                      <Avatar src={row.avatar} />
-                      <Typography variant="subtitle2">{row.name}</Typography>
+                      <Avatar src={row?.upload_file} />
+                      <Typography variant="subtitle2">
+                        {row?.userDetails?.name}
+                      </Typography>
                     </Stack>
                   </TableCell>
-                  <TableCell>{row.email}</TableCell>
                   <TableCell>
-                    {row.address.city}, {row.address.state},{" "}
-                    {row.address.country}
+                    {row?.userDetails?.email
+                      ? row?.userDetails?.email
+                      : row?.userDetails?.auth}
                   </TableCell>
-                  <TableCell>{row.phone}</TableCell>
                   <TableCell>
-                    {dayjs(row.createdAt).format("MMM D, YYYY")}
+                    {row?.userDetails?.address},
+                    {/* {row.address.state},{" "}
+                    {row.address.country} */}
+                  </TableCell>
+                  <TableCell>
+                    {row?.userDetails?.phone
+                      ? row?.userDetails?.phone
+                      : row?.userDetails?.auth}
+                  </TableCell>
+                  <TableCell>
+                    {dayjs(row?.createdAt).format("MMM D, YYYY")}
                   </TableCell>
 
                   <TableCell>
-                    <Link href={`/dashboard/customers/${row.id}`}>
+                    <Link href={`/dashboard/customers/${row?._id}`}>
                       <Button color="primary" size="small" variant="outlined">
                         View
                       </Button>
@@ -133,13 +189,23 @@ export function CustomersTable({
         </Table>
       </Box>
       <Divider />
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={noop}
         onRowsPerPageChange={noop}
         page={page}
         rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+        onChange={(e)=>setLimit(e.target.value)}
+      /> */}
+      <TablePagination
+        component="div"
+        count={count}
+        page={page}
+        onPageChange={handlePageChange}
+        rowsPerPage={limit}
+        onRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>

@@ -11,7 +11,7 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import "./Header.css";
-import logo from "../../../assets/logo/logo.jpg";
+import logo from "../../../assets/logo/logo.png";
 import Image from "next/image";
 import {
   HiOutlineArrowNarrowRight,
@@ -125,9 +125,9 @@ const Header = () => {
 
               <div>
                 <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
-                <small className="md:mt-0 -mt-2 ">
+                {/* <small className="md:mt-0 -mt-2 ">
                   Business Consulting Ltd.
-                </small>
+                </small> */}
               </div>
             </div>
           </Link>
@@ -188,7 +188,7 @@ const Header = () => {
 
                   <div>
                     <h3 className="text-sm md:text-xl lg:text-2xl">Muissa</h3>
-                    <small>Business Consulting Ltd. </small>
+                    {/* <small>Business Consulting Ltd. </small> */}
                   </div>
                 </div>
               </Box>
@@ -265,7 +265,7 @@ const Header = () => {
               />
               <div>
                 <h5>Muissa </h5>
-                <small>Business Consulting Ltd </small>
+                {/* <small>Business Consulting Ltd </small> */}
               </div>
             </div>
           </Link>

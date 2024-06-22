@@ -45,11 +45,16 @@ const ChangePassword = () => {
 
     setSuccessMessage("");
     setErrorMessage([]);
-    values.token = token;
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/update-password`,
-        values
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
       );
       console.log(response);
       if (response?.status === 200) {

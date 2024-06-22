@@ -19,17 +19,19 @@ import ServiceCategoryForm from "./ServiceCategoryForm";
 import ServiceSubcategoryTable from "./ServiceSubcategoryTable";
 import ServiceCategoryTable from "./ServiceCategoryTable";
 import ServiceSubcategoryForm from "./ServiceSubcategoryForm";
+import DOMPurify from 'dompurify';
+import dayjs from "dayjs";
 
 function noop(): void {
   // do nothing
 }
 
 export interface Service {
-  name: string;
+  title: string;
   description: string;
-  status: string;
-  lastUpdated: string;
-  image: string;
+  short_description: string;
+  createdAt: string;
+  service_image: string;
 }
 
 interface ServicesTableProps {
@@ -47,6 +49,8 @@ export function ServicesTable({
 }: ServicesTableProps): React.JSX.Element {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [openSubModal, setOpenSubModal] = React.useState(false);
+
+
 
   return (
     <Card
@@ -100,22 +104,24 @@ export function ServicesTable({
             <TableRow>
               <TableCell>Image</TableCell>
               <TableCell>Service Name</TableCell>
+              <TableCell> Short description </TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
               <TableCell>Last Updated</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => {
+            {rows?.map((row, index) => {
               return (
                 <TableRow hover key={index}>
                   <TableCell>
-                    <Avatar src={row.image} variant="square" />
+                    <Avatar src={row?.service_image} variant="square" />
                   </TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.description}</TableCell>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.lastUpdated}</TableCell>
+                  <TableCell>{row?.title}</TableCell>
+                  <TableCell>{row?.short_description}</TableCell>
+                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description) }} />
+
+                 
+                  <TableCell>{dayjs(row?.createdAt).format("MMM D, YYYY")}</TableCell>
                 </TableRow>
               );
             })}
@@ -138,7 +144,7 @@ export function ServicesTable({
           setOpen={setModalOpen}
           title="Add new service category"
         >
-          <ServiceCategoryForm />
+          <ServiceCategoryForm setModalOpen={setModalOpen}/>
           <ServiceCategoryTable />
         </MUIModal>
       )}
@@ -149,7 +155,7 @@ export function ServicesTable({
           setOpen={setOpenSubModal}
           title="Add new service subcategory"
         >
-          <ServiceSubcategoryForm />
+          <ServiceSubcategoryForm setModalOpen={setModalOpen}/>
           <ServiceSubcategoryTable />
         </MUIModal>
       )}

@@ -5,14 +5,14 @@ import "./Preloader.css";
 const SubscriptionAlert: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Only show the alert box after the component is mounted on the client
-    setIsVisible(true);
-  }, []);
+  // useEffect(() => {
+  //   // Only show the alert box after the component is mounted on the client
+  //   setIsVisible(true);
+  // }, []);
 
-  const closeAlert = () => {
-    setIsVisible(false);
-  };
+  // const closeAlert = () => {
+  //   setIsVisible(false);
+  // };
 
   if (!isVisible) return null;
 
@@ -20,7 +20,7 @@ const SubscriptionAlert: React.FC = () => {
     <div className="alert-box">
       <div className="alert-content">
         <p>Your alert message goes here.</p>
-        <button onClick={closeAlert}>Close</button>
+        {/* <button onClick={closeAlert}>Close</button> */}
       </div>
     </div>
   );

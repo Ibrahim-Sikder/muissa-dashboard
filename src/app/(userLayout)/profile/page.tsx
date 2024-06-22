@@ -80,6 +80,25 @@ interface UserData {
   profile_pic: string;
 }
 
+interface MemberShip {
+  profile_pic?: string;
+  name?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  business_name?: string;
+  business_type?: string;
+  business_address?: string;
+  website?: string;
+  business_description?: string;
+  need_of_service?: string[];
+  additional_info?: string;
+  investment_type?: string;
+  investment_amount?: string;
+  investment_period?: string;
+  investment_goal?: string;
+  memberShip?: string;
+}
 const isEmailValid = (auth: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(auth);
@@ -98,9 +117,16 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
+<<<<<<< HEAD
   const [memberShip, setMembership] = useState({});
   console.log(memberShip);
   const defaultValues = {
+=======
+  const [memberShip, setMembership] = useState<MemberShip>({});
+
+  console.log(memberShip);
+  const defaultValues: MemberShip = {
+>>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
     profile_pic: memberShip?.profile_pic || "",
     name: memberShip?.name || "",
     phone: memberShip?.phone || "",
@@ -140,17 +166,19 @@ const Profile = () => {
   const id = params.get("id");
 
   useEffect(() => {
-    if (!token) return;
-
     const fetchedData = async () => {
       setSuccessMessage("");
       setErrorMessage([]);
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         if (response?.status === 200) {
           setUserData(response?.data?.data);
@@ -181,7 +209,7 @@ const Profile = () => {
   }, [token]);
 
   useEffect(() => {
-    if (!token || !member_type || !id) return;
+    if (!member_type || !id) return;
 
     const fetchedData = async () => {
       setSuccessMessage("");
@@ -189,9 +217,13 @@ const Profile = () => {
       setLoading(true);
 
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/get-member?member_type=${member_type}&id=${id}`,
-          { token }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         console.log("res", response);
         if (response?.status === 200) {
@@ -236,7 +268,6 @@ const Profile = () => {
   const submitHandler = async (data: FieldValues) => {
     data.profile_pic = imageUrl;
     data.upload_file = uploadedImage;
-    data.token = token;
     data.member_type = userType;
 
     if (userType === "investor") {
@@ -260,7 +291,11 @@ const Profile = () => {
         throw new Error("Invalid user type");
       }
 
-      const response = await axios.post(endpoint, data);
+      const response = await axios.post(endpoint, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log(response);
       if (
         response.status === 200 &&
@@ -293,7 +328,7 @@ const Profile = () => {
       if (error.response) {
         console.log(error);
         const { status, data } = error.response;
-        if ([400, 404, 409, 500].includes(status)) {
+        if ([400, 404,401, 409, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
@@ -335,6 +370,10 @@ const Profile = () => {
     },
   };
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
   return (
     <>
       {loading ? (
@@ -342,7 +381,10 @@ const Profile = () => {
       ) : (
         <MUIForm
           onSubmit={submitHandler}
+<<<<<<< HEAD
           // resolver={zodResolver(validationSchema)}
+=======
+>>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
           defaultValues={memberShip && defaultValues}
         >
           <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
@@ -480,6 +522,10 @@ const Profile = () => {
                             label="ব্যবসার নাম "
                             fullWidth
                             size="medium"
+<<<<<<< HEAD
+=======
+                          
+>>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={12}>
