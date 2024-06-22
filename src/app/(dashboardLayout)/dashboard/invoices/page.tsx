@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import type { Metadata } from "next";
 import Stack from "@mui/material/Stack";
@@ -38,11 +38,11 @@ export default function Page(): React.JSX.Element {
     limit,
     filterType,
   });
-  console.log(data)
+  console.log(data);
 
   React.useEffect(() => {
     if (error) {
-      const { status, data } = error;
+      const { status, data } = error as any;
       if ([400, 404, 401, 409, 500].includes(status)) {
         setErrorMessage(data?.message);
       } else {

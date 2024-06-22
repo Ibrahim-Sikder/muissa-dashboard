@@ -76,7 +76,6 @@ export function CustomersTable({
     newPage: number
   ) => {
     console.log(newPage);
-     
   };
 
   const handleRowsPerPageChange = (
@@ -84,7 +83,6 @@ export function CustomersTable({
   ) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
     setLimit(newRowsPerPage);
-     
   };
 
   return (

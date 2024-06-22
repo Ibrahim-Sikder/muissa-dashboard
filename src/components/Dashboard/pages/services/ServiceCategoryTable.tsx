@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 interface ServiceCategory {
   id: number;
@@ -25,14 +25,7 @@ const ServiceCategoryTable = () => {
   const [categories, setCategories] = useState<ServiceCategory[]>([]);
   const token = getCookie("mui-token");
 
-  const {
-    data: category,
-    error,
-    isLoading,
-    
-  } = useGetAllCategoryQuery({
-     
-  });
+  const { data: category, error, isLoading } = useGetAllCategoryQuery({});
 
   useEffect(() => {
     // Fetch the categories from API or any data source
@@ -57,10 +50,9 @@ const ServiceCategoryTable = () => {
     // );
   };
 
-  if(isLoading){
-    return <div>Loading...</div>
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
-
 
   return (
     <Paper
@@ -110,7 +102,7 @@ const ServiceCategoryTable = () => {
                 },
               }}
             >
-              <TableCell>{index +1}</TableCell>
+              <TableCell>{index + 1}</TableCell>
               <TableCell>{category?.category}</TableCell>
               <TableCell align="right">
                 <IconButton

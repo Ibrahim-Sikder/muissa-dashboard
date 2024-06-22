@@ -12,15 +12,17 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import { Button, CardHeader } from "@mui/material";
+import { Button, CardHeader, Tooltip } from "@mui/material";
 import Link from "next/link";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 
 function noop(): void {
   // do nothing
 }
 
 export interface Review {
+  _id: string;
   name: string;
   designation: string;
   review_image: string;
@@ -48,8 +50,7 @@ export function ReviewsTable({
   onPageChange = noop,
   onRowsPerPageChange = noop,
 }: ReviewsTableProps): React.JSX.Element {
-
-  console.log(rows)
+  console.log(rows);
   return (
     <Card
       sx={{
@@ -86,6 +87,7 @@ export function ReviewsTable({
               <TableCell>Message</TableCell>
               <TableCell>Publish Date</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -97,9 +99,50 @@ export function ReviewsTable({
                   </TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.designation}</TableCell>
-                  <TableCell>{row.message}</TableCell>
+                  <TableCell
+                    sx={{
+                      maxWidth: "300px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <Tooltip title={row.message}>
+                      <Typography>{row.message}</Typography>
+                    </Tooltip>
+                  </TableCell>
                   <TableCell>{row.publishDate}</TableCell>
                   <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "1rem",
+                      }}
+                    >
+                      <Link href={`/dashboard/reviews/edit/${row?._id}`}>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                          sx={{ textTransform: "none" }}
+                          startIcon={<FaPencil />}
+                        >
+                          Update
+                        </Button>
+                      </Link>
+
+                      <Button
+                        color="error"
+                        variant="outlined"
+                        size="small"
+                        sx={{ textTransform: "none" }}
+                        startIcon={<FaTrash />}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               );
             })}

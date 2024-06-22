@@ -21,9 +21,9 @@ import INTSelect from "@/components/Forms/Select";
 import axios from "axios";
 import { toast } from "sonner";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 interface ServiceCategory {
   id: number;
@@ -47,9 +47,7 @@ const ServiceSubcategoryForm = ({ setModalOpen }: CategoryModal) => {
     error,
     isLoading,
     refetch,
-  } = useGetAllCategoryQuery({
-    
-  });
+  } = useGetAllCategoryQuery({});
 
   // useEffect(() => {
   //   // Fetch the categories from API or any data source
@@ -107,7 +105,7 @@ const ServiceSubcategoryForm = ({ setModalOpen }: CategoryModal) => {
 
   useEffect(() => {
     if (error) {
-      const { status, data } = error;
+      const { status, data } = error as any as { status: number; data: any };
       if ([400, 404, 401, 409, 500].includes(status)) {
         setErrorMessage(data.message);
       } else {

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 export interface ServiceCategory {
   _id: string;
@@ -27,16 +27,13 @@ export interface ServiceCategory {
 }
 
 const ServiceSubcategoryTable = () => {
-
   const token = getCookie("mui-token");
 
   const {
     data: category,
-    
+
     isLoading,
-  } = useGetAllCategoryQuery({
-     
-  });
+  } = useGetAllCategoryQuery({});
 
   // useEffect(() => {
   //   // Fetch the categories from API or any data source
@@ -122,8 +119,8 @@ const ServiceSubcategoryTable = () => {
     //   prevCategories.filter((category) => category.id !== id)
     // );
   };
-  if(isLoading){
-    return <div>Loading...</div>
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (

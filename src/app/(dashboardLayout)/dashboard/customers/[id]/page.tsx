@@ -22,8 +22,9 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import { useParams } from "next/navigation";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetSingleMemberQuery } from "@/redux/api/baseApi";
+// import { useGetSingleMemberQuery } from "@/redux/api/baseApi";
 import { ErrorMessage } from "@/components/error-message";
+import { useGetSingleMemberQuery } from "@/redux/api/memeberApi";
 
 // Mock customer data (replace with actual data fetching logic)
 const customer = {
@@ -53,7 +54,7 @@ export default function CustomerDetailsPage() {
 
   React.useEffect(() => {
     if (error) {
-      const { status, data } = error;
+      const { status, data } = error as any as { status: number; data: any };
       if ([400, 404, 401, 409, 500].includes(status)) {
         setErrorMessage(data?.message);
       } else {
@@ -65,7 +66,7 @@ export default function CustomerDetailsPage() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-   
+
   console.log(data);
   return (
     <>
@@ -93,7 +94,10 @@ export default function CustomerDetailsPage() {
               <Typography variant="h4" fontWeight="bold">
                 {data?.user?.name}
               </Typography>
-              <Chip label={`Customer ID: ${data?.user?.userId}`} color="secondary" />
+              <Chip
+                label={`Customer ID: ${data?.user?.userId}`}
+                color="secondary"
+              />
             </Box>
           </Stack>
           <Card
@@ -111,11 +115,15 @@ export default function CustomerDetailsPage() {
               <Stack spacing={2}>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <EmailIcon color="action" />
-                  <Typography>{data?.user?.email || data?.user?.auth}</Typography>
+                  <Typography>
+                    {data?.user?.email || data?.user?.auth}
+                  </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <PhoneIcon color="action" />
-                  <Typography>{data?.user?.phone || data?.user?.auth}</Typography>
+                  <Typography>
+                    {data?.user?.phone || data?.user?.auth}
+                  </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <HomeIcon color="action" />

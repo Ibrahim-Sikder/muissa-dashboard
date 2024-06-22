@@ -1,32 +1,41 @@
 "use client";
 
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
-import { Avatar, Button, CardHeader, Stack } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Divider,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Link from "next/link";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import MUIModal from "@/components/shared/MUIModal/MUIModal";
 import ServiceCategoryForm from "./ServiceCategoryForm";
 import ServiceSubcategoryTable from "./ServiceSubcategoryTable";
 import ServiceCategoryTable from "./ServiceCategoryTable";
 import ServiceSubcategoryForm from "./ServiceSubcategoryForm";
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 import dayjs from "dayjs";
+import { FaPencil } from "react-icons/fa6";
 
 function noop(): void {
   // do nothing
 }
 
 export interface Service {
+  _id: string;
   title: string;
   description: string;
   short_description: string;
@@ -49,8 +58,8 @@ export function ServicesTable({
 }: ServicesTableProps): React.JSX.Element {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [openSubModal, setOpenSubModal] = React.useState(false);
-
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Card
@@ -66,7 +75,7 @@ export function ServicesTable({
         }
         subheader="List of services provided by the company"
         action={
-          <Stack direction="row" spacing={1}>
+          <Stack direction={isMobile ? "column" : "row"} spacing={1}>
             <Link href="/dashboard/services/create">
               <Button
                 color="primary"
@@ -83,16 +92,15 @@ export function ServicesTable({
               size="small"
               onClick={() => setModalOpen(true)}
             >
-              categories
+              Categories
             </Button>
-
             <Button
               color="primary"
               variant="outlined"
               size="small"
               onClick={() => setOpenSubModal(true)}
             >
-              subcategories
+              Subcategories
             </Button>
           </Stack>
         }
@@ -104,27 +112,67 @@ export function ServicesTable({
             <TableRow>
               <TableCell>Image</TableCell>
               <TableCell>Service Name</TableCell>
-              <TableCell> Short description </TableCell>
+              {!isMobile && <TableCell>Short Description</TableCell>}
               <TableCell>Description</TableCell>
               <TableCell>Last Updated</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row, index) => {
-              return (
-                <TableRow hover key={index}>
-                  <TableCell>
-                    <Avatar src={row?.service_image} variant="square" />
-                  </TableCell>
-                  <TableCell>{row?.title}</TableCell>
-                  <TableCell>{row?.short_description}</TableCell>
-                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description) }} />
+            {rows?.map((row, index) => (
+              <TableRow
+                hover
+                key={index}
+                sx={{
+                  textAlign: "left",
+                }}
+              >
+                <TableCell>
+                  <Avatar src={row?.service_image} variant="square" />
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                {!isMobile && <TableCell>{row?.short_description}</TableCell>}
+                <TableCell
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(row?.description),
+                  }}
+                />
+                <TableCell>
+                  {dayjs(row?.createdAt).format("MMM D, YYYY")}
+                </TableCell>
 
-                 
-                  <TableCell>{dayjs(row?.createdAt).format("MMM D, YYYY")}</TableCell>
-                </TableRow>
-              );
-            })}
+                <TableCell>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: "1rem",
+                    }}
+                  >
+                    <Link href={`/dashboard/services/edit/${row?._id}`}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        sx={{ textTransform: "none" }}
+                        startIcon={<FaPencil />}
+                      >
+                        Update
+                      </Button>
+                    </Link>
+
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      size="small"
+                      sx={{ textTransform: "none" }}
+                      startIcon={<FaTrash />}
+                    >
+                      Delete
+                    </Button>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </Box>
@@ -144,18 +192,17 @@ export function ServicesTable({
           setOpen={setModalOpen}
           title="Add new service category"
         >
-          <ServiceCategoryForm setModalOpen={setModalOpen}/>
+          <ServiceCategoryForm setModalOpen={setModalOpen} />
           <ServiceCategoryTable />
         </MUIModal>
       )}
-
       {openSubModal && (
         <MUIModal
           open={openSubModal}
           setOpen={setOpenSubModal}
           title="Add new service subcategory"
         >
-          <ServiceSubcategoryForm setModalOpen={setModalOpen}/>
+          <ServiceSubcategoryForm setModalOpen={setModalOpen} />
           <ServiceSubcategoryTable />
         </MUIModal>
       )}

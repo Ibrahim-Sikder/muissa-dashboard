@@ -61,8 +61,6 @@ interface InvoicesTableProps {
   ) => void;
 
   setFilterType: (value: string) => void;
-  
-
 }
 
 export function InvoicesTable({
@@ -73,11 +71,11 @@ export function InvoicesTable({
   onPageChange = noop,
   onRowsPerPageChange = noop,
   setFilterType,
-  
 }: InvoicesTableProps): React.JSX.Element {
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   };
+
   return (
     <Card
       sx={{
@@ -93,9 +91,9 @@ export function InvoicesTable({
         subheader="List of all invoices issued to clients."
         action={
           <TextField
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setFilterType(e.target.value)
-          }
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFilterType(e.target.value)
+            }
             label="Search"
             size="small"
             variant="outlined"
@@ -148,11 +146,13 @@ export function InvoicesTable({
                   <TableCell>{row?.userDetails?.name}</TableCell>
                   <TableCell>{row?.userDetails?.auth}</TableCell>
                   <TableCell>
-                  {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
-                </TableCell>
+                    {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
+                  </TableCell>
                   {/* <TableCell>{row.dueDate}</TableCell> */}
                   <TableCell>{row.amount}</TableCell>
-                  <TableCell>{capitalizeFirstLetter(row?.payment_status)}</TableCell>
+                  <TableCell>
+                    {capitalizeFirstLetter(row?.payment_status)}
+                  </TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
                       <Button

@@ -67,7 +67,6 @@ export default function Page(): React.JSX.Element {
     refetch();
   }, [pathName, refetch]);
 
-
   return (
     <Stack spacing={3}>
       <BlogsTable

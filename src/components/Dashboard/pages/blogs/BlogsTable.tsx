@@ -14,13 +14,15 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { Button, CardHeader } from "@mui/material";
 import Link from "next/link";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaPencil } from "react-icons/fa6";
 
 function noop(): void {
   // do nothing
 }
 
 export interface Blog {
+  _id: string;
   title: string;
   author: string;
   publishDate: string;
@@ -76,6 +78,7 @@ export function BlogsTable({
               <TableCell>Author</TableCell>
               <TableCell>Publish Date</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -89,6 +92,36 @@ export function BlogsTable({
                   <TableCell>{row?.author}</TableCell>
                   <TableCell>{row?.publishDate}</TableCell>
                   <TableCell>{row?.status}</TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: "1rem",
+                      }}
+                    >
+                      <Link href={`/dashboard/blogs/edit/${row?._id}`}>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                          sx={{ textTransform: "none" }}
+                          startIcon={<FaPencil />}
+                        >
+                          Update
+                        </Button>
+                      </Link>
+
+                      <Button
+                        color="error"
+                        variant="outlined"
+                        size="small"
+                        sx={{ textTransform: "none" }}
+                        startIcon={<FaTrash />}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               );
             })}

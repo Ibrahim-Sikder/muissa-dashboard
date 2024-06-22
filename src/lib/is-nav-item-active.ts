@@ -1,4 +1,5 @@
 import type { NavItemConfig } from "@/types/nav";
+import { paths } from "@/paths";
 
 export function isNavItemActive({
   disabled,
@@ -25,11 +26,11 @@ export function isNavItemActive({
     for (const child of childrenItems) {
       if (
         isNavItemActive({
+          pathname,
           disabled: child.disabled,
           external: child.external,
           href: child.href,
           matcher: child.matcher,
-          pathname,
           childrenItems: child.childrenItems,
         })
       ) {
@@ -38,17 +39,33 @@ export function isNavItemActive({
     }
   }
 
+  // Handle dynamic routes with parameters
   if (matcher) {
     if (matcher.type === "startsWith") {
       return pathname.startsWith(matcher.href);
     }
 
     if (matcher.type === "equals") {
-      return pathname === matcher.href;
+      const matcherSegments = matcher.href.split("/");
+      const pathSegments = pathname.split("/");
+      if (matcherSegments.length !== pathSegments.length) {
+        return false;
+      }
+
+      for (let i = 0; i < matcherSegments.length; i++) {
+        if (
+          matcherSegments[i] !== pathSegments[i] &&
+          !matcherSegments[i].startsWith(":")
+        ) {
+          return false;
+        }
+      }
+      return true;
     }
 
     return false;
   }
 
+  // Default match: exact href match
   return pathname === href;
 }
