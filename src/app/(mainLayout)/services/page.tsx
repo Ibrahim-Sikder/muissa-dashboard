@@ -28,43 +28,6 @@ import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
 import { useGetAllCategoryQuery, useGetAllServicesForHomeQuery } from "@/redux/api/serviceApi";
 
-// const serviceDetails = [
-//   {
-//     id: 1,
-//     category: "Marketing Support",
-//     subCategory: [
-//       {
-//         id: 1,
-//         title: "Subcategory 1",
-//         sub_description:
-//           "We provide unparalleled services, striving for excellence in every aspect. With a commitment to quality and customer satisfaction, we deliver the finest solutions tailored to your needs. Our dedicated team ensures top-notch support, aiming to exceed expectations and foster long-term relationships. Experience the difference with our superior services, setting the standard for excellence in every interaction.",
-//         description: `Description for Subcategory 1.`,
-//       },
-//       {
-//         id: 2,
-//         title: "Subcategory 2",
-//         sub_description: `Description for Subcategory 2.`,
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     category: "Technical Support",
-//     subCategory: [
-//       {
-//         id: 1,
-//         title: "Subcategory A",
-//         sub_description: `Description for Subcategory A.`,
-//       },
-//       {
-//         id: 2,
-//         title: "Subcategory B",
-//         sub_description: `Description for Subcategory B.`,
-//       },
-//     ],
-//   },
-// ];
-
 const Page = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -184,14 +147,14 @@ const Page = () => {
 
   return (
     <>
-      <div className="serviceDetailsWrap">
-        <div className="serviceContent">
+      <div className="serviceDetailsWrap aboutWraps">
+        <div className="aboutContent">
           <h1>Our Services</h1>
         </div>
       </div>
       <Container className="sectionMargin">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <div className="col-span-12 lg:col-span-4">
+          <div className=" lg:col-span-4">
             {Array.isArray(categories) &&
               categories?.map((service: any, index: number) => (
                 <Accordion
@@ -204,6 +167,7 @@ const Page = () => {
                       marginBottom: "10px",
                     },
                     boxShadow: "none !important",
+                    width: '100%',
                   }}
                 >
                   <AccordionSummary
@@ -240,7 +204,17 @@ const Page = () => {
                       orientation="vertical"
                       variant="scrollable"
                       sx={{
+                        
                         padding: "10px",
+                        "@media (max-width: 600px)": {
+                          flexDirection: "row",
+                          flexWrap: "wrap",
+                          ".MuiTab-root": {
+                            flex: "1 0 50%",
+                            marginBottom: "10px",
+                            width: '100px'
+                          },
+                        },
                       }}
                     >
                       {subCategories?.map((sub: any, subIndex: number) => (
@@ -249,6 +223,7 @@ const Page = () => {
                           label={sub?.sub_category}
                           key={sub?._id}
                           sx={{
+
                             color:
                               subTabIndex === subIndex ? "#00305C" : "#1591A3",
                             background:
@@ -320,14 +295,14 @@ const Page = () => {
               </div>
             </Box>
           </div>
-          <div className="col-span-12 lg:col-span-8">
+          <div className=" lg:col-span-8">
             <div className="serviceDetails">
               <div className="serviceDetailsImage">
                 <div className="w-full h-96 aspect-video relative">
                   <Image
                     src={services[0]?.service_image || service}
                     alt={services[0]?.category}
-                    width={700}
+                  
                     height={475}
                     className="rounded-t-lg h-full w-full object-cover absolute"
                   />
@@ -341,33 +316,9 @@ const Page = () => {
                   padding: "20px 0",
                   background: "#ffffff",
                   borderRadius: "0px 0px 5px 5px",
+                  width: '200px'
                 }}
               >
-                {/* {expanded && (
-                  <>
-                    <Typography variant="h4" sx={{ color: "#1591A3" }}>
-                      {services[Number(expanded.slice(5))]?.category}
-                    </Typography>
-                    <Typography variant="h6" sx={{ color: "#1591A3" }}>
-                      {services[Number(expanded.slice(5))]?.sub_category}
-                    </Typography>
-                    <Typography variant="body1">
-                      {services[Number(expanded.slice(5))]?.short_description}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(
-                          services[Number(expanded.slice(5))]?.description
-                        ),
-                      }}
-                    >
-                      {
-                        services[Number(expanded.slice(5))]?.description
-                      }
-                    </Typography>
-                  </>
-                )} */}
                 {expanded && (
                   <>
                     <Typography variant="h4" sx={{ color: "#1591A3" }}>
@@ -384,11 +335,7 @@ const Page = () => {
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(services[0]?.description),
                       }}
-                    >
-                      {/* {
-                        services[Number(expanded.slice(5))]?.description
-                      } */}
-                    </Typography>
+                    />
                   </>
                 )}
               </Box>

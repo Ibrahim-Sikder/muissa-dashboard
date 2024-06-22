@@ -12,54 +12,6 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useGetAllPaymentsQuery } from "@/redux/api/paymentApi";
 
-// const invoices: Invoice[] = [
-//   {
-//     invoiceId: "I-123456",
-//     date: dayjs().subtract(1, "day").format("DD/MM/YYYY"),
-//     dueDate: dayjs().add(14, "day").format("DD/MM/YYYY"),
-//     amount: "$100",
-//     status: "Paid",
-//     clientName: "John Doe",
-//     clientEmail: "john@example.com",
-//   },
-//   {
-//     invoiceId: "I-123457",
-//     date: dayjs().subtract(2, "day").format("DD/MM/YYYY"),
-//     dueDate: dayjs().add(14, "day").format("DD/MM/YYYY"),
-//     amount: "$200",
-//     status: "Pending",
-//     clientName: "Jane Doe",
-//     clientEmail: "jane@example.com",
-//   },
-//   {
-//     invoiceId: "I-123458",
-//     date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
-//     dueDate: dayjs().add(14, "day").format("DD/MM/YYYY"),
-//     amount: "$300",
-//     status: "Overdue",
-//     clientName: "John Doe",
-//     clientEmail: "john@example.com",
-//   },
-//   {
-//     invoiceId: "I-123459",
-//     date: dayjs().subtract(4, "day").format("DD/MM/YYYY"),
-//     dueDate: dayjs().add(14, "day").format("DD/MM/YYYY"),
-//     amount: "$400",
-//     status: "Paid",
-//     clientName: "Jane Doe",
-//     clientEmail: "jane@example.com",
-//   },
-//   {
-//     invoiceId: "I-123460",
-//     date: dayjs().subtract(5, "day").format("DD/MM/YYYY"),
-//     dueDate: dayjs().add(14, "day").format("DD/MM/YYYY"),
-//     amount: "$500",
-//     status: "Pending",
-//     clientName: "John Doe",
-//     clientEmail: "john@example.com",
-//   },
-// ];
-
 export default function Page(): React.JSX.Element {
   // const page = 0;
   // const rowsPerPage = 5;
@@ -72,7 +24,7 @@ export default function Page(): React.JSX.Element {
 
   const [filterType, setFilterType] = React.useState<string>("");
 
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState();
   const [limit, setLimit] = React.useState(10);
 
   const page = 0;
@@ -86,6 +38,7 @@ export default function Page(): React.JSX.Element {
     limit,
     filterType,
   });
+  console.log(data)
 
   React.useEffect(() => {
     if (error) {

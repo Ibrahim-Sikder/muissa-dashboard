@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const HeroSection = () => {
+
   const buttonStyle = {
     width: { xs: "100px", md: "200px", sm: "140px", xl: "230px" },
     height: { md: "50px", xs: "35px", xl: "50px" },
@@ -22,6 +23,7 @@ const HeroSection = () => {
     borderRadius: "30px",
     background: "#1591A3",
   };
+
 
   return (
     <div className="heroSectionWrap">

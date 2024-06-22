@@ -492,6 +492,7 @@ export default function Investment() {
                   scrollButtons="auto"
                   variant="scrollable"
                   onChange={handleChange}
+                  
                   aria-label="scrollable auto tabs example"
                   sx={{
                     borderRight: "none",

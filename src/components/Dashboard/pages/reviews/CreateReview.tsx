@@ -21,7 +21,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-import { useGetAllReviewsQuery } from "@/redux/api/baseApi";
+import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 
 const validationSchema = z.object({
   name: z.string({ required_error: "NAme is required" }),

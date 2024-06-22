@@ -14,8 +14,33 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Autoplay } from "swiper/modules";
+import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 
+
+type Treview = {
+  name: string,
+  designation: string,
+  review_image: string,
+  message: string,
+  _id: string,
+
+}
 const Client = () => {
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [limit, setLimit] = React.useState('');
+
+
+  const { data: reviewData, error, isLoading, refetch } = useGetAllReviewsQuery({});
+  if (isLoading) {
+    return <p>Loading</p>
+  }
+
+  if (error) {
+    return <p>someting went wrong</p>
+  }
+
+
   const clientData = [
     {
       id: 1,
@@ -99,21 +124,21 @@ const Client = () => {
           modules={[Pagination, Autoplay]}
           className="mySwiper clientSlider"
         >
-          {clientData.map((data) => (
-            <SwiperSlide key={data.id}>
+          {reviewData?.reviews?.map((data: Treview) => (
+            <SwiperSlide key={data._id}>
               <div className="clientCard mt-20">
                 <div className="quoteWrap">
                   <FormatQuote sx={{ fontSize: "50px" }} />
                 </div>
                 <div className="clientContent">
-                  <p className="leading-7">{data.review.slice(0, 200)}</p>
+                  <p className="leading-7">{data.message.slice(0, 200)}</p>
                   <div className="clientWrap">
                     <div className="clientImgWraps">
-                      <Image width={50} height={50} src={data.img} alt="user" />
+                      <Image width={50} height={50} src={data.review_image} alt="user" />
                     </div>
                     <div>
                       <h4>{data.name}</h4>
-                      <small>{data.position}</small>
+                      <small>{data.designation}</small>
                     </div>
                   </div>
                 </div>

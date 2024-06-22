@@ -56,11 +56,7 @@ export default function ServiceSlider() {
           <Card
             variant="outlined"
             sx={{
-              width: {
-                xs: "100%",
-                md: 350,
-                lg: 390,
-              },
+              width: "100%",
               borderRadius: "20px",
               background: "#00305C",
               color: "#fff",

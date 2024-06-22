@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@mui/material";
 import React from "react";
 import {
@@ -10,7 +12,26 @@ import {
 import "./services.css";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
+import { useGetAllServicesQuery } from "@/redux/api/serviceApi";
+
 const Service = () => {
+
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(4);
+
+
+  const { data: servicesData, error, isLoading, refetch } = useGetAllServicesQuery({
+    page: currentPage,
+    limit,
+  });
+  if (isLoading) {
+    return <p>Loading</p>
+  }
+
+  if (error) {
+    return <p>someting went wrong</p>
+  }
+
   const serviceData = [
     {
       id: 1,
@@ -60,7 +81,7 @@ const Service = () => {
     <Container>
       <div className="serviceCardWraps">
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 ">
-          {serviceData.map((data, i) => (
+          {servicesData?.services?.map((data: any, i: number) => (
             <div key={data.id} className="serviceCard">
               <div className="serviceIconWraps">
                 {i === 0 ? (
@@ -74,10 +95,12 @@ const Service = () => {
                 ) : null}
               </div>
               <div className="serviceContent">
-                <h4>{data.title}</h4>
+                <h4>{data.category}</h4>
 
-                <p className="my-2 md:my-5">{data.description.slice(0, 100)}</p>
-                <Button sx={buttonStyle} component={Link} href="/services/1">
+                <p className="my-2 md:my-5">{data.short_description.slice(0, 100)} অর্থায়নের জন্য নির্ভরযোগ্য পরামর্শ সেবা, আপনার ব্যবসার অর্থায়নের প্রয়োজন মেটাতে আমাদের বিশেষজ্ঞ ফ
+
+                </p>
+                <Button sx={buttonStyle} component={Link} href={`/services/${data._id}`}>
                   আরো দেখুন
                 </Button>
               </div>

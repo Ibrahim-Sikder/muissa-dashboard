@@ -56,22 +56,17 @@ export default function Page(): React.JSX.Element {
 
   // const paginatedBlogs = applyPagination(blogs, page, rowsPerPage);
 
-  // const [currentPage, setCurrentPage] = React.useState(1);
-  // const [limit, setLimit] = React.useState(10);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(10);
 
   const { data, error, isLoading, refetch } = useGetAllBlogsQuery({
     page,
     limit: rowsPerPage,
   });
-  // const paginatedBlogs = applyPagination(data?.blogs, page, rowsPerPage);
-
   React.useEffect(() => {
     refetch();
   }, [pathName, refetch]);
 
-  if (isLoading || error) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Stack spacing={3}>
