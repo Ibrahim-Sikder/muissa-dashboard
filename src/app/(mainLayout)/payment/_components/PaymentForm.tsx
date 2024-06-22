@@ -4,6 +4,9 @@ import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import MUIMultiSelect from "@/components/Forms/MultiSelect";
 import INTSelect from "@/components/Forms/Select";
+import { ErrorMessage } from "@/components/error-message";
+import { SuccessMessage } from "@/components/success-message";
+import { getCookie } from "@/helpers/Cookies";
 import { subscriptions } from "@/types";
 import {
   Button,
@@ -12,19 +15,66 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 const PaymentForm = () => {
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [selectedValue, setSelectedValue] = useState("bkash");
   const [totalAmount, setTotalAmount] = useState("");
+  const token = getCookie("mui-token");
+  const params = useSearchParams();
+
+  const member_type = params.get("member_type");
 
   const handleBankChange = (event: { target: { value: string } }) => {
     setSelectedValue(event.target.value);
   };
 
-  const handleSubmit = (data: FieldValues) => {
+  console.log(selectedValue);
+  const handleSubmit = async (data: FieldValues) => {
     console.log(data);
+    setIsLoading(true);
+
+    setSuccessMessage("");
+    setErrorMessage([]);
+
+    data.payment_method = selectedValue;
+    data.token = token;
+    data.amount = Number(totalAmount)
+    data.member_type = member_type
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/payments/create-payment`,
+        data
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+        // router.push("/login")
+        setIsLoading(false);
+      }
+      console.log("Response:", response);
+    } catch (error: any) {
+      console.log(error);
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChang = (value: any) => {
@@ -60,7 +110,7 @@ const PaymentForm = () => {
           <Grid container spacing={1}>
             <Grid item xs={12} md={12} lg={12}>
               <MUIInput
-                name="targetAmount"
+                name="target_account"
                 label="Target Account/পে একাউন্ট"
                 variant="outlined"
                 fullWidth
@@ -71,7 +121,7 @@ const PaymentForm = () => {
             <p className="">3. Your Transaction / আপনার লেনদেন</p>
             <Grid item xs={12} md={12} lg={12}>
               <INTSelect
-                name="subscription"
+                name="subscription_for"
                 label="Select Subscription "
                 items={subscriptions}
                 onChange={handleChang}
@@ -79,7 +129,7 @@ const PaymentForm = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <MUIInput
-                name="totalAmount"
+                name="amount"
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -90,7 +140,7 @@ const PaymentForm = () => {
             <Grid item xs={12} md={12} lg={12}>
               <div className="flex items-center gap-x-1 ">
                 <MUIInput
-                  name="coupon"
+                  name="coupon_code"
                   label="কুপন কোড"
                   variant="outlined"
                   fullWidth
@@ -108,7 +158,7 @@ const PaymentForm = () => {
             <Grid item xs={12} md={12} lg={12}>
               <p className="mt-3 ">Payable Amount/পরিশোধিত পরিমান</p>
               <MUIInput
-                name="paymentAmount"
+                name="payable_amount"
                 disabled
                 variant="outlined"
                 fullWidth
@@ -129,7 +179,7 @@ const PaymentForm = () => {
           </div>
           <Grid item xs={12} md={12} lg={12}>
             <MUIInput
-              name="accountNumber"
+              name="account_number"
               label="আপনার অ্যাকাউন্ট নাম্বার লিখুন"
               variant="outlined"
               fullWidth
@@ -140,7 +190,7 @@ const PaymentForm = () => {
           <div className="my-4">
             <p className="mb-2">4. Enter Transaction ID/লেনদেন আইডি লিখুন</p>
             <MUIInput
-              name="transitionID"
+              name="transaction_id"
               label="Transaction ID/লেনদেন আইডি লিখুন"
               variant="outlined"
               fullWidth
@@ -148,8 +198,14 @@ const PaymentForm = () => {
               placeholder="123456"
             />
           </div>
+          <div className="mb-5">
+          {successMessage && <SuccessMessage message={successMessage} />}
+          {errorMessage && <ErrorMessage message={errorMessage} />}
+          </div>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            Submit
+           {
+            isLoading ? <span>Loading...</span> : <span> Submit</span>
+           }
           </Button>
         </MUIForm>
       </div>

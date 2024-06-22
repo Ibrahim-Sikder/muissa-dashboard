@@ -1,6 +1,6 @@
 "use client";
 import { SuccessMessage } from "@/components/success-message";
-import lockIcon from "../../../assets/icon/lock-icon.svg";
+import lockIcon from "../../../../assets/icon/lock-icon.svg";
 import { Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
@@ -70,8 +70,15 @@ const OTPInput = ({
   );
 };
 
-const OTPVerifyPage = () => {
-  const [successMessage, setSuccessMessage] = useState<string>("");
+interface VerifyUser {
+  successVerifyMessage: string;
+  setSuccessVerifyMessage: (message: string) => void;
+}
+
+const OTPVerifyPage: React.FC<VerifyUser> = ({
+  successVerifyMessage,
+  setSuccessVerifyMessage,
+}) => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const searchParams = useSearchParams();
@@ -87,8 +94,8 @@ const OTPVerifyPage = () => {
     event.preventDefault();
     setIsLoading(true);
 
-    setSuccessMessage("")
-    setErrorMessage([])
+    setSuccessVerifyMessage("");
+    setErrorMessage([]);
     try {
       const data = {
         auth: userAuth,
@@ -96,19 +103,19 @@ const OTPVerifyPage = () => {
       };
 
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/verify-user`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/forgot-verify`,
         data
       );
- 
+      console.log(response);
       if (response?.status === 200) {
-        toast.success(response?.data?.message)
-        setSuccessMessage(response?.data?.message);
-        setCookie("mui-token", response?.data?.data)
-        router.push("/profile")
+        toast.success(response?.data?.message);
+        setSuccessVerifyMessage(response?.data?.message);
+        
         setIsLoading(false);
       }
       console.log("Response:", response);
     } catch (error: any) {
+      console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 500].includes(status)) {
@@ -122,15 +129,8 @@ const OTPVerifyPage = () => {
     }
   };
   return (
-    <div className=" lg:-mt-24 lg:h-screen flex items-center justify-center ">
-      <div className="border w-full lg:w-1/4 p-10 rounded-md bg-gray-50">
-        <Image
-          src={lockIcon}
-          alt="logo"
-          width={60}
-          height={66}
-          className="w-[60px] mx-auto "
-        />
+    <div>
+      <div>
         <h1 className="text-2xl font-bold text-center py-3">
           Enter the 6 digit OTP
         </h1>
@@ -153,10 +153,12 @@ const OTPVerifyPage = () => {
             {isLoading ? "Verifying..." : "Verify"}
           </Button>
         </form>
-       <div className="mt-2">
-       {successMessage && <SuccessMessage message={successMessage} />}
-       {errorMessage && <ErrorMessage message={errorMessage} />}
-       </div>
+        <div className="mt-2">
+          {successVerifyMessage && (
+            <SuccessMessage message={successVerifyMessage} />
+          )}
+          {errorMessage && <ErrorMessage message={errorMessage} />}
+        </div>
       </div>
     </div>
   );

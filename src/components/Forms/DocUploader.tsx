@@ -1,5 +1,6 @@
 "use client";
 
+import uploadFile from "@/helpers/uploadFile";
 import BackupIcon from "@mui/icons-material/Backup";
 import { Box, Button, SxProps, Typography } from "@mui/material";
 import Image from "next/image";
@@ -9,19 +10,28 @@ import { Controller, useFormContext } from "react-hook-form";
 type INTFileUploaderProps = {
   name: string;
   sx: SxProps;
+  uploadedImage: string;
+  setUploadedImage: (image: string) => void;
 };
 
-const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
+const DocUploader = ({ name, sx, setUploadedImage, uploadedImage }: INTFileUploaderProps) => {
   const { control, setValue, watch } = useFormContext();
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  // const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const selectedFile = watch(name);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setLoading(true);
     const file = event.target.files?.[0];
     if (file) {
       setValue(name, file);
-      setUploadedImage(URL.createObjectURL(file));
+      // setUploadedImage(URL.createObjectURL(file));
+      const uploadPhoto = await uploadFile(file);
+      setUploadedImage(uploadPhoto?.secure_url);
+      setLoading(false);
     }
   };
 
@@ -74,9 +84,13 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
                   borderRadius: "100%",
                 }}
               />
-              <Typography component="h2">
-                Drag & Drop or Choose File to Upload
-              </Typography>
+              {loading ? (
+                <Typography component="h2">Uploading...</Typography>
+              ) : (
+                <Typography component="h2">
+                  Drag & Drop or Choose File to Upload
+                </Typography>
+              )}
             </label>
             {uploadedImage && (
               <Box mt={2}>
@@ -90,10 +104,11 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
                 />
               </Box>
             )}
-            {field.value && (
+            {uploadedImage && (
               <Box mt={2}>
-                <Button
-                  onClick={handleUpload}
+                <label
+                  htmlFor="files"
+                  // onClick={handleUpload}
                   style={{
                     padding: "10px 15px",
                     border: "none",
@@ -104,7 +119,7 @@ const DocUploader = ({ name, sx }: INTFileUploaderProps) => {
                   }}
                 >
                   Upload
-                </Button>
+                </label>
               </Box>
             )}
           </Box>

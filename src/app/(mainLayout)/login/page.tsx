@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useForm, FieldValues } from "react-hook-form";
@@ -10,11 +10,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
+import axios from "axios";
+import { toast } from "sonner";
+import { SuccessMessage } from "@/components/success-message";
+import { ErrorMessage } from "@/components/error-message";
+import { setCookie } from "@/helpers/Cookies";
 
 // Define the validation schema using Zod
 const validationSchema = z.object({
-  user: z.string().email("Please enter a valid email address!"),
-  password: z.string().min(6, "Must be at least 6 characters"),
+  auth: z.string({ required_error: "This field is required." }).refine(
+    (value) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{11,}$/;
+      return emailRegex.test(value) || phoneRegex.test(value);
+    },
+    {
+      message: "Please enter a valid email address or phone number!",
+    }
+  ),
+  password: z
+    .string({ required_error: "Password is required." })
+    .min(6, "Must be at least 6 characters"),
 });
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -23,6 +39,10 @@ const Login = () => {
   const router = useRouter();
   const isLargeDevice = useMediaQuery("(min-width:960px)");
   const isSmallDevice = useMediaQuery("(max-width:600px)");
+
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const textFieldStyles = {
     "& .MuiOutlinedInput-root": {
@@ -49,7 +69,35 @@ const Login = () => {
   };
 
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data);
+    setSuccessMessage("");
+    setErrorMessage([]);
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login`,
+        data
+      );
+
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+        setCookie("mui-token", response?.data?.data?.token);
+        router.push(`/`);
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error)
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -101,7 +149,7 @@ const Login = () => {
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
             defaultValues={{
-              user: "",
+              auth: "",
               password: "",
             }}
           >
@@ -121,9 +169,9 @@ const Login = () => {
               </Typography>
               <Box>
                 <MUIInput
-                  label="Phone number "
+                  label="Email/Phone number "
                   sx={textFieldStyles}
-                  name="user"
+                  name="auth"
                   fullWidth={true}
                 />
                 <MUIInput
@@ -140,17 +188,20 @@ const Login = () => {
                   justifyContent: "right",
                 }}
               >
-                <Typography
-                  sx={{
-                    color: "#002140",
-                    fontSize: isSmallDevice ? "12px" : "inherit",
-                  }}
-                  component="small"
-                >
-                  Forgot password
-                </Typography>
+                <Link href={"/forgot-password"}>
+                  <Typography
+                    sx={{
+                      color: "#002140",
+                      fontSize: isSmallDevice ? "12px" : "inherit",
+                    }}
+                    component="small"
+                  >
+                    Forgot password
+                  </Typography>
+                </Link>
               </Box>
-
+              {successMessage && <SuccessMessage message={successMessage} />}
+              {errorMessage && <ErrorMessage message={errorMessage} />}
               <Button
                 type="submit"
                 sx={{
@@ -170,7 +221,11 @@ const Login = () => {
                 variant="outlined"
                 color="primary"
               >
-                Login
+                {loading ? (
+                  <span>Loading...</span>
+                ) : (
+                  " Login"
+                )}
               </Button>
               <Typography
                 sx={{
