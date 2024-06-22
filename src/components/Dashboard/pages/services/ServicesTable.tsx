@@ -119,27 +119,15 @@ export function ServicesTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row, index) => (
-              <TableRow
-                hover
-                key={index}
-                sx={{
-                  textAlign: "left",
-                }}
-              >
-                <TableCell>
-                  <Avatar src={row?.service_image} variant="square" />
-                </TableCell>
-                <TableCell>{row?.title}</TableCell>
-                {!isMobile && <TableCell>{row?.short_description}</TableCell>}
-                <TableCell
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(row?.description),
-                  }}
-                />
-                <TableCell>
-                  {dayjs(row?.createdAt).format("MMM D, YYYY")}
-                </TableCell>
+            {/* {rows?.map((row, index) => {
+              return (
+                <TableRow hover key={index}>
+                  <TableCell>
+                    <Avatar src={row?.service_image} variant="square" />
+                  </TableCell>
+                  <TableCell>{row?.title}</TableCell>
+                  <TableCell>{row?.short_description.slice(0, 50)}</TableCell>
+                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description.slice(0,30)) }} />
 
                 <TableCell>
                   <Box
@@ -172,7 +160,7 @@ export function ServicesTable({
                   </Box>
                 </TableCell>
               </TableRow>
-            ))}
+            ))} */}
           </TableBody>
         </Table>
       </Box>

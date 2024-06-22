@@ -18,6 +18,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./Investment.css";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import { Forward } from "@mui/icons-material";
+import Link from "next/link";
 
 export default function Investment() {
   const [value, setValue] = React.useState("1");
@@ -123,7 +124,7 @@ export default function Investment() {
             </li>
           </ul>
 
-          <Button sx={buttonStyle}>Know More</Button>
+          <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
@@ -189,7 +190,7 @@ export default function Investment() {
             </li>
           </ul>
 
-          <Button sx={buttonStyle}>Know More</Button>
+          <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
@@ -245,7 +246,7 @@ export default function Investment() {
             </li>
           </ul>
 
-          <Button sx={buttonStyle}>Know More</Button>
+          <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
@@ -263,7 +264,7 @@ export default function Investment() {
             In at lacus et tellus blandit tincidunt. Suspendisse id risus
             efficitur.
           </p>
-          <Button sx={buttonStyle}>Know More</Button>
+          <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
@@ -337,7 +338,7 @@ export default function Investment() {
             In at lacus et tellus blandit tincidunt. Suspendisse id risus
             efficitur.
           </p> */}
-          <Button sx={buttonStyle}>Know More</Button>
+         <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
@@ -412,7 +413,7 @@ export default function Investment() {
             In at lacus et tellus blandit tincidunt. Suspendisse id risus
             efficitur.
           </p> */}
-          <Button sx={buttonStyle}>Know More</Button>
+         <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
