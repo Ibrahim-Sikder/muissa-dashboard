@@ -22,6 +22,8 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import Iframe from "react-iframe";
 import MUITextArea from "@/components/Forms/TextArea";
 import { useCreateClientMutation } from "@/redux/api/clientApi";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const validationSchema = z.object({
   name: z.string().min(1, "নাম আবশ্যক"),
@@ -37,13 +39,16 @@ const defaultValues = {
 };
 
 const Contact = () => {
-  const [createClient, { isError }] = useCreateClientMutation();
-
+  const [createClient,data,] = useCreateClientMutation();
+  const router = useRouter()
+console.log(data)
   const handleSubmit = async (data: FieldValues) => {
 
     try {
       const res = await createClient(data).unwrap;
       console.log(res);
+      router.push('/')
+      toast.success('/Thank you for contact us!')
     } catch (err) {
       console.log(err);
     }

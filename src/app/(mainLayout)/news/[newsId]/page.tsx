@@ -20,11 +20,86 @@ import { HiChevronRight } from "react-icons/hi";
 
 import React from "react";
 import CommentForm from "../_components/CommentForm";
+import ReactHtmlParser from "react-html-parser";
+
+const renderContent = (content: string) => {
+  const parsedContent = ReactHtmlParser(content);
+
+  return parsedContent.map((element, index) => {
+    if (element.type === "h1") {
+      return (
+        <h1 key={index} className="text-3xl font-bold mb-4">
+          {element.props.children}
+        </h1>
+      );
+    } else if (element.type === "h2") {
+      return (
+        <h2 key={index} className="text-2xl font-bold mb-3 ">
+          {element.props.children}
+        </h2>
+      );
+    } else if (element.type === "h3") {
+      return (
+        <h3 key={index} className="text-xl font-bold mb-2 ">
+          {element.props.children}
+        </h3>
+      );
+    } else if (element.type === "p") {
+      return (
+        <p key={index} className="mb-2">
+          {element.props.children}
+        </p>
+      );
+    } 
+    
+    // else if (element.type === "img") {
+    //   return (
+    //     <img
+    //       key={index}
+    //       className="w-full h-auto object-cover mb-4 hidden "
+    //       src={element.props.src}
+    //       alt="Blog Image"
+    //     />
+    //   );
+    // } 
+    
+    else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-center"
+    ) {
+      return (
+        <div key={index} className="text-center mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-right"
+    ) {
+      return (
+        <div key={index} className="text-right mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else if (
+      element.type === "div" &&
+      element.props.className === "ql-align-left"
+    ) {
+      return (
+        <div key={index} className="text-left mb-2">
+          {element.props.children}
+        </div>
+      );
+    } else {
+      return null;
+    }
+  });
+};
 
 
 interface BlogId {
     params: {
-        blogId: string
+        newsId: string
     }
 }
 
@@ -44,17 +119,6 @@ const News = async ({ params }: BlogId) => {
     });
     const blog = await res.json()
     console.log('blog data ',blog)
-
-    // const paginatedBlogs = applyPagination(blogs, page, rowsPerPage);
-
-    // const [currentPage, setCurrentPage] = React.useState();
-    // const [limit, setLimit] = React.useState(10);
-
-    // const { data: blogData, error, isLoading, refetch } = useGetSingleBlogQuery(undefined);
-    // if (isLoading) {
-    //     return <p>Loading</p>
-    // }
-    // console.log(blogData)
 
 
     const buttonStyle = {
@@ -79,20 +143,21 @@ const News = async ({ params }: BlogId) => {
         },
     ];
 
-    // const formatDate = (dateString) => {
-    //     const date = new Date(dateString);
-    //     return new Intl.DateTimeFormat("en-GB", {
-    //       day: "2-digit",
-    //       month: "short",
-    //       year: "numeric"
-    //     }).format(date);
-    //   };
+    const formatDate = (dateString: string) => {
+        const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        return new Date(dateString).toLocaleDateString("en-US",);
+      };
 
     return (
         <>
             <div className="serviceDetailsWrap aboutWraps">
                 <div className="aboutContent">
-                    <h1>What we are capable to usually discovered.</h1>
+                    {/* <h1>What we are capable to usually discovered.</h1> */}
+                    <h1>{blog?.data.title}</h1>
                 </div>
             </div>
             <Container>
@@ -204,7 +269,7 @@ const News = async ({ params }: BlogId) => {
                             <div className="my-5 px-5 ">
                                 <div className="flex items-center space-x-3 ">
                                     <FaCalendarAlt />
-                                    <span>{blog?.data?.createdAt}</span>
+                                    <span>{formatDate(blog?.data?.createdAt)}</span>
                                     <FaUser />
                                     <span> {blog?.data?.author}</span>
                                 </div>
@@ -212,7 +277,8 @@ const News = async ({ params }: BlogId) => {
                             </div>
 
                             <div className="blogContent px-5 space-y-8 py-5 rounded-md ">
-                                <div>
+                            {renderContent(blog?.data?.description)}
+                                {/* <div>
                                     <p>
                                         It is a long established fact that a reader will be
                                         distracted by the readable content of a page when looking at
@@ -283,7 +349,7 @@ const News = async ({ params }: BlogId) => {
                                         projects for a large multinational, I realise how very
                                         difficult it sometimes can be on the receiving.
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
 
