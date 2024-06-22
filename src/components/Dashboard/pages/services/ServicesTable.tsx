@@ -117,8 +117,8 @@ export function ServicesTable({
                     <Avatar src={row?.service_image} variant="square" />
                   </TableCell>
                   <TableCell>{row?.title}</TableCell>
-                  <TableCell>{row?.short_description}</TableCell>
-                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description) }} />
+                  <TableCell>{row?.short_description.slice(0, 50)}</TableCell>
+                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description.slice(0,30)) }} />
 
                  
                   <TableCell>{dayjs(row?.createdAt).format("MMM D, YYYY")}</TableCell>

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 export interface ServiceCategory {
   _id: string;

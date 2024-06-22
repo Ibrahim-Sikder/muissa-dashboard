@@ -19,20 +19,17 @@ const InvestmentCircle = () => {
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={5}>
             <Typography variant="h4" component="h2" sx={{ fontWeight: "bold" }}>
-              AN INVESTMENT IN KNOWLEDGE PAYS THE BEST INTEREST...
+            আমাদের সাথে আপনার যাত্রা শুরু করুন
             </Typography>
-            <Typography
+            {/* <Typography
               variant="h6"
               component="h3"
               sx={{ mt: 2, fontWeight: "bold" }}
             >
               — BENJAMIN FRANKLIN
-            </Typography>
+            </Typography> */}
             <Typography sx={{ mt: 4 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Amet
-              consectetur adipiscing elit. Ut elit tellus, luctus nec
-              ullamcorper mattis.
+            আপনার ব্যবসার উন্নতির জন্য আমাদের পরামর্শক ও বিনিয়োগ পরিষেবা গ্রহণ করুন। আমাদের বিশেষজ্ঞ দল আপনাকে সঠিক দিকনির্দেশনা এবং লাভজনক বিনিয়োগ সুযোগ প্রদান করবে। আমাদের সাথে আপনার ব্যবসার সাফল্যের যাত্রা শুরু করুন।
             </Typography>
           </Grid>
           <Grid

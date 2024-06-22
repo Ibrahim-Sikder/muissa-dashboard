@@ -19,7 +19,7 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import axios from "axios";
 import { toast } from "sonner";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 const validationSchema = z.object({
   category: z.string().min(1, "Service category name is required"),

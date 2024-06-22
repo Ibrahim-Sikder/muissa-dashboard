@@ -21,9 +21,10 @@ import INTSelect from "@/components/Forms/Select";
 import axios from "axios";
 import { toast } from "sonner";
 import { getCookie } from "@/helpers/Cookies";
-import { useGetAllCategoryQuery } from "@/redux/api/baseApi";
+
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
+import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 interface ServiceCategory {
   id: number;
