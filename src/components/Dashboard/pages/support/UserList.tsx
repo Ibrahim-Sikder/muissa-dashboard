@@ -66,6 +66,8 @@ const UserList: React.FC<UserListProps> = ({
     router.push(url);
   };
 
+  console.log(users)
+
   return (
     <List className=" cursor-pointer">
       {users?.map((user) => (
@@ -74,11 +76,11 @@ const UserList: React.FC<UserListProps> = ({
           onClick={() => onClick(user?.sender?._id)}
           sx={{
             p: 2,
-            backgroundColor: userId === user.sender._id ? "#e0e0e0" : "inherit",
+            backgroundColor: userId === user?.sender?._id ? "#e0e0e0" : "inherit",
           }}
         >
           <Badge
-            color={onlineUser.includes(user.sender._id) ? "success" : "default"}
+            color={onlineUser.includes(user?.sender?._id) ? "success" : "default"}
             variant="dot"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             overlap="circular"
@@ -99,12 +101,12 @@ const UserList: React.FC<UserListProps> = ({
             sx={{
               p: 2,
               backgroundColor:
-                userId === user.sender._id ? "#e0e0e0" : "inherit",
+                userId === user?.sender?._id ? "#e0e0e0" : "inherit",
             }}
           >
             <Badge
               color={
-                onlineUser.includes(user.sender._id) ? "success" : "default"
+                onlineUser.includes(user?.sender?._id) ? "success" : "default"
               }
               variant="dot"
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
