@@ -46,6 +46,7 @@
 }
 .stickyContainer .navItems li p, .stickyNavItems li p {
   top: 50%;
+  color:black;
 }
 
 .navItems li::after {
