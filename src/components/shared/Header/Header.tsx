@@ -211,16 +211,18 @@ const Header = () => {
                 </li>
  
                 {authenticated ? (
-                  <li onClick={logOut} className="cursor-pointer text-white">Logout</li>
+                  <li onClick={logOut} className="cursor-pointer text-white">
+                    <p>Logout</p>
+                  </li>
                 ) : (
                   <li>
                     <Link href="/login">Login</Link>
                   </li>
                 )}
  
-                <li>
+                {/* <li>
                   <Link href="/login">Login</Link>
-                </li>
+                </li> */}
                 <IconButton aria-label={notificationsLabel(100)}>
                   <Badge badgeContent={100} color="primary">
                     <Notifications
@@ -270,7 +272,7 @@ const Header = () => {
             </div>
           </Link>
           <nav className="mt-5">
-            <ul className="">
+            <ul className="stickyNavItems">
               <li>
                 <Link href="/">Home</Link>
               </li>
@@ -285,7 +287,7 @@ const Header = () => {
                 <Link href="/contact">Contact </Link>
               </li>
               {authenticated ? (
-                <li onClick={logOut} className=" cursor-pointer text-white">Logout</li>
+                <li onClick={logOut} className=" cursor-pointer text-white"><p>Logout</p></li>
               ) : (
                 <li>
                   <Link href="/login">Login</Link>

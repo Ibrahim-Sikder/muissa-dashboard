@@ -33,12 +33,11 @@ const INTSelect = ({
     <Controller
       control={control}
       name={name}
+      defaultValue=""
       render={({ field }) => (
         <TextField
           {...field}
-          sx={{
-            ...sx,
-          }}
+          sx={{ ...sx }}
           size={size}
           select
           label={label}
@@ -52,9 +51,7 @@ const INTSelect = ({
               onChange(e.target.value);
             }
           }}
-          helperText={
-            isError ? (formState.errors[name]?.message as string) : ""
-          }
+          helperText={isError ? (formState.errors[name]?.message as string) : ""}
         >
           {items.map((item) => (
             <MenuItem key={item} value={item}>

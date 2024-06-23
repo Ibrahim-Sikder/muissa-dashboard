@@ -250,24 +250,65 @@ export default function Investment() {
         </div>
       ),
     },
-
     {
       value: "4",
       label: "আইটি সাপোর্ট ",
-      image: investment4.src,
+      image: investment3.src,
       content: (
         <div className="investmentContent">
-          <h3>ETIAM CURSUS PURUS VEL QUAM SOLLICITUDIN, SIT AMET SUSCIPIT</h3>
-          <p className="my-3 leading-7">
-            Ut nunc leo, sodales nec ullamcorper sit amet, pulvinar nec purus.
-            Aliquam sit amet accumsan felis. Duis sollicitudin consectetur quam.
-            In at lacus et tellus blandit tincidunt. Suspendisse id risus
-            efficitur.
-          </p>
+          <ul className="space-y-3">
+           
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              ব্যবহারকারীর চাহিদা অনুযায়ী সম্পূর্ণ ওয়েবসাইট তৈরি।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              সার্চ ইঞ্জিন অপটিমাইজেশন (SEO) ও সার্চ ইঞ্জিন মার্কেটিং (SEM)।
+              সোশ্যাল মিডিয়া মার্কেটিং ও কনটেন্ট মার্কেটিং।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              অ্যান্ড্রয়েড ও iOS প্ল্যাটফর্মের জন্য নেটিভ এবং হাইব্রিড অ্যাপ তৈরি।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              আধুনিক ও ক্রিয়েটিভ ইউজার ইন্টারফেস ডিজাইন।
+              </span>
+            </li>
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">
+              প্রতিষ্ঠানের সকল ডিপার্টমেন্টের কার্যক্রম একত্রিত করার জন্য ইআরপি সিস্টেম।
+              </span>
+            </li>
+           
+            
+            <li className="flex items">
+              {" "}
+              <Forward />{" "}
+              <span className="ml-2">প্রতিষ্ঠানের আইটি অবকাঠামো ও সিকিউরিটি ব্যবস্থার পর্যালোচনা। </span>
+            </li>
+          </ul>
+
           <Button component={Link} href='/services'  sx={buttonStyle}>Know More</Button>
         </div>
       ),
     },
+
+  
     {
       value: "5",
       label: "ফান্ডিং সাপোর্ট ",

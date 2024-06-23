@@ -119,9 +119,13 @@ const Profile = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [memberShip, setMembership] = useState<MemberShip>({});
-  const {data:memberData} = useGetAllMembersQuery()
-  console.log(memberData,'memebership')
-  console.log(memberShip);
+
+  console.log('memebershipt data', memberShip);
+
+  // const {data} = useGetAllMembersQuery({})
+
+
+
   const defaultValues: MemberShip = {
     profile_pic: memberShip?.profile_pic || "",
     name: memberShip?.name || "",
@@ -204,6 +208,9 @@ const Profile = () => {
     };
   }, [token]);
 
+  console.log(userData)
+
+
   useEffect(() => {
     if (!member_type || !id) return;
 
@@ -280,8 +287,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-          : null;
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+            : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -324,7 +331,7 @@ const Profile = () => {
       if (error.response) {
         console.log(error);
         const { status, data } = error.response;
-        if ([400, 404,401, 409, 500].includes(status)) {
+        if ([400, 404, 401, 409, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
@@ -366,7 +373,7 @@ const Profile = () => {
     },
   };
 
- 
+
   return (
     <>
       {loading ? (
@@ -511,7 +518,7 @@ const Profile = () => {
                             label="ব্যবসার নাম "
                             fullWidth
                             size="medium"
-                          
+
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={12}>

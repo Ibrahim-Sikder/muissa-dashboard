@@ -56,23 +56,46 @@ const UpdateService = ({ id }: { id: string }) => {
     refetch: refetchService,
   } = useGetSingleServiceQuery({ id });
 
+  const { data: categoryData, isLoading: categoryLoading, refetch } = useGetAllCategoryQuery({});
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(validationSchema),
+    defaultValues: {
+      title: "",
+      category: "",
+      sub_category: "",
+      short_description: "",
+      description: "",
+      service_image: "",
+    },
+  });
+
+  useEffect(() => {
+    if (service) {
+      reset({
+        title: service?.title || "",
+        category: service?.category || "",
+        sub_category: service?.sub_category || "",
+        short_description: service?.short_description || "",
+        description: service?.description || "",
+        service_image: service?.service_image || "",
+      });
+      setImageUrl(service?.service_image || "");
+      setSelectedCategory(service?.category || "");
+    }
+  }, [service, reset]);
+
   const [updateService] = useUpdateServiceMutation();
-
-  const defaultValues = {
-    title: service?.title,
-    category: service?.category,
-    sub_category: service?.sub_category,
-    short_description: service?.short_description,
-    description: service?.description,
-    service_image: service?.service_image,
-  };
-
   const token = getCookie("mui-token");
-  const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
-  const handleSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: FieldValues) => {
     setLoading(true);
-
     setSuccessMessage("");
     setErrorMessage([]);
 
@@ -102,11 +125,11 @@ const UpdateService = ({ id }: { id: string }) => {
     setSelectedCategory(value);
   };
 
-  if (serviceLoading || isLoading) {
+  if (serviceLoading || categoryLoading) {
     return <Loader />;
   }
 
-  const selectedCategoryData = category?.find(
+  const selectedCategoryData = categoryData?.find(
     (cat: ServiceCategory) => cat?.category === selectedCategory
   );
 
@@ -114,11 +137,7 @@ const UpdateService = ({ id }: { id: string }) => {
 
   return (
     <Stack spacing={3}>
-      <MUIForm
-        onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={defaultValues}
-      >
+      <MUIForm onSubmit={onSubmit}>
         <Card
           sx={{
             display: "flex",
@@ -151,6 +170,10 @@ const UpdateService = ({ id }: { id: string }) => {
                   label="Service Title"
                   type="text"
                   fullWidth={true}
+                  inputRef={register}
+                  defaultValue={service?.title}
+                  error={!!errors.title}
+                  helperText={errors.title?.message}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -158,17 +181,20 @@ const UpdateService = ({ id }: { id: string }) => {
                   name="category"
                   label="Category"
                   items={
-                    Array.isArray(category)
-                      ? category.map(
-                          (cat: { category: string }) => cat.category
-                        )
+                    Array.isArray(categoryData)
+                      ? categoryData.map(
+                        (cat: { category: string }) => cat.category
+                      )
                       : []
                   }
                   onChange={handleCategoryChange}
+                  defaultValue={service?.category}
+                  inputRef={register}
+                  error={!!errors.category}
+                  helperText={errors.category?.message}
                 />
               </Grid>
 
-              {/* subcategory */}
               <Grid item xs={12} md={4}>
                 <INTSelect
                   name="sub_category"
@@ -176,6 +202,10 @@ const UpdateService = ({ id }: { id: string }) => {
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
+                  defaultValue={service?.sub_category}
+                  inputRef={register}
+                  error={!!errors.sub_category}
+                  helperText={errors.sub_category?.message}
                 />
               </Grid>
 
@@ -186,11 +216,22 @@ const UpdateService = ({ id }: { id: string }) => {
                   type="text"
                   multiline={true}
                   fullWidth={true}
+                  inputRef={register}
+                  defaultValue={service?.short_description}
+                  error={!!errors.short_description}
+                  helperText={errors.short_description?.message}
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <RichtextEditor name="description" label="Description" />
+                <RichtextEditor
+                  name="description"
+                  label="Description"
+                  defaultValue={service?.description}
+                  inputRef={register}
+                  error={!!errors.description}
+                  helperText={errors.description?.message}
+                />
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -198,6 +239,9 @@ const UpdateService = ({ id }: { id: string }) => {
                   name="service_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
+                  inputRef={register}
+                  error={!!errors.service_image}
+                  helperText={errors.service_image?.message}
                 />
               </Grid>
             </Grid>
@@ -215,7 +259,7 @@ const UpdateService = ({ id }: { id: string }) => {
             }}
           >
             <Button
-              disabled={loading || isLoading || !imageUrl}
+              disabled={loading || categoryLoading || !imageUrl}
               type="submit"
               variant="contained"
             >

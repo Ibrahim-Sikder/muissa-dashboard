@@ -31,7 +31,20 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.navItems li  p, .stickyNavItems li p {
+  position: absolute;
+  z-index: 999999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .stickyContainer .navItems li > a {
+  top: 50%;
+}
+.stickyContainer .navItems li p, .stickyNavItems li p {
+  top: 50%;
+}
+.stickyContainer .navItems li p, .stickyNavItems li p {
   top: 50%;
 }
 
