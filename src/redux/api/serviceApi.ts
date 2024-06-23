@@ -13,6 +13,7 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "GET",
         params: { page, limit },
       }),
+      providesTags: ["service"],
     }),
     getSingleService: builder.query({
       query: ({ id }) => ({
@@ -38,6 +39,18 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "PUT",
         data,
       }),
+
+      invalidatesTags: ["service"],
+    }),
+
+    deleteService: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/services/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["service"],
     }),
   }),
 });
@@ -48,4 +61,5 @@ export const {
   useGetSingleServiceQuery,
   useGetAllServicesQuery,
   useUpdateServiceMutation,
+  useDeleteServiceMutation,
 } = serviceApi;

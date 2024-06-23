@@ -20,7 +20,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import MUIModal from "@/components/shared/MUIModal/MUIModal";
 import ServiceCategoryForm from "./ServiceCategoryForm";
 import ServiceSubcategoryTable from "./ServiceSubcategoryTable";
@@ -29,6 +29,8 @@ import ServiceSubcategoryForm from "./ServiceSubcategoryForm";
 import DOMPurify from "dompurify";
 import dayjs from "dayjs";
 import { FaPencil } from "react-icons/fa6";
+import { useDeleteServiceMutation } from "@/redux/api/serviceApi";
+import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 
 function noop(): void {
   // do nothing
@@ -39,6 +41,8 @@ export interface Service {
   title: string;
   description: string;
   short_description: string;
+  category: string;
+  sub_category: string;
   createdAt: string;
   service_image: string;
 }
@@ -60,6 +64,12 @@ export function ServicesTable({
   const [openSubModal, setOpenSubModal] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [deleteService, { isLoading: isDeletingService }] =
+    useDeleteServiceMutation();
+
+  const handleDeleteService = async (serviceId: string) => {
+    await deleteService(serviceId);
+  };
 
   return (
     <Card
@@ -112,55 +122,60 @@ export function ServicesTable({
             <TableRow>
               <TableCell>Image</TableCell>
               <TableCell>Service Name</TableCell>
-              {!isMobile && <TableCell>Short Description</TableCell>}
-              <TableCell>Description</TableCell>
-              <TableCell>Last Updated</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Subctegories</TableCell>
+              <TableCell>Published Date</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows?.map((row, index) => {
-              return (
-                <TableRow hover key={index}>
-                  <TableCell>
-                    <Avatar src={row?.service_image} variant="square" />
-                  </TableCell>
-                  <TableCell>{row?.title}</TableCell>
-                  <TableCell>{row?.short_description.slice(0, 50)}</TableCell>
-                  <TableCell dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(row?.description.slice(0,30)) }} />
+            {rows.map((row) => (
+              <TableRow key={row._id}>
+                <TableCell>
+                  <Avatar
+                    alt={row.title}
+                    src={row.service_image}
+                    sx={{ width: 50, height: 50 }}
+                  />
+                </TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.category}</TableCell>
+                <TableCell>{row.sub_category}</TableCell>
+                <TableCell>
+                  {dayjs(row.createdAt).format("DD MMM YYYY")}
+                </TableCell>
 
                 <TableCell>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: "1rem",
-                    }}
-                  >
-                    <Link href={`/dashboard/services/edit/${row?._id}`}>
+                  <Stack direction="row" spacing={1}>
+                    <Link href={`/dashboard/services/${row._id}`}>
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        size="small"
+                        startIcon={<FaEye />}
+                      >
+                        View
+                      </Button>
+                    </Link>
+
+                    <Link href={`/dashboard/services/edit/${row._id}`}>
                       <Button
                         color="primary"
                         variant="outlined"
                         size="small"
-                        sx={{ textTransform: "none" }}
                         startIcon={<FaPencil />}
                       >
-                        Update
+                        Edit
                       </Button>
                     </Link>
-
-                    <Button
-                      color="error"
-                      variant="outlined"
-                      size="small"
-                      sx={{ textTransform: "none" }}
-                      startIcon={<FaTrash />}
-                    >
-                      Delete
-                    </Button>
-                  </Box>
+                    <DeleteButtonWithConfirmation
+                      onDelete={() => handleDeleteService(row._id)}
+                      isLoading={isDeletingService}
+                    />
+                  </Stack>
                 </TableCell>
               </TableRow>
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </Box>
