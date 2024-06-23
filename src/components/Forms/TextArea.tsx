@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { SxProps } from '@mui/system';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import { Controller, useFormContext } from 'react-hook-form';
+import * as React from "react";
+import { SxProps } from "@mui/system";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { Controller, useFormContext } from "react-hook-form";
 
 type TTextareaProps = {
   name: string;
@@ -24,15 +24,23 @@ const MUITextArea = ({
       control={control}
       name={name}
       rules={{ required }}
-      render={({ field, fieldState: { error } }) => (
+      render={({
+        field: { onChange, value },
+        fieldState: { error },
+        formState,
+      }) => (
         <TextareaAutosize
-          {...field}
+          onChange={onChange}
+          value={value}
+          defaultValue={
+            formState.dirtyFields[name] ? formState.dirtyFields[name] : value
+          }
           placeholder={placeholder}
           minRows={minRows}
-          style={{ 
-            width: '100%',
-            maxHeight: '100px',
-            ...(sx as React.CSSProperties)
+          style={{
+            width: "100%",
+            maxHeight: "100px",
+            ...(sx as React.CSSProperties),
           }}
         />
       )}

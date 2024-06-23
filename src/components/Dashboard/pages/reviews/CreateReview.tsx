@@ -32,8 +32,6 @@ const validationSchema = z.object({
 });
 
 const CreateReview = () => {
-  const [message, setMessage] = useState<string>("");
-
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -51,7 +49,6 @@ const CreateReview = () => {
     setErrorMessage([]);
 
     data.review_image = imageUrl;
-    data.message = message;
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/create-review`,
@@ -62,11 +59,10 @@ const CreateReview = () => {
           },
         }
       );
-      console.log(response);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        refetch()
+        refetch();
         router.push("/dashboard/reviews");
         setLoading(false);
       }
@@ -130,15 +126,13 @@ const CreateReview = () => {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <TextField
+                  <MUIInput
                     name="message"
                     label="Message"
                     placeholder="Write your review here"
                     multiline
                     rows={6}
                     fullWidth
-                    variant="outlined"
-                    onChange={(e: any) => setMessage(e.target.value)}
                   />
                 </Box>
               </Grid>

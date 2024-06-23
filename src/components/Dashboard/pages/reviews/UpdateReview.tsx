@@ -3,7 +3,7 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -21,10 +21,8 @@ import axios from "axios";
 import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-import {
-  useGetAllReviewsQuery,
-  useGetSingleReviewQuery,
-} from "@/redux/api/reviewApi";
+import { useGetSingleReviewQuery } from "@/redux/api/reviewApi";
+import Loader from "@/components/Loader";
 
 const validationSchema = z.object({
   name: z.string({ required_error: "NAme is required" }),
@@ -43,12 +41,9 @@ const UpdateReview = ({ id }: { id: string }) => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const token = getCookie("mui-token");
 
-  const {
-    data: review,
-    isLoading: reviewLoading,
-    refetch: refetchReview,
-  } = useGetSingleReviewQuery({ id: id });
+  const { data: review, isLoading, refetch } = useGetSingleReviewQuery(id);
 
   const defaultValues = {
     name: review?.name,
@@ -57,8 +52,12 @@ const UpdateReview = ({ id }: { id: string }) => {
     review_image: review?.review_image,
   };
 
-  const token = getCookie("mui-token");
-  const { refetch } = useGetAllReviewsQuery({});
+  useEffect(() => {
+    if (review) {
+      setMessage(review?.message);
+      setImageUrl(review?.review_image);
+    }
+  }, [review]);
 
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
@@ -69,8 +68,8 @@ const UpdateReview = ({ id }: { id: string }) => {
     data.review_image = imageUrl;
     data.message = message;
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/create-review`,
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/${id}`,
         data,
         {
           headers: {
@@ -100,6 +99,10 @@ const UpdateReview = ({ id }: { id: string }) => {
       setLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Stack spacing={3}>
@@ -141,15 +144,13 @@ const UpdateReview = ({ id }: { id: string }) => {
               </Grid>
               <Grid item xs={12}>
                 <Box>
-                  <TextField
+                  <MUIInput
                     name="message"
                     label="Message"
                     placeholder="Write your review here"
                     multiline
                     rows={6}
                     fullWidth
-                    variant="outlined"
-                    onChange={(e: any) => setMessage(e.target.value)}
                   />
                 </Box>
               </Grid>
@@ -174,7 +175,7 @@ const UpdateReview = ({ id }: { id: string }) => {
               type="submit"
               variant="contained"
             >
-              {loading ? "Creating..." : "Create"}
+              {loading ? "Updating..." : "Update Review"}
             </Button>
           </CardActions>
         </Card>

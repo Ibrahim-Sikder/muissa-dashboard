@@ -3,7 +3,7 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -27,6 +27,7 @@ import {
   useUpdateBlogMutation,
 } from "@/redux/api/blogApi";
 import { autoBatchEnhancer } from "@reduxjs/toolkit";
+import Loader from "@/components/Loader";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
@@ -58,8 +59,8 @@ const UpdateBlog = ({ id }: { id: string }) => {
     refetch: refetchBlog,
   } = useGetSingleBlogQuery(id);
 
-  const [updateBlog, { isLoading: updateBlogLoading }] =
-    useUpdateBlogMutation();
+  // const [updateBlog, { isLoading: updateBlogLoading }] =
+  //   useUpdateBlogMutation();
 
   const defaultValues = {
     title: blog?.title,
@@ -67,6 +68,12 @@ const UpdateBlog = ({ id }: { id: string }) => {
     description: blog?.description,
     author: blog?.author,
   };
+
+  useEffect(() => {
+    if (blog) {
+      setImageUrl(blog.blog_image);
+    }
+  }, [blog]);
 
   const token = getCookie("mui-token");
 
@@ -79,8 +86,8 @@ const UpdateBlog = ({ id }: { id: string }) => {
 
     data.blog_image = imageUrl;
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/blogs/create-blog`,
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/blogs/${id}`,
         data,
         {
           headers: {
@@ -111,13 +118,13 @@ const UpdateBlog = ({ id }: { id: string }) => {
     }
   };
 
+  if (blogLoading) {
+    return <Loader />;
+  }
+
   return (
     <Stack spacing={3}>
-      <MUIForm
-        onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={defaultValues}
-      >
+      <MUIForm onSubmit={handleSubmit} defaultValues={defaultValues}>
         <Card
           sx={{
             display: "flex",
@@ -195,7 +202,7 @@ const UpdateBlog = ({ id }: { id: string }) => {
               type="submit"
               variant="contained"
             >
-              {loading ? "Creating..." : "Create"}
+              {loading ? "Updating..." : "Update Blog"}
             </Button>
           </CardActions>
         </Card>

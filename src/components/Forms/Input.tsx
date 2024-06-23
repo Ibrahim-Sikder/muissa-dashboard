@@ -16,7 +16,7 @@ type TInputProps = {
   multiline?: boolean;
   rows?: number;
   disabled?: boolean;
-  value?:string
+  value?: string;
 };
 
 const MUIInput = ({
@@ -40,9 +40,13 @@ const MUIInput = ({
     <Controller
       control={control}
       name={name}
-      render={({ field, fieldState: { error } }) => (
+      render={({
+        field: { onChange, value },
+        fieldState: { error },
+        formState,
+      }) => (
         <TextField
-          {...field}
+          onChange={onChange}
           type={type}
           label={label}
           size={size}
@@ -57,6 +61,9 @@ const MUIInput = ({
           multiline={multiline}
           rows={rows}
           value={value}
+          defaultChecked={
+            formState.dirtyFields[name] ? formState.dirtyFields[name] : value
+          }
           disabled={disabled}
         />
       )}

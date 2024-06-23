@@ -67,6 +67,13 @@ const UpdateService = ({ id }: { id: string }) => {
     service_image: service?.service_image,
   };
 
+  useEffect(() => {
+    if (service) {
+      setSelectedCategory(service?.category);
+      setImageUrl(service?.service_image);
+    }
+  }, [service]);
+
   const token = getCookie("mui-token");
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 

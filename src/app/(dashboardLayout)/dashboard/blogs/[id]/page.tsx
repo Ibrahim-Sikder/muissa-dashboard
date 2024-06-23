@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ const BlogDetails = () => {
   const { id } = useParams();
   const router = useRouter();
 
-  const { data, error, isLoading, refetch } = useGetSingleBlogQuery({ id });
+  const { data, error, isLoading, refetch } = useGetSingleBlogQuery(id);
 
   if (isLoading) {
     return <Loader />;
@@ -33,44 +33,54 @@ const BlogDetails = () => {
   return (
     <Container maxWidth="xl" className="my-10">
       <Card className="w-full bg-white p-5" sx={{ boxShadow: "none" }}>
-        <Button
-          onClick={() => router.replace("/dashboard/blogs")}
-          variant="contained"
-          sx={{ marginBottom: 4 }}
-        >
-          Go Back
-        </Button>
+        <Box className="flex items-center space-x-4">
+          {" "}
+          <Button
+            onClick={() => router.replace("/dashboard/blogs")}
+            variant="contained"
+            sx={{ marginBottom: 4 }}
+          >
+            Go Back
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ marginBottom: 4 }}
+            onClick={() => refetch()}
+          >
+            Refresh
+          </Button>
+        </Box>
 
         <CardMedia
           component="img"
-          image={blog.blog_image}
-          alt={blog.title}
+          image={blog?.blog_image}
+          alt={blog?.title}
           className="rounded"
           sx={{ maxHeight: 500, objectFit: "cover" }}
         />
         <CardContent>
           <Typography variant="h4" component="h2" className="mb-4">
-            {blog.title}
+            {blog?.title}
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle1" color="textSecondary">
-                Author: {blog.author}
+                Author: {blog?.author}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle1" color="textSecondary">
-                Published: {new Date(blog.publishDate).toLocaleDateString()}
+                Published: {new Date(blog?.publishDate).toLocaleDateString()}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle1" color="textSecondary">
-                Status: {blog.status}
+                Status: {blog?.status}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="subtitle1" color="textSecondary">
-                Created: {new Date(blog.createdAt).toLocaleDateString()}
+                Created: {new Date(blog?.createdAt).toLocaleDateString()}
               </Typography>
             </Grid>
           </Grid>
@@ -83,7 +93,7 @@ const BlogDetails = () => {
           <Typography variant="body1" component="div" gutterBottom>
             <div
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(blog.short_description as string),
+                __html: DOMPurify.sanitize(blog?.short_description as string),
               }}
             />
           </Typography>
@@ -94,7 +104,7 @@ const BlogDetails = () => {
           <Typography variant="body1" component="div" gutterBottom>
             <div
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(blog.description as string),
+                __html: DOMPurify.sanitize(blog?.description as string),
               }}
             />
           </Typography>
