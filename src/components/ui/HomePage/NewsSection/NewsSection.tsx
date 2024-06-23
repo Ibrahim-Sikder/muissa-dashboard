@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
 import "./NewsSection.css";
-import news from "../../../../assets/news/news.jpg";
 import Image from "next/image";
 import Container from "../Container/Container";
 import { Button } from "@mui/material";
-import { ArrowBackIos } from "@mui/icons-material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,7 +12,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Link from "next/link";
 import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
-
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const NewsSection = () => {
   const page = 0;
@@ -90,11 +88,12 @@ const NewsSection = () => {
                 </div>
                 <div className="newsContent">
                   <h4>{blog.title}</h4>
-                  <p className="my-4">{blog.short_description}</p>
+                  <p className="my-4">{blog.short_description.slice(0,100)}</p>
                   <Button component={Link} href={`/news/${blog._id}`}>
                     <span>
                       Read More
-                      <ArrowBackIos sx={{ fontSize: "15px", marginLeft: "8px" }} />
+                      <KeyboardArrowRightIcon sx={{ fontSize: "15px", marginLeft: "8px" }} />
+                      
                     </span>
                   </Button>
                 </div>

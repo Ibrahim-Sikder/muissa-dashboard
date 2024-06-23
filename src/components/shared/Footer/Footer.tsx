@@ -23,24 +23,37 @@ const Footer = () => {
           <div className="flex text-center flex-col md:flex-row justify-center gap-14 md:justify-between  text-white md:text-left">
             <div className="md:w-[500px] w-full px-4">
               <div className="space-y-4">
-                <div className="flex md:flex-row flex-col md:justify-normal justify-center items-center mb-5">
-                  <Image src={logo} height={50} alt="logo" width={80} />
-                  <h4 className="text-white ml-2">
-                    Muissa Business <br /> Consulting Ltd.
-                  </h4>
+
+                <div className="flex items-center gap-2 justify-center md:justify-start">
+                  <EnvelopeIcon className="h-6 w-6" />
+                  <a href="mailto:muissaltd@gmail.com" className="text-blue-500">
+                    muissaltd@gmail.com
+                  </a>
                 </div>
+
                 <div className="flex items-center gap-2 justify-center md:justify-start">
                   <PhoneIcon className="h-6 w-6" />
-                  <p>09613244844</p>
+                  <a href="tel:09613244844" className="text-blue-500">
+                    09613244844
+                  </a>
                 </div>
+
                 <div className="flex items-center gap-2 justify-center md:justify-start">
                   <EnvelopeIcon className="h-6 w-6" />
                   <p>muissaltd@gmail.com</p>
                 </div>
-                <div className="flex items-center gap-2 justify-center md:justify-start">
-                  <FaWhatsapp size={24} />
-                  <p>01403-852850</p>
+                <div>
+                  <Link
+                    href="https://wa.me/8801403852850?text=Hi! how can we help you ?"
+                    target="_blank"
+                  >
+                    <div className="flex items-center gap-2 justify-center md:justify-start">
+                      <FaWhatsapp size={24} />
+                      <p>01403-852850</p>
+                    </div>
+                  </Link>
                 </div>
+
                 <div className="flex items-center gap-2 mt-4 justify-center md:justify-start">
                   <a
                     href="https://www.facebook.com/profile.php?id=61558510933789"
