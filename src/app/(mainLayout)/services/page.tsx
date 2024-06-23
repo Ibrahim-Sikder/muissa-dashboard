@@ -2,18 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import "./services.css";
-import {
-  Box,
-  Typography,
-  Tabs,
-  Tab,
-} from "@mui/material";
-import {
-  Drafts,
-  Forward,
-  LocalPhone,
-  LocationOn,
-} from "@mui/icons-material";
+import { Box, Typography, Tabs, Tab } from "@mui/material";
+import { Drafts, Forward, LocalPhone, LocationOn } from "@mui/icons-material";
 import Image from "next/image";
 import service from "../../../assets/logo/service4.jpg";
 import SpecialSupport from "./_component/Services/SpecialSupport";
@@ -21,8 +11,10 @@ import ServiceSlider from "./_component/Services/ServiceSlider";
 import Container from "@/components/ui/HomePage/Container/Container";
 import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
-import { useGetAllCategoryQuery, useGetAllServicesForHomeQuery } from "@/redux/api/serviceApi";
-
+import {
+  useGetAllCategoryQuery,
+  useGetAllServicesForHomeQuery,
+} from "@/redux/api/serviceApi";
 
 import ReactHtmlParser from "react-html-parser";
 
@@ -65,8 +57,7 @@ const renderContent = (content: string) => {
     //       alt="Blog Image"
     //     />
     //   );
-    // } 
-
+    // }
     else if (
       element.type === "div" &&
       element.props.className === "ql-align-center"
@@ -100,9 +91,6 @@ const renderContent = (content: string) => {
   });
 };
 
-
-
-
 const Page = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -115,7 +103,7 @@ const Page = () => {
     error: categoriesError,
     isLoading: categoriesLoading,
   } = useGetAllCategoryQuery({});
-  console.log('from servic epage ', categories)
+  console.log("from servic epage ", categories);
 
   const selectedCategoryData = categories?.[tabIndex] || {};
   const subCategories = selectedCategoryData?.sub_category || [];
@@ -152,9 +140,7 @@ const Page = () => {
 
     const firstSubCategoryId = categories[newValue]?.sub_category?.[0]?._id;
     if (firstSubCategoryId !== undefined) {
-      const subCategoryName = getSubCategoryName(
-        firstSubCategoryId.toString()
-      );
+      const subCategoryName = getSubCategoryName(firstSubCategoryId.toString());
       setSelectedSubCategory(subCategoryName);
     } else {
       setSelectedSubCategory("");
@@ -192,7 +178,7 @@ const Page = () => {
 
   useEffect(() => {
     if (servicesError) {
-      const { status, data } = servicesError;
+      const { status, data } = servicesError as any;
       if ([400, 401, 404, 409, 500].includes(status)) {
         setErrorMessage(data.message);
         setSelectedSubCategory("");
@@ -209,7 +195,7 @@ const Page = () => {
   }
 
   const tabStyle = {
-    background: '#00305C',
+    background: "#00305C",
   };
 
   return (
@@ -240,7 +226,7 @@ const Page = () => {
                   },
                   "&:hover": {
                     backgroundColor: "#d0e8f2",
-                    color: 'black'
+                    color: "black",
                   },
                 },
               }}
@@ -344,7 +330,16 @@ const Page = () => {
                         __html: DOMPurify.sanitize(services[0]?.description),
                       }}
                     /> */}
-                    <p className="my-10">ব্যবসায়ীদের কেবল ব্যবসার জন্য পণ্য সংগ্রহ করাই শেষ কাজ নয়। পণ্য সংগ্রহের পর তাদের মূল উদ্দেশ্য থাকে তার ক্রেতা বা ভোক্তার নিকট পণ্য বিক্রয় করা এবং মুনাফা অর্জন করা। কিন্তু সকল ব্যবসায়ী তাদের বিক্রয় সেবায় দক্ষ না থাকায় তারা সঠিক ভাবে বিক্রয় সেবা ভোক্তাকে দিতে সক্ষম নয়। যার ফলে প্রতিষ্ঠানের আশানুরুপ প্রবৃদ্ধি হয় না। বিক্রয় সেবার জন্য তাকে বিভিন্ন সমস্যার সম্মুখিন হতে হয়। তার মধ্যে কিছু সমস্যা হলো:</p>
+                    <p className="my-10">
+                      ব্যবসায়ীদের কেবল ব্যবসার জন্য পণ্য সংগ্রহ করাই শেষ কাজ নয়।
+                      পণ্য সংগ্রহের পর তাদের মূল উদ্দেশ্য থাকে তার ক্রেতা বা
+                      ভোক্তার নিকট পণ্য বিক্রয় করা এবং মুনাফা অর্জন করা। কিন্তু
+                      সকল ব্যবসায়ী তাদের বিক্রয় সেবায় দক্ষ না থাকায় তারা সঠিক
+                      ভাবে বিক্রয় সেবা ভোক্তাকে দিতে সক্ষম নয়। যার ফলে
+                      প্রতিষ্ঠানের আশানুরুপ প্রবৃদ্ধি হয় না। বিক্রয় সেবার জন্য
+                      তাকে বিভিন্ন সমস্যার সম্মুখিন হতে হয়। তার মধ্যে কিছু
+                      সমস্যা হলো:
+                    </p>
 
                     <div className="">
                       <ul className="space-y-3">
@@ -352,33 +347,41 @@ const Page = () => {
                           {" "}
                           <Forward />{" "}
                           <span className="ml-2">
-                            বিক্রয় সেবায় পারদর্শী না থাকায় প্রতিষ্ঠানের আশানুরূপ Sales Generate করতে সক্ষম হয় না।
+                            বিক্রয় সেবায় পারদর্শী না থাকায় প্রতিষ্ঠানের আশানুরূপ
+                            Sales Generate করতে সক্ষম হয় না।
                           </span>
                         </li>
                         <li className="flex items">
                           {" "}
                           <Forward />{" "}
                           <span className="ml-2">
-                            ভোক্তার নিকট পণ্য পৌছানোর জন্য ডেলিভারি কোম্পানির নিকট শরণাপন্ন হতে হয়। ডেলিভারি কোম্পানি গুলো সময় মতো পণ্য ক্রেতার নিকট পৌছাতে পারে না। যার ফলে অর্থ ও সময়ের অপচয় হয়।
-                          </span>
-                        </li>
-                        <li className="flex items">
-                          {" "}
-                          <Forward />{" "}
-                          <span className="ml-2">	ব্যবসায়ীদের বিজ্ঞাপণের জন্য বাজেট তৈরি করতে হয়।</span>
-                        </li>
-                        <li className="flex items">
-                          {" "}
-                          <Forward />{" "}
-                          <span className="ml-2">
-                            বিক্রয় বৃদ্ধির জন্য ব্যবসায়ীরা এজেন্সির নিকট শরণাপন্ন হন। যেটা অনেক ব্যয়বহুল প্রক্রিয়া।
+                            ভোক্তার নিকট পণ্য পৌছানোর জন্য ডেলিভারি কোম্পানির
+                            নিকট শরণাপন্ন হতে হয়। ডেলিভারি কোম্পানি গুলো সময় মতো
+                            পণ্য ক্রেতার নিকট পৌছাতে পারে না। যার ফলে অর্থ ও
+                            সময়ের অপচয় হয়।
                           </span>
                         </li>
                         <li className="flex items">
                           {" "}
                           <Forward />{" "}
                           <span className="ml-2">
-                            ব্যবসায়ীদের নিজস্ব অভিজ্ঞ ও দক্ষ Sales টিম না থাকায় তারা সঠিক উপায়ে কাস্টমার সার্ভিস দিতে ব্যর্থ হয়।
+                             ব্যবসায়ীদের বিজ্ঞাপণের জন্য বাজেট তৈরি করতে হয়।
+                          </span>
+                        </li>
+                        <li className="flex items">
+                          {" "}
+                          <Forward />{" "}
+                          <span className="ml-2">
+                            বিক্রয় বৃদ্ধির জন্য ব্যবসায়ীরা এজেন্সির নিকট
+                            শরণাপন্ন হন। যেটা অনেক ব্যয়বহুল প্রক্রিয়া।
+                          </span>
+                        </li>
+                        <li className="flex items">
+                          {" "}
+                          <Forward />{" "}
+                          <span className="ml-2">
+                            ব্যবসায়ীদের নিজস্ব অভিজ্ঞ ও দক্ষ Sales টিম না থাকায়
+                            তারা সঠিক উপায়ে কাস্টমার সার্ভিস দিতে ব্যর্থ হয়।
                           </span>
                         </li>
                         <li className="flex items">
@@ -403,12 +406,7 @@ const Page = () => {
                           </span>
                         </li>
                       </ul>
-
-
                     </div>
-
-
-
                   </>
                 )}
               </Box>

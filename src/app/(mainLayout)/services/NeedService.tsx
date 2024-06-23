@@ -26,7 +26,10 @@ import Container from "@/components/ui/HomePage/Container/Container";
 import { ServiceCategory } from "@/components/Dashboard/pages/services/ServiceSubcategoryTable";
 import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
-import { useGetAllCategoryQuery, useGetAllServicesForHomeQuery } from "@/redux/api/serviceApi";
+import {
+  useGetAllCategoryQuery,
+  useGetAllServicesForHomeQuery,
+} from "@/redux/api/serviceApi";
 
 const Page = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
@@ -73,30 +76,30 @@ const Page = () => {
 
   const handleAccordionChange =
     (panel: string, categoryId: string) =>
-      (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
-        setSubTabIndex(0); // Reset subTabIndex when accordion changes
-        if (isExpanded) {
-          const categoryName = getCategoryName(categoryId);
+    (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      setSubTabIndex(0); // Reset subTabIndex when accordion changes
+      if (isExpanded) {
+        const categoryName = getCategoryName(categoryId);
 
-          setSelectedCategory(categoryName);
-          setErrorMessage([]);
+        setSelectedCategory(categoryName);
+        setErrorMessage([]);
 
-          const firstSubCategoryId = categories.find(
-            (cat: any) => cat.category === categoryName
-          )?.sub_category[0]?._id;
+        const firstSubCategoryId = categories.find(
+          (cat: any) => cat.category === categoryName
+        )?.sub_category[0]?._id;
 
-          if (firstSubCategoryId !== undefined) {
-            const subCategoryName = getSubCategoryName(
-              firstSubCategoryId.toString()
-            );
+        if (firstSubCategoryId !== undefined) {
+          const subCategoryName = getSubCategoryName(
+            firstSubCategoryId.toString()
+          );
 
-            setSelectedSubCategory(subCategoryName);
-          } else {
-            setSelectedSubCategory("");
-          }
+          setSelectedSubCategory(subCategoryName);
+        } else {
+          setSelectedSubCategory("");
         }
-      };
+      }
+    };
 
   const handleSubTabChange = (
     event: any,
@@ -129,7 +132,7 @@ const Page = () => {
 
   useEffect(() => {
     if (servicesError) {
-      const { status, data } = servicesError;
+      const { status, data } = servicesError as any;
       if ([400, 401, 404, 409, 500].includes(status)) {
         setErrorMessage(data.message);
         setSelectedSubCategory("");
@@ -167,7 +170,7 @@ const Page = () => {
                       marginBottom: "10px",
                     },
                     boxShadow: "none !important",
-                    width: '100%',
+                    width: "100%",
                   }}
                 >
                   <AccordionSummary
@@ -204,7 +207,6 @@ const Page = () => {
                       orientation="vertical"
                       variant="scrollable"
                       sx={{
-                        
                         padding: "10px",
                         "@media (max-width: 600px)": {
                           flexDirection: "row",
@@ -212,7 +214,7 @@ const Page = () => {
                           ".MuiTab-root": {
                             flex: "1 0 50%",
                             marginBottom: "10px",
-                            width: '100px'
+                            width: "100px",
                           },
                         },
                       }}
@@ -223,7 +225,6 @@ const Page = () => {
                           label={sub?.sub_category}
                           key={sub?._id}
                           sx={{
-
                             color:
                               subTabIndex === subIndex ? "#00305C" : "#1591A3",
                             background:
@@ -302,7 +303,6 @@ const Page = () => {
                   <Image
                     src={services[0]?.service_image || service}
                     alt={services[0]?.category}
-                  
                     height={475}
                     className="rounded-t-lg h-full w-full object-cover absolute"
                   />
@@ -316,7 +316,7 @@ const Page = () => {
                   padding: "20px 0",
                   background: "#ffffff",
                   borderRadius: "0px 0px 5px 5px",
-                  width: '200px'
+                  width: "200px",
                 }}
               >
                 {expanded && (

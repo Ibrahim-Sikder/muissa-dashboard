@@ -24,7 +24,10 @@ import Container from "@/components/ui/HomePage/Container/Container";
 import { ServiceCategory } from "@/components/Dashboard/pages/services/ServiceSubcategoryTable";
 import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
-import { useGetAllCategoryQuery, useGetAllServicesForHomeQuery } from "@/redux/api/serviceApi";
+import {
+  useGetAllCategoryQuery,
+  useGetAllServicesForHomeQuery,
+} from "@/redux/api/serviceApi";
 import SpecialSupport from "../_component/Services/SpecialSupport";
 import ServiceSlider from "../_component/Services/ServiceSlider";
 const Page = () => {
@@ -72,30 +75,30 @@ const Page = () => {
 
   const handleAccordionChange =
     (panel: string, categoryId: string) =>
-      (event: React.SyntheticEvent, isExpanded: boolean) => {
-        setExpanded(isExpanded ? panel : false);
-        setSubTabIndex(0); // Reset subTabIndex when accordion changes
-        if (isExpanded) {
-          const categoryName = getCategoryName(categoryId);
+    (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+      setSubTabIndex(0); // Reset subTabIndex when accordion changes
+      if (isExpanded) {
+        const categoryName = getCategoryName(categoryId);
 
-          setSelectedCategory(categoryName);
-          setErrorMessage([]);
+        setSelectedCategory(categoryName);
+        setErrorMessage([]);
 
-          const firstSubCategoryId = categories.find(
-            (cat: any) => cat.category === categoryName
-          )?.sub_category[0]?._id;
+        const firstSubCategoryId = categories.find(
+          (cat: any) => cat.category === categoryName
+        )?.sub_category[0]?._id;
 
-          if (firstSubCategoryId !== undefined) {
-            const subCategoryName = getSubCategoryName(
-              firstSubCategoryId.toString()
-            );
+        if (firstSubCategoryId !== undefined) {
+          const subCategoryName = getSubCategoryName(
+            firstSubCategoryId.toString()
+          );
 
-            setSelectedSubCategory(subCategoryName);
-          } else {
-            setSelectedSubCategory("");
-          }
+          setSelectedSubCategory(subCategoryName);
+        } else {
+          setSelectedSubCategory("");
         }
-      };
+      }
+    };
 
   const handleSubTabChange = (
     event: any,
@@ -128,7 +131,7 @@ const Page = () => {
 
   useEffect(() => {
     if (servicesError) {
-      const { status, data } = servicesError;
+      const { status, data } = servicesError as any;
       if ([400, 401, 404, 409, 500].includes(status)) {
         setErrorMessage(data.message);
         setSelectedSubCategory("");
@@ -146,7 +149,6 @@ const Page = () => {
 
   return (
     <>
-
       <div className="serviceDetailsWrap aboutWraps">
         <div className="aboutContent">
           <h1>Our Services</h1>
@@ -306,7 +308,6 @@ const Page = () => {
                   borderRadius: "0px 0px 5px 5px",
                 }}
               >
-
                 {expanded && (
                   <>
                     <Typography variant="h4" sx={{ color: "#1591A3" }}>

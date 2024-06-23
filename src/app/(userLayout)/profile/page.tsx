@@ -120,11 +120,9 @@ const Profile = () => {
 
   const [memberShip, setMembership] = useState<MemberShip>({});
 
-  console.log('memebershipt data', memberShip);
+  console.log("memebershipt data", memberShip);
 
   // const {data} = useGetAllMembersQuery({})
-
-
 
   const defaultValues: MemberShip = {
     profile_pic: memberShip?.profile_pic || "",
@@ -208,8 +206,7 @@ const Profile = () => {
     };
   }, [token]);
 
-  console.log(userData)
-
+  console.log(userData);
 
   useEffect(() => {
     if (!member_type || !id) return;
@@ -287,8 +284,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-            : null;
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+          : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -372,7 +369,6 @@ const Profile = () => {
       color: "#fff",
     },
   };
-
 
   return (
     <>
