@@ -29,6 +29,7 @@ import {
   useGetSingleServiceQuery,
   useUpdateServiceMutation,
 } from "@/redux/api/serviceApi";
+import Loader from "@/components/Loader";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
@@ -54,6 +55,7 @@ const UpdateService = ({ id }: { id: string }) => {
     isLoading: serviceLoading,
     refetch: refetchService,
   } = useGetSingleServiceQuery({ id });
+
   const [updateService] = useUpdateServiceMutation();
 
   const defaultValues = {
@@ -101,7 +103,7 @@ const UpdateService = ({ id }: { id: string }) => {
   };
 
   if (serviceLoading || isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const selectedCategoryData = category?.find(

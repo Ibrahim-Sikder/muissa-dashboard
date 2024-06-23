@@ -3,7 +3,9 @@ import {
   Service,
   ServicesTable,
 } from "@/components/Dashboard/pages/services/ServicesTable";
+import Loader from "@/components/Loader";
 import { useGetAllServicesQuery } from "@/redux/api/serviceApi";
+import { Box, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -25,7 +27,7 @@ export default function Page(): React.JSX.Element {
   }, [pathName, refetch]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

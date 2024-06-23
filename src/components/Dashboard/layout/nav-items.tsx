@@ -38,6 +38,12 @@ export const navItems: NavItemConfig[] = [
     icon: <GrBusinessService />,
     childrenItems: [
       {
+        key: "service-details",
+        title: "Service Details",
+        href: `${paths.dashboard.services}/:id`,
+        matcher: { type: "startsWith", href: `${paths.dashboard.services}` },
+      },
+      {
         key: "create-service",
         title: "Create Service",
         href: `${paths.dashboard.services}/create`,
