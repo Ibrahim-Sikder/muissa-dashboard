@@ -3,10 +3,11 @@ import Header from "@/components/shared/Header/Header";
 import React, { ReactNode } from "react";
 import ProfileSidebar from "./_components/ProfielSidebar/ProfileSidebar";
 import Container from "@/components/ui/HomePage/Container/Container";
+import { Suspense } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div>
+    <Suspense>
       <Header />
       <Container>
         <div className="flex lg:flex-row flex-col  gap-10 w-full  mt-10 ">
@@ -17,7 +18,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         </div>
       </Container>
       <Footer />
-    </div>
+    </Suspense>
   );
 };
 

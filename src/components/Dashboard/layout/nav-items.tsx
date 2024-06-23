@@ -123,12 +123,28 @@ export const navItems: NavItemConfig[] = [
     title: "Manage Payments",
     href: paths.dashboard.payments,
     icon: <MdPayment />,
+    childrenItems: [
+      {
+        key: "payment-details",
+        title: "Payment Details",
+        href: `${paths.dashboard.payments}/:id`,
+        matcher: { type: "startsWith", href: `${paths.dashboard.payments}` },
+      },
+    ],
   },
   {
     key: "invoices",
     title: "Manage Invoices",
     href: paths.dashboard.invoices,
     icon: <FaFileInvoice />,
+    childrenItems: [
+      {
+        key: "invoice-details",
+        title: "Invoice Details",
+        href: `${paths.dashboard.invoices}/:id`,
+        matcher: { type: "startsWith", href: `${paths.dashboard.invoices}` },
+      },
+    ],
   },
   {
     key: "terms-privacy",
