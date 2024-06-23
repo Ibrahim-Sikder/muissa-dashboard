@@ -22,17 +22,17 @@ import {
 } from "react-icons/hi";
 import { Box, Button, Divider } from "@mui/material";
 import Link from "next/link";
- 
+
 import { getCookie, removeCookie } from "@/helpers/Cookies";
 import { usePathname, useRouter } from "next/navigation";
- 
+
 import { Notifications, TrendingFlat } from "@mui/icons-material";
 
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 
- 
+
 const Header = () => {
   const [user, setUser] = useState({});
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -58,7 +58,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
- 
+
   useEffect(() => {
     if (token) {
       setAuthenticated(true);
@@ -72,7 +72,7 @@ const Header = () => {
     removeCookie("mui-token");
     return push("/");
   };
- 
+
   function notificationsLabel(count: number) {
     if (count === 0) {
       return "no notifications";
@@ -82,7 +82,7 @@ const Header = () => {
     }
     return `${count} notifications`;
   }
- 
+
 
   return (
     <header>
@@ -164,18 +164,16 @@ const Header = () => {
           </div>
         </div>
         <div
-          className={`${
-            stickyMenu
+          className={`${stickyMenu
               ? "stickyMenu "
               : "menubarWrap flex items-center justify-between  "
-          }`}
+            }`}
         >
           <div
-            className={`${
-              stickyMenu
+            className={`${stickyMenu
                 ? "stickyContainer "
                 : " flex items-center justify-between w-full "
-            }`}
+              }`}
           >
             <div className={`${stickyMenu ? "stickyLogo" : "hidden"}`}>
               <Box component={Link} href="/">
@@ -195,34 +193,38 @@ const Header = () => {
             </div>
 
             <nav className="menuItemsBarWraps">
-              <ul className="flex navItems items-center ">
-                <li>
-                  <Link href="/">Home</Link>
-                </li>
-
-                <li>
-                  <Link href="/services">Services</Link>
-                </li>
-                <li>
-                  <Link href="/about">About</Link>
-                </li>
-                <li>
-                  <Link href="/contact">Contact </Link>
-                </li>
- 
-                {authenticated ? (
-                  <li onClick={logOut} className="cursor-pointer text-white">
-                    <p>Logout</p>
-                  </li>
-                ) : (
+              <div className="flex items-center justify-between pr-4 ">
+                <ul className="flex navItems items-center ">
                   <li>
-                    <Link href="/login">Login</Link>
+                    <Link href="/">Home</Link>
                   </li>
-                )}
- 
-                {/* <li>
+
+                  <li>
+                    <Link href="/services">Services</Link>
+                  </li>
+                  <li>
+                    <Link href="/about">About</Link>
+                  </li>
+                  <li>
+                    <Link href="/contact">Contact </Link>
+                  </li>
+
+                  {authenticated ? (
+                    <li onClick={logOut} className="cursor-pointer text-white">
+                      <p>Logout</p>
+                    </li>
+                  ) : (
+                    <li>
+                      <Link href="/login">Login</Link>
+                    </li>
+                  )}
+
+                  {/* <li>
                   <Link href="/login">Login</Link>
                 </li> */}
+
+
+                </ul>
                 <IconButton aria-label={notificationsLabel(100)}>
                   <Badge badgeContent={100} color="primary">
                     <Notifications
@@ -231,8 +233,7 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
- 
-              </ul>
+              </div>
             </nav>
             <div className=" membershipBtn">
               <Button
@@ -287,7 +288,7 @@ const Header = () => {
                 <Link href="/contact">Contact </Link>
               </li>
               {authenticated ? (
-                <li onClick={logOut} className=" cursor-pointer text-white"><p>Logout</p></li>
+                <li onClick={logOut} className=" cursor-pointe"><p>Logout</p></li>
               ) : (
                 <li>
                   <Link href="/login">Login</Link>

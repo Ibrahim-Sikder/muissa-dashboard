@@ -23,77 +23,77 @@ import CommentForm from "../_components/CommentForm";
 import ReactHtmlParser from "react-html-parser";
 
 const renderContent = (content: string) => {
-  const parsedContent = ReactHtmlParser(content);
+    const parsedContent = ReactHtmlParser(content);
 
-  return parsedContent.map((element, index) => {
-    if (element.type === "h1") {
-      return (
-        <h1 key={index} className="text-3xl font-bold mb-2 ">
-          {element.props.children}
-        </h1>
-      );
-    } else if (element.type === "h2") {
-      return (
-        <h2 key={index} className="text-2xl font-bold mb-2 ">
-          {element.props.children}
-        </h2>
-      );
-    } else if (element.type === "h3") {
-      return (
-        <h3 key={index} className="text-xl font-bold mb-2 ">
-          {element.props.children}
-        </h3>
-      );
-    } else if (element.type === "p") {
-      return (
-        <p key={index} className="mb-2">
-          {element.props.children}
-        </p>
-      );
-    } 
-    
-    // else if (element.type === "img") {
-    //   return (
-    //     <img
-    //       key={index}
-    //       className="w-full h-auto object-cover mb-4 hidden "
-    //       src={element.props.src}
-    //       alt="Blog Image"
-    //     />
-    //   );
-    // } 
-    
-    else if (
-      element.type === "div" &&
-      element.props.className === "ql-align-center"
-    ) {
-      return (
-        <div key={index} className="text-center mb-2">
-          {element.props.children}
-        </div>
-      );
-    } else if (
-      element.type === "div" &&
-      element.props.className === "ql-align-right"
-    ) {
-      return (
-        <div key={index} className="text-right mb-2">
-          {element.props.children}
-        </div>
-      );
-    } else if (
-      element.type === "div" &&
-      element.props.className === "ql-align-left"
-    ) {
-      return (
-        <div key={index} className="text-left mb-2">
-          {element.props.children}
-        </div>
-      );
-    } else {
-      return null;
-    }
-  });
+    return parsedContent.map((element, index) => {
+        if (element.type === "h1") {
+            return (
+                <h1 key={index} className="text-2xl font-bold mb-2 ">
+                    {element.props.children}
+                </h1>
+            );
+        } else if (element.type === "h2") {
+            return (
+                <h2 key={index} className="text-xl font-bold mb-2 ">
+                    {element.props.children}
+                </h2>
+            );
+        } else if (element.type === "h3") {
+            return (
+                <h3 key={index} className="text-xl font-bold mb-2 ">
+                    {element.props.children}
+                </h3>
+            );
+        } else if (element.type === "p") {
+            return (
+                <p key={index} className="mb-2">
+                    {element.props.children}
+                </p>
+            );
+        }
+
+        // else if (element.type === "img") {
+        //   return (
+        //     <img
+        //       key={index}
+        //       className="w-full h-auto object-cover mb-4 hidden "
+        //       src={element.props.src}
+        //       alt="Blog Image"
+        //     />
+        //   );
+        // } 
+
+        else if (
+            element.type === "div" &&
+            element.props.className === "ql-align-center"
+        ) {
+            return (
+                <div key={index} className="text-center mb-2">
+                    {element.props.children}
+                </div>
+            );
+        } else if (
+            element.type === "div" &&
+            element.props.className === "ql-align-right"
+        ) {
+            return (
+                <div key={index} className="text-right mb-2">
+                    {element.props.children}
+                </div>
+            );
+        } else if (
+            element.type === "div" &&
+            element.props.className === "ql-align-left"
+        ) {
+            return (
+                <div key={index} className="text-left mb-2">
+                    {element.props.children}
+                </div>
+            );
+        } else {
+            return null;
+        }
+    });
 };
 
 
@@ -115,12 +115,12 @@ interface BlogId {
 
 const News = async ({ params }: BlogId) => {
     const { newsId } = params
-    console.log('blog id erere',newsId)
+    console.log('blog id erere', newsId)
     const res = await fetch(`http://localhost:5000/api/v1/blogs/${newsId}`, {
         cache: "no-store"
     });
     const blog = await res.json()
-    console.log('blog data ',blog)
+    console.log('blog data ', blog)
 
 
     const buttonStyle = {
@@ -147,19 +147,19 @@ const News = async ({ params }: BlogId) => {
 
     const formatDate = (dateString: string) => {
         const options = {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
         };
         return new Date(dateString).toLocaleDateString("en-US",);
-      };
+    };
 
     return (
         <>
             <div className="serviceDetailsWrap aboutWraps">
                 <div className="aboutContent">
                     {/* <h1>What we are capable to usually discovered.</h1> */}
-                    <h1>{blog?.data.title}</h1>
+                    <h1>BLOG</h1>
                 </div>
             </div>
             <Container>
@@ -279,7 +279,8 @@ const News = async ({ params }: BlogId) => {
                             </div>
 
                             <div className="blogContent px-5 space-y- py-5 rounded-md ">
-                            {renderContent(blog?.data?.description)}
+                                <h2 className="mb-5 text-center">{blog?.data?.title}</h2>
+                                {renderContent(blog?.data?.description)}
                                 {/* <div>
                                     <p>
                                         It is a long established fact that a reader will be

@@ -20,29 +20,29 @@ const Experience = () => {
               <div className="grid grid-cols-2 md:grid-cols-2   lg:grid-cols-4 mt-16 place-content-between gap-10 justify-between lg:w-[1000px]  xl:w-[1280px] ">
                 <div className="iconWraps ">
                   <FaReact className="experienceIcon" />
-                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#1491A3]">
-                    250+
+                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
+                    30+
                   </h1>
                   <p className="tracking-[3px]">Successfull Project</p>
                 </div>
                 <div className="iconWraps ">
                   <InsertEmoticon className="experienceIcon" />
-                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#1491A3]">
-                    250+
+                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
+                    30+
                   </h1>
                   <p className="tracking-[3px]">Happy Client </p>
                 </div>
                 <div className="iconWraps ">
                   <EmojiEvents className="experienceIcon" />
-                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#1491A3]">
-                    250+
+                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
+                    5+
                   </h1>
                   <p className="tracking-[3px]">Business Awards </p>
                 </div>
                 <div className="iconWraps ">
                   <VscCoffee className="experienceIcon" />
-                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#1491A3]">
-                    250+
+                  <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
+                    150+
                   </h1>
                   <p className="tracking-[3px]">Cup Coffe </p>
                 </div>
