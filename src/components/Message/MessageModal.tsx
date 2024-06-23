@@ -280,6 +280,7 @@ const MessageModal = ({ close }: TProps) => {
           }}
         >
           <List>
+            
             {allMessage?.map((message: any) => (
               <ListItem
                 key={message?.id}
@@ -296,10 +297,11 @@ const MessageModal = ({ close }: TProps) => {
                     sx={{
                       p: 1,
                       borderRadius: 2,
+                
                       backgroundColor:
                         senderUser?._id === message?.msgByUserId
-                          ? "#1591A3"
-                          : "#e0e0e0",
+                          ? "#EEF0F3"
+                          : "#111",
                       boxShadow: "none",
                       textAlign:
                         senderUser?._id === message?.msgByUserId
@@ -307,7 +309,7 @@ const MessageModal = ({ close }: TProps) => {
                           : "left",
                       color:
                         senderUser?._id === message?.msgByUserId
-                          ? "white"
+                          ? "111"
                           : "black",
                     }}
                   >
@@ -321,6 +323,7 @@ const MessageModal = ({ close }: TProps) => {
                       />
                     )}
                     <ListItemText
+                    className="text-black text-[8px]"
                       primary={message.text}
                       secondary={format(message.updatedAt)}
                     />

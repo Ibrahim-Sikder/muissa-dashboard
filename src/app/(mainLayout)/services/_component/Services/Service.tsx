@@ -1,7 +1,6 @@
-'use client'
+
 
 import { Button } from "@mui/material";
-import React from "react";
 import {
   BusinessCenter,
   Inventory,
@@ -12,25 +11,14 @@ import {
 import "./services.css";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
-import { useGetAllServicesQuery } from "@/redux/api/serviceApi";
 
-const Service = () => {
+const Service = async () => {
 
-  const [currentPage, setCurrentPage] = React.useState(1);
-  const [limit, setLimit] = React.useState(4);
-
-
-  const { data: servicesData, error, isLoading, refetch } = useGetAllServicesQuery({
-    page: currentPage,
-    limit,
+  const res = await fetch(`http://localhost:5000/api/v1/services/get-services`, {
+    cache: "no-store"
   });
-  if (isLoading) {
-    return <p>Loading</p>
-  }
+  const servicesData = await res.json()
 
-  if (error) {
-    return <p>someting went wrong</p>
-  }
 
   const serviceData = [
     {
@@ -81,7 +69,7 @@ const Service = () => {
     <Container>
       <div className="serviceCardWraps">
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 ">
-          {servicesData?.services?.map((data: any, i: number) => (
+          {servicesData?.data?.services?.slice(0,4).map((data: any, i: number) => (
             <div key={data.id} className="serviceCard">
               <div className="serviceIconWraps">
                 {i === 0 ? (

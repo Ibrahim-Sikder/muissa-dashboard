@@ -41,6 +41,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
+import { useGetAllMembersQuery } from "@/redux/api/memeberApi";
 
 // const validationSchema = z.object({
 //   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -117,16 +118,11 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-<<<<<<< HEAD
-  const [memberShip, setMembership] = useState({});
-  console.log(memberShip);
-  const defaultValues = {
-=======
   const [memberShip, setMembership] = useState<MemberShip>({});
-
+  const {data:memberData} = useGetAllMembersQuery()
+  console.log(memberData,'memebership')
   console.log(memberShip);
   const defaultValues: MemberShip = {
->>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
     profile_pic: memberShip?.profile_pic || "",
     name: memberShip?.name || "",
     phone: memberShip?.phone || "",
@@ -370,10 +366,7 @@ const Profile = () => {
     },
   };
 
-<<<<<<< HEAD
-=======
  
->>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
   return (
     <>
       {loading ? (
@@ -381,10 +374,6 @@ const Profile = () => {
       ) : (
         <MUIForm
           onSubmit={submitHandler}
-<<<<<<< HEAD
-          // resolver={zodResolver(validationSchema)}
-=======
->>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
           defaultValues={memberShip && defaultValues}
         >
           <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
@@ -522,10 +511,7 @@ const Profile = () => {
                             label="ব্যবসার নাম "
                             fullWidth
                             size="medium"
-<<<<<<< HEAD
-=======
                           
->>>>>>> 8a614983652b06ec767b155a101bc2e38a658604
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={12}>

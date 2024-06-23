@@ -22,7 +22,7 @@ const MessageIconGroupModal: React.FC<MessageIconGroupModalProps> = ({
         open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       } space-y-2 z-[99]`}
     >
-      <Image width={50} src={icon2} alt="message" />
+      {/* <Image width={50} src={icon2} alt="message" /> */}
       <div>
         <Link
           href="https://wa.me/8801403852850?text=Hi! how can we help you ?"

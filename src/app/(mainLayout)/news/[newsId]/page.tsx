@@ -28,13 +28,13 @@ const renderContent = (content: string) => {
   return parsedContent.map((element, index) => {
     if (element.type === "h1") {
       return (
-        <h1 key={index} className="text-3xl font-bold mb-4">
+        <h1 key={index} className="text-3xl font-bold mb-2 ">
           {element.props.children}
         </h1>
       );
     } else if (element.type === "h2") {
       return (
-        <h2 key={index} className="text-2xl font-bold mb-3 ">
+        <h2 key={index} className="text-2xl font-bold mb-2 ">
           {element.props.children}
         </h2>
       );
@@ -111,6 +111,7 @@ interface BlogId {
 //         blogId:blog.id
 //     }))
 // }
+
 
 const News = async ({ params }: BlogId) => {
     const { newsId } = params
@@ -277,7 +278,7 @@ const News = async ({ params }: BlogId) => {
                                 <Divider sx={{ marginTop: "2px" }} />
                             </div>
 
-                            <div className="blogContent px-5 space-y-8 py-5 rounded-md ">
+                            <div className="blogContent px-5 space-y- py-5 rounded-md ">
                             {renderContent(blog?.data?.description)}
                                 {/* <div>
                                     <p>

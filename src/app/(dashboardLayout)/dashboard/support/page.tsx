@@ -178,7 +178,7 @@ export default function SupportContactPage() {
       socket.on("conversation", (data) => {
         const filteredData = data.filter(
           (con: { sender: { _id: string } }) =>
-            con.sender._id !== senderUser._id
+            con.sender._id !== senderUser?._id
         );
         setAllSenderUser(filteredData);
       });
@@ -264,7 +264,7 @@ export default function SupportContactPage() {
 
   const handleUserAccept = (id: string) => {
     if (socket) {
-      socket.emit("accept-message", id, senderUser._id);
+      socket.emit("accept-message", id, senderUser?._id);
       socket.on("error", (data) => {
         return toast.error(data);
       });
