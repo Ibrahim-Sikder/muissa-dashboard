@@ -16,6 +16,7 @@ import { Button, CardHeader, Tooltip } from "@mui/material";
 import Link from "next/link";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
+import dayjs from "dayjs";
 
 function noop(): void {
   // do nothing
@@ -29,6 +30,7 @@ export interface Review {
   message: string;
   publishDate: string;
   status: string;
+  createdAt: string;
 }
 
 interface ReviewsTableProps {
@@ -111,8 +113,10 @@ export function ReviewsTable({
                       <Typography>{row.message}</Typography>
                     </Tooltip>
                   </TableCell>
-                  <TableCell>{row.publishDate}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    {dayjs(row.createdAt).format("MMMM D, YYYY")}
+                  </TableCell>
+                  <TableCell>{row.status ? row.status : "Published"}</TableCell>
                   <TableCell>
                     <Box
                       sx={{

@@ -70,6 +70,12 @@ export const navItems: NavItemConfig[] = [
     icon: <GrBlog />,
     childrenItems: [
       {
+        key: "blog-details",
+        title: "Blog Details",
+        href: `${paths.dashboard.blogs}/:id`,
+        matcher: { type: "startsWith", href: `${paths.dashboard.blogs}` },
+      },
+      {
         key: "create-blog",
         title: "Create Blog",
         href: `${paths.dashboard.blogs}/create`,

@@ -25,22 +25,9 @@ import { getCookie } from "@/helpers/Cookies";
 // import { useGetSingleMemberQuery } from "@/redux/api/baseApi";
 import { ErrorMessage } from "@/components/error-message";
 import { useGetSingleMemberQuery } from "@/redux/api/memeberApi";
+import Loader from "@/components/Loader";
 
 // Mock customer data (replace with actual data fetching logic)
-const customer = {
-  id: "USR-010",
-  name: "Alcides Antonio",
-  avatar: "/assets/avatar-10.png",
-  email: "alcides.antonio@devias.io",
-  phone: "908-691-3242",
-  address: {
-    city: "Madrid",
-    country: "Spain",
-    state: "Comunidad de Madrid",
-    street: "4158 Hedge Street",
-  },
-  createdAt: dayjs().subtract(2, "hours").toDate(),
-};
 
 export default function CustomerDetailsPage() {
   const [errorMessage, setErrorMessage] = React.useState<string[]>([]);
@@ -64,10 +51,9 @@ export default function CustomerDetailsPage() {
   }, [error]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
-  console.log(data);
   return (
     <>
       <Link href="/dashboard/customers" passHref>

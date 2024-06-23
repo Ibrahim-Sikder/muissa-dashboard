@@ -19,50 +19,31 @@ import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 
 import { usePathname } from "next/navigation";
-import { useGetAllFaqsQuery } from "@/redux/api/faqApi";
-
-const faqData = [
-  {
-    question: "What is your return policy?",
-    answer:
-      "Our return policy allows you to return products within 30 days of purchase. Please ensure the items are in original condition.",
-  },
-  {
-    question: "How do I track my order?",
-    answer:
-      "You can track your order using the tracking number provided in the shipment confirmation email. Visit our order tracking page and enter your tracking number.",
-  },
-  {
-    question: "Do you offer international shipping?",
-    answer:
-      "Yes, we offer international shipping to most countries. Shipping fees and delivery times vary depending on the destination.",
-  },
-  {
-    question: "How can I contact customer support?",
-    answer:
-      "You can contact our customer support via email at support@example.com or by calling our hotline at 1-800-123-4567. Our support team is available 24/7.",
-  },
-  {
-    question: "Can I change or cancel my order?",
-    answer:
-      "Orders can be changed or canceled within 24 hours of placing them. Please contact our customer support as soon as possible to make any changes.",
-  },
-];
+import { useDeleteFaqMutation, useGetAllFaqsQuery } from "@/redux/api/faqApi";
+import Loader from "@/components/Loader";
+import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 
 export default function FAQTable(): React.JSX.Element {
   const pathName = usePathname();
   const { data, error, isLoading, refetch } = useGetAllFaqsQuery({});
+  const [deleteFaq, { isLoading: isDeleting }] = useDeleteFaqMutation();
 
- 
   React.useEffect(() => {
     refetch();
   }, [pathName, refetch]);
 
   if (isLoading || error) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
-  console.log(data);
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteFaq(id).unwrap();
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Card
@@ -103,6 +84,7 @@ export default function FAQTable(): React.JSX.Element {
               <TableRow>
                 <TableCell>Question</TableCell>
                 <TableCell>Answer</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -111,6 +93,12 @@ export default function FAQTable(): React.JSX.Element {
                   <TableRow key={faq._id}>
                     <TableCell>{faq?.question}</TableCell>
                     <TableCell>{faq?.answer}</TableCell>
+                    <TableCell>
+                      <DeleteButtonWithConfirmation
+                        onDelete={() => handleDelete(faq._id)}
+                        isLoading={isDeleting}
+                      />
+                    </TableCell>
                   </TableRow>
                 )
               )}

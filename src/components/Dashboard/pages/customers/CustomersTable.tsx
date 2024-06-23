@@ -131,7 +131,6 @@ export function CustomersTable({
               <TableCell>Membership ID</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
               <TableCell>Phone</TableCell>
               <TableCell>Signed Up</TableCell>
               <TableCell>Action</TableCell>
@@ -159,11 +158,7 @@ export function CustomersTable({
                       ? row?.userDetails?.email
                       : row?.userDetails?.auth}
                   </TableCell>
-                  <TableCell>
-                    {row?.userDetails?.address},
-                    {/* {row.address.state},{" "}
-                    {row.address.country} */}
-                  </TableCell>
+
                   <TableCell>
                     {row?.userDetails?.phone
                       ? row?.userDetails?.phone
