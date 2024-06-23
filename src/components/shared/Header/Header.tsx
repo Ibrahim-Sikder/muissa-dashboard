@@ -286,6 +286,9 @@ const Header = () => {
               <li>
                 <Link href="/contact">Contact </Link>
               </li>
+              <li>
+                <Link href="/profile">Profile </Link>
+              </li>
               {authenticated ? (
                 <li onClick={logOut} className=" cursor-pointer text-white"><p>Logout</p></li>
               ) : (
