@@ -14,8 +14,11 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { Button, CardHeader } from "@mui/material";
 import Link from "next/link";
-import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
+import dayjs from "dayjs";
+import { useDeleteBlogMutation } from "@/redux/api/blogApi";
+import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 
 function noop(): void {
   // do nothing
@@ -28,6 +31,9 @@ export interface Blog {
   publishDate: string;
   status: string;
   blog_image: string;
+  createdAt: Date;
+  description: string;
+  short_description: string;
 }
 
 interface BlogsTableProps {
@@ -43,6 +49,17 @@ export function BlogsTable({
   page = 0,
   rowsPerPage = 0,
 }: BlogsTableProps): React.JSX.Element {
+  const [deleteBlog, { isLoading }] = useDeleteBlogMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteBlog(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log(rows);
+
   return (
     <Card
       sx={{
@@ -90,8 +107,12 @@ export function BlogsTable({
                   </TableCell>
                   <TableCell>{row?.title}</TableCell>
                   <TableCell>{row?.author}</TableCell>
-                  <TableCell>{row?.publishDate}</TableCell>
-                  <TableCell>{row?.status}</TableCell>
+                  <TableCell>
+                    {dayjs(row?.createdAt).format("MMMM D, YYYY")}
+                  </TableCell>
+                  <TableCell>
+                    {row?.status ? row?.status : "Published"}
+                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -99,6 +120,17 @@ export function BlogsTable({
                         gap: "1rem",
                       }}
                     >
+                      <Link href={`/dashboard/blogs/${row?._id}`}>
+                        <Button
+                          color="secondary"
+                          variant="outlined"
+                          size="small"
+                          sx={{ textTransform: "none" }}
+                          startIcon={<FaEye />}
+                        >
+                          View
+                        </Button>
+                      </Link>
                       <Link href={`/dashboard/blogs/edit/${row?._id}`}>
                         <Button
                           color="primary"
@@ -111,15 +143,10 @@ export function BlogsTable({
                         </Button>
                       </Link>
 
-                      <Button
-                        color="error"
-                        variant="outlined"
-                        size="small"
-                        sx={{ textTransform: "none" }}
-                        startIcon={<FaTrash />}
-                      >
-                        Delete
-                      </Button>
+                      <DeleteButtonWithConfirmation
+                        onDelete={() => handleDelete(row?._id)}
+                        isLoading={isLoading}
+                      />
                     </Box>
                   </TableCell>
                 </TableRow>

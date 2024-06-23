@@ -40,47 +40,7 @@ interface User {
   avatar: string;
   status: "online" | "offline";
 }
-const mockMessages: Message[] = [
-  {
-    id: 1,
-    sender: "Support",
-    content: "Hello! How can we help you today?",
-    timestamp: "10:00 AM",
-  },
-  {
-    id: 2,
-    sender: "User",
-    content: "I have an issue with my order.",
-    timestamp: "10:01 AM",
-  },
-  {
-    id: 3,
-    sender: "Support",
-    content: "Sure, can you please provide your order ID?",
-    timestamp: "10:02 AM",
-  },
-];
-const mockUsers: User[] = [
-  {
-    id: 1,
-    name: "Alcides Antonio",
-    avatar: "/assets/avatar-10.png",
-    status: "online",
-  },
-  {
-    id: 2,
-    name: "Marcus Finn",
-    avatar: "/assets/avatar-9.png",
-    status: "offline",
-  },
-  { id: 3, name: "Jie Yan", avatar: "/assets/avatar-8.png", status: "online" },
-  {
-    id: 4,
-    name: "Nasimiyu Danai",
-    avatar: "/assets/avatar-7.png",
-    status: "offline",
-  },
-];
+
 export default function SupportContactPage() {
   // const [messages, setMessages] = useState<Message[]>(mockMessages);
   // const [newMessage, setNewMessage] = useState("");
@@ -110,7 +70,7 @@ export default function SupportContactPage() {
     _id: "",
     name: "",
     auth: "",
-    profile_pic: ""
+    profile_pic: "",
   });
   const [allSenderUser, setAllSenderUser] = useState([]);
   const [allSenderForAdmin, setAllSenderForAdmin] = useState([]);
@@ -155,7 +115,12 @@ export default function SupportContactPage() {
       //  pasci token theke
       socket.on(
         "sender-user",
-        (data: { _id: string; name: string; auth: string ,profile_pic: string;}) => {
+        (data: {
+          _id: string;
+          name: string;
+          auth: string;
+          profile_pic: string;
+        }) => {
           // console.log(data);
           setSenderUser(data);
         }

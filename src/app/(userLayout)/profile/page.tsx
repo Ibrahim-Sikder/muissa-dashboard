@@ -518,7 +518,6 @@ const Profile = () => {
                             label="ব্যবসার নাম "
                             fullWidth
                             size="medium"
-
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={12}>

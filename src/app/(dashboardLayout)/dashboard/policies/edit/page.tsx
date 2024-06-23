@@ -1,36 +1,24 @@
-// import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
-// import CreateFAQForm from "@/components/Dashboard/pages/faq/FaqForm";
-// import EditPoliciesForm from "@/components/Dashboard/pages/policies/EditPoliciesForm";
-// import CreateReview from "@/components/Dashboard/pages/reviews/CreateReview";
-// import { Stack, Typography } from "@mui/material";
-// import type { Metadata } from "next";
+import { Stack, Typography } from "@mui/material";
+import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
-// export default function EditPoliciesPage() {
-//   return (
-//     <Stack spacing={3}>
-//       <div>
-//         <Typography variant="h4">Edit Policies</Typography>
-//       </div>
-//       <EditPoliciesForm />
-//     </Stack>
-//   );
-// }
+const EditPoliciesForm = dynamic(
+  () => import("@/components/Dashboard/pages/policies/EditPoliciesForm"),
+  {
+    ssr: false,
+  }
+);
 
-// export const metadata: Metadata = {
-//   title: "Muissa Consulting | Policies ",
-//   description: "Muissa Consulting blogs page ",
-//   keywords: "blogs, Muissa Consulting",
-// };
-
-
-import React from 'react';
-
-const page = () => {
+export default function EditPoliciesPage() {
   return (
-    <div>
-      <h4>policy</h4>
-    </div>
+    <Stack spacing={3}>
+      <EditPoliciesForm />
+    </Stack>
   );
-};
+}
 
-export default page;
+export const metadata: Metadata = {
+  title: "Muissa Consulting | Policies ",
+  description: "Muissa Consulting blogs page ",
+  keywords: "blogs, Muissa Consulting",
+};

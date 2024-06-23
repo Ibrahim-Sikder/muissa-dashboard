@@ -10,6 +10,7 @@ import {
 import { getCookie } from "@/helpers/Cookies";
 import { usePathname } from "next/navigation";
 import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
+import Loader from "@/components/Loader";
 
 // export const metadata: Metadata = {
 //   title: "Muissa Consulting | Blogs",
@@ -66,6 +67,10 @@ export default function Page(): React.JSX.Element {
   React.useEffect(() => {
     refetch();
   }, [pathName, refetch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Stack spacing={3}>

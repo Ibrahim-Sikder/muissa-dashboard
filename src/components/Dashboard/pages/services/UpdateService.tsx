@@ -56,46 +56,30 @@ const UpdateService = ({ id }: { id: string }) => {
     refetch: refetchService,
   } = useGetSingleServiceQuery({ id });
 
-  const { data: categoryData, isLoading: categoryLoading, refetch } = useGetAllCategoryQuery({});
+  const [updateService] = useUpdateServiceMutation();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(validationSchema),
-    defaultValues: {
-      title: "",
-      category: "",
-      sub_category: "",
-      short_description: "",
-      description: "",
-      service_image: "",
-    },
-  });
+  const defaultValues = {
+    title: service?.title,
+    category: service?.category,
+    sub_category: service?.sub_category,
+    short_description: service?.short_description,
+    description: service?.description,
+    service_image: service?.service_image,
+  };
 
   useEffect(() => {
     if (service) {
-      reset({
-        title: service?.title || "",
-        category: service?.category || "",
-        sub_category: service?.sub_category || "",
-        short_description: service?.short_description || "",
-        description: service?.description || "",
-        service_image: service?.service_image || "",
-      });
-      setImageUrl(service?.service_image || "");
-      setSelectedCategory(service?.category || "");
+      setSelectedCategory(service?.category);
+      setImageUrl(service?.service_image);
     }
-  }, [service, reset]);
+  }, [service]);
 
-  const [updateService] = useUpdateServiceMutation();
   const token = getCookie("mui-token");
+  const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
-  const onSubmit = async (data: FieldValues) => {
+  const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
+
     setSuccessMessage("");
     setErrorMessage([]);
 
@@ -125,11 +109,11 @@ const UpdateService = ({ id }: { id: string }) => {
     setSelectedCategory(value);
   };
 
-  if (serviceLoading || categoryLoading) {
+  if (serviceLoading || isLoading) {
     return <Loader />;
   }
 
-  const selectedCategoryData = categoryData?.find(
+  const selectedCategoryData = category?.find(
     (cat: ServiceCategory) => cat?.category === selectedCategory
   );
 
@@ -137,7 +121,11 @@ const UpdateService = ({ id }: { id: string }) => {
 
   return (
     <Stack spacing={3}>
-      <MUIForm onSubmit={onSubmit}>
+      <MUIForm
+        onSubmit={handleSubmit}
+        resolver={zodResolver(validationSchema)}
+        defaultValues={defaultValues}
+      >
         <Card
           sx={{
             display: "flex",
@@ -170,10 +158,6 @@ const UpdateService = ({ id }: { id: string }) => {
                   label="Service Title"
                   type="text"
                   fullWidth={true}
-                  inputRef={register}
-                  defaultValue={service?.title}
-                  error={!!errors.title}
-                  helperText={errors.title?.message}
                 />
               </Grid>
               <Grid item xs={12} md={4}>
@@ -181,20 +165,17 @@ const UpdateService = ({ id }: { id: string }) => {
                   name="category"
                   label="Category"
                   items={
-                    Array.isArray(categoryData)
-                      ? categoryData.map(
-                        (cat: { category: string }) => cat.category
-                      )
+                    Array.isArray(category)
+                      ? category.map(
+                          (cat: { category: string }) => cat.category
+                        )
                       : []
                   }
                   onChange={handleCategoryChange}
-                  defaultValue={service?.category}
-                  inputRef={register}
-                  error={!!errors.category}
-                  helperText={errors.category?.message}
                 />
               </Grid>
 
+              {/* subcategory */}
               <Grid item xs={12} md={4}>
                 <INTSelect
                   name="sub_category"
@@ -202,10 +183,6 @@ const UpdateService = ({ id }: { id: string }) => {
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
-                  defaultValue={service?.sub_category}
-                  inputRef={register}
-                  error={!!errors.sub_category}
-                  helperText={errors.sub_category?.message}
                 />
               </Grid>
 
@@ -216,22 +193,11 @@ const UpdateService = ({ id }: { id: string }) => {
                   type="text"
                   multiline={true}
                   fullWidth={true}
-                  inputRef={register}
-                  defaultValue={service?.short_description}
-                  error={!!errors.short_description}
-                  helperText={errors.short_description?.message}
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <RichtextEditor
-                  name="description"
-                  label="Description"
-                  defaultValue={service?.description}
-                  inputRef={register}
-                  error={!!errors.description}
-                  helperText={errors.description?.message}
-                />
+                <RichtextEditor name="description" label="Description" />
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -239,9 +205,6 @@ const UpdateService = ({ id }: { id: string }) => {
                   name="service_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
-                  inputRef={register}
-                  error={!!errors.service_image}
-                  helperText={errors.service_image?.message}
                 />
               </Grid>
             </Grid>
@@ -259,7 +222,7 @@ const UpdateService = ({ id }: { id: string }) => {
             }}
           >
             <Button
-              disabled={loading || categoryLoading || !imageUrl}
+              disabled={loading || isLoading || !imageUrl}
               type="submit"
               variant="contained"
             >

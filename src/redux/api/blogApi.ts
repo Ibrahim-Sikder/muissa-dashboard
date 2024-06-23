@@ -10,12 +10,15 @@ export const blogApi = baseApi.injectEndpoints({
 
         params: { page, limit },
       }),
+
+      providesTags: ["blogs"],
     }),
     getSingleBlog: build.query({
-      query: ({ id }) => ({
+      query: (id) => ({
         url: `/blogs/${id}`,
         method: "GET",
       }),
+      providesTags: (result, error, id) => [{ type: "blogs", id }],
     }),
 
     updateBlog: build.mutation({
@@ -24,6 +27,16 @@ export const blogApi = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["blogs"],
+    }),
+
+    deleteBlog: build.mutation({
+      query: ({ id }) => ({
+        url: `/blogs/${id}`,
+        method: "DELETE",
+      }),
+
+      invalidatesTags: ["blogs"],
     }),
   }),
 });
@@ -32,4 +45,5 @@ export const {
   useGetAllBlogsQuery,
   useGetSingleBlogQuery,
   useUpdateBlogMutation,
+  useDeleteBlogMutation,
 } = blogApi;

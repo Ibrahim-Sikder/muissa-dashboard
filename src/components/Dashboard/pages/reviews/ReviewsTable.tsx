@@ -16,6 +16,9 @@ import { Button, CardHeader, Tooltip } from "@mui/material";
 import Link from "next/link";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
+import dayjs from "dayjs";
+import { useDeleteReviewMutation } from "@/redux/api/reviewApi";
+import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 
 function noop(): void {
   // do nothing
@@ -29,6 +32,7 @@ export interface Review {
   message: string;
   publishDate: string;
   status: string;
+  createdAt: string;
 }
 
 interface ReviewsTableProps {
@@ -50,7 +54,16 @@ export function ReviewsTable({
   onPageChange = noop,
   onRowsPerPageChange = noop,
 }: ReviewsTableProps): React.JSX.Element {
-  console.log(rows);
+  const [deleteReview, { isLoading }] = useDeleteReviewMutation();
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteReview(id).unwrap();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -111,8 +124,10 @@ export function ReviewsTable({
                       <Typography>{row.message}</Typography>
                     </Tooltip>
                   </TableCell>
-                  <TableCell>{row.publishDate}</TableCell>
-                  <TableCell>{row.status}</TableCell>
+                  <TableCell>
+                    {dayjs(row.createdAt).format("MMMM D, YYYY")}
+                  </TableCell>
+                  <TableCell>{row.status ? row.status : "Published"}</TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -132,15 +147,10 @@ export function ReviewsTable({
                         </Button>
                       </Link>
 
-                      <Button
-                        color="error"
-                        variant="outlined"
-                        size="small"
-                        sx={{ textTransform: "none" }}
-                        startIcon={<FaTrash />}
-                      >
-                        Delete
-                      </Button>
+                      <DeleteButtonWithConfirmation
+                        onDelete={() => handleDelete(row._id)}
+                        isLoading={isLoading}
+                      />
                     </Box>
                   </TableCell>
                 </TableRow>

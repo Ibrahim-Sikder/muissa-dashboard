@@ -12,59 +12,7 @@ import { getCookie } from "@/helpers/Cookies";
 import { toast } from "sonner";
 import axios from "axios";
 import { useGetAllPaymentsQuery } from "@/redux/api/paymentApi";
-
-// const payments: Payments[] = [
-//   {
-//     transactionId: "D-123456",
-//     date: dayjs().subtract(1, "day").format("DD/MM/YYYY"),
-//     month: dayjs().subtract(1, "day").format("MMMM"),
-//     amount: "$100",
-//     paymentMethod: "Bkash",
-//     name: "John Doe",
-//     phone: "01712345678",
-//     membershipId: "M-123456",
-//   },
-//   {
-//     transactionId: "D-123457",
-//     date: dayjs().subtract(2, "day").format("DD/MM/YYYY"),
-//     month: dayjs().subtract(2, "day").format("MMMM"),
-//     amount: "$200",
-//     paymentMethod: "Nagad",
-//     name: "Jane Doe",
-//     phone: "01712345679",
-//     membershipId: "M-123457",
-//   },
-//   {
-//     transactionId: "D-123458",
-//     date: dayjs().subtract(3, "day").format("DD/MM/YYYY"),
-//     month: dayjs().subtract(3, "day").format("MMMM"),
-//     amount: "$300",
-//     paymentMethod: "Rocket",
-//     name: "John Doe",
-//     phone: "01712345678",
-//     membershipId: "M-123456",
-//   },
-//   {
-//     transactionId: "D-123459",
-//     date: dayjs().subtract(4, "day").format("DD/MM/YYYY"),
-//     month: dayjs().subtract(4, "day").format("MMMM"),
-//     amount: "$400",
-//     paymentMethod: "Bkash",
-//     name: "Jane Doe",
-//     phone: "01712345679",
-//     membershipId: "M-123457",
-//   },
-//   {
-//     transactionId: "D-123460",
-//     date: dayjs().subtract(5, "day").format("DD/MM/YYYY"),
-//     month: dayjs().subtract(5, "day").format("MMMM"),
-//     amount: "$500",
-//     paymentMethod: "Nagad",
-//     name: "John Doe",
-//     phone: "01712345678",
-//     membershipId: "M-123456",
-//   },
-// ];
+import Loader from "@/components/Loader";
 
 export default function Page(): React.JSX.Element {
   // const page = 0;
@@ -94,7 +42,7 @@ export default function Page(): React.JSX.Element {
 
   React.useEffect(() => {
     if (error) {
-      const { status, data } = error;
+      const { status, data } = error as any;
       if ([400, 404, 401, 409, 500].includes(status)) {
         setErrorMessage(data?.message);
       } else {
@@ -115,7 +63,7 @@ export default function Page(): React.JSX.Element {
           },
         }
       );
-  
+
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         refetch();
@@ -136,10 +84,9 @@ export default function Page(): React.JSX.Element {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
- 
   return (
     <Stack spacing={3}>
       <PaymentsTable

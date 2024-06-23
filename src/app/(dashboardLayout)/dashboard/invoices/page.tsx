@@ -11,6 +11,7 @@ import { getCookie } from "@/helpers/Cookies";
 import axios from "axios";
 import { toast } from "sonner";
 import { useGetAllPaymentsQuery } from "@/redux/api/paymentApi";
+import Loader from "@/components/Loader";
 
 export default function Page(): React.JSX.Element {
   // const page = 0;
@@ -52,7 +53,7 @@ export default function Page(): React.JSX.Element {
   }, [error]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
