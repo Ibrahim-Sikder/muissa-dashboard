@@ -58,7 +58,6 @@ export function BlogsTable({
       console.error(error);
     }
   };
-  console.log(rows);
 
   return (
     <Card
