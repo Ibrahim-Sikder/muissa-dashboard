@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import qs from "query-string";
-import { List, ListItem, ListItemText, Avatar, Badge } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { List, ListItem, ListItemText, Avatar, Badge, Button } from "@mui/material";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Sender {
   _id: string;
@@ -68,6 +68,8 @@ const UserList: React.FC<UserListProps> = ({
 
   console.log(users)
 
+
+
   return (
     <List className=" cursor-pointer">
       {users?.map((user) => (
@@ -76,7 +78,7 @@ const UserList: React.FC<UserListProps> = ({
           onClick={() => onClick(user?.sender?._id)}
           sx={{
             p: 2,
-            backgroundColor: userId === user?.sender?._id ? "#e0e0e0" : "inherit",
+            backgroundColor: userId === user?.sender?._id ? "#fff" : "fff",
           }}
         >
           <Badge
@@ -96,40 +98,43 @@ const UserList: React.FC<UserListProps> = ({
       ))}
       {userForAdmin?.map((user) => (
         <>
-          <ListItem
-            key={user?._id}
-            sx={{
-              p: 2,
-              backgroundColor:
-                userId === user?.sender?._id ? "#e0e0e0" : "inherit",
-            }}
-          >
-            <Badge
-              color={
-                onlineUser.includes(user?.sender?._id) ? "success" : "default"
-              }
-              variant="dot"
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              overlap="circular"
-            >
-              <Avatar
-                alt={user?.sender?.name}
-                src={user?.sender?.profile_pic}
-              />
-            </Badge>
-            <ListItemText
-              primary={user?.sender?.name}
-              secondary={`${user?.lastMsg?.text?.slice(0, 10)}...`}
-              sx={{ ml: 2 }}
-            />
-          </ListItem>
+          <div className="flex items-center pr-2">
 
-          <button
-            className="btn-sm"
-            onClick={() => handleUserAccept(user?.sender?._id)}
-          >
-            Accept
-          </button>
+            <ListItem
+              key={user?._id}
+              sx={{
+                p: 2,
+                backgroundColor:
+                  userId === user?.sender?._id ? "#e0e0e0" : "inherit",
+              }}
+            >
+              <Badge
+                color={
+                  onlineUser.includes(user?.sender?._id) ? "success" : "default"
+                }
+                variant="dot"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                overlap="circular"
+              >
+                <Avatar
+                  alt={user?.sender?.name}
+                  src={user?.sender?.profile_pic}
+                />
+              </Badge>
+              <ListItemText
+                primary={user?.sender?.name}
+                secondary={`${user?.lastMsg?.text?.slice(0, 10)}...`}
+                sx={{ ml: 2 }}
+              />
+            </ListItem>
+
+            <Button
+            sx={{width:'40px', fontSize:'11px', height:'30px'}}
+              onClick={() => handleUserAccept(user?.sender?._id)}
+            >
+              Accept
+            </Button>
+          </div>
         </>
       ))}
     </List>
