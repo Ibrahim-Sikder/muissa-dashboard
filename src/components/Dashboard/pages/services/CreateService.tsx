@@ -141,7 +141,7 @@ const CreateService = () => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 <MUIInput
                   name="title"
                   label="Service Title"
@@ -149,7 +149,7 @@ const CreateService = () => {
                   fullWidth={true}
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 <INTSelect
                   name="category"
                   label="Category"
@@ -165,7 +165,7 @@ const CreateService = () => {
               </Grid>
 
               {/* subcategory */}
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 {/* <INTSelect
                   name="subcategory"
                   label="Service Subcategory"
@@ -182,6 +182,15 @@ const CreateService = () => {
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={3}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
                 />
               </Grid>
 
