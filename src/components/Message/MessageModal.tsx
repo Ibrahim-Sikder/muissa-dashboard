@@ -280,7 +280,7 @@ const MessageModal = ({ close }: TProps) => {
           }}
         >
           <List>
-            
+
             {allMessage?.map((message: any) => (
               <ListItem
                 key={message?.id}
@@ -297,11 +297,12 @@ const MessageModal = ({ close }: TProps) => {
                     sx={{
                       p: 1,
                       borderRadius: 2,
-                
+
                       backgroundColor:
                         senderUser?._id === message?.msgByUserId
-                          ? "#EEF0F3"
-                          : "#111",
+                          ? "#F0F2F5"
+                          : "#1591A3",
+                     
                       boxShadow: "none",
                       textAlign:
                         senderUser?._id === message?.msgByUserId
@@ -309,8 +310,8 @@ const MessageModal = ({ close }: TProps) => {
                           : "left",
                       color:
                         senderUser?._id === message?.msgByUserId
-                          ? "111"
-                          : "black",
+                          ? "black"
+                          : "white",
                     }}
                   >
                     {message?.imageUrl && (
@@ -323,10 +324,11 @@ const MessageModal = ({ close }: TProps) => {
                       />
                     )}
                     <ListItemText
-                    className="text-black text-[8px]"
+                      className="text-  text-[8px]"
                       primary={message.text}
                       secondary={format(message.updatedAt)}
                     />
+                    
                   </Paper>
                 </Box>
               </ListItem>
@@ -352,6 +354,7 @@ const MessageModal = ({ close }: TProps) => {
               </div>
             </div>
           )}
+
           <>
             {loading && (
               <div className="w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden">

@@ -85,7 +85,7 @@ const Service = async () => {
               <div className="serviceContent">
                 <h4>{data.category}</h4>
 
-                <p className="my-2 md:my-5">{data.short_description.slice(0, 100)} অর্থায়নের জন্য নির্ভরযোগ্য পরামর্শ সেবা, আপনার ব্যবসার অর্থায়নের প্রয়োজন মেটাতে আমাদের বিশেষজ্ঞ ফ
+                <p className="my-2 md:my-5">{data.short_description.slice(0, 100)} 
 
                 </p>
                 <Button sx={buttonStyle} component={Link} href={`/services/${data._id}`}>
