@@ -16,7 +16,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
@@ -30,7 +30,7 @@ const PaymentForm = () => {
   const [totalAmount, setTotalAmount] = useState("");
   const token = getCookie("mui-token");
   const params = useSearchParams();
-
+const router = useRouter()
   const member_type = params.get("member_type");
 
   const handleBankChange = (event: { target: { value: string } }) => {
@@ -63,7 +63,7 @@ const PaymentForm = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        // router.push("/login")
+        router.push("/profile")
         setIsLoading(false);
       }
       console.log("Response:", response);

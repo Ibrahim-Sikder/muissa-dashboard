@@ -45,6 +45,7 @@ import {
   useGetAllMembersQuery,
   useGetMemberForPaymentQuery,
 } from "@/redux/api/memeberApi";
+import Loader from "@/components/Loader";
 
 // const validationSchema = z.object({
 //   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -123,29 +124,7 @@ const Profile = () => {
 
   const [memberShip, setMembership] = useState<MemberShip>({});
 
-  console.log("memebershipt data", memberShip);
 
-  // const {data} = useGetAllMembersQuery({})
-
-  const defaultValues: MemberShip = {
-    profile_pic: memberShip?.profile_pic || "",
-    name: memberShip?.name || "",
-    phone: memberShip?.phone || "",
-    email: memberShip?.email || "",
-    address: memberShip?.address || "",
-    business_name: memberShip?.business_name || "",
-    business_type: memberShip?.business_type || "",
-    business_address: memberShip?.business_address || "",
-    website: memberShip?.website || "",
-    business_description: memberShip?.business_description || "",
-    need_of_service: memberShip?.need_of_service || [],
-    additional_info: memberShip?.additional_info || "",
-    investment_type: memberShip?.investment_type || "",
-    investment_amount: memberShip?.investment_amount || "",
-    investment_period: memberShip?.investment_period || "",
-    investment_goal: memberShip?.investment_goal || "",
-    memberShip: memberShip?.memberShip || "",
-  };
 
   const [userData, setUserData] = useState<UserData>({
     _id: "",
@@ -165,6 +144,9 @@ const Profile = () => {
 
   const member_type = params.get("member_type");
   const id = params.get("id");
+
+  const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({ token, member_type, id })
+
 
   useEffect(() => {
     const fetchedData = async () => {
@@ -209,30 +191,21 @@ const Profile = () => {
     };
   }, [token]);
 
-  console.log(userData);
 
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
-  // loading ta handle koiren
+  const defaultValues = {
+    profile_pic: memberShipData?.user?.profile_pic || "",
+    name: memberShipData?.user?.name || "",
+    email: memberShipData?.user?.auth || "",
+    additional_info: memberShipData?.additional_info || "",
+    need_of_service: memberShipData?.need_of_service || "",
+    business_description: memberShipData?.business_description || "",
+    website: memberShipData?.website || "",
+    business_address: memberShipData?.business_address || "",
+    business_name: memberShipData?.business_name || "",
+    business_type: memberShipData?.business_type || "",
 
-  // if(isLoading){
-  //   return <div>Loading...</div>
-  // }
+
+  };
 
   let email;
   let phone;
@@ -264,8 +237,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-          : null;
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+            : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -349,6 +322,13 @@ const Profile = () => {
       color: "#fff",
     },
   };
+
+
+  if (isLoading) {
+    return <Loader />
+  }
+  console.log(memberShipData)
+
 
   return (
     <>
