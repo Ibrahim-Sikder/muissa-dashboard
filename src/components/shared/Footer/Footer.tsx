@@ -17,7 +17,7 @@ import NewsLetter from "./NewsLetter";
 const Footer = () => {
   return (
     <>
-      {/* <NewsLetter /> */}
+      <NewsLetter />
       <Box sx={{ background: "#002140", marginTop: "", padding: "80px 0px" }}>
         <Container>
           <div className="flex text-center flex-col md:flex-row justify-center gap-14 md:justify-between  text-white md:text-left">

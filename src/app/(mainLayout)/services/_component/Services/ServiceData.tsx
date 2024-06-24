@@ -97,6 +97,25 @@ const renderContent = (content) => {
     return parsedContent.map((element, index) => renderElement(element, index));
 };
 
+const tabStyles = {
+    border: "none",
+    textAlign: "left",
+    pl: 2,
+    "& .MuiTab-wrapper": {
+        justifyContent: "flex-start",
+    },
+
+    "&.Mui-selected": {
+        borderLeft: "2px solid #002140",
+        borderRight: "none",
+        borderTop: "none",
+        borderBottom: "none",
+        color: "#fff",
+        background: "#1591A3",
+        textAlign: 'left',
+
+    },
+};
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -139,14 +158,14 @@ export default function ServiceData() {
     }
 
     return (
-        <Box sx={{ display: 'flex', }}>
+        <Box sx={{ display: 'flex' }}>
             <Tabs
                 orientation="vertical"
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs example"
-                sx={{ minWidth: '200px', border: 'none' }}
+                sx={{ minWidth: '200px', border: 'none', }}
                 TabIndicatorProps={{ style: { display: 'none' } }}
             >
                 {serviceData?.services.map((service, index) => (
@@ -154,16 +173,12 @@ export default function ServiceData() {
                         key={service.id}
                         label={service.category}
                         {...a11yProps(index)}
-                        sx={{
-                            border: 'none',
-                            backgroundColor: value === index ? 'red' : 'transparent',
-                            color: value === index ? 'white' : 'inherit',
-                        }}
+                        sx={tabStyles}
                     />
                 ))}
             </Tabs>
 
-            {serviceData?.services?.map((service, index) => (
+            {serviceData?.services?.map((service, index: number) => (
                 <CustomTabPanel key={service.id} value={value} index={index}>
                     <div className=''>
                         <div className="w-full h-96 aspect-video relative">
@@ -175,6 +190,7 @@ export default function ServiceData() {
                                 className="rounded-t-lg h-full w-full object-cover absolute"
                             />
                         </div>
+                        
                     </div>
                     <h4 className='mt-10'>{service.title}</h4>
                     <p className='my-3'>{service.short_description}</p>

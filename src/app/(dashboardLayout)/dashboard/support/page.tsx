@@ -17,7 +17,7 @@ import { getCookie } from "@/helpers/Cookies";
 import { io, Socket } from "socket.io-client";
 import { ChangeEvent, useEffect, useState } from "react";
 import uploadFile from "@/helpers/uploadFile";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { toast } from "sonner";
 interface Message {
@@ -236,6 +236,8 @@ export default function SupportContactPage() {
     }
   };
 
+  const pathname= usePathname()
+  console.log(pathname)
   return (
     <Box
       maxWidth="lg"

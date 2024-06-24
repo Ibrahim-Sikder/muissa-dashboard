@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useState, useEffect } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { VscClose } from "react-icons/vsc";
 import MessageIconGroupModal from "./MessageIconGroupModal";
+import { usePathname } from "next/navigation";
 
 const MessageIcons = () => {
   const [open, setOpen] = useState(false);
@@ -19,8 +21,12 @@ const MessageIcons = () => {
     return null;
   }
 
+  const pathname= usePathname()
+  console.log(pathname)
+
+
   return (
-    <div>
+    <div className={pathname === '/dashboard/support' ? 'hidden' : '' }>
       <div className="message rounded-full p-2 z-[9999999999999] fixed bg-[#1591A3] text-white bottom-5 right-3 cursor-pointer transition-all duration-75 shadowStyle">
         {open ? (
           <VscClose
