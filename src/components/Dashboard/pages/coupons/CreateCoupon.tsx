@@ -21,6 +21,7 @@ import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import MUIDatePicker from "@/components/Forms/DatePicker";
+import INTSelect from "@/components/Forms/Select";
 
 const validationSchema = z.object({
   name: z.string().nonempty({ message: "Name is required." }),
@@ -80,81 +81,142 @@ const CreateCoupon = () => {
   };
 
   return (
-    <Stack spacing={3}>
-      <MUIForm
-        onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          name: "",
-          code: "",
-          discount: "",
-          status: "",
-          startDate: "",
-          endDate: "",
-        }}
-      >
-        <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
+    <>
+      <Stack spacing={3}>
+        <MUIForm
+          onSubmit={handleSubmit}
+          resolver={zodResolver(validationSchema)}
+          defaultValues={{
+            name: "",
+            code: "",
+            discount: "",
+            status: "",
+            startDate: "",
+            endDate: "",
           }}
         >
-          <CardHeader
-            subheader="Create a new coupon"
-            title="Coupon Details"
-            action={
-              <Link href="/dashboard/coupons">
-                <Button variant="outlined">Back to Coupons</Button>
-              </Link>
-            }
-          />
-          <Divider />
-          <CardContent sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <MUIInput
-                  name="name"
-                  label="Coupon Name"
-                  type="text"
-                  fullWidth
-                />
-              </Grid>
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
+            }}
+          >
+            <CardHeader
+              subheader="Create a new coupon"
+              title="Coupon Details"
+              action={
+                <Link href="/dashboard/coupons">
+                  <Button variant="outlined">Back to Coupons</Button>
+                </Link>
+              }
+            />
+            <Divider />
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <MUIInput
+                    name="name"
+                    label="Coupon Name"
+                    type="text"
+                    fullWidth
+                  />
+                </Grid>
 
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="discount"
-                  label="Discount (%)"
-                  type="text"
-                  fullWidth
-                  placeholder="e.g. 10%"
-                />
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="discount"
+                    label="Discount (%)"
+                    type="text"
+                    fullWidth
+                    placeholder="e.g. 10%"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MUIInput name="status" label="Status" type="text" fullWidth />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MUIDatePicker name="startDate" label="Start Date" fullWidth />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MUIDatePicker name="endDate" label="End Date" fullWidth />
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIInput name="status" label="Status" type="text" fullWidth />
+            </CardContent>
+            <Divider />
+            <div className="mt-2">
+              {successMessage && <SuccessMessage message={successMessage} />}
+              {errorMessage && <ErrorMessage message={errorMessage} />}
+            </div>
+            <CardActions sx={{ p: 2 }}>
+              <Button disabled={loading} type="submit" variant="contained">
+                {loading ? "Creating..." : "Create"}
+              </Button>
+            </CardActions>
+          </Card>
+        </MUIForm>
+      </Stack>
+      <Stack spacing={3}>
+        <MUIForm
+          onSubmit={handleSubmit}
+          resolver={zodResolver(validationSchema)}
+          defaultValues={{
+            name: "",
+            code: "",
+            discount: "",
+            status: "",
+            startDate: "",
+            endDate: "",
+          }}
+        >
+          <Card
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
+            }}
+          >
+            <CardHeader
+              subheader="Create a new discount"
+              title="Discount Details"
+              
+            />
+            <Divider />
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <MUIInput
+                    name="name"
+                    label="Discount Name"
+                    type="text"
+                    fullWidth
+                  />
+                </Grid>
+
+
+                <Grid item xs={4}>
+                  <INTSelect name="status" label="Status" items={['Discount', 'Flat']} fullWidth />
+                </Grid>
+                <Grid item xs={4}>
+                <Button sx={{marginTop:'15px'}} disabled={loading} type="submit" variant="contained">
+                {loading ? "Creating..." : "Create"}
+              </Button>
+                </Grid>
+
               </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIDatePicker name="startDate" label="Start Date" fullWidth />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIDatePicker name="endDate" label="End Date" fullWidth />
-              </Grid>
-            </Grid>
-          </CardContent>
-          <Divider />
-          <div className="mt-2">
-            {successMessage && <SuccessMessage message={successMessage} />}
-            {errorMessage && <ErrorMessage message={errorMessage} />}
-          </div>
-          <CardActions sx={{ p: 2 }}>
-            <Button disabled={loading} type="submit" variant="contained">
-              {loading ? "Creating..." : "Create"}
-            </Button>
-          </CardActions>
-        </Card>
-      </MUIForm>
-    </Stack>
+            </CardContent>
+            <Divider />
+            <div className="mt-2">
+              {successMessage && <SuccessMessage message={successMessage} />}
+              {errorMessage && <ErrorMessage message={errorMessage} />}
+            </div>
+            
+          </Card>
+        </MUIForm>
+      </Stack>
+    </>
   );
 };
 

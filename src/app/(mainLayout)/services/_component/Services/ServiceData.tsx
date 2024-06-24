@@ -7,6 +7,7 @@ import Image from 'next/image';
 import ForwardIcon from '@mui/icons-material/Forward';
 import { useMediaQuery, useTheme } from '@mui/material';
 import React, { useState } from 'react';
+import './services.css'; // Assuming you have custom styles here
 
 const renderElement = (element: any, index: number) => {
     if (typeof element === 'string') {
@@ -101,7 +102,10 @@ const renderContent = (content: string) => {
 const tabStyles = {
     border: "none",
     textAlign: "left",
-    pl: 2,
+    pl: {
+        sm: 1,
+        lg: 2
+    },
     "& .MuiTab-wrapper": {
         justifyContent: "flex-start",
     },
@@ -133,7 +137,7 @@ function CustomTabPanel(props: TabPanelProps) {
             aria-labelledby={`vertical-tab-${index}`}
             {...other}
         >
-            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+            {value === index && <Box sx={{ p: { sm: 1, md: 3 } }}>{children}</Box>}
         </div>
     );
 }
@@ -160,17 +164,14 @@ export default function ServiceData() {
     }
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <div className='lg:flex '>
             <Tabs
                 orientation={isSmallScreen ? "horizontal" : "vertical"}
                 variant="scrollable"
                 value={value}
                 scrollButtons="auto"
                 onChange={handleChange}
-
                 aria-label="scrollable auto tabs example"
-
-
                 sx={{ minWidth: '200px', border: 'none' }}
                 TabIndicatorProps={{ style: { display: 'none' } }}
             >
@@ -186,14 +187,14 @@ export default function ServiceData() {
 
             {serviceData?.services?.map((service: any, index: number) => (
                 <CustomTabPanel key={service.id} value={value} index={index}>
-                    <div>
-                        <div className="w-full h-96 aspect-video relative">
+                    <div className='lg:mt-0 mt-5'>
+                        <div className="w-full h-96 serviceCoverImgWrap  relative">
                             <Image
                                 src={service.service_image}
                                 alt='services'
                                 width={500}
                                 height={475}
-                                className="rounded-t-lg h-full w-full object-cover absolute"
+                                className="rounded-t-lg  aspect-video h-full w-full object-cover absolute"
                             />
                         </div>
                     </div>
@@ -202,6 +203,6 @@ export default function ServiceData() {
                     <div>{renderContent(service?.description)}</div>
                 </CustomTabPanel>
             ))}
-        </Box>
+        </div>
     );
 }

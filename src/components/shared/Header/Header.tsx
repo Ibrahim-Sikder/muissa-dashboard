@@ -211,7 +211,7 @@ const Header = () => {
                       <li onClick={logOut} className="cursor-pointer text-white">
                         <p>Logout</p>
                       </li>
-                      <Box component={Link} href='/profile'> <AccountCircle /></Box>
+                      <Box sx={{margin:'0px 10px '}} component={Link} href='/profile'> <AccountCircle /></Box>
                     </>
                   ) : (
                     <li>
@@ -225,7 +225,8 @@ const Header = () => {
 
 
                 </ul>
-                <IconButton aria-label={notificationsLabel(100)}>
+               <div className="hidden lg:block ml-2">
+               <IconButton aria-label={notificationsLabel(100)}>
                   <Badge badgeContent={100} color="primary">
                     <Notifications
                       className="notificationIcon"
@@ -233,6 +234,7 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
+               </div>
               </div>
             </nav>
             <div className="membershipBtn">
