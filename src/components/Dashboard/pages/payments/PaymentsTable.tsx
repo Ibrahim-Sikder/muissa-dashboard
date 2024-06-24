@@ -21,10 +21,9 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
- 
+
 import dayjs from "dayjs";
- 
- 
+import Link from "next/link";
 
 function noop(): void {
   // do nothing
@@ -165,60 +164,70 @@ export function PaymentsTable({
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
-         {
-          rows?.length > 0 ?  <TableBody>
-          {rows.map((row, index) => {
-            return (
-              <TableRow
-                hover
-                key={index}
-                sx={{
-                  textAlign: "left",
-                }}
-              >
-                <TableCell>{row?.userDetails?.userId}</TableCell>
-                <TableCell>{row?.userDetails?.name}</TableCell>
-                <TableCell>{row?.userDetails?.phone}</TableCell>
-                <TableCell>{row?.transaction_id}</TableCell>
-                <TableCell>
-                  {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
-                </TableCell>
-                <TableCell>{row?.amount}</TableCell>
-                <TableCell>{row?.payment_method}</TableCell>
-                <TableCell>{capitalizeFirstLetter(row?.payment_status)}</TableCell>
-                <TableCell>
-                  <Stack direction="row" spacing={1}>
-                    <Button color="primary" size="small" variant="contained">
-                      View
-                    </Button>
+          {rows?.length > 0 ? (
+            <TableBody>
+              {rows.map((row, index) => {
+                return (
+                  <TableRow
+                    hover
+                    key={index}
+                    sx={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <TableCell>{row?.userDetails?.userId}</TableCell>
+                    <TableCell>{row?.userDetails?.name}</TableCell>
+                    <TableCell>{row?.userDetails?.phone}</TableCell>
+                    <TableCell>{row?.transaction_id}</TableCell>
+                    <TableCell>
+                      {dayjs(row?.createdAt).format("MMM D, YYYY")}{" "}
+                    </TableCell>
+                    <TableCell>{row?.amount}</TableCell>
+                    <TableCell>{row?.payment_method}</TableCell>
+                    <TableCell>
+                      {capitalizeFirstLetter(row?.payment_status)}
+                    </TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1}>
+                        <Link href={`/dashboard/payments/${row?._id}`}>
+                          <Button
+                            color="primary"
+                            size="small"
+                            variant="contained"
+                          >
+                            View
+                          </Button>
+                        </Link>
 
-                    <Select
-                      onChange={(event) =>
-                        handlePaymentStatus(
-                          row?._id,
-                          event.target.value as string
-                        )
-                      }
-                      defaultValue={"processing"}
-                      size="small"
-                    >
-                      <MenuItem value="" disabled>
-                        Select
-                      </MenuItem>
-                      <MenuItem value="processing">Processing</MenuItem>
-                      <MenuItem value="pending">Pending</MenuItem>
-                      <MenuItem value="hold">On Hold</MenuItem>
-                      <MenuItem value="completed">Completed</MenuItem>
-                      <MenuItem value="cancelled">Cancelled</MenuItem>
-                      <MenuItem value="refunded">Refunded</MenuItem>
-                    </Select>
-                  </Stack>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody> : <div className="text-center py-3">No match found</div>
-         }
+                        <Select
+                          onChange={(event) =>
+                            handlePaymentStatus(
+                              row?._id,
+                              event.target.value as string
+                            )
+                          }
+                          defaultValue={"processing"}
+                          size="small"
+                        >
+                          <MenuItem value="" disabled>
+                            Select
+                          </MenuItem>
+                          <MenuItem value="processing">Processing</MenuItem>
+                          <MenuItem value="pending">Pending</MenuItem>
+                          <MenuItem value="hold">On Hold</MenuItem>
+                          <MenuItem value="completed">Completed</MenuItem>
+                          <MenuItem value="cancelled">Cancelled</MenuItem>
+                          <MenuItem value="refunded">Refunded</MenuItem>
+                        </Select>
+                      </Stack>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          ) : (
+            <div className="text-center py-3">No match found</div>
+          )}
         </Table>
       </Box>
       <Divider />

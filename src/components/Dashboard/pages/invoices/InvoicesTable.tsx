@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { FaEye, FaPrint } from "react-icons/fa";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 function noop(): void {
   // do nothing
@@ -155,14 +156,16 @@ export function InvoicesTable({
                   </TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <Button
-                        color="primary"
-                        size="small"
-                        variant="contained"
-                        startIcon={<FaEye />}
-                      >
-                        View
-                      </Button>
+                      <Link href={`/dashboard/invoices/${row._id}`}>
+                        <Button
+                          color="primary"
+                          size="small"
+                          variant="outlined"
+                          startIcon={<FaEye />}
+                        >
+                          View
+                        </Button>
+                      </Link>
                       <Button
                         color="primary"
                         size="small"
