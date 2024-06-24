@@ -16,33 +16,34 @@ const Experience = () => {
               subtitle="Muissa এ, আমরা আমাদের দীর্ঘ বছরের অভিজ্ঞতা এবং পেশাদারিত্ব নিয়ে গর্বিত। আমাদের প্রতিটি সদস্যই ব্যবসায়িক পরামর্শ ও সমর্থন প্রদানের ক্ষেত্রে বিশেষজ্ঞ এবং প্রতিটি ক্ষেত্রে শ্রেষ্ঠত্বের দিকে অগ্রসর হওয়ার জন্য প্রতিশ্রুতিবদ্ধ।"
             />
 
+
             <div>
               <div className="grid grid-cols-2 md:grid-cols-2   lg:grid-cols-4 mt-16 place-content-between gap-10 justify-between lg:w-[1000px]  xl:w-[1280px] ">
                 <div className="iconWraps ">
                   <FaReact className="experienceIcon" />
                   <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
-                    30+
+                    150+
                   </h1>
                   <p className="tracking-[3px]">Successfull Project</p>
                 </div>
                 <div className="iconWraps ">
                   <InsertEmoticon className="experienceIcon" />
                   <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
-                    30+
+                    150+
                   </h1>
                   <p className="tracking-[3px]">Happy Client </p>
                 </div>
                 <div className="iconWraps ">
                   <EmojiEvents className="experienceIcon" />
                   <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
-                    5+
+                    ++
                   </h1>
                   <p className="tracking-[3px]">Business Awards </p>
                 </div>
                 <div className="iconWraps ">
                   <VscCoffee className="experienceIcon" />
                   <h1 className="text-4xl md:text-6xl font-bold mt-5 mb-3 text-[#fff]">
-                    150+
+                    950+
                   </h1>
                   <p className="tracking-[3px]">Cup Coffe </p>
                 </div>

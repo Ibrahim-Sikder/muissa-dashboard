@@ -113,6 +113,12 @@
   color: #111;
   background: #fff;
 }
+.serviceCoverImgWrap{
+
+}
+.serviceCoverImgWrap img{
+  width:100%;
+}
 
 @media only screen and (max-width: 1024px) {
   .serviceCard {

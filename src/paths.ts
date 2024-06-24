@@ -13,6 +13,7 @@ export const paths = {
     faqs: "/dashboard/faqs",
     policies: "/dashboard/policies",
     invoices: "/dashboard/invoices",
+    coupons: "/dashboard/coupons",
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },
