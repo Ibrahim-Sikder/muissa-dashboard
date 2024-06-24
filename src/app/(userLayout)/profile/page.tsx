@@ -41,7 +41,10 @@ import axios from "axios";
 import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-import { useGetAllMembersQuery } from "@/redux/api/memeberApi";
+import {
+  useGetAllMembersQuery,
+  useGetMemberForPaymentQuery,
+} from "@/redux/api/memeberApi";
 
 // const validationSchema = z.object({
 //   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -207,52 +210,44 @@ const Profile = () => {
   }, [token]);
 
   console.log(userData);
+<<<<<<< HEAD
 
-  useEffect(() => {
-    if (!member_type || !id) return;
+  const {
+    data: memberData,
+    error,
+    isLoading,
+  }: any = useGetMemberForPaymentQuery({
+    token,
+    member_type,
+    id,
+  });
+  console.log({ memberData });
 
-    const fetchedData = async () => {
-      setSuccessMessage("");
-      setErrorMessage([]);
-      setLoading(true);
+=======
+>>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
 
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/get-member?member_type=${member_type}&id=${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log("res", response);
-        if (response?.status === 200) {
-          setMembership(response?.data?.data);
-          toast.success(response?.data?.message);
-        }
-      } catch (error: any) {
-        console.error("Error fetching data:", error);
-        if (error?.response) {
-          const { status, data } = error.response;
-          if ([400, 404, 409, 500].includes(status)) {
-            setErrorMessage(data.message);
-          } else {
-            setErrorMessage(["An unexpected error occurred."]);
-          }
-        } else {
-          setErrorMessage(["Network error occurred."]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
+  // loading ta handle koiren 
 
-    fetchedData();
-
-    return () => {
-      setLoading(false);
-    };
-  }, [id, member_type, token]);
+  // if(isLoading){
+  //   return <div>Loading...</div>
+  // }
 
   let email;
   let phone;

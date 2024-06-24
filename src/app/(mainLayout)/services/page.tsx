@@ -11,12 +11,16 @@ import ServiceSlider from "./_component/Services/ServiceSlider";
 import Container from "@/components/ui/HomePage/Container/Container";
 import { ErrorMessage } from "@/components/error-message";
 import DOMPurify from "dompurify";
+<<<<<<< HEAD
+=======
 import {
   useGetAllCategoryQuery,
   useGetAllServicesForHomeQuery,
 } from "@/redux/api/serviceApi";
+>>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
 
 import ReactHtmlParser from "react-html-parser";
+import ServiceData from "./_component/Services/ServiceData";
 
 const renderContent = (content: string) => {
   const parsedContent = ReactHtmlParser(content);
@@ -92,22 +96,20 @@ const renderContent = (content: string) => {
 };
 
 const Page = () => {
-  const [errorMessage, setErrorMessage] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
-  const [tabIndex, setTabIndex] = useState(0);
-  const [subTabIndex, setSubTabIndex] = useState(0);
 
+<<<<<<< HEAD
+=======
   const {
     data: categories,
     error: categoriesError,
     isLoading: categoriesLoading,
   } = useGetAllCategoryQuery({});
   console.log("from servic epage ", categories);
+>>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
 
-  const selectedCategoryData = categories?.[tabIndex] || {};
-  const subCategories = selectedCategoryData?.sub_category || [];
 
+<<<<<<< HEAD
+=======
   const getCategoryName = (categoryId: any) => {
     const category = categories?.find((cat: any) => cat._id === categoryId);
     return category ? category.category : "Unknown Category";
@@ -193,6 +195,7 @@ const Page = () => {
   if (categoriesLoading || servicesLoading) {
     return <div>Loading...</div>;
   }
+>>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
 
   const tabStyle = {
     background: "#00305C",
@@ -205,7 +208,11 @@ const Page = () => {
           <h1>Our Services</h1>
         </div>
       </div>
+
       <Container className="sectionMargin">
+<<<<<<< HEAD
+        <ServiceData />
+=======
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <Tabs
@@ -415,6 +422,7 @@ const Page = () => {
             {/* <ServiceSlider /> */}
           </div>
         </div>
+>>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
       </Container>
     </>
   );

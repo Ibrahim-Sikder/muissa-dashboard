@@ -26,7 +26,7 @@ import Link from "next/link";
 import { getCookie, removeCookie } from "@/helpers/Cookies";
 import { usePathname, useRouter } from "next/navigation";
 
-import { Notifications, TrendingFlat } from "@mui/icons-material";
+import { AccountCircle, Notifications, TrendingFlat } from "@mui/icons-material";
 
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
@@ -165,14 +165,14 @@ const Header = () => {
         </div>
         <div
           className={`${stickyMenu
-              ? "stickyMenu "
-              : "menubarWrap flex items-center justify-between  "
+            ? "stickyMenu "
+            : "menubarWrap flex items-center justify-between  "
             }`}
         >
           <div
             className={`${stickyMenu
-                ? "stickyContainer "
-                : " flex items-center justify-between w-full "
+              ? "stickyContainer "
+              : " flex items-center justify-between w-full "
               }`}
           >
             <div className={`${stickyMenu ? "stickyLogo" : "hidden"}`}>
@@ -210,9 +210,12 @@ const Header = () => {
                   </li>
 
                   {authenticated ? (
-                    <li onClick={logOut} className="cursor-pointer text-white">
-                      <p>Logout</p>
-                    </li>
+                    <>
+                      <li onClick={logOut} className="cursor-pointer text-white">
+                        <p>Logout</p>
+                      </li>
+                      <Box component={Link} href='/profile'> <AccountCircle /></Box>
+                    </>
                   ) : (
                     <li>
                       <Link href="/login">Login</Link>
@@ -286,6 +289,9 @@ const Header = () => {
               </li>
               <li>
                 <Link href="/contact">Contact </Link>
+              </li>
+              <li>
+                <Link href="/profile">Profile </Link>
               </li>
               {authenticated ? (
                 <li onClick={logOut} className=" cursor-pointe"><p>Logout</p></li>
