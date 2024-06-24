@@ -8,7 +8,6 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaPhoneVolume,
-  FaTwitter,
 } from "react-icons/fa";
 import "./Header.css";
 import logo from "../../../assets/logo/logo.png";
@@ -17,7 +16,6 @@ import {
   HiOutlineArrowNarrowRight,
   HiOutlineLocationMarker,
   HiOutlineMenu,
-  HiOutlineMenuAlt1,
   HiOutlineX,
 } from "react-icons/hi";
 import { Box, Button, Divider } from "@mui/material";
@@ -44,7 +42,6 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenu((mobileMenu) => !mobileMenu);
-    // navRef.current.classList.toggle("active");
     console.log("menu click ");
   };
 
@@ -196,17 +193,17 @@ const Header = () => {
               <div className="flex items-center justify-between pr-4 ">
                 <ul className="flex navItems items-center ">
                   <li>
-                    <Link href="/">Home</Link>
+                    <Link href="/" onClick={toggleMobileMenu}>Home</Link>
                   </li>
 
                   <li>
-                    <Link href="/services">Services</Link>
+                    <Link href="/services" onClick={toggleMobileMenu}>Services</Link>
                   </li>
                   <li>
-                    <Link href="/about">About</Link>
+                    <Link href="/about" onClick={toggleMobileMenu}>About</Link>
                   </li>
                   <li>
-                    <Link href="/contact">Contact </Link>
+                    <Link href="/contact" onClick={toggleMobileMenu}>Contact </Link>
                   </li>
 
                   {authenticated ? (
@@ -214,11 +211,11 @@ const Header = () => {
                       <li onClick={logOut} className="cursor-pointer text-white">
                         <p>Logout</p>
                       </li>
-                      <Box component={Link} href='/profile'> <AccountCircle /></Box>
+                      <Box sx={{margin:'0px 10px '}} component={Link} href='/profile'> <AccountCircle /></Box>
                     </>
                   ) : (
                     <li>
-                      <Link href="/login">Login</Link>
+                      <Link href="/login" onClick={toggleMobileMenu}>Login</Link>
                     </li>
                   )}
 
@@ -228,7 +225,8 @@ const Header = () => {
 
 
                 </ul>
-                <IconButton aria-label={notificationsLabel(100)}>
+               <div className="hidden lg:block ml-2">
+               <IconButton aria-label={notificationsLabel(100)}>
                   <Badge badgeContent={100} color="primary">
                     <Notifications
                       className="notificationIcon"
@@ -236,9 +234,10 @@ const Header = () => {
                     />
                   </Badge>
                 </IconButton>
+               </div>
               </div>
             </nav>
-            <div className=" membershipBtn">
+            <div className="membershipBtn">
               <Button
                 className="membershipBtn"
                 LinkComponent={Link}
@@ -261,7 +260,7 @@ const Header = () => {
         </div>
 
         <div className={mobileMenu ? `activeMobileMenu` : `mobileMenu`}>
-          <Link href="/">
+          <Link href="/" onClick={toggleMobileMenu}>
             <div className="flex items-center xl:hidden ">
               {" "}
               <Image
@@ -278,26 +277,26 @@ const Header = () => {
           <nav className="mt-5">
             <ul className="stickyNavItems">
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/" onClick={toggleMobileMenu}>Home</Link>
               </li>
 
               <li>
-                <Link href="/services">Services</Link>
+                <Link href="/services" onClick={toggleMobileMenu}>Services</Link>
               </li>
               <li>
-                <Link href="/about">About</Link>
+                <Link href="/about" onClick={toggleMobileMenu}>About</Link>
               </li>
               <li>
-                <Link href="/contact">Contact </Link>
+                <Link href="/contact" onClick={toggleMobileMenu}>Contact </Link>
               </li>
               <li>
-                <Link href="/profile">Profile </Link>
+                <Link href="/profile" onClick={toggleMobileMenu}>Profile </Link>
               </li>
               {authenticated ? (
-                <li onClick={logOut} className=" cursor-pointe"><p>Logout</p></li>
+                <li onClick={logOut} className="cursor-pointer"><p>Logout</p></li>
               ) : (
                 <li>
-                  <Link href="/login">Login</Link>
+                  <Link href="/login" onClick={toggleMobileMenu}>Login</Link>
                 </li>
               )}
             </ul>
@@ -306,10 +305,10 @@ const Header = () => {
             <Divider />
             <ul className="mt-3">
               <li>
-                <Link href="/profile">Account</Link>
+                <Link href="/profile" onClick={toggleMobileMenu}>Account</Link>
               </li>
               <li>
-                <Link href="/profile/service">My services</Link>
+                <Link href="/profile/service" onClick={toggleMobileMenu}>My services</Link>
               </li>
             </ul>
           </div>

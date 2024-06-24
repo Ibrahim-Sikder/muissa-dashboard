@@ -28,7 +28,7 @@
 
 
 
-/* General styles for Tabs */
+
 .tabContainer {
   width: 100%;
   typography: "body1";
@@ -37,23 +37,23 @@
 .verticalTabs {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Adjust width as necessary */
+  width: 100%; 
 }
 
 .horizontalTabs {
-  overflow-x: auto; /* Enables horizontal scrolling */
-  white-space: nowrap; /* Prevents tabs from wrapping */
+  overflow-x: auto; 
+  white-space: nowrap; 
 }
 
-/* Media query for smaller devices */
+
 @media (max-width: 768px) {
   .verticalTabs {
-    display: none; /* Hide vertical tabs */
+    display: none; 
   }
 
   .horizontalTabs {
-    display: flex; /* Show horizontal tabs */
-    flex-direction: row; /* Align tabs in a row */
+    display: flex;
+    flex-direction: row;
   }
 }
 
@@ -64,3 +64,9 @@
     width:100%;
   }
 }
+@media only screen and (max-width: 500px) {
+  .forwardIcon{
+    font-size: 20px !important;
+  }
+}
+

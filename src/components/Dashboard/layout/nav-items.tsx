@@ -4,6 +4,7 @@ import {
   FaUsers,
   FaQuestionCircle,
   FaFileInvoice,
+  FaTicketAlt,
 } from "react-icons/fa";
 import { GrBlog, GrBusinessService } from "react-icons/gr";
 import { MdOutlineReviews, MdPayment, MdPrivacyTip } from "react-icons/md";
@@ -89,6 +90,32 @@ export const navItems: NavItemConfig[] = [
         title: "Edit Blog",
         href: `${paths.dashboard.blogs}/edit/:id`,
         matcher: { type: "startsWith", href: `${paths.dashboard.blogs}/edit` },
+      },
+    ],
+  },
+  {
+    key: "coupons",
+    title: "Manage Coupons",
+    href: paths.dashboard.coupons,
+    icon: <FaTicketAlt />,
+    childrenItems: [
+      {
+        key: "create-coupon",
+        title: "Create Coupon",
+        href: `${paths.dashboard.coupons}/create`,
+        matcher: {
+          type: "startsWith",
+          href: `${paths.dashboard.coupons}/create`,
+        },
+      },
+      {
+        key: "edit-coupon",
+        title: "Edit Coupon",
+        href: `${paths.dashboard.coupons}/edit/:id`,
+        matcher: {
+          type: "startsWith",
+          href: `${paths.dashboard.coupons}/edit`,
+        },
       },
     ],
   },

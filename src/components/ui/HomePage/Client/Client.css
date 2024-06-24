@@ -93,10 +93,7 @@
   .clientSlider {
     height: 435px;
   }
-  .clientWrap {
-    bottom: -126px;
-    left: 37%;
-  }
+
 
   .clientCard {
     width: 100%;
@@ -105,12 +102,17 @@
   .clientWraps {
     padding: 19px 0;
   }
+  .clientWrap {
+    bottom: -126px;
+    left: 20%;
+}
+
 }
 
 @media only screen and (max-width: 375px) {
   .clientWrap {
     bottom: -115px;
-    left: 33%;
+    left: 16%;
   }
   .clientCard {
     height: 260px;
