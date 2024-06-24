@@ -65,6 +65,7 @@ const UpdateService = ({ id }: { id: string }) => {
     short_description: service?.short_description,
     description: service?.description,
     service_image: service?.service_image,
+    priority: service?.priority,
   };
 
   useEffect(() => {
@@ -152,7 +153,7 @@ const UpdateService = ({ id }: { id: string }) => {
             }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 <MUIInput
                   name="title"
                   label="Service Title"
@@ -160,7 +161,7 @@ const UpdateService = ({ id }: { id: string }) => {
                   fullWidth={true}
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 <INTSelect
                   name="category"
                   label="Category"
@@ -176,13 +177,22 @@ const UpdateService = ({ id }: { id: string }) => {
               </Grid>
 
               {/* subcategory */}
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3}>
                 <INTSelect
                   name="sub_category"
                   label="Sub Category"
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={3}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
                 />
               </Grid>
 

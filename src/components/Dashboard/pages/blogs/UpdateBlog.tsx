@@ -67,6 +67,8 @@ const UpdateBlog = ({ id }: { id: string }) => {
     short_description: blog?.short_description,
     description: blog?.description,
     author: blog?.author,
+    blog_image: blog?.blog_image,
+    priority: blog?.priority,
   };
 
   useEffect(() => {
@@ -153,12 +155,21 @@ const UpdateBlog = ({ id }: { id: string }) => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <MUIInput
                   name="author"
                   label="Blog Author"
                   type="text"
                   fullWidth
+                />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
                 />
               </Grid>
 
