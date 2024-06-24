@@ -210,21 +210,6 @@ const Profile = () => {
   }, [token]);
 
   console.log(userData);
-<<<<<<< HEAD
-
-  const {
-    data: memberData,
-    error,
-    isLoading,
-  }: any = useGetMemberForPaymentQuery({
-    token,
-    member_type,
-    id,
-  });
-  console.log({ memberData });
-
-=======
->>>>>>> b5bbeef1f1559722268ae56e636845b6b00462b7
 
   // loading ta handle koiren 
   // loading ta handle koiren 

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -6,8 +5,10 @@ import { useGetAllServicesQuery } from '@/redux/api/serviceApi';
 import ReactHtmlParser from 'react-html-parser';
 import Image from 'next/image';
 import ForwardIcon from '@mui/icons-material/Forward';
+import { useMediaQuery, useTheme } from '@mui/material';
+import React, { useState } from 'react';
 
-const renderElement = (element, index) => {
+const renderElement = (element: any, index: number) => {
     if (typeof element === 'string') {
         return element;
     }
@@ -92,7 +93,7 @@ const renderElement = (element, index) => {
     }
 };
 
-const renderContent = (content) => {
+const renderContent = (content: string) => {
     const parsedContent = ReactHtmlParser(content);
     return parsedContent.map((element, index) => renderElement(element, index));
 };
@@ -104,7 +105,6 @@ const tabStyles = {
     "& .MuiTab-wrapper": {
         justifyContent: "flex-start",
     },
-
     "&.Mui-selected": {
         borderLeft: "2px solid #002140",
         borderRight: "none",
@@ -113,9 +113,9 @@ const tabStyles = {
         color: "#fff",
         background: "#1591A3",
         textAlign: 'left',
-
     },
 };
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -146,9 +146,11 @@ function a11yProps(index: number) {
 }
 
 export default function ServiceData() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
     const { data: serviceData } = useGetAllServicesQuery({});
-    console.log(serviceData);
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
@@ -160,15 +162,19 @@ export default function ServiceData() {
     return (
         <Box sx={{ display: 'flex' }}>
             <Tabs
-                orientation="vertical"
+                orientation={isSmallScreen ? "horizontal" : "vertical"}
                 variant="scrollable"
                 value={value}
+                scrollButtons="auto"
                 onChange={handleChange}
-                aria-label="Vertical tabs example"
-                sx={{ minWidth: '200px', border: 'none', }}
+
+                aria-label="scrollable auto tabs example"
+
+
+                sx={{ minWidth: '200px', border: 'none' }}
                 TabIndicatorProps={{ style: { display: 'none' } }}
             >
-                {serviceData?.services.map((service, index) => (
+                {serviceData?.services.map((service: any, index: number) => (
                     <Tab
                         key={service.id}
                         label={service.category}
@@ -178,9 +184,9 @@ export default function ServiceData() {
                 ))}
             </Tabs>
 
-            {serviceData?.services?.map((service, index: number) => (
+            {serviceData?.services?.map((service: any, index: number) => (
                 <CustomTabPanel key={service.id} value={value} index={index}>
-                    <div className=''>
+                    <div>
                         <div className="w-full h-96 aspect-video relative">
                             <Image
                                 src={service.service_image}
@@ -190,7 +196,6 @@ export default function ServiceData() {
                                 className="rounded-t-lg h-full w-full object-cover absolute"
                             />
                         </div>
-                        
                     </div>
                     <h4 className='mt-10'>{service.title}</h4>
                     <p className='my-3'>{service.short_description}</p>
