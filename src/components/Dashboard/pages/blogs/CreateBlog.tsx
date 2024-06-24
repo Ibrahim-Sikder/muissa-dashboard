@@ -26,7 +26,7 @@ import { ErrorMessage } from "@/components/error-message";
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   author: z.string({ required_error: "Author is required." }),
-  
+
   short_description: z.string({
     required_error: "Short description is required.",
   }),
@@ -45,12 +45,12 @@ const CreateBlog = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const token = getCookie("mui-token");
 
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data)
+    console.log(data);
     setLoading(true);
 
     setSuccessMessage("");
@@ -67,16 +67,16 @@ const CreateBlog = () => {
           },
         }
       );
-      console.log(response)
+      console.log(response);
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-    
-        router.push("/dashboard/blogs")
+
+        router.push("/dashboard/blogs");
         setLoading(false);
       }
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -131,12 +131,21 @@ const CreateBlog = () => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <MUIInput
                   name="author"
                   label="Blog Author"
                   type="text"
                   fullWidth
+                />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
                 />
               </Grid>
 
@@ -161,8 +170,11 @@ const CreateBlog = () => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <MUIFileUploader name="blog_image" setImageUrl={setImageUrl}
-                  imageUrl={imageUrl}/>
+                <MUIFileUploader
+                  name="blog_image"
+                  setImageUrl={setImageUrl}
+                  imageUrl={imageUrl}
+                />
               </Grid>
             </Grid>
           </CardContent>
@@ -172,8 +184,12 @@ const CreateBlog = () => {
             {errorMessage && <ErrorMessage message={errorMessage} />}
           </div>
           <CardActions sx={{ p: 2 }}>
-            <Button disabled={loading ||  !imageUrl} type="submit" variant="contained">
-            {loading ? "Creating..." : "Create"}
+            <Button
+              disabled={loading || !imageUrl}
+              type="submit"
+              variant="contained"
+            >
+              {loading ? "Creating..." : "Create"}
             </Button>
           </CardActions>
         </Card>

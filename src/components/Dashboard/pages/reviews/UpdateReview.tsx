@@ -131,15 +131,23 @@ const UpdateReview = ({ id }: { id: string }) => {
           <Divider />
           <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <MUIInput name="name" label="Name" type="text" fullWidth />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={4}>
                 <MUIInput
                   name="designation"
                   label="Designation"
                   type="text"
                   fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
                 />
               </Grid>
               <Grid item xs={12}>
