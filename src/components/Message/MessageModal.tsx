@@ -241,7 +241,7 @@ const MessageModal = ({ close }: TProps) => {
 
   const onlineStatus = onlineUser.includes(userDetails?._id as string);
 
-  console.log(message.imageUrl);
+
   return (
     <div className="w-[300px] md:w-[360px] md:h-[600px] h-[400px]  bg-white fixed right-0 md:right-1 bottom-14  rounded-2xl text-black shadow-xl z-[9999999999999999] overflow-hidden shadowStyle">
       <div className="flex flex-col justify-between h-full ">

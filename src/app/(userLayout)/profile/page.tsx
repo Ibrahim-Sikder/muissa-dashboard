@@ -412,9 +412,7 @@ const Profile = () => {
                   size="medium"
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
-            <MUIInput name="email" label="ইমেইল " fullWidth size="medium" />
-          </Grid> */}
+              
 
               <Box
                 sx={{
@@ -457,14 +455,7 @@ const Profile = () => {
                       spacing={{ xs: 1, md: 3, lg: 3 }}
                     >
                       <Grid container spacing={1}>
-                        {/* <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <MUIInput
-                        name="businessOwner"
-                        label="AS A BUSINESS OWNER "
-                        fullWidth
-                        size="medium"
-                      />
-                    </Grid> */}
+                       
                         <Grid item xs={12} sm={6} md={6} lg={12}>
                           <MUIInput
                             name="business_name"
