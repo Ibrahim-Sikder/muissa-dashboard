@@ -37,6 +37,7 @@ export type IGenericErrorMessage = {
 };
 
 export const role = ["As BUSINESS OWNER", "AS A INVESTOR"];
+export const adminRole = ["Admin"];
 
 export const supportServices = [
   {
@@ -134,3 +135,15 @@ export const subCategories: Option[] = [
 ];
 
 export const subscriptions = ["1 year subscription fee", "2 year subscription fee"];
+
+export type TServices = {
+  _id: string,
+  category: string,
+  short_description: string,
+  priority: number, 
+  title:string,
+   description:string, 
+   sub_category:string, 
+   createdAt:string, 
+   service_image:string,
+}

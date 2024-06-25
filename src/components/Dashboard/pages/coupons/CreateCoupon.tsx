@@ -199,6 +199,15 @@ const CreateCoupon = () => {
                 <Grid item xs={4}>
                   <INTSelect name="status" label="Status" items={['Discount', 'Flat']} fullWidth />
                 </Grid>
+
+                <Grid item xs={4}>
+                  <MUIInput
+                    name="discount_Amount"
+                    label="Discount Amount"
+                    type="number"
+                    fullWidth
+                  />
+                </Grid>
                 <Grid item xs={4}>
                 <Button sx={{marginTop:'15px'}} disabled={loading} type="submit" variant="contained">
                 {loading ? "Creating..." : "Create"}
