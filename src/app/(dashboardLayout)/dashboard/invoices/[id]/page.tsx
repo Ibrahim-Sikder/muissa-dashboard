@@ -13,6 +13,7 @@ import { useParams } from "next/navigation";
 import { useGetSinglePaymentQuery } from "@/redux/api/paymentApi";
 import dayjs from "dayjs";
 import ReactToPrint from "react-to-print";
+import Loader from "@/components/Loader";
 
 interface PaymentData {
   _id: string;
@@ -33,7 +34,7 @@ const ShowInvoice: React.FC = () => {
   const componentRef = useRef<HTMLDivElement>(null);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!paymentData) {
@@ -149,8 +150,8 @@ const ShowInvoice: React.FC = () => {
               </tbody>
             </table>
           </div>
-          <div className="flex justify-end text-sm mt-8 w-full">
-            <div className="w-[350px]">
+          <div className="flex text-sm mt-8 w-full border p-3">
+            <div className="w-full">
               <div className="flex justify-between mb-2">
                 <div className="flex flex-col space-y-1">
                   <strong>Subtotal:</strong>
