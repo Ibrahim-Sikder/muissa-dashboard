@@ -80,37 +80,35 @@ const UpdateService = ({ id }: { id: string }) => {
 
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
-
     setSuccessMessage("");
     setErrorMessage([]);
 
     data.service_image = imageUrl;
-
-    console.log("Submitting data:", data); // Log the data being submitted
+    data.priority = Number(data.priority);
 
     try {
       const response = await updateService({ id, ...data }).unwrap();
-
-      console.log("Response from updateService:", response); // Log the response
+      console.log(response);
 
       if (response?.status === "success") {
         toast.success(response?.message);
         setSuccessMessage(response?.message);
         refetch();
         router.push("/dashboard/services");
-        setLoading(false);
       } else {
-        setErrorMessage(["An unexpected error occurred."]);
-        setLoading(false);
+        throw new Error("Unexpected response status");
       }
     } catch (error: any) {
-      console.log("Error occurred:", error); 
+      console.log(error);
 
       if (error?.data) {
         setErrorMessage([error.data.message]);
+      } else if (error.message) {
+        setErrorMessage([error.message]);
       } else {
         setErrorMessage(["An unexpected error occurred."]);
       }
+    } finally {
       setLoading(false);
     }
   };
@@ -119,6 +117,10 @@ const UpdateService = ({ id }: { id: string }) => {
     setSelectedCategory(value);
   };
 
+  if (serviceLoading || isLoading) {
+    return <Loader />;
+  }
+
   const selectedCategoryData = category?.find(
     (cat: ServiceCategory) => cat?.category === selectedCategory
   );
@@ -126,132 +128,127 @@ const UpdateService = ({ id }: { id: string }) => {
   const subCategories = selectedCategoryData?.sub_category || [];
 
   return (
-    <>
-      {(serviceLoading || isLoading) ? (
-        <Loader />
-      ) : (
-        <Stack spacing={3}>
-          <MUIForm
-            onSubmit={handleSubmit}
-            resolver={zodResolver(validationSchema)}
-            defaultValues={defaultValues}
+    <Stack spacing={3}>
+      <MUIForm
+        onSubmit={handleSubmit}
+        resolver={zodResolver(validationSchema)}
+        defaultValues={defaultValues}
+      >
+        <Card
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
+          }}
+        >
+          <CardHeader
+            subheader="Service Details"
+            title="Update Service"
+            action={
+              <Link href="/dashboard/services">
+                <Button variant="outlined">Back to Services</Button>
+              </Link>
+            }
+          />
+          <Divider />
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+            }}
           >
-            <Card
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.04)",
-              }}
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={3}>
+                <MUIInput
+                  name="title"
+                  label="Service Title"
+                  type="text"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <INTSelect
+                  name="category"
+                  label="Category"
+                  items={
+                    Array.isArray(category)
+                      ? category.map(
+                          (cat: { category: string }) => cat?.category
+                        )
+                      : []
+                  }
+                  onChange={handleCategoryChange}
+                />
+              </Grid>
+
+              {/* subcategory */}
+              <Grid item xs={12} md={3}>
+                <INTSelect
+                  name="sub_category"
+                  label="Sub Category"
+                  items={subCategories?.map(
+                    (subCat: { sub_category: string }) => subCat?.sub_category
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={3}>
+                <MUIInput
+                  name="priority"
+                  label="Priority"
+                  type="number"
+                  fullWidth={true}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="short_description"
+                  label="Short Description"
+                  type="text"
+                  multiline={true}
+                  fullWidth={true}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <RichtextEditor name="description" label="Description" />
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <MUIFileUploader
+                  name="service_image"
+                  setImageUrl={setImageUrl}
+                  imageUrl={imageUrl}
+                />
+              </Grid>
+            </Grid>
+          </CardContent>
+          <Divider />
+          <div className="mt-2">
+            {successMessage && <SuccessMessage message={successMessage} />}
+            {errorMessage && <ErrorMessage message={errorMessage} />}
+          </div>
+          <CardActions
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              p: 2,
+            }}
+          >
+            <Button
+              disabled={loading || isLoading || !imageUrl}
+              type="submit"
+              variant="contained"
             >
-              <CardHeader
-                subheader="Service Details"
-                title="Update Service"
-                action={
-                  <Link href="/dashboard/services">
-                    <Button variant="outlined">Back to Services</Button>
-                  </Link>
-                }
-              />
-              <Divider />
-              <CardContent
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  height: "100%",
-                }}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={3}>
-                    <MUIInput
-                      name="title"
-                      label="Service Title"
-                      type="text"
-                      fullWidth={true}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={3}>
-                    <INTSelect
-                      name="category"
-                      label="Category"
-                      items={
-                        Array.isArray(category)
-                          ? category.map(
-                            (cat: { category: string }) => cat.category
-                          )
-                          : []
-                      }
-                      onChange={handleCategoryChange}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <INTSelect
-                      name="sub_category"
-                      label="Sub Category"
-                      items={subCategories.map(
-                        (subCat: { sub_category: string }) => subCat?.sub_category
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <MUIInput
-                      name="priority"
-                      label="Priority"
-                      type="number"
-                      fullWidth={true}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <MUIInput
-                      name="short_description"
-                      label="Short Description"
-                      type="text"
-                      multiline={true}
-                      fullWidth={true}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <RichtextEditor name="description" label="Description" />
-                  </Grid>
-
-                  <Grid item xs={12} md={6}>
-                    <MUIFileUploader
-                      name="service_image"
-                      setImageUrl={setImageUrl}
-                      imageUrl={imageUrl}
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <Divider />
-              <div className="mt-2">
-                {successMessage && <SuccessMessage message={successMessage} />}
-                {errorMessage && <ErrorMessage message={errorMessage} />}
-              </div>
-              <CardActions
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  p: 2,
-                }}
-              >
-                <Button
-                  disabled={loading || isLoading || !imageUrl}
-                  type="submit"
-                  variant="contained"
-                >
-                  {loading ? "Updating..." : "Update"}
-                </Button>
-              </CardActions>
-            </Card>
-          </MUIForm>
-        </Stack>
-      )}
-    </>
+              {loading ? "Updating..." : "Update"}
+            </Button>
+          </CardActions>
+        </Card>
+      </MUIForm>
+    </Stack>
   );
 };
 

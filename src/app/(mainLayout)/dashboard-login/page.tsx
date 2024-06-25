@@ -74,19 +74,19 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login/admin`,
         data
       );
 
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        setCookie("mui-token", response?.data?.data?.token, '10d');
-        router.push(`/`);
+        setCookie("mui-token", response?.data?.data?.token, "10d");
+        router.push(`/dashboard`);
         setLoading(false);
       }
     } catch (error: any) {
-      console.log(error)
+      console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 500].includes(status)) {
@@ -101,14 +101,8 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="lg:h-[500px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
-      
-    >
-      <Stack
-        
-      >
-        
+    <div className="lg:h-[500px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]">
+      <Stack>
         <Box className="bg-[#fff] shadow-md px-5 py-16 md:p-20 mx-3 md:m-auto lg:m-0 lg:mx-0 rounded-md md:rounded-none w-full md:w-[600px] flex items-center text-[#002140]">
           <MUIForm
             onSubmit={handleSubmit}
@@ -130,7 +124,7 @@ const Login = () => {
                   },
                 }}
               >
-              Welcome To Admin !
+                Welcome To Admin !
               </Typography>
               <Box>
                 <MUIInput
@@ -152,9 +146,7 @@ const Login = () => {
                   display: "flex",
                   justifyContent: "right",
                 }}
-              >
-                
-              </Box>
+              ></Box>
               {successMessage && <SuccessMessage message={successMessage} />}
               {errorMessage && <ErrorMessage message={errorMessage} />}
               <Button
@@ -176,13 +168,8 @@ const Login = () => {
                 variant="outlined"
                 color="primary"
               >
-                {loading ? (
-                  <span>Loading...</span>
-                ) : (
-                  " Login"
-                )}
+                {loading ? <span>Loading...</span> : " Login"}
               </Button>
-             
             </Box>
           </MUIForm>
         </Box>

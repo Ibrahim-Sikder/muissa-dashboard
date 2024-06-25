@@ -29,13 +29,14 @@ import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   category: z.string({ required_error: "Category is required." }),
-  sub_category: z.string({ required_error: "Su category is required." }),
+  sub_category: z.string({ required_error: "Sub category is required." }),
+  priority: z.string({ required_error: "Priority is required." }),
   short_description: z.string({
     required_error: "Short description is required.",
   }),
   description: z.string({ required_error: "Description is required." }),
   service_image: z.string({ required_error: "Image is required." }),
-  priority: z.number({ required_error: "Image is required." }),
+  
 });
 
 const CreateService = () => {
@@ -51,14 +52,18 @@ const CreateService = () => {
 
   const handleSubmit = async (data: FieldValues) => {
     console.log(data)
+ 
+ 
     data.priority = Number(data.priority);
     data.service_image = imageUrl;
+ 
     setLoading(true);
 
     setSuccessMessage("");
     setErrorMessage([]);
 
     data.service_image = imageUrl;
+    data.priority = Number(data.priority);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/create-service`,
@@ -109,6 +114,18 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
+ 
+        resolver={zodResolver(validationSchema)}
+        defaultValues={{
+          title: "",
+          category: "",
+          sub_category: "",
+          priority: "",
+          short_description: "",
+          description: "",
+          service_image: "",
+        }}
+ 
         // resolver={zodResolver(validationSchema)}
         // defaultValues={{
         //   title: "",
@@ -119,6 +136,7 @@ const CreateService = () => {
         //   service_image: "",
         //   priority: ""
         // }}
+ 
       >
         <Card
           sx={{
