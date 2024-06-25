@@ -55,15 +55,18 @@ const RichtextEditor = ({
       <Controller
         name={name}
         render={({ field, fieldState: { error } }) => (
-          <ReactQuill
-            theme="snow"
-            defaultValue={placeholder}
-            modules={modules}
-            formats={formats}
-            {...field}
-            className=""
-            placeholder={placeholder}
-          />
+          <>
+            <label>{label}</label>
+            <ReactQuill
+              theme="snow"
+              modules={modules}
+              formats={formats}
+              value={field.value || ""}
+              onChange={(value) => field.onChange(value)}
+              placeholder={placeholder}
+            />
+            {error && <p style={{ color: "red" }}>{error.message}</p>}
+          </>
         )}
       />
     </div>
