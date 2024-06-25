@@ -32,6 +32,7 @@ export const navItems: NavItemConfig[] = [
       },
     ],
   },
+  
   {
     key: "services",
     title: "Manage Services",
@@ -211,9 +212,16 @@ export const navItems: NavItemConfig[] = [
     ],
   },
   {
+    key: "user",
+    title: "User Management",
+    href: paths.dashboard.users,
+    icon: <FaUsers />,
+  },
+  {
     key: "support",
     title: "Support",
     href: paths.dashboard.support,
     icon: <FcCustomerSupport />,
   },
+
 ];

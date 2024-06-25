@@ -1,9 +1,19 @@
+
+
 .newsCard {
   width: 310px;
   margin: 0 auto;
   border: 1px solid #1491a3;
   position: relative;
   padding-bottom: 20px;
+  height:580px;
+
+}
+.newsWraps{
+  width:100%;
+  margin:0 auto;
+  width:800px;
+  
 }
 .newsCard img {
   width: 100%;
@@ -11,8 +21,8 @@
   object-fit: cover;
 }
 .date {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border: 1px solid #00305c;
   display: flex;
   justify-content: center;
@@ -82,7 +92,14 @@
     width: 70px;
     height: 70px;
   }
+
+  .newsWraps{
+    width:100%;
+    
+  }
 }
+
+
 @media only screen and (max-width: 500px) {
   .date {
     width: 50px;
@@ -94,6 +111,11 @@
 }
 @media only screen and (max-width: 375px) {
   .newsCard {
-    width: 100%;
+    width: 95%;
+    height:450px;
   }
+  .newsCard img{
+    height: 200px;
+  }
+ 
 }

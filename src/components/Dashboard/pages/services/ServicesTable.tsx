@@ -31,26 +31,18 @@ import dayjs from "dayjs";
 import { FaPencil } from "react-icons/fa6";
 import { useDeleteServiceMutation } from "@/redux/api/serviceApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
+import { TServices } from "@/types";
 
 function noop(): void {
   // do nothing
 }
 
-export interface Service {
-  _id: string;
-  title: string;
-  description: string;
-  short_description: string;
-  category: string;
-  sub_category: string;
-  createdAt: string;
-  service_image: string;
-}
+
 
 interface ServicesTableProps {
   count?: number;
   page?: number;
-  rows?: Service[];
+  rows?: TServices[];
   rowsPerPage?: number;
 }
 
@@ -116,6 +108,7 @@ export function ServicesTable({
         }
       />
 
+
       <Box sx={{ overflowX: "auto" }}>
         <Table sx={{ minWidth: "800px" }}>
           <TableHead>
@@ -124,6 +117,7 @@ export function ServicesTable({
               <TableCell>Service Name</TableCell>
               <TableCell>Category</TableCell>
               <TableCell>Subctegories</TableCell>
+              <TableCell>Priority</TableCell>
               <TableCell>Published Date</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -141,6 +135,7 @@ export function ServicesTable({
                 <TableCell>{row.title}</TableCell>
                 <TableCell>{row.category}</TableCell>
                 <TableCell>{row.sub_category}</TableCell>
+                <TableCell>{row.priority}</TableCell>
                 <TableCell>
                   {dayjs(row.createdAt).format("DD MMM YYYY")}
                 </TableCell>

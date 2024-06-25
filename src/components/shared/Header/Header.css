@@ -218,21 +218,13 @@ nav.menuItemsBarWraps {
     width: 100%;
   }
 }
-/* @media only screen and (max-width: 500px) {
-  .stickyMenu {
-    width: 500px;
-  }
-} */
-/* @media only screen and (max-width: 375px) {
-  .stickyMenu {
-    width: 375px;
-  }
+
+@media only screen and (max-width: 375px) {
+
+  .headerWrap {
+    height: 80px;
 }
-@media only screen and (max-width: 300px) {
-  .stickyMenu {
-    width: 300px;
-  }
-} */
+}
 @media only screen and (max-width: 250px) {
   .stickyMenu {
     width: 250px;
@@ -241,4 +233,5 @@ nav.menuItemsBarWraps {
   .activeMobileMenu {
     width: 200px;
   }
+
 }

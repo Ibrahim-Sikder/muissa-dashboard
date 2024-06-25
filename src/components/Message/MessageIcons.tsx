@@ -22,11 +22,28 @@ const MessageIcons = () => {
   }
 
   const pathname= usePathname()
-  console.log(pathname)
+
+  const hiddenPaths = [
+    "/dashboard",
+    "/dashboard/support",
+    "/dashboard/invoice",
+    "/dashboard/services",
+    "/dashboard/services",
+    "/dashboard/reviews",
+    "/dashboard/customers",
+    "/dashboard/coupons",
+    "/dashboard/payments",
+    "/dashboard/invoices",
+    "/dashboard/faqs",
+    "/dashboard/policies",
+    "/dashboard/users",
+  ]
+
+  const shouldHideChatbox = hiddenPaths.some((path)=> pathname.startsWith(path))
 
 
   return (
-    <div className={pathname === '/dashboard/support' ? 'hidden' : '' }>
+    <div className={shouldHideChatbox ? 'hidden' : '' }>
       <div className="message rounded-full p-2 z-[9999999999999] fixed bg-[#1591A3] text-white bottom-5 right-3 cursor-pointer transition-all duration-75 shadowStyle">
         {open ? (
           <VscClose

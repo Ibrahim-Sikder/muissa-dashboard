@@ -35,7 +35,6 @@ const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   category: z.string({ required_error: "Category is required." }),
   sub_category: z.string({ required_error: "Sub category is required." }),
-  priority: z.number({ required_error: "Priority is required." }),
   short_description: z.string({
     required_error: "Short description is required.",
   }),
@@ -83,14 +82,14 @@ const UpdateService = ({ id }: { id: string }) => {
     setLoading(true);
     setSuccessMessage("");
     setErrorMessage([]);
-  
+
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
-  
+
     try {
       const response = await updateService({ id, ...data }).unwrap();
-      console.log(response)
-  
+      console.log(response);
+
       if (response?.status === "success") {
         toast.success(response?.message);
         setSuccessMessage(response?.message);
@@ -101,7 +100,7 @@ const UpdateService = ({ id }: { id: string }) => {
       }
     } catch (error: any) {
       console.log(error);
-  
+
       if (error?.data) {
         setErrorMessage([error.data.message]);
       } else if (error.message) {
@@ -113,7 +112,6 @@ const UpdateService = ({ id }: { id: string }) => {
       setLoading(false);
     }
   };
-  
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);

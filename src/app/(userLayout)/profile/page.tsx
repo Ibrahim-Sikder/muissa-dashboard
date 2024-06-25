@@ -124,8 +124,6 @@ const Profile = () => {
 
   const [memberShip, setMembership] = useState<MemberShip>({});
 
-
-
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     userId: "",
@@ -139,14 +137,18 @@ const Profile = () => {
   });
 
   const token = getCookie("mui-token");
+  console.log(token)
   const router = useRouter();
   const params = useSearchParams();
 
   const member_type = params.get("member_type");
   const id = params.get("id");
 
-  const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({ token, member_type, id })
-
+  const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({
+    token,
+    member_type,
+    id,
+  });
 
   // useEffect(() => {
   //   const fetchedData = async () => {
@@ -191,7 +193,6 @@ const Profile = () => {
   //   };
   // }, [token]);
 
-
   const defaultValues = {
     profile_pic: memberShipData?.user?.profile_pic || "",
     name: memberShipData?.user?.name || "",
@@ -203,8 +204,6 @@ const Profile = () => {
     business_address: memberShipData?.business_address || "",
     business_name: memberShipData?.business_name || "",
     business_type: memberShipData?.business_type || "",
-
-
   };
 
   let email;
@@ -237,8 +236,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-            : null;
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+          : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -323,12 +322,10 @@ const Profile = () => {
     },
   };
 
-
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
-  console.log(memberShipData)
-
+  console.log(memberShipData);
 
   return (
     <>
@@ -415,9 +412,7 @@ const Profile = () => {
                   size="medium"
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6} md={6} lg={6} sx={{ marginRight: "0px" }}>
-            <MUIInput name="email" label="ইমেইল " fullWidth size="medium" />
-          </Grid> */}
+              
 
               <Box
                 sx={{
@@ -460,14 +455,7 @@ const Profile = () => {
                       spacing={{ xs: 1, md: 3, lg: 3 }}
                     >
                       <Grid container spacing={1}>
-                        {/* <Grid item xs={12} sm={6} md={6} lg={12}>
-                      <MUIInput
-                        name="businessOwner"
-                        label="AS A BUSINESS OWNER "
-                        fullWidth
-                        size="medium"
-                      />
-                    </Grid> */}
+                       
                         <Grid item xs={12} sm={6} md={6} lg={12}>
                           <MUIInput
                             name="business_name"

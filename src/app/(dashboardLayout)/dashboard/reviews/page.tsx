@@ -35,6 +35,8 @@ export default function ReviewsPage(): React.JSX.Element {
     return <Loader />;
   }
 
+  console.log("reviews", data);
+
   return (
     <Stack spacing={3}>
       <ReviewsTable

@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -8,21 +7,17 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import { Button, CardHeader } from "@mui/material";
+import { Button, CardHeader, Stack, Pagination, Select, MenuItem } from "@mui/material";
 import Link from "next/link";
 import { FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import dayjs from "dayjs";
 import { useDeleteBlogMutation } from "@/redux/api/blogApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
-
-function noop(): void {
-  // do nothing
-}
+import { toast } from "sonner";
 
 export interface Blog {
   _id: string;
@@ -37,34 +32,37 @@ export interface Blog {
 }
 
 interface BlogsTableProps {
-  count?: number;
-  page?: number;
-  rows?: Blog[];
-  rowsPerPage?: number;
+  count: number;
+  page: number;
+  rows: Blog[];
+  rowsPerPage: number;
+  onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+  onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 export function BlogsTable({
-  count = 0,
-  rows = [],
-  page = 0,
-  rowsPerPage = 0,
+  count,
+  rows,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange,
 }: BlogsTableProps): React.JSX.Element {
   const [deleteBlog, { isLoading }] = useDeleteBlogMutation();
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteBlog(id);
+      await deleteBlog(id).unwrap();
+      toast.success('Blog deleted successfully!');
     } catch (error) {
       console.error(error);
     }
   };
 
+  const totalPages = Math.ceil(count / rowsPerPage);
+
   return (
-    <Card
-      sx={{
-        boxShadow: "none",
-      }}
-    >
+    <Card sx={{ boxShadow: "none" }}>
       <CardHeader
         title={
           <Typography variant="h5" fontWeight={700}>
@@ -80,7 +78,7 @@ export function BlogsTable({
               variant="contained"
               startIcon={<FaPlus />}
             >
-              Add New Blogs
+              Add New Blog
             </Button>
           </Link>
         }
@@ -98,72 +96,61 @@ export function BlogsTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row, index) => {
-              return (
-                <TableRow hover key={index}>
-                  <TableCell>
-                    <Avatar src={row?.blog_image} variant="square" />
-                  </TableCell>
-                  <TableCell>{row?.title}</TableCell>
-                  <TableCell>{row?.author}</TableCell>
-                  <TableCell>
-                    {dayjs(row?.createdAt).format("MMMM D, YYYY")}
-                  </TableCell>
-                  <TableCell>
-                    {row?.status ? row?.status : "Published"}
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        gap: "1rem",
-                      }}
-                    >
-                      <Link href={`/dashboard/blogs/${row?._id}`}>
-                        <Button
-                          color="secondary"
-                          variant="outlined"
-                          size="small"
-                          sx={{ textTransform: "none" }}
-                          startIcon={<FaEye />}
-                        >
-                          View
-                        </Button>
-                      </Link>
-                      <Link href={`/dashboard/blogs/edit/${row?._id}`}>
-                        <Button
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                          sx={{ textTransform: "none" }}
-                          startIcon={<FaPencil />}
-                        >
-                          Update
-                        </Button>
-                      </Link>
-
-                      <DeleteButtonWithConfirmation
-                        onDelete={() => handleDelete(row?._id)}
-                        isLoading={isLoading}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {rows.map((row, index) => (
+              <TableRow hover key={index}>
+                <TableCell>
+                  <Avatar src={row?.blog_image} variant="square" />
+                </TableCell>
+                <TableCell>{row?.title}</TableCell>
+                <TableCell>{row?.author}</TableCell>
+                <TableCell>{dayjs(row?.createdAt).format("MMMM D, YYYY")}</TableCell>
+                <TableCell>{row?.status ? row?.status : "Published"}</TableCell>
+                <TableCell>
+                  <Box sx={{ display: "flex", gap: "1rem" }}>
+                    <Link href={`/dashboard/blogs/${row?._id}`}>
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        size="small"
+                        sx={{ textTransform: "none" }}
+                        startIcon={<FaEye />}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                    <Link href={`/dashboard/blogs/edit/${row?._id}`}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        sx={{ textTransform: "none" }}
+                        startIcon={<FaPencil />}
+                      >
+                        Update
+                      </Button>
+                    </Link>
+                    <DeleteButtonWithConfirmation
+                      onDelete={() => handleDelete(row._id)}
+                      isLoading={isLoading}
+                    />
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </Box>
       <Divider />
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
+      <Stack spacing={2} sx={{ padding: 2, alignItems: 'center' }}>
+        <Pagination
+          count={totalPages}
+          page={page + 1} 
+          onChange={onPageChange}
+          variant="outlined"
+          color="primary"
+        />
+       
+      </Stack>
     </Card>
   );
 }

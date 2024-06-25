@@ -4,7 +4,6 @@ import Container from "@/components/ui/HomePage/Container/Container";
 import ServiceData from "./_component/Services/ServiceData";
 
 const Page = () => {
-
   return (
     <>
       <div className="serviceDetailsWrap aboutWraps">
