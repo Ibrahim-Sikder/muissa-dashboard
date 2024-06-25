@@ -214,7 +214,7 @@
   }
   .heroContent,
   .heroContent2 {
-    top: 24%;
+    top: 18%;
   }
   .heroContent p,
   .heroContent2 p {
@@ -227,6 +227,15 @@
   .heroContent2 h2 {
     margin: 3px 0 !important;
   }
+  .heroContent2 {
+    right: 16% !important;
+}
+.bannerImgWrap, .heroSectionWrap {
+  height: 270px;
+}
+
+
+
 }
 @media only screen and (max-width: 250px) {
   .heroContent,

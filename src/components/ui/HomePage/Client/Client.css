@@ -56,14 +56,14 @@
   height: 400px;
 }
 
-/* In Client.css */
+
 
 .swiper-pagination-bullet {
   width: 20px !important;
   height: 20px !important;
   background-color: #1591a3 !important;
   margin: 0 5px;
-  /* Adjust spacing as needed */
+
 }
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
@@ -127,17 +127,25 @@
 
 @media only screen and (max-width: 375px) {
   .clientWrap {
-    bottom: -115px;
-    left: 16%;
+    bottom: -87px;
+    left: 17%;
   }
 
   .clientCard {
-    height: 260px;
+    height: 226px;
+  }
+
+
+  .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+
   }
 
   .clientSlider {
-    height: 475px;
+    height: 415px;
   }
+
 }
 
 @media only screen and (max-width: 300px) {

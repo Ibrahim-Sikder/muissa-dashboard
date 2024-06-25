@@ -18,7 +18,6 @@ const NewsSection = () => {
   const page = 0;
   const rowsPerPage = 5;
 
-  // const paginatedBlogs = applyPagination(blogs, page, rowsPerPage);
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [limit, setLimit] = React.useState(10);
@@ -33,6 +32,20 @@ const NewsSection = () => {
   if (error) {
     return <p>Something went to wrong.</p>
   }
+
+  const buttonStyle = {
+    fontSize: {
+      xs: "10px",
+      md: "12px",
+    },
+
+    width: {
+      xs: "75px",
+      md: '100px'
+    },
+    height: "30px",
+    padding: "0px",
+  };
 
   return (
     <Container className="sectionMargin">
@@ -91,13 +104,14 @@ const NewsSection = () => {
                 <div className="newsContent">
                   <h4>{blog.title}</h4>
                   <p className="my-4">{blog.short_description.slice(0, 100)}</p>
-                  <Button component={Link} href={`/news/${blog._id}`}>
+                  <Button sx={buttonStyle} component={Link} href={`/news/${blog._id}`}>
                     <span>
                       Read More
                       <KeyboardArrowRightIcon sx={{ fontSize: "15px", marginLeft: "8px" }} />
 
                     </span>
                   </Button>
+
 
                 </div>
               </div>

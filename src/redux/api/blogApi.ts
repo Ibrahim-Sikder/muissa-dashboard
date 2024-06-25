@@ -31,7 +31,7 @@ export const blogApi = baseApi.injectEndpoints({
     }),
 
     deleteBlog: build.mutation({
-      query: ({ id }) => ({
+      query: (id) => ({
         url: `/blogs/${id}`,
         method: "DELETE",
       }),

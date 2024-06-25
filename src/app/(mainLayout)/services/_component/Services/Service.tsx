@@ -24,7 +24,7 @@ const Service = async () => {
       lg: "75px",
       md: "60px",
       sm: "40px",
-      xs: "30px",
+      xs: "20px",
     },
   };
   const buttonStyle = {
@@ -32,8 +32,10 @@ const Service = async () => {
       xs: "10px",
       md: "12px",
     },
+
     width: {
-      xs: "100px",
+      xs: "75px",
+      md: '100px'
     },
     height: "30px",
     padding: "0px",

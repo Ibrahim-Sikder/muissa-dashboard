@@ -292,18 +292,22 @@ const Header = () => {
               <li>
                 <Link href="/profile" onClick={toggleMobileMenu}>Profile </Link>
               </li>
-              {authenticated ? (
-                <li onClick={logOut} className="cursor-pointer"><p>Logout</p></li>
-              ) : (
-                <li>
-                  <Link href="/login" onClick={toggleMobileMenu}>Login</Link>
-                </li>
-              )}
+              
             </ul>
           </nav>
           <div>
             <Divider />
             <ul className="mt-3">
+            {authenticated ? (
+                <li onClick={logOut} 
+                className="cursor-pointer"><p>Logout</p>
+                
+                </li>
+              ) : (
+                <li>
+                  <Link href="/login" onClick={toggleMobileMenu}>Login</Link>
+                </li>
+              )}
               <li>
                 <Link href="/profile" onClick={toggleMobileMenu}>Account</Link>
               </li>
