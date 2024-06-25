@@ -53,21 +53,24 @@ export default function MUIModal({
           },
         }}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          {title}
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
+        <DialogTitle
+          sx={{ m: 0, p: 2, textAlign: "center" }}  // Centering the title
+          id="customized-dialog-title"
         >
-          <CloseIcon />
-        </IconButton>
+          {title}
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent dividers>{children}</DialogContent>
       </BootstrapDialog>
     </React.Fragment>

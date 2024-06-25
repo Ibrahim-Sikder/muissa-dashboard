@@ -44,10 +44,10 @@ const NewsSection = () => {
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
-          delay: 1500,
+          delay: 2500,
           disableOnInteraction: false,
         }}
-        speed={1000}
+        speed={1500}
         loop={true}
         pagination={{
           clickable: true,
@@ -80,22 +80,25 @@ const NewsSection = () => {
         {blogData && blogData?.blogs?.map((blog: any) => (
           <SwiperSlide key={blog.id}>
             <div className="newsWraps">
-              <div className="newsCard">
-                <Image src={blog.blog_image} alt={blog.title} width={500} height={300} />
-                <div className="date">
-                  <h1>{new Date(blog.createdAt).getDate()}</h1>
-                  <small>{new Date(blog.createdAt).toLocaleString('default', { month: 'short' }).toUpperCase()}</small>
+              <div className="newsCard flex flex-col justify-between">
+                <div>
+                  <Image src={blog.blog_image} alt={blog.title} width={500} height={300} />
+                  <div className="date">
+                    <h1>{new Date(blog.createdAt).getDate()}</h1>
+                    <small>{new Date(blog.createdAt).toLocaleString('default', { month: 'short' }).toUpperCase()}</small>
+                  </div>
                 </div>
                 <div className="newsContent">
                   <h4>{blog.title}</h4>
-                  <p className="my-4">{blog.short_description.slice(0,100)}</p>
+                  <p className="my-4">{blog.short_description.slice(0, 100)}</p>
                   <Button component={Link} href={`/news/${blog._id}`}>
                     <span>
                       Read More
                       <KeyboardArrowRightIcon sx={{ fontSize: "15px", marginLeft: "8px" }} />
-                      
+
                     </span>
                   </Button>
+
                 </div>
               </div>
             </div>

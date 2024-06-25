@@ -33,6 +33,12 @@ export const navItems: NavItemConfig[] = [
     ],
   },
   {
+    key: "overview",
+    title: "User Management",
+    href: paths.dashboard.users,
+    icon: <FaUsers />,
+  },
+  {
     key: "services",
     title: "Manage Services",
     href: paths.dashboard.services,

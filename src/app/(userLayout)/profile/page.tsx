@@ -137,6 +137,7 @@ const Profile = () => {
   });
 
   const token = getCookie("mui-token");
+  console.log(token)
   const router = useRouter();
   const params = useSearchParams();
 

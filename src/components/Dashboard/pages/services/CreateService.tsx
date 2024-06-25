@@ -35,6 +35,7 @@ const validationSchema = z.object({
   }),
   description: z.string({ required_error: "Description is required." }),
   service_image: z.string({ required_error: "Image is required." }),
+  priority: z.number({ required_error: "Image is required." }),
 });
 
 const CreateService = () => {
@@ -49,6 +50,9 @@ const CreateService = () => {
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
+    console.log(data)
+    data.priority = Number(data.priority);
+    data.service_image = imageUrl;
     setLoading(true);
 
     setSuccessMessage("");
@@ -105,15 +109,16 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          title: "",
-          category: "",
-          sub_category: "",
-          short_description: "",
-          description: "",
-          service_image: "",
-        }}
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   title: "",
+        //   category: "",
+        //   sub_category: "",
+        //   short_description: "",
+        //   description: "",
+        //   service_image: "",
+        //   priority: ""
+        // }}
       >
         <Card
           sx={{

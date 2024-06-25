@@ -1,6 +1,6 @@
 import React from "react";
 import "./BrandSection.css";
-import developer from "../../../../assets/news/developer.webp";
+import developer from "../../../../assets/news/company.jpeg";
 import Image from "next/image";
 import Container from "../Container/Container";
 import { Button, Stack } from "@mui/material";
