@@ -148,48 +148,48 @@ const Profile = () => {
   const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({ token, member_type, id })
 
 
-  useEffect(() => {
-    const fetchedData = async () => {
-      setSuccessMessage("");
-      setErrorMessage([]);
-      setLoading(true);
+  // useEffect(() => {
+  //   const fetchedData = async () => {
+  //     setSuccessMessage("");
+  //     setErrorMessage([]);
+  //     setLoading(true);
 
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response?.status === 200) {
-          setUserData(response?.data?.data);
-          toast.success(response?.data?.message);
-        }
-      } catch (error: any) {
-        console.error("Error fetching data:", error);
-        if (error?.response) {
-          const { status, data } = error.response;
-          if ([400, 404, 409, 500].includes(status)) {
-            setErrorMessage(data.message);
-          } else {
-            setErrorMessage(["An unexpected error occurred."]);
-          }
-        } else {
-          setErrorMessage(["Network error occurred."]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/single-user`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       if (response?.status === 200) {
+  //         setUserData(response?.data?.data);
+  //         toast.success(response?.data?.message);
+  //       }
+  //     } catch (error: any) {
+  //       console.error("Error fetching data:", error);
+  //       if (error?.response) {
+  //         const { status, data } = error.response;
+  //         if ([400, 404, 409, 500].includes(status)) {
+  //           setErrorMessage(data.message);
+  //         } else {
+  //           setErrorMessage(["An unexpected error occurred."]);
+  //         }
+  //       } else {
+  //         setErrorMessage(["Network error occurred."]);
+  //       }
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchedData();
+  //   fetchedData();
 
-    return () => {
-      setLoading(false);
-    };
-  }, [token]);
+  //   return () => {
+  //     setLoading(false);
+  //   };
+  // }, [token]);
 
 
   const defaultValues = {

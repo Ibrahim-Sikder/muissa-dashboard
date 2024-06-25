@@ -29,7 +29,8 @@ import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   category: z.string({ required_error: "Category is required." }),
-  sub_category: z.string({ required_error: "Su category is required." }),
+  sub_category: z.string({ required_error: "Sub category is required." }),
+  priority: z.string({ required_error: "Priority is required." }),
   short_description: z.string({
     required_error: "Short description is required.",
   }),
@@ -49,12 +50,14 @@ const CreateService = () => {
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
+    console.log(data)
     setLoading(true);
 
     setSuccessMessage("");
     setErrorMessage([]);
 
     data.service_image = imageUrl;
+    data.priority = Number(data.priority);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/create-service`,
@@ -110,6 +113,7 @@ const CreateService = () => {
           title: "",
           category: "",
           sub_category: "",
+          priority: "",
           short_description: "",
           description: "",
           service_image: "",

@@ -35,6 +35,7 @@ const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   category: z.string({ required_error: "Category is required." }),
   sub_category: z.string({ required_error: "Sub category is required." }),
+  priority: z.number({ required_error: "Priority is required." }),
   short_description: z.string({
     required_error: "Short description is required.",
   }),
@@ -80,31 +81,39 @@ const UpdateService = ({ id }: { id: string }) => {
 
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
-
     setSuccessMessage("");
     setErrorMessage([]);
-
+  
     data.service_image = imageUrl;
+    data.priority = Number(data.priority);
+  
     try {
       const response = await updateService({ id, ...data }).unwrap();
-
+      console.log(response)
+  
       if (response?.status === "success") {
         toast.success(response?.message);
         setSuccessMessage(response?.message);
         refetch();
         router.push("/dashboard/services");
-        setLoading(false);
+      } else {
+        throw new Error("Unexpected response status");
       }
     } catch (error: any) {
       console.log(error);
+  
       if (error?.data) {
         setErrorMessage([error.data.message]);
+      } else if (error.message) {
+        setErrorMessage([error.message]);
       } else {
         setErrorMessage(["An unexpected error occurred."]);
       }
+    } finally {
       setLoading(false);
     }
   };
+  
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
@@ -168,7 +177,7 @@ const UpdateService = ({ id }: { id: string }) => {
                   items={
                     Array.isArray(category)
                       ? category.map(
-                          (cat: { category: string }) => cat.category
+                          (cat: { category: string }) => cat?.category
                         )
                       : []
                   }
