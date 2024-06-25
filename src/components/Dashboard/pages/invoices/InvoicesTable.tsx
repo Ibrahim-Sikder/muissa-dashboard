@@ -166,14 +166,6 @@ export function InvoicesTable({
                           View
                         </Button>
                       </Link>
-                      <Button
-                        color="primary"
-                        size="small"
-                        variant="outlined"
-                        startIcon={<FaPrint />}
-                      >
-                        Print
-                      </Button>
                     </Stack>
                   </TableCell>
                 </TableRow>

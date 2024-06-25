@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Bengali, Tiro_Bangla } from "next/font/google";
+import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -16,8 +16,11 @@ const BackTopButton = dynamic(
   }
 );
 
-const inter = Inter({ subsets: ["latin"] });
-const notoSansBengali = Noto_Sans_Bengali({ subsets: ["bengali"] });
+const hindiSiliguri = Hind_Siliguri({
+  subsets: ["bengali"],
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Muissa Consulting | Home",
@@ -29,13 +32,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-
   return (
     <html lang="en" data-scroll="0">
       <Providers>
-        <body className={notoSansBengali.className}>
+        <body className={hindiSiliguri.className}>
           <Toaster position="bottom-right" richColors />
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
         </body>
