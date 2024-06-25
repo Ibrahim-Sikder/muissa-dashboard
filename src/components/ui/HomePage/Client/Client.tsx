@@ -8,7 +8,7 @@ import SectionTitle from "@/components/shared/SectionTitle/SectionTitle";
 import Container from "../Container/Container";
 import user from "../../../../assets/news/user.jpg";
 import Image from "next/image";
-import { FormatQuote } from "@mui/icons-material";
+import { AccountCircle, FormatQuote, Person } from "@mui/icons-material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -133,8 +133,10 @@ const Client = () => {
                 <div className="clientContent">
                   <p className="leading-7">{data.message.slice(0, 200)}</p>
                   <div className="clientWrap">
-                    <div className="clientImgWraps">
-                      <Image width={50} height={50} src={data.review_image} alt="user" />
+                    {/* clientImgWraps */}
+                    <div className="">
+                      <Person className="clientIcon" />
+                      {/* <Image width={50} height={50} src={data.review_image} alt="user" /> */}
                     </div>
                     <div>
                       <h4>{data.name}</h4>

@@ -134,3 +134,15 @@ export const subCategories: Option[] = [
 ];
 
 export const subscriptions = ["1 year subscription fee", "2 year subscription fee"];
+
+export type TServices = {
+  _id: string,
+  category: string,
+  short_description: string,
+  priority: number, 
+  title:string,
+   description:string, 
+   sub_category:string, 
+   createdAt:string, 
+   service_image:string,
+}

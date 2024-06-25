@@ -14,6 +14,7 @@ export const paths = {
     policies: "/dashboard/policies",
     invoices: "/dashboard/invoices",
     coupons: "/dashboard/coupons",
+    users: "/dashboard/users",
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },

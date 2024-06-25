@@ -1,8 +1,5 @@
-
-
 import { Button } from "@mui/material";
 import {
-  BusinessCenter,
   Inventory,
   ProductionQuantityLimits,
   Storefront,
@@ -11,41 +8,17 @@ import {
 import "./services.css";
 import Link from "next/link";
 import Container from "@/components/ui/HomePage/Container/Container";
+import { TServices } from "@/types";
 
 const Service = async () => {
-
   const res = await fetch(`http://localhost:5000/api/v1/services/get-services`, {
-    cache: "no-store"
+    cache: "no-store",
   });
-  const servicesData = await res.json()
+  const servicesData = await res.json();
 
 
-  const serviceData = [
-    {
-      id: 1,
-      title: "ফান্ডিং সাপোর্ট  ",
-      description:
-        "অর্থায়নের জন্য নির্ভরযোগ্য পরামর্শ সেবা, আপনার ব্যবসার অর্থায়নের প্রয়োজন মেটাতে আমাদের বিশেষজ্ঞ ফান্ডিং সাপোর্ট।",
-    },
-    {
-      id: 2,
-      title: "ইনভেস্টমেন্ট সাপোর্ট  ",
-      description:
-        "নিরাপদ বিনিয়োগের জন্য সঠিক পরামর্শ বিনিয়োগ পরিকল্পনা এবং ব্যবস্থাপনায় আমাদের অভিজ্ঞ পরামর্শদাতাদের সহায়তা নিন",
-    },
-    {
-      id: 3,
-      title: "মার্কেটিং সাপোর্ট  ",
-      description:
-        "আপনার ব্যবসার প্রসারে সমন্বিত মার্কেটিং সহায়তা মার্কেটিং কৌশল উন্নয়নে এবং কার্যকর প্রচারণায় আমাদের সাথে থাকুন। ",
-    },
-    {
-      id: 4,
-      title: "আইটি সাপোর্ট  ",
-      description:
-        "আপনার প্রযুক্তিগত সমস্যার কার্যকর সমাধান ব্যবসায়িক প্রয়োজন অনুযায়ী উন্নত প্রযুক্তি এবং আইটি সাপোর্ট সেবা প্রদান।",
-    },
-  ];
+  const sortedServices: TServices[] = servicesData?.data.services?.sort((a: TServices, b: TServices) => a.priority - b.priority);
+
   const iconStyle = {
     fontSize: {
       lg: "75px",
@@ -65,12 +38,13 @@ const Service = async () => {
     height: "30px",
     padding: "0px",
   };
+
   return (
     <Container>
       <div className="serviceCardWraps">
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2 ">
-          {servicesData?.data?.services?.slice(0,4).map((data: any, i: number) => (
-            <div key={data.id} className="serviceCard">
+        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2">
+          {sortedServices?.slice(0, 4).map((data: TServices, i: number) => (
+            <div key={data._id} className="serviceCard">
               <div className="serviceIconWraps">
                 {i === 0 ? (
                   <ProductionQuantityLimits sx={iconStyle} />
@@ -84,9 +58,8 @@ const Service = async () => {
               </div>
               <div className="serviceContent">
                 <h4>{data.category}</h4>
-
-                <p className="my-2 md:my-5">{data.short_description.slice(0, 100)} 
-
+                <p className="my-2 md:my-5">
+                  {data.short_description.slice(0, 100)}
                 </p>
                 <Button sx={buttonStyle} component={Link} href={`/services/${data._id}`}>
                   আরো দেখুন
