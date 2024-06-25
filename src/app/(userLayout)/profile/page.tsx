@@ -124,8 +124,6 @@ const Profile = () => {
 
   const [memberShip, setMembership] = useState<MemberShip>({});
 
-
-
   const [userData, setUserData] = useState<UserData>({
     _id: "",
     userId: "",
@@ -146,8 +144,11 @@ const Profile = () => {
   const member_type = params.get("member_type");
   const id = params.get("id");
 
-  const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({ token, member_type, id })
-
+  const { data: memberShipData, isLoading } = useGetMemberForPaymentQuery({
+    token,
+    member_type,
+    id,
+  });
 
   useEffect(() => {
     const fetchedData = async () => {
@@ -192,7 +193,6 @@ const Profile = () => {
     };
   }, [token]);
 
-
   const defaultValues = {
     profile_pic: memberShipData?.user?.profile_pic || "",
     name: memberShipData?.user?.name || "",
@@ -204,8 +204,6 @@ const Profile = () => {
     business_address: memberShipData?.business_address || "",
     business_name: memberShipData?.business_name || "",
     business_type: memberShipData?.business_type || "",
-
-
   };
 
   let email;
@@ -238,8 +236,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-            : null;
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+          : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -324,12 +322,10 @@ const Profile = () => {
     },
   };
 
-
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
-  console.log(memberShipData)
-
+  console.log(memberShipData);
 
   return (
     <>

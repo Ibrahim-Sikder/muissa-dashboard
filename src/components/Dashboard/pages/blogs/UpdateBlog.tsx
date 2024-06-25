@@ -64,12 +64,11 @@ const UpdateBlog = ({ id }: { id: string }) => {
   //   useUpdateBlogMutation();
 
   const defaultValues = {
-    title: blog?.title,
-    short_description: blog?.short_description,
-    description: blog?.description,
-    author: blog?.author,
-    blog_image: blog?.blog_image,
-    priority: blog?.priority,
+    title: blog?.title || "",
+    short_description: blog?.short_description || "",
+    author: blog?.author || "",
+    blog_image: blog?.blog_image || "",
+    priority: blog?.priority || 1,
   };
 
   useEffect(() => {
@@ -186,13 +185,11 @@ const UpdateBlog = ({ id }: { id: string }) => {
               </Grid>
 
               <Grid item xs={12}>
-                <Box>
-                  <RichtextEditor
-                    name="description"
-                    label="Description"
-                    placeholder="Write your blog post here"
-                  />
-                </Box>
+                <RichtextEditor
+                  name="description"
+                  label="Description"
+                  placeholder="Write your blog post here"
+                />
               </Grid>
               <Grid item xs={12}>
                 <MUIFileUploader
