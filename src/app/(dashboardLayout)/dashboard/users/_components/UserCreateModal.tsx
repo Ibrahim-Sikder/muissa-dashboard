@@ -12,7 +12,7 @@ import MUIForm from "@/components/Forms/Form";
 import MUIModal from "@/components/shared/MUIModal/MUIModal";
 import MUIInput from "@/components/Forms/Input";
 import INTSelect from "@/components/Forms/Select";
-import { role } from "@/types";
+import { adminRole, role } from "@/types";
 
 
 const userSchema = z.object({
@@ -40,13 +40,13 @@ const userSchema = z.object({
 });
 
 const defaultValues = {
-  name: { firstName: "", lastName: "" },
+  name: "",
   phone: "",
   email: "",
   dob: "",
   gender: "male",
   role: "editor",
-  department: [], 
+  department: [],
 };
 
 export type TProps = {
@@ -60,8 +60,8 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
 
   const submitHandler = async (values: FieldValues) => {
     console.log("Submitted Values: ", values);
-    
-    
+
+
   };
 
   return (
@@ -72,29 +72,25 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
         defaultValues={defaultValues}
       >
         <Grid container spacing={2} sx={{ my: 2 }}>
-          <Grid item xs={12} sm={6} md={4}>
-            <MUIInput name="name.firstName" label="First Name" fullWidth />
+          <Grid item xs={12} sm={12} md={4}>
+            <MUIInput name="name" label="Name" fullWidth />
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <MUIInput name="name.lastName" label="Last Name" fullWidth />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <MUIInput name="phone" label="Phone" fullWidth />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <MUIInput name="email" type="email" label="Email" fullWidth />
           </Grid>
-         
-          <Grid item xs={12} sm={6} md={4}>
-          {/* <INTSelect items={Gender} name="gender" label="Gender" fullWidth /> */}
-            
+          <Grid item xs={12} sm={12} md={4}>
+            <MUIInput name="password" type="password" label="Password" fullWidth />
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <MUIInput name="phone" type="text" label="Phone" fullWidth />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <INTSelect items={role} name="role" label="Role" fullWidth />
+            <INTSelect items={adminRole} name="role" label="Role" fullWidth />
           </Grid>
-        
-          
-         
+
+
+
+
         </Grid>
         <Button type="submit" variant="contained" color="primary">
           Create a User

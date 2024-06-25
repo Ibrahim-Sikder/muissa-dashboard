@@ -158,7 +158,7 @@ const News = async ({ params }: BlogId) => {
         <>
             <div className="serviceDetailsWrap aboutWraps">
                 <div className="aboutContent">
-                    {/* <h1>What we are capable to usually discovered.</h1> */}
+         
                     <h1>BLOG</h1>
                 </div>
             </div>
@@ -281,78 +281,7 @@ const News = async ({ params }: BlogId) => {
                             <div className="blogContent px-5 space-y- py-5 rounded-md ">
                                 <h2 className="mb-5 text-center">{blog?.data?.title}</h2>
                                 {renderContent(blog?.data?.description)}
-                                {/* <div>
-                                    <p>
-                                        It is a long established fact that a reader will be
-                                        distracted by the readable content of a page when looking at
-                                        its layout. The point of using Lorem Ipsum The man, who is
-                                        in a stable condition in hospital, has “potentially
-                                        life-changing injuries” after the overnight attack in
-                                        Garvagh, County Lono donderry. He was shot in the arms and
-                                        legs.”What sort of men would think it is accepttable to sub
-                                        ject a young girl to this level of brutality and violence?
-                                    </p>
-                                    <p className="mt-5 ">
-                                        “Every child has the right to feel safe and protected in
-                                        their own home – how is this poor child going to sleep
-                                        tonight or in coming nights? What are the long term effects
-                                        on her going to be?”
-                                    </p>
-                                </div>
-                                <div>
-                                    <h3>Content without backward-compatible data.</h3>
-                                    <p className="mt-2 leading-6">
-                                        Their community. I wonder how they wou if their own child
-                                        witnessed such a level of violence?
-                                    </p>
-                                    <p className="mt-2 leading-6">
-                                        “There is absolutely no justification for an attack like
-                                        this in our communities and we must all work together to
-                                        bring those responsible to justice and to stop this from
-                                        happening to another child.”
-                                    </p>
-
-                                    <p className="mt-2 leading-6">
-                                        Earlier this month, the PSNI launched a hard-hitting
-                                        advertisement campaign aimed at changing public attitudes to
-                                        paramilitary attacks.
-                                    </p>
-                                </div>
-                                <div>
-                                    <h3>A Kentucky woman who was accused last year.</h3>
-                                    <p className="mt-2 leading-6">
-                                        Their community. I wonder how they wou if their own child
-                                        witnessed such a level of violence?
-                                    </p>
-                                    <p className="mt-2 leading-6">
-                                        The intruders chased the girl in the house and threatened
-                                        her when she hid from them, according to the PSNI Limavady
-                                        Facebook page.
-                                    </p>
-
-                                    <p className="mt-2 leading-6">
-                                        “She came out petrified with her Piggy Bank, HER PIGGY BANK!
-                                        hoping that the men would take it and leave her dad alone,”
-                                        one outraged officer wrote.
-                                    </p>
-                                </div>
-                                <div>
-                                    <h3>A Kentucky woman who was accused last year.</h3>
-                                    <p className="mt-2 leading-6">
-                                        The intruders chased the girl in the house and threatened
-                                        her when she hid from them, according to the PSNI Limavady
-                                        Facebook page.
-                                    </p>
-                                    <p className="mt-2 leading-6">
-                                        “She came out petrified with her Piggy Bank, HER PIGGY BANK!
-                                        hoping that the men would take it and leave her dad alone,”
-                                        one outraged officer wrote. especially in capital projects
-                                        and the suppliers and consultants that work for you know the
-                                        value of a customer like that. As a consultant executing two
-                                        projects for a large multinational, I realise how very
-                                        difficult it sometimes can be on the receiving.
-                                    </p>
-                                </div> */}
+                                
                             </div>
                         </div>
 
@@ -403,7 +332,7 @@ const News = async ({ params }: BlogId) => {
                                 ))}
                             </div>
 
-                            <CommentForm />
+                            <CommentForm id={newsId} />
                         </div>
                     </div>
                 </div>

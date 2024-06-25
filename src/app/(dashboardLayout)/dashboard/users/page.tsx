@@ -1,40 +1,66 @@
 "use client";
 
-
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import UserCreateModal from "./_components/UserCreateModal";
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const columns: GridColDef[] = [
-    { field: "employeeId", headerName: "Employee ID", flex: 1, minWidth: 130 },
-    {
-        field: "name",
-        headerName: "Name",
-        flex: 1,
-        minWidth: 150,
-        renderCell: (params) => {
-            const firstName = params.row?.name?.firstName || "";
-            const lastName = params.row?.name?.lastName || "";
-            return `${firstName} ${lastName}`;
-        },
-    },
-    { field: "phone", headerName: "Phone", flex: 1, minWidth: 150 },
+    { field: "userId", headerName: "User ID", flex: 1, minWidth: 130 },
+    { field: "name", headerName: "Name", flex: 1, minWidth: 230 },
     { field: "email", headerName: "Email", flex: 1, minWidth: 230 },
+    { field: "phone", headerName: "Phone", flex: 1, minWidth: 120 },
+    { field: "role", headerName: "Role", flex: 1, minWidth: 120 },
     {
-        field: "dob",
-        headerName: "Date of Birth",
+        field: "actions",
+        headerName: "Actions",
         flex: 1,
         minWidth: 150,
+        sortable: false,
         renderCell: (params) => {
-            const date = new Date(params.value);
-            return date.toLocaleDateString("en-GB");
+            const handleEdit = () => {
+
+                console.log("Edit:", params.row);
+            };
+
+            const handleDelete = () => {
+
+                console.log("Delete:", params.row);
+            };
+
+            return (
+                <Stack direction="row" spacing={1}>
+                    <IconButton color="primary" onClick={handleEdit}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton sx={{ color: 'red' }} onClick={handleDelete}>
+                        <DeleteIcon sx={{ color: 'red' }} />
+                    </IconButton>
+                </Stack>
+            );
         },
     },
-    { field: "gender", headerName: "Gender", flex: 1, minWidth: 120 },
-    { field: "role", headerName: "Role", flex: 1, minWidth: 120 },
-    { field: "department", headerName: "Department", flex: 1, minWidth: 150 },
+];
+
+const rows = [
+    {
+        _id: "1",
+        userId: "U001",
+        name: "Admin",
+        email: "john.doe@example.com",
+        phone: "8765434567",
+        role: "Admin",
+    },
+    {
+        _id: "2",
+        userId: "U002",
+        name: "Admin",
+        email: "jane.smith@example.com",
+        phone: "8765434567",
+        role: "User",
+    },
 ];
 
 const Users = () => {
@@ -58,10 +84,9 @@ const Users = () => {
                     margin="10px 0"
                     spacing={{ xs: 2, sm: 0 }}
                 >
-
                     <TextField size="small" label="Search User" variant="outlined" />
                     <Button variant="contained" color="primary" onClick={handleClickOpen}>
-                        Create User
+                        Create A User
                     </Button>
                 </Stack>
 
@@ -69,7 +94,7 @@ const Users = () => {
 
                 <Box sx={{ height: "calc(100vh - 150px)", width: "100%" }}>
                     <DataGrid
-                        //   rows={data?.result || []}
+                        rows={rows}
                         columns={columns}
                         autoHeight
                         getRowId={(row) => row._id}

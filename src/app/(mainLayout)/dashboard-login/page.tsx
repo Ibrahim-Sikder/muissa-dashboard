@@ -102,7 +102,7 @@ const Login = () => {
 
   return (
     <div
-      className="lg:h-[800px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
+      className="lg:h-[500px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
       
     >
       <Stack

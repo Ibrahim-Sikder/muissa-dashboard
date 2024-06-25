@@ -2,6 +2,7 @@
 
 import MUIForm from '@/components/Forms/Form';
 import MUITextArea from '@/components/Forms/TextArea';
+import { useCreateCommentMutation } from '@/redux/api/commentApi';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Grid } from '@mui/material';
 import React from 'react';
@@ -13,9 +14,18 @@ import { z } from 'zod';
 const validationSchema = z.object({
     comment: z.string(),
 });
-const CommentForm = () => {
-    const handleSubmit = (data: FieldValues) => {
-        console.log(data);
+const CommentForm = ({id}:any) => {
+    
+    const [createComment, ] = useCreateCommentMutation()
+    const handleSubmit = async (data: FieldValues) => {
+        console.log(data,'post comment data ')
+        try{
+          const res = await createComment({data, id }).unwrap()
+          console.log(res,'post res data ')
+
+        }catch(err){
+            console.log(err)
+        }
     };
     return (
         <div className="mt-10">
@@ -24,7 +34,7 @@ const CommentForm = () => {
                 onSubmit={handleSubmit}
                 resolver={zodResolver(validationSchema)}
                 defaultValues={{
-                    comment: "",
+                    commentjfgdewq: "",
                 }}
             >
                 <Grid container spacing={1}>
@@ -40,7 +50,7 @@ const CommentForm = () => {
                         />
                     </Grid>
                     <Grid item lg={12} sx={{ marginRight: "0px" }}>
-                        <Button>Submit</Button>
+                        <Button type='submit'>Submit</Button>
                     </Grid>
                 </Grid>
             </MUIForm>
