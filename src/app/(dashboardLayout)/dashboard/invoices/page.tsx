@@ -39,7 +39,6 @@ export default function Page(): React.JSX.Element {
     limit,
     filterType,
   });
-  console.log(data);
 
   React.useEffect(() => {
     if (error) {

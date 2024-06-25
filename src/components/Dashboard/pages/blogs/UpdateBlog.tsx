@@ -65,7 +65,6 @@ const UpdateBlog = ({ id }: { id: string }) => {
   const defaultValues = {
     title: blog?.title || "",
     short_description: blog?.short_description || "",
-    description: blog?.description || "",
     author: blog?.author || "",
     blog_image: blog?.blog_image || "",
     priority: blog?.priority || 1,
