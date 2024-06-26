@@ -1,5 +1,5 @@
 import { SxProps, TextField } from "@mui/material";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TInputProps = {
@@ -17,6 +17,8 @@ type TInputProps = {
   rows?: number;
   disabled?: boolean;
   value?: string;
+  onChange?:(event:ChangeEvent<HTMLInputElement>)=>void; 
+  
 };
 
 const MUIInput = ({
@@ -33,6 +35,8 @@ const MUIInput = ({
   margin = "normal",
   multiline = false,
   rows = 4,
+  onChange,
+  value
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -40,12 +44,12 @@ const MUIInput = ({
       control={control}
       name={name}
       render={({
-        field: { onChange, value },
+        field: { onChange:fieldOnChange, value:fieldValue  },
         fieldState: { error },
         formState,
       }) => (
         <TextField
-          onChange={onChange}
+          onChange={onChange || fieldOnChange}
           type={type}
           label={label}
           size={size}
@@ -59,7 +63,7 @@ const MUIInput = ({
           helperText={error?.message}
           multiline={multiline}
           rows={rows}
-          value={value}
+          value={value || fieldValue }
           defaultChecked={
             formState.dirtyFields[name] ? formState.dirtyFields[name] : value
           }

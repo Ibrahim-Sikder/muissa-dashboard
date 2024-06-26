@@ -46,6 +46,7 @@ import {
   useGetMemberForPaymentQuery,
 } from "@/redux/api/memeberApi";
 import Loader from "@/components/Loader";
+import userImg from '../../../assets/logo/profile.png'
 
 // const validationSchema = z.object({
 //   user: z.string().email("একটি বৈধ ইমেল ঠিকানা প্রদান করুন!").optional(),
@@ -339,7 +340,7 @@ const Profile = () => {
           <div className="flex flex-col md:flex-row justify-center text-center gap-5 items-center">
             <Image
               className="w-40 rounded-full "
-              src={imageUrl ? imageUrl : userData?.profile_pic}
+              src={imageUrl ? imageUrl : userImg}
               alt="profile"
               height={100}
               width={100}

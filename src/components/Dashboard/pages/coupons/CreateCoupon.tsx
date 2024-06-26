@@ -123,7 +123,7 @@ const CreateCoupon = () => {
         toast.success(response?.data?.message);
         setSuccessDiscountMessage(response?.data?.message);
 
-        // router.push("/dashboard/coupons");
+        router.push("/dashboard/coupons");
         setDiscountLoading(false);
       }
     } catch (error: any) {
@@ -226,7 +226,7 @@ const CreateCoupon = () => {
           </Card>
         </MUIForm>
       </Stack>
-      {/* <Stack spacing={3}>
+      <Stack spacing={3}>
         <MUIForm
           onSubmit={handleDiscountSubmit}
           resolver={zodResolver(discountValidationSchema)}
@@ -300,7 +300,7 @@ const CreateCoupon = () => {
             </div>
           </Card>
         </MUIForm>
-      </Stack> */}
+      </Stack>
     </>
   );
 };

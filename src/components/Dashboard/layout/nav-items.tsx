@@ -96,7 +96,7 @@ export const navItems: NavItemConfig[] = [
   },
   {
     key: "coupons",
-    title: "Manage Coupons",
+    title: "Manage Coupons & Discount ",
     href: paths.dashboard.coupons,
     icon: <FaTicketAlt />,
     childrenItems: [
