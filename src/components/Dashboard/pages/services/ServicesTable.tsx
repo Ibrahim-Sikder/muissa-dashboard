@@ -51,8 +51,7 @@ export function ServicesTable({
   rows = [],
   page = 0,
   rowsPerPage = 0,
-  loading,
-  error
+
 }: ServicesTableProps): React.JSX.Element {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [openSubModal, setOpenSubModal] = React.useState(false);
@@ -133,85 +132,85 @@ export function ServicesTable({
         </MUIModal>
       )}
 
-      <Box>
+     <Box>
 
-        <Box sx={{ overflowX: "auto" }}>
-          <Table sx={{ minWidth: "800px" }}>
-            <TableHead>
-              <TableRow>
-                <TableCell>Image</TableCell>
-                <TableCell>Service Name</TableCell>
-                <TableCell>Category</TableCell>
-                <TableCell>Subctegories</TableCell>
-                <TableCell>Priority</TableCell>
-                <TableCell>Published Date</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row._id}>
-                  <TableCell>
-                    <Avatar
-                      alt={row.title}
-                      src={row.service_image}
-                      sx={{ width: 50, height: 50 }}
+     <Box sx={{ overflowX: "auto" }}>
+        <Table sx={{ minWidth: "800px" }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Image</TableCell>
+              <TableCell>Service Name</TableCell>
+              <TableCell>Category</TableCell>
+              <TableCell>Subctegories</TableCell>
+              <TableCell>Priority</TableCell>
+              <TableCell>Published Date</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row._id}>
+                <TableCell>
+                  <Avatar
+                    alt={row.title}
+                    src={row.service_image}
+                    sx={{ width: 50, height: 50 }}
+                  />
+                </TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.category}</TableCell>
+                <TableCell>{row.sub_category}</TableCell>
+                <TableCell>{row.priority}</TableCell>
+                <TableCell>
+                  {dayjs(row.createdAt).format("DD MMM YYYY")}
+                </TableCell>
+
+                <TableCell>
+                  <Stack direction="row" spacing={1}>
+                    <Link href={`/dashboard/services/${row._id}`}>
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        size="small"
+                        startIcon={<FaEye />}
+                      >
+                        View
+                      </Button>
+                    </Link>
+
+                    <Link href={`/dashboard/services/edit/${row._id}`}>
+                      <Button
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        startIcon={<FaPencil />}
+                      >
+                        Edit
+                      </Button>
+                    </Link>
+                    <DeleteButtonWithConfirmation
+                      onDelete={() => handleDeleteService(row._id)}
+                      isLoading={isDeletingService}
                     />
-                  </TableCell>
-                  <TableCell>{row.title}</TableCell>
-                  <TableCell>{row.category}</TableCell>
-                  <TableCell>{row.sub_category}</TableCell>
-                  <TableCell>{row.priority}</TableCell>
-                  <TableCell>
-                    {dayjs(row.createdAt).format("DD MMM YYYY")}
-                  </TableCell>
+                  </Stack>
+                </TableCell>
 
-                  <TableCell>
-                    <Stack direction="row" spacing={1}>
-                      <Link href={`/dashboard/services/${row._id}`}>
-                        <Button
-                          color="secondary"
-                          variant="outlined"
-                          size="small"
-                          startIcon={<FaEye />}
-                        >
-                          View
-                        </Button>
-                      </Link>
-
-                      <Link href={`/dashboard/services/edit/${row._id}`}>
-                        <Button
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                          startIcon={<FaPencil />}
-                        >
-                          Edit
-                        </Button>
-                      </Link>
-                      <DeleteButtonWithConfirmation
-                        onDelete={() => handleDeleteService(row._id)}
-                        isLoading={isDeletingService}
-                      />
-                    </Stack>
-                  </TableCell>
-
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-        <Divider />
-        <TablePagination
-          component="div"
-          count={count}
-          onPageChange={noop}
-          onRowsPerPageChange={noop}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[5, 10, 25]}
-        />
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Box>
+      <Divider />
+      <TablePagination
+        component="div"
+        count={count}
+        onPageChange={noop}
+        onRowsPerPageChange={noop}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
+     </Box>
     </Card>
   );
 }

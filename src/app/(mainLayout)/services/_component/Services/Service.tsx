@@ -45,7 +45,7 @@ const Service = async () => {
     <Container>
       <div className="serviceCardWraps">
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-2">
-          {sortedServices?.slice(0, 4).map((data: TServices, i: number) => (
+          {sortedServices?.slice(0, 4)?.map((data: TServices, i: number) => (
             <div key={data._id} className="serviceCard">
               <div className="serviceIconWraps">
                 {i === 0 ? (
@@ -59,9 +59,9 @@ const Service = async () => {
                 ) : null}
               </div>
               <div className="serviceContent">
-                <h4>{data.category}</h4>
+                <h4>{data?.category}</h4>
                 <p className="my-2 md:my-5">
-                  {data.short_description.slice(0, 100)}
+                  {data.short_description?.slice(0, 100)}
                 </p>
                 <Button sx={buttonStyle} component={Link} href={`/services/${data._id}`}>
                   আরো দেখুন

@@ -43,6 +43,8 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 
 import consult from "../../../assets/news/sub.png";
+import { useGetDiscountForPaymentQuery } from "@/redux/api/paymentApi";
+import Loader from "@/components/Loader";
 
 const validationSchema = z.object({
   // businessOwner: z.string().min(1, "ব্যবসার মালিকের নাম আবশ্যক").optional(),
@@ -86,6 +88,8 @@ const defaultValues = {
 const Membership = () => {
   const [uploadedImage, setUploadedImage] = useState<string>("");
   const [userType, setUserType] = useState("business_owner");
+  const { data: discountData, isLoading } = useGetDiscountForPaymentQuery({})
+
 
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
@@ -153,6 +157,7 @@ const Membership = () => {
       const investmentAmount = Number(data.investment_amount);
       data.investment_amount = investmentAmount;
     }
+
 
     setSuccessMessage("");
     setErrorMessage([]);
@@ -239,6 +244,21 @@ const Membership = () => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
+  if (isLoading) {
+    return <Loader />
+  }
+  const originalPrice = 500;
+  const discountedPrice = originalPrice - discountData?.discount_amount;
+  const convertedOriginalPrice = convertToBengaliNumerals(originalPrice);
+  const convertedDiscountedPrice = convertToBengaliNumerals(discountedPrice);
+
+  function convertToBengaliNumerals(num: number): string {
+    const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return num.toString().split('').map(digit => bengaliNumerals[Number(digit)]).join('');
+  }
+
+  console.log(discountData)
+
   return (
     <>
       <div className="serviceDetailsWrap aboutWraps">
@@ -259,7 +279,9 @@ const Membership = () => {
                 <h2> আমাদের সদস্যতা সাবস্ক্রিপশনের </h2>
               </div>
             </div>
-            <Button sx={{ marginTop: '10px', fontSize: '30px', }}> ফি মাত্র ৫০০ টাকা।</Button>
+            <Button sx={{ marginTop: '10px', fontSize: '30px' }}>
+      ফি মাত্র <del className="mx-2">{convertedOriginalPrice}</del> {convertedDiscountedPrice} টাকা।
+    </Button>
             <p className="mt-10">
               আমাদের ব্যবসা পরামর্শদান সেবার সদস্য হয়ে বিশেষ সুবিধাগুলি উপভোগ
               করুন। আজই মাত্র ৫০০ টাকার বিনিময়ে সদস্যতা সাবস্ক্রিপশন নিন এবং

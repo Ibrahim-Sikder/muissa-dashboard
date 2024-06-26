@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 const AuthRoutes = ["/login", "/register",];
 
 
+
 // const roleBasedPrivateRoutes = {
 //   user: [/^\/profile(\/[^\/]+)?$/],
 //   admin: [
@@ -51,9 +52,9 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // if (pathname === "/membership" && !accessToken) {
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  if (pathname === "/membership" && !accessToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
 
 
@@ -61,5 +62,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/profile/:path*", "/dashboard/:path*",],
+  matcher: ["/login", "/register", "/profile/:path*", "/dashboard/:path*", "/membership"],
 };
