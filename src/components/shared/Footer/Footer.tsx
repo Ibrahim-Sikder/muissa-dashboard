@@ -149,9 +149,9 @@ const Footer = () => {
 
             <Typography component="p" color="white">
               Technical Support & Maintenance by{" "}
-              <a href="#" target="_blank" className="text-white underline">
+              <Link href="https://softypy.com/" target="_blank" className="text-white underline">
                 SoftyPy
-              </a>
+              </Link>
             </Typography>
           </Stack>
         </Container>

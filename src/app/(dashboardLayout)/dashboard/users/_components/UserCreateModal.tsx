@@ -132,7 +132,7 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
             <INTSelect items={adminRole} name="role" label="Role" fullWidth />
           </Grid> */}
         </Grid>
-        <Button type="submit" variant="contained" color="primary">
+        <Button disabled={loading} type="submit" variant="contained" color="primary">
           Create a User
         </Button>
       </MUIForm>

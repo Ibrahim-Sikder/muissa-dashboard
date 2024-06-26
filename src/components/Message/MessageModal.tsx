@@ -83,6 +83,7 @@ const MessageModal = ({ close }: TProps) => {
     handleSubmit,
     reset,
     formState: { errors },
+    
   } = useForm();
   const [loading, setLoading] = useState<boolean>(false);
   const [myReceiverUser, setMyReceiverUser] = useState<MyReceiverUser>();
@@ -261,8 +262,8 @@ const MessageModal = ({ close }: TProps) => {
                   alt="logo"
                   height={100}
                 />
-                <small className="">Question ? </small>
-                <small> chat with us !</small>
+                {/* <small className="">Question ? </small>
+                <small> chat with us !</small> */}
 
                 {userDetails && <span>{userDetails?.name}</span>}
                 {onlineStatus ? "online" : "offline"}

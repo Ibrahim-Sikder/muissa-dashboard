@@ -115,19 +115,21 @@ const MUIFileUploader = ({
             )}
             {field.value && (
               <Box mt={2}>
-                <Button
-                  onClick={handleUpload}
-                  style={{
-                    padding: "10px 15px",
-                    border: "none",
-                    borderRadius: "5px",
-                    background: "#059065",
-                    color: "#fff",
-                    cursor: "pointer",
-                  }}
-                >
-                  Upload
-                </Button>
+                <label htmlFor="files">
+                  <Button
+                    // onClick={handleUpload}
+                    style={{
+                      padding: "10px 15px",
+                      border: "none",
+                      borderRadius: "5px",
+                      background: "#059065",
+                      color: "#fff",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Upload
+                  </Button>
+                </label>
               </Box>
             )}
           </Box>

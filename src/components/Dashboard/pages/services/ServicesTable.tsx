@@ -44,6 +44,8 @@ interface ServicesTableProps {
   page?: number;
   rows?: TServices[];
   rowsPerPage?: number;
+  loading: boolean;
+  error: any
 }
 
 export function ServicesTable({
