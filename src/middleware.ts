@@ -8,7 +8,7 @@ const roleBasedPrivateRoutes = {
   user: [/^\/profile(\/[^\/]+)?$/],
   admin: [
     /^\/profile(\/[^\/]+)?$/,
-    /^\/dashboard(\/[^\/]+)?$/,  // Allows access to /dashboard and all its nested routes
+    /^\/dashboard(\/[^\/]+)?$/,  
   ],
 };
 
