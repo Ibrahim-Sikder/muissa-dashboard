@@ -42,42 +42,10 @@ const CreateCoupon = () => {
 
   const handleSubmit = async (data: FieldValues) => {
     console.log(data);
-    setLoading(true);
+   
 
-    setSuccessMessage("");
-    setErrorMessage([]);
+ 
 
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/coupons/create-coupon`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response);
-      if (response?.status === 200) {
-        toast.success(response?.data?.message);
-        setSuccessMessage(response?.data?.message);
-
-        router.push("/dashboard/coupons");
-        setLoading(false);
-      }
-    } catch (error: any) {
-      console.log(error);
-      if (error?.response) {
-        const { status, data } = error.response;
-        if ([400, 404, 401, 409, 500].includes(status)) {
-          setErrorMessage(data.message);
-        } else {
-          setErrorMessage(["An unexpected error occurred."]);
-        }
-      }
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -85,15 +53,15 @@ const CreateCoupon = () => {
       <Stack spacing={3}>
         <MUIForm
           onSubmit={handleSubmit}
-          resolver={zodResolver(validationSchema)}
-          defaultValues={{
-            name: "",
-            code: "",
-            discount: "",
-            status: "",
-            startDate: "",
-            endDate: "",
-          }}
+          // resolver={zodResolver(validationSchema)}
+          // defaultValues={{
+          //   name: "",
+          //   code: "",
+          //   discount: "",
+          //   status: "",
+          //   startDate: "",
+          //   endDate: "",
+          // }}
         >
           <Card
             sx={{
@@ -150,14 +118,14 @@ const CreateCoupon = () => {
               {errorMessage && <ErrorMessage message={errorMessage} />}
             </div>
             <CardActions sx={{ p: 2 }}>
-              <Button disabled={loading} type="submit" variant="contained">
-                {loading ? "Creating..." : "Create"}
+              <Button  type="submit" variant="contained">
+               Create
               </Button>
             </CardActions>
           </Card>
         </MUIForm>
       </Stack>
-      <Stack spacing={3}>
+      {/* <Stack spacing={3}>
         <MUIForm
           onSubmit={handleSubmit}
           resolver={zodResolver(validationSchema)}
@@ -224,7 +192,7 @@ const CreateCoupon = () => {
             
           </Card>
         </MUIForm>
-      </Stack>
+      </Stack> */}
     </>
   );
 };
