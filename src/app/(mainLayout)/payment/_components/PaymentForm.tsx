@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -29,6 +29,8 @@ const PaymentForm = () => {
 
   const [selectedValue, setSelectedValue] = useState("bkash");
   const [totalAmount, setTotalAmount] = useState<number>(0);
+
+  const [coupon, setCoupon] = useState("");
 
   const token = getCookie("mui-token");
   const params = useSearchParams();
@@ -121,6 +123,39 @@ const PaymentForm = () => {
     }
   };
 
+  const handleCouponChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCoupon(event.target.value);
+  };
+
+  const handleHandleCoupon = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/coupons/${coupon}`
+      );
+
+      if (response?.status === 200) {
+        const couponAmount = response?.data.data?.coupon_discount;
+        const discountAmount = (totalAmount * couponAmount) / 100;
+
+        setTotalAmount(totalAmount - discountAmount);
+        toast.success(response?.data?.message);
+        setIsLoading(false);
+      }
+      console.log("Response:", response);
+    } catch (error: any) {
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 401, 409, 404, 500].includes(status)) {
+          toast.error(data.message);
+        } else {
+          toast.error(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm mt-10">
@@ -175,16 +210,20 @@ const PaymentForm = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <div className="flex items-center gap-x-1 ">
-                <MUIInput
+                {/* <MUIInput
                   name="coupon_code"
                   label="কুপন কোড"
                   variant="outlined"
                   fullWidth
                   placeholder="123456"
                   sx={{ width: "250px" }}
-                />
+                  onChange={handleCouponChange}
+                /> */}
+
+                <input type="text" onChange={handleCouponChange} />
                 <Button
                   sx={{ width: "70px", height: "40px", marginTop: "8px" }}
+                  onClick={handleHandleCoupon}
                 >
                   Apply
                 </Button>
