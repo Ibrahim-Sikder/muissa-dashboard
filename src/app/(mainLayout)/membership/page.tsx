@@ -163,8 +163,8 @@ const Membership = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-            : null;
+          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+          : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -185,7 +185,6 @@ const Membership = () => {
         toast.success(response.data.message);
         setSuccessMessage(response.data.message);
         setLoading(false);
-
 
         router.push(
           `/${response.data.data.redirectUrl}?member_type=${userType}&id=${response.data.data.userId}`
@@ -259,7 +258,10 @@ const Membership = () => {
                 <h2> আমাদের সদস্যতা সাবস্ক্রিপশনের </h2>
               </div>
             </div>
-            <Button sx={{ marginTop: '10px', fontSize: '30px', }}> ফি মাত্র ৫০০ টাকা।</Button>
+            <Button sx={{ marginTop: "10px", fontSize: "30px" }}>
+              {" "}
+              ফি মাত্র ৫০০ টাকা।
+            </Button>
             <p className="mt-10">
               আমাদের ব্যবসা পরামর্শদান সেবার সদস্য হয়ে বিশেষ সুবিধাগুলি উপভোগ
               করুন। আজই মাত্র ৫০০ টাকার বিনিময়ে সদস্যতা সাবস্ক্রিপশন নিন এবং
@@ -281,10 +283,15 @@ const Membership = () => {
             {serviceData.map((data, index) => (
               <div
                 key={data.id}
-                className={`membarshipCard ${index === serviceData.length - 1 ? "lg:col-span-2" : ""
-                  }`}
+                className={`membarshipCard ${
+                  index === serviceData.length - 1 ? "lg:col-span-2" : ""
+                }`}
               >
-                <Image className="w-[65px] mx-auto " src={data.img} alt="icon" />
+                <Image
+                  className="w-[65px] mx-auto "
+                  src={data.img}
+                  alt="icon"
+                />
                 <div className="mt-3">
                   <h4>{data.title}</h4>
                   <p className="leading-7">{data.description}</p>
@@ -305,8 +312,8 @@ const Membership = () => {
 
           <MUIForm
             onSubmit={handleSubmit}
-          // resolver={zodResolver(validationSchema)}
-          // defaultValues={defaultValues}
+            // resolver={zodResolver(validationSchema)}
+            // defaultValues={defaultValues}
           >
             <Grid container spacing={1}>
               <Box
