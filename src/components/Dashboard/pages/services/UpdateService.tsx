@@ -85,19 +85,20 @@ const UpdateService = ({ id }: { id: string }) => {
 
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
-
+console.log('values from form', data)
     try {
       const response = await updateService({ id, ...data }).unwrap();
-      console.log(response);
-
-      if (response?.status === "success") {
-        toast.success(response?.message);
-        setSuccessMessage(response?.message);
-        refetch();
-        router.push("/dashboard/services");
-      } else {
-        throw new Error("Unexpected response status");
-      }
+      console.log(response, 'rspons o');
+      refetch();
+      router.push("/dashboard/services");
+      // if (response?.status === "success") {
+      //   toast.success(response?.message);
+      //   setSuccessMessage(response?.message);
+      //   refetch();
+      //   router.push("/dashboard/services");
+      // } else {
+      //   throw new Error("Unexpected response status");
+      // }
     } catch (error: any) {
       console.log(error);
 
@@ -131,7 +132,6 @@ const UpdateService = ({ id }: { id: string }) => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
         defaultValues={defaultValues}
       >
         <Card

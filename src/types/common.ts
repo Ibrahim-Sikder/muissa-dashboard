@@ -66,6 +66,18 @@ export const supportServices = [
   },
 ];
 
+export const support_items = [
+  'ইনভেস্টমেন্ট সাপোর্ট',
+  'সেলস সাপোর্ট',
+  'মার্কেটিং সাপোর্ট',
+  'ফান্ডিং সাপোর্ট',
+  'আইটি সাপোর্ট',
+  'প্রোডাক্ট সাপোর্ট',
+  'ডেলিভারি সাপোর্ট',
+
+]
+
+
 type Option = {
   label: string;
   subCategories?: Option[];

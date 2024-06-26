@@ -32,7 +32,7 @@ export const navItems: NavItemConfig[] = [
       },
     ],
   },
-  
+
   {
     key: "services",
     title: "Manage Services",
@@ -216,7 +216,9 @@ export const navItems: NavItemConfig[] = [
     title: "User Management",
     href: paths.dashboard.users,
     icon: <FaUsers />,
+
   },
+
   {
     key: "support",
     title: "Support",

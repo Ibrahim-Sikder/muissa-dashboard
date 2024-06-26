@@ -7,11 +7,15 @@ import UserCreateModal from "./_components/UserCreateModal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import Loader from "@/components/Loader";
+import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
+
+
 const columns: GridColDef[] = [
   { field: "userId", headerName: "User ID", flex: 1, minWidth: 130 },
   { field: "name", headerName: "Name", flex: 1, minWidth: 230 },
-  { field: "email", headerName: "Email", flex: 1, minWidth: 230 },
-  { field: "phone", headerName: "Phone", flex: 1, minWidth: 120 },
+  { field: "auth", headerName: "Email", flex: 1, minWidth: 230 },
+  { field: "status", headerName: "Status", flex: 1, minWidth: 120 },
   { field: "role", headerName: "Role", flex: 1, minWidth: 120 },
   {
     field: "actions",
@@ -42,27 +46,18 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    _id: "1",
-    userId: "U001",
-    name: "Admin",
-    email: "john.doe@example.com",
-    phone: "8765434567",
-    role: "Admin",
-  },
-  {
-    _id: "2",
-    userId: "U002",
-    name: "Admin",
-    email: "jane.smith@example.com",
-    phone: "8765434567",
-    role: "User",
-  },
-];
-
 const Users = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: allUser, isLoading, error } = useGetAllUserQuery({})
+  // const [deleteUser] = useDeleteUserMutation()
+  if (isLoading) {
+    return <Loader />
+  }
+  // const handleDelete = async (userId: string) => {
+  //   await deleteUser(userId);
+  // };
+
+  console.log(allUser)
 
   const handleClickOpen = () => {
     setIsModalOpen(true);
@@ -71,6 +66,9 @@ const Users = () => {
   const handleClose = () => {
     setIsModalOpen(false);
   };
+
+
+
 
   return (
     <Box>
@@ -92,7 +90,7 @@ const Users = () => {
 
         <Box sx={{ height: "calc(100vh - 150px)", width: "100%" }}>
           <DataGrid
-            rows={rows}
+            rows={allUser?.users}
             columns={columns}
             autoHeight
             getRowId={(row) => row._id}

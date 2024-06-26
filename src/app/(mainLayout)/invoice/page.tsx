@@ -12,7 +12,6 @@ const page = () => {
             tax: '5',
             rate: 500,
             amount: '500'
-
         },
         {
             id: 1,

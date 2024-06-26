@@ -34,6 +34,9 @@ export default function Page(): React.JSX.Element {
  
 
 
+  if (error) {
+    return <h1 className="text-center">Data not found </h1>
+  }
   if (isLoading) {
     return <Loader />;
   }
@@ -45,6 +48,8 @@ export default function Page(): React.JSX.Element {
   return (
     <Stack spacing={3}>
       <ServicesTable
+      loading={isLoading}
+      error={error}
         count={data?.services?.length}
         page={currentPage}
         rows={sortedServices}

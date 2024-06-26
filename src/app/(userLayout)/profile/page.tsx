@@ -22,7 +22,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import MUIMultiSelect from "@/components/Forms/MultiSelect";
-import { role, subCategories, supportServices } from "@/types";
+import { role, subCategories, supportServices, support_items } from "@/types";
 import MUITextArea from "@/components/Forms/TextArea";
 import MUIFileUploader from "@/components/Forms/FileUpload";
 import DocUploader from "@/components/Forms/DocUploader";
@@ -237,8 +237,8 @@ const Profile = () => {
         userType === "business_owner"
           ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-business-owner`
           : userType === "investor"
-          ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
-          : null;
+            ? `${process.env.NEXT_PUBLIC_BASE_API_URL}/members/create-investor`
+            : null;
 
       if (!endpoint) {
         throw new Error("Invalid user type");
@@ -413,7 +413,7 @@ const Profile = () => {
                   size="medium"
                 />
               </Grid>
-              
+
 
               <Box
                 sx={{
@@ -456,7 +456,7 @@ const Profile = () => {
                       spacing={{ xs: 1, md: 3, lg: 3 }}
                     >
                       <Grid container spacing={1}>
-                       
+
                         <Grid item xs={12} sm={6} md={6} lg={12}>
                           <MUIInput
                             name="business_name"
@@ -498,12 +498,18 @@ const Profile = () => {
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={6} lg={12}>
-                          <MUIMultiSelect
+                          {/* <MUIMultiSelect
                             items={supportServices}
                             name="need_of_service"
                             label="পরিষেবার প্রয়োজনীয়তা"
                             fullWidth
                             size="medium"
+                          /> */}
+                          <INTSelect
+                            name="need_of_service"
+                            label="পরিষেবার প্রয়োজনীয়তা"
+                           fullWidth 
+                           items={support_items}
                           />
                         </Grid>
 

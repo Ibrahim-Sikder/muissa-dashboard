@@ -121,7 +121,7 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
             <MUIInput
               name="confirmPassword"
               type="password"
-              label="Password"
+              label="Confirm Password"
               fullWidth
             />
           </Grid>

@@ -33,48 +33,6 @@ type TCoupon = {
   endDate:string,
 
 }
-// const couponData = [
-//   {
-//     name: "Coupon 1",
-//     code: "COUPON1",
-//     discount: "10%",
-//     status: "Active",
-//     startDate: "2021-09-01",
-//     endDate: "2021-09-30",
-//   },
-//   {
-//     name: "Coupon 2",
-//     code: "COUPON2",
-//     discount: "20%",
-//     status: "Active",
-//     startDate: "2021-09-01",
-//     endDate: "2021-09-30",
-//   },
-//   {
-//     name: "Coupon 3",
-//     code: "COUPON3",
-//     discount: "30%",
-//     status: "Active",
-//     startDate: "2021-09-01",
-//     endDate: "2021-09-30",
-//   },
-//   {
-//     name: "Coupon 4",
-//     code: "COUPON4",
-//     discount: "40%",
-//     status: "Active",
-//     startDate: "2021-09-01",
-//     endDate: "2021-09-30",
-//   },
-//   {
-//     name: "Coupon 5",
-//     code: "COUPON5",
-//     discount: "50%",
-//     status: "Active",
-//     startDate: "2021-09-01",
-//     endDate: "2021-09-30",
-//   },
-// ];
 
 const CouponsTable = () => {
   const {data:couponData,isLoading} = useGetCouponQuery({})
@@ -88,12 +46,12 @@ const CouponsTable = () => {
 
 
   const handleDelete = (id: number) => {
-    // Implement delete functionality
+
     console.log(`Deleting coupon with id: ${id}`);
   };
 
 
-  const count = couponData.length;
+  const count = couponData?.length;
   const page = 0;
   const rowsPerPage = 5;
   const noop = () => {};
@@ -135,7 +93,7 @@ const CouponsTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {couponData.map((coupon:TCoupon, index:number) => (
+            {couponData?.coupons?.map((coupon:TCoupon, index:number) => (
               <TableRow hover key={index}>
                 <TableCell>{coupon.coupon_name}</TableCell>
                 <TableCell>{coupon.coupon_code}</TableCell>
@@ -206,7 +164,7 @@ const CouponsTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {couponData.map((coupon:TCoupon, index:number) => (
+            {couponData?.coupons?.map((coupon:TCoupon, index:number) => (
               <TableRow hover key={index}>
                 <TableCell>{coupon.coupon_name}</TableCell>
                 <TableCell>{coupon.coupon_code}</TableCell>
