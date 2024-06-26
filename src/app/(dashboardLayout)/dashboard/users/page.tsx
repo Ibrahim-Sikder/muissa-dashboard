@@ -10,68 +10,103 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Loader from "@/components/Loader";
 import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
 import { getCookie } from "@/helpers/Cookies";
-
-const columns: GridColDef[] = [
-  { field: "userId", headerName: "User ID", flex: 1, minWidth: 130 },
-  { field: "name", headerName: "Name", flex: 1, minWidth: 230 },
-  { field: "auth", headerName: "Email", flex: 1, minWidth: 230 },
-  { field: "status", headerName: "Status", flex: 1, minWidth: 120 },
-  { field: "role", headerName: "Role", flex: 1, minWidth: 120 },
-  {
-    field: "actions",
-    headerName: "Actions",
-    flex: 1,
-    minWidth: 150,
-    sortable: false,
-    renderCell: (params) => {
-      const handleEdit = () => {
-        console.log("Edit:", params.row);
-      };
-
-      const handleDelete = () => {
-        console.log("Delete:", params.row._id);
-
-        // const [deleteUser] = useDeleteUserMutation()
-      };
-
-      return (
-        <Stack direction="row" spacing={1}>
-          {/* <IconButton color="primary" onClick={handleEdit}>
-            <EditIcon />
-          </IconButton> */}
-          <IconButton sx={{ color: "red" }} onClick={handleDelete}>
-            <DeleteIcon sx={{ color: "red" }} />
-          </IconButton>
-        </Stack>
-      );
-    },
-  },
-];
+import { toast } from "sonner";
+import axios from "axios";
 
 const Users = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const token = getCookie("mui-token");
-  const { data: allUser, isLoading, error } = useGetAllUserQuery({ token });
+
+  const {
+    data: allUser,
+    isLoading,
+    error,
+    refetch,
+  } = useGetAllUserQuery({ token });
   // const [deleteUser] = useDeleteUserMutation()
 
   // const handleDelete = async (userId: string) => {
   //   await deleteUser(userId);
   // };
-  const [deleteUser] = useDeleteUserMutation();
+  // const [deleteUser] = useDeleteUserMutation();
 
   const handleDelete = useCallback(
-    async (userId: string) => {
+    async (id: string) => {
+      setLoading(true);
+
       try {
-        await deleteUser(userId).unwrap();
-        console.log("User deleted:", userId);
-      } catch (err) {
-        console.error("Failed to delete the user: ", err);
+        const response = await axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/${id}`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response?.status === 200) {
+          toast.success(response?.data?.message);
+          refetch();
+
+          setLoading(false);
+        }
+      } catch (error: any) {
+        if (error?.data) {
+          toast.error([error.data.message]);
+        } else if (error.message) {
+          toast.error([error.message]);
+        } else {
+          toast.error(["An unexpected error occurred."]);
+        }
+      } finally {
+        setLoading(false);
       }
     },
-    [deleteUser]
+    [refetch, token]
   );
 
-  console.log(allUser);
+  const columns: GridColDef[] = [
+    { field: "userId", headerName: "User ID", flex: 1, minWidth: 130 },
+    { field: "name", headerName: "Name", flex: 1, minWidth: 230 },
+    { field: "auth", headerName: "Email", flex: 1, minWidth: 230 },
+    { field: "status", headerName: "Status", flex: 1, minWidth: 120 },
+    { field: "role", headerName: "Role", flex: 1, minWidth: 120 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      minWidth: 150,
+      sortable: false,
+      renderCell: (params) => {
+        const handleEdit = () => {
+          console.log("Edit:", params.row);
+        };
+
+        const handleDeleteUser = () => {
+          handleDelete(params.row._id);
+        };
+
+        return (
+          <Stack direction="row" spacing={1}>
+            {/* <IconButton color="primary" onClick={handleEdit}>
+              <EditIcon />
+            </IconButton> */}
+            <IconButton
+              disabled={loading}
+              sx={{ color: "red" }}
+              onClick={handleDeleteUser}
+            >
+              <DeleteIcon sx={{ color: "red" }} />
+            </IconButton>
+          </Stack>
+        );
+      },
+    },
+  ];
+
+ 
 
   const handleClickOpen = () => {
     setIsModalOpen(true);

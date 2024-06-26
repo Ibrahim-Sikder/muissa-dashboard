@@ -96,7 +96,7 @@ const UpdateService = ({ id }: { id: string }) => {
           },
         }
       );
-console.log(response)
+ 
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
