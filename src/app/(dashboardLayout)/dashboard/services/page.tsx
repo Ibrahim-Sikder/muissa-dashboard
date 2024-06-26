@@ -1,7 +1,5 @@
 "use client";
-import {
-  ServicesTable,
-} from "@/components/Dashboard/pages/services/ServicesTable";
+import { ServicesTable } from "@/components/Dashboard/pages/services/ServicesTable";
 import Loader from "@/components/Loader";
 import { useGetAllServicesQuery } from "@/redux/api/serviceApi";
 import { TServices } from "@/types";
@@ -9,9 +7,6 @@ import { Box, CircularProgress } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-
-
-
 
 export default function Page(): React.JSX.Element {
   // const paginatedServices = applyPagination(services, page, rowsPerPage);
@@ -31,16 +26,13 @@ export default function Page(): React.JSX.Element {
     refetch();
   }, [pathName, refetch]);
 
- 
-
-
   if (error) {
-    return <h1 className="text-center">Data not found </h1>
+    return <h1 className="text-center">Data not found </h1>;
   }
   if (isLoading) {
     return <Loader />;
   }
-  
+
   const sortedServices: TServices[] = [...data.services].sort(
     (a: TServices, b: TServices) => a.priority - b.priority
   );
@@ -48,8 +40,8 @@ export default function Page(): React.JSX.Element {
   return (
     <Stack spacing={3}>
       <ServicesTable
-      loading={isLoading}
-      error={error}
+        loading={isLoading}
+        error={error}
         count={data?.services?.length}
         page={currentPage}
         rows={sortedServices}

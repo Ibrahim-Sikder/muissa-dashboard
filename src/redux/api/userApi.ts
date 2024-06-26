@@ -5,9 +5,12 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
 
     getAllUser: build.query({
-      query: () => ({
+      query: ({token}) => ({
         url: "/users/get/all/user",
         method: "GET",
+        headers: {
+          Authorization :`Bearer ${token}`
+        }
       }),
     }),
     deleteUser: build.mutation({

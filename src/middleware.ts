@@ -2,13 +2,22 @@ import { jwtDecode } from "jwt-decode";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-const AuthRoutes = ["/login", "/register"];
+const AuthRoutes = ["/login", "/register", ];
+
+
+// const roleBasedPrivateRoutes = {
+//   user: [/^\/profile(\/[^\/]+)?$/],
+//   admin: [
+//     /^\/profile(\/[^\/]+)?$/,
+//     /^\/dashboard(\/[^\/]+)?$/,  
+//   ],
+// };
 
 const roleBasedPrivateRoutes = {
-  user: [/^\/profile(\/[^\/]+)?$/],
+  user: [/^\/profile(\/.*)?$/],
   admin: [
-    /^\/profile(\/[^\/]+)?$/,
-    /^\/dashboard(\/[^\/]+)?$/,  
+    /^\/profile(\/.*)?$/, 
+    /^\/dashboard(\/.*)?$/, 
   ],
 };
 
@@ -46,5 +55,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/profile/:page*", "/dashboard/:page*"],
+  matcher: ["/login", "/register", "/profile/:path*", "/dashboard/:path*", "/membership"],
 };

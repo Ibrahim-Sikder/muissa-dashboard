@@ -34,9 +34,12 @@ export const serviceApi = baseApi.injectEndpoints({
     }),
 
     updateService: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ token, id, data }) => ({
         url: `/services/${id}`,
         method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         data,
       }),
 

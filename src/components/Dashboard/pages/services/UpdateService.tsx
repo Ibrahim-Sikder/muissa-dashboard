@@ -85,12 +85,28 @@ const UpdateService = ({ id }: { id: string }) => {
 
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
-console.log('values from form', data)
+    console.log("values", id);
     try {
-      const response = await updateService({ id, ...data }).unwrap();
-      console.log(response, 'rspons o');
-      refetch();
-      router.push("/dashboard/services");
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+console.log(response)
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+        refetch();
+        refetchService()
+        router.push("/dashboard/services");
+        setLoading(false);
+      }
+      // refetch();
+      // router.push("/dashboard/services");
       // if (response?.status === "success") {
       //   toast.success(response?.message);
       //   setSuccessMessage(response?.message);
@@ -130,10 +146,7 @@ console.log('values from form', data)
 
   return (
     <Stack spacing={3}>
-      <MUIForm
-        onSubmit={handleSubmit}
-        defaultValues={defaultValues}
-      >
+      <MUIForm onSubmit={handleSubmit} defaultValues={defaultValues}>
         <Card
           sx={{
             display: "flex",

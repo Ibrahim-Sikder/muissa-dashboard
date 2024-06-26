@@ -44,6 +44,8 @@ interface ServicesTableProps {
   page?: number;
   rows?: TServices[];
   rowsPerPage?: number;
+  loading: boolean;
+  error: any
 }
 
 export function ServicesTable({
@@ -142,7 +144,7 @@ export function ServicesTable({
                 <TableCell>Image</TableCell>
                 <TableCell>Service Name</TableCell>
                 <TableCell>Category</TableCell>
-                <TableCell>Subctegories</TableCell>
+                <TableCell>Sub categories</TableCell>
                 <TableCell>Priority</TableCell>
                 <TableCell>Published Date</TableCell>
                 <TableCell>Action</TableCell>

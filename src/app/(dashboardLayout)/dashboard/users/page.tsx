@@ -2,14 +2,14 @@
 
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import UserCreateModal from "./_components/UserCreateModal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import Loader from "@/components/Loader";
 import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
-
+import { getCookie } from "@/helpers/Cookies";
 
 const columns: GridColDef[] = [
   { field: "userId", headerName: "User ID", flex: 1, minWidth: 130 },
@@ -29,14 +29,16 @@ const columns: GridColDef[] = [
       };
 
       const handleDelete = () => {
-        console.log("Delete:", params.row);
+        console.log("Delete:", params.row._id);
+
+        // const [deleteUser] = useDeleteUserMutation()
       };
 
       return (
         <Stack direction="row" spacing={1}>
-          <IconButton color="primary" onClick={handleEdit}>
+          {/* <IconButton color="primary" onClick={handleEdit}>
             <EditIcon />
-          </IconButton>
+          </IconButton> */}
           <IconButton sx={{ color: "red" }} onClick={handleDelete}>
             <DeleteIcon sx={{ color: "red" }} />
           </IconButton>
@@ -48,16 +50,28 @@ const columns: GridColDef[] = [
 
 const Users = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data: allUser, isLoading, error } = useGetAllUserQuery({})
+  const token = getCookie("mui-token");
+  const { data: allUser, isLoading, error } = useGetAllUserQuery({ token });
   // const [deleteUser] = useDeleteUserMutation()
-  if (isLoading) {
-    return <Loader />
-  }
+
   // const handleDelete = async (userId: string) => {
   //   await deleteUser(userId);
   // };
+  const [deleteUser] = useDeleteUserMutation();
 
-  console.log(allUser)
+  const handleDelete = useCallback(
+    async (userId: string) => {
+      try {
+        await deleteUser(userId).unwrap();
+        console.log("User deleted:", userId);
+      } catch (err) {
+        console.error("Failed to delete the user: ", err);
+      }
+    },
+    [deleteUser]
+  );
+
+  console.log(allUser);
 
   const handleClickOpen = () => {
     setIsModalOpen(true);
@@ -67,9 +81,12 @@ const Users = () => {
     setIsModalOpen(false);
   };
 
-
-
-
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
   return (
     <Box>
       <Box sx={{ width: "100%", padding: 2 }}>
@@ -80,7 +97,7 @@ const Users = () => {
           margin="10px 0"
           spacing={{ xs: 2, sm: 0 }}
         >
-          <TextField size="small" label="Search User" variant="outlined" />
+          {/* <TextField size="small" label="Search User" variant="outlined" /> */}
           <Button variant="contained" color="primary" onClick={handleClickOpen}>
             Create A User
           </Button>
