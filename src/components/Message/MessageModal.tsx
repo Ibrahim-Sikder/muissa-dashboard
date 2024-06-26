@@ -75,16 +75,9 @@ interface MyReceiverUser {
 }
 
 const MessageModal = ({ close }: TProps) => {
-  const [messages, setMessages] = useState([]);
-  const [reload, setReload] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-    
-  } = useForm();
+ 
+  const textInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [myReceiverUser, setMyReceiverUser] = useState<MyReceiverUser>();
 
@@ -117,7 +110,7 @@ const MessageModal = ({ close }: TProps) => {
 
   const token = getCookie("mui-token");
 
-  const userId = myReceiverUser?.receiver?._id || "6669c62807906bce8720ec94";
+  const userId = myReceiverUser?.receiver?._id || process.env.NEXT_PUBLIC_CHAT_ID;
 
   useEffect(() => {
     const socketConnection = io(`${process.env.NEXT_PUBLIC_SOCKET_API_URL}`, {
@@ -183,7 +176,8 @@ const MessageModal = ({ close }: TProps) => {
     }
   }, [socket, userId, senderUser]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent page reload
     if (message.text || message.imageUrl) {
       if (socket) {
         socket.emit("new-message", {
@@ -197,7 +191,13 @@ const MessageModal = ({ close }: TProps) => {
           text: "",
           imageUrl: "",
         });
-        reset();
+
+        if (textInputRef.current) {
+          textInputRef.current.value = '';
+        }
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
     }
   };
@@ -209,8 +209,7 @@ const MessageModal = ({ close }: TProps) => {
       text: value,
     }));
   };
-  // console.log({senderUser})
-  // console.log({ allMessage });
+
   const handleFileChange = async (file: File | null) => {
     if (!file) return;
 
@@ -242,7 +241,6 @@ const MessageModal = ({ close }: TProps) => {
 
   const onlineStatus = onlineUser.includes(userDetails?._id as string);
 
-
   return (
     <div className="w-[300px] md:w-[360px] md:h-[600px] h-[400px]  bg-white fixed right-0 md:right-1 bottom-14  rounded-2xl text-black shadow-xl z-[9999999999999999] overflow-hidden shadowStyle">
       <div className="flex flex-col justify-between h-full ">
@@ -262,8 +260,8 @@ const MessageModal = ({ close }: TProps) => {
                   alt="logo"
                   height={100}
                 />
-                {/* <small className="">Question ? </small>
-                <small> chat with us !</small> */}
+                <small className="">Question ? </small>
+                <small> chat with us !</small>
 
                 {userDetails && <span>{userDetails?.name}</span>}
                 {onlineStatus ? "online" : "offline"}
@@ -281,7 +279,6 @@ const MessageModal = ({ close }: TProps) => {
           }}
         >
           <List>
-
             {allMessage?.map((message: any) => (
               <ListItem
                 key={message?.id}
@@ -303,7 +300,7 @@ const MessageModal = ({ close }: TProps) => {
                         senderUser?._id === message?.msgByUserId
                           ? "#F0F2F5"
                           : "#1591A3",
-                     
+
                       boxShadow: "none",
                       textAlign:
                         senderUser?._id === message?.msgByUserId
@@ -329,7 +326,6 @@ const MessageModal = ({ close }: TProps) => {
                       primary={message.text}
                       secondary={format(message.updatedAt)}
                     />
-                    
                   </Paper>
                 </Box>
               </ListItem>
@@ -367,15 +363,16 @@ const MessageModal = ({ close }: TProps) => {
 
         <div className=" w-full h-24 bg-white flex pl-3  items-center border-t-[#ddd] border-[2px] ">
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={onSubmit}
             className="flex flex-col items-start "
+             
           >
             <input
               type="text"
-              //   name=""
               placeholder="Compose your message...."
               className="w-[100%] bg-transparent  h-10 placeholder:text-[14px] "
               onChange={handleMessageOnChange}
+              ref={textInputRef}
             />
             <div className="pb-2 flex space-x-2 items-center text-[#707584] ">
               <input
@@ -387,6 +384,7 @@ const MessageModal = ({ close }: TProps) => {
                   handleFileChange(file);
                 }}
                 style={{ display: "none" }}
+                ref={fileInputRef}
               />
               <label htmlFor="file" className=" cursor-pointer">
                 <IoLinkOutline className=" chatIcon" />

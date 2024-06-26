@@ -100,18 +100,13 @@ interface BlogId {
   };
 }
 
-// export const generateStaticParams = async ()=>{
-//     const res = await fetch('http://localhost:5000/api/v1/blogs');
-//     const blogs = await res.json();
-//     return blogs.slice(0,3).map((blog:Blog)=>({
-//         blogId:blog.id
-//     }))
-// }
+
 
 const News = async ({ params }: BlogId) => {
   const { newsId } = params;
+
   console.log("blog id erere", newsId);
-  const res = await fetch(`http://localhost:5000/api/v1/blogs/${newsId}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/blogs/${newsId}`, {
     cache: "no-store",
   });
   const blog = await res.json();

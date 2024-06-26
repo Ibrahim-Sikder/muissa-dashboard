@@ -104,7 +104,7 @@ export default function SupportContactPage() {
   useEffect(() => {
     if (socket) {
       socket.on("onlineUser", (data: string[]) => {
-        // console.log({ data });
+
         setOnlineUser(data);
       });
 
@@ -121,7 +121,7 @@ export default function SupportContactPage() {
           auth: string;
           profile_pic: string;
         }) => {
-          // console.log(data);
+
           setSenderUser(data);
         }
       );
@@ -129,13 +129,13 @@ export default function SupportContactPage() {
       socket.emit("seen", userId);
       // receiver id theke
       socket.on("message-user", (data: UserDetails) => {
-        // console.log({data});
+   
         setUserDetails(data);
       });
 
       if (userId) {
         socket.on("message", (data) => {
-          // console.log("message data", data);
+     
           setAllMessage(data);
         });
       }
@@ -150,13 +150,10 @@ export default function SupportContactPage() {
 
       socket.on("all-admin-conversation", (data) => {
         console.log("Received all-admin-conversation:", data);
-        // const filteredAdminData = data.filter(
-        //   (con: { sender: { _id: string } }) =>
-        //     con.sender._id !== senderUser._id
-        // );
+    
 
         setAllSenderForAdmin(data);
-        // setAllSenderUser(filteredData);
+      
       });
 
       socket.on("error", (data) => {

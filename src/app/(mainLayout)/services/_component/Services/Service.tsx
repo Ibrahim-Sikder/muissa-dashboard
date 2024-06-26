@@ -11,10 +11,11 @@ import Container from "@/components/ui/HomePage/Container/Container";
 import { TServices } from "@/types";
 
 const Service = async () => {
-  const res = await fetch(`http://localhost:5000/api/v1/services/get-services`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/services/get-services`, {
     cache: "no-store",
   });
   const servicesData = await res.json();
+
 
 
   const sortedServices: TServices[] = servicesData?.data.services?.sort((a: TServices, b: TServices) => a.priority - b.priority);
