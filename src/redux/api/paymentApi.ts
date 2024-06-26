@@ -24,7 +24,18 @@ export const paymentApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAllCouponForPayment: build.query({
+      query: () => ({
+        url: `/coupons/get-coupon`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllPaymentsQuery, useGetSinglePaymentQuery, useGetDiscountForPaymentQuery } = paymentApi;
+export const {
+  useGetAllPaymentsQuery,
+  useGetSinglePaymentQuery,
+  useGetDiscountForPaymentQuery,
+  useGetAllCouponForPaymentQuery,
+} = paymentApi;
