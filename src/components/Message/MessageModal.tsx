@@ -75,7 +75,6 @@ interface MyReceiverUser {
 }
 
 const MessageModal = ({ close }: TProps) => {
- 
   const textInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -110,7 +109,8 @@ const MessageModal = ({ close }: TProps) => {
 
   const token = getCookie("mui-token");
 
-  const userId = myReceiverUser?.receiver?._id || process.env.NEXT_PUBLIC_CHAT_ID;
+  const userId =
+    myReceiverUser?.receiver?._id || process.env.NEXT_PUBLIC_CHAT_ID;
 
   useEffect(() => {
     const socketConnection = io(`${process.env.NEXT_PUBLIC_SOCKET_API_URL}`, {
@@ -193,10 +193,10 @@ const MessageModal = ({ close }: TProps) => {
         });
 
         if (textInputRef.current) {
-          textInputRef.current.value = '';
+          textInputRef.current.value = "";
         }
         if (fileInputRef.current) {
-          fileInputRef.current.value = '';
+          fileInputRef.current.value = "";
         }
       }
     }
@@ -362,11 +362,7 @@ const MessageModal = ({ close }: TProps) => {
         </Box>
 
         <div className=" w-full h-24 bg-white flex pl-3  items-center border-t-[#ddd] border-[2px] ">
-          <form
-            onSubmit={onSubmit}
-            className="flex flex-col items-start "
-             
-          >
+          <form onSubmit={onSubmit} className="flex flex-col items-start ">
             <input
               type="text"
               placeholder="Compose your message...."
