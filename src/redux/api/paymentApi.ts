@@ -18,7 +18,13 @@ export const paymentApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getDiscountForPayment: build.query({
+      query: () => ({
+        url: `/discounts/get-discount`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllPaymentsQuery, useGetSinglePaymentQuery } = paymentApi;
+export const { useGetAllPaymentsQuery, useGetSinglePaymentQuery, useGetDiscountForPaymentQuery } = paymentApi;

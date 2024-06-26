@@ -24,18 +24,38 @@ import MUIDatePicker from "@/components/Forms/DatePicker";
 import INTSelect from "@/components/Forms/Select";
 
 const validationSchema = z.object({
-  name: z.string().nonempty({ message: "Name is required." }),
-  code: z.string().nonempty({ message: "Code is required." }),
-  discount: z.string().nonempty({ message: "Discount is required." }),
-  status: z.string().nonempty({ message: "Status is required." }),
-  startDate: z.string().nonempty({ message: "Start date is required." }),
-  endDate: z.string().nonempty({ message: "End date is required." }),
+  coupon_name: z.string({ required_error: "Coupon name is required." }),
+  coupon_status: z.string({ required_error: "Coupon status is required." }),
+  coupon_discount: z.preprocess((val) => {
+    if (typeof val === "string" || typeof val === "number") {
+      return parseFloat(val as string);
+    }
+    return val;
+  }, z.number({ required_error: "Coupon discount is required." })),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+const discountValidationSchema = z.object({
+  discount_name: z.string({ required_error: "Discount name is required." }),
+  discount_status: z.string({ required_error: "Discount status is required." }),
+  discount_amount: z.preprocess((val) => {
+    if (typeof val === "string" || typeof val === "number") {
+      return parseFloat(val as string);
+    }
+    return val;
+  }, z.number({ required_error: "Discount amount is required." })),
 });
 
 const CreateCoupon = () => {
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [successDiscountMessage, setSuccessDiscountMessage] =
+    useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [errorDiscountMessage, setErrorDiscountMessage] = useState<string[]>(
+    []
+  );
   const [loading, setLoading] = useState(false);
+  const [discountLoading, setDiscountLoading] = useState(false);
   const router = useRouter();
 
   const token = getCookie("mui-token");
@@ -46,6 +66,79 @@ const CreateCoupon = () => {
 
  
 
+    data.coupon_discount = Number(data.coupon_discount);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/coupons/create-coupon`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+
+        router.push("/dashboard/coupons");
+        setLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 401, 409, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDiscountSubmit = async (data: FieldValues) => {
+    console.log(data);
+    setDiscountLoading(true);
+
+    setSuccessDiscountMessage("");
+    setErrorDiscountMessage([]);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/discounts/create-discount`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessDiscountMessage(response?.data?.message);
+
+        // router.push("/dashboard/coupons");
+        setDiscountLoading(false);
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 401, 409, 500].includes(status)) {
+          setErrorDiscountMessage(data.message);
+        } else {
+          setErrorDiscountMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setDiscountLoading(false);
+    }
   };
 
   return (
@@ -55,12 +148,11 @@ const CreateCoupon = () => {
           onSubmit={handleSubmit}
           // resolver={zodResolver(validationSchema)}
           // defaultValues={{
-          //   name: "",
-          //   code: "",
-          //   discount: "",
-          //   status: "",
-          //   startDate: "",
-          //   endDate: "",
+          //   coupon_name: "",
+          //   coupon_status: "",
+          //   coupon_discount: 0,
+          //   start_date: "",
+          //   end_date: "",
           // }}
         >
           <Card
@@ -85,7 +177,7 @@ const CreateCoupon = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <MUIInput
-                    name="name"
+                    name="coupon_name"
                     label="Coupon Name"
                     type="text"
                     fullWidth
@@ -94,7 +186,7 @@ const CreateCoupon = () => {
 
                 <Grid item xs={12} md={6}>
                   <MUIInput
-                    name="discount"
+                    name="coupon_discount"
                     label="Discount (%)"
                     type="text"
                     fullWidth
@@ -102,13 +194,22 @@ const CreateCoupon = () => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MUIInput name="status" label="Status" type="text" fullWidth />
+                  <MUIInput
+                    name="coupon_status"
+                    label="Status"
+                    type="text"
+                    fullWidth
+                  />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MUIDatePicker name="startDate" label="Start Date" fullWidth />
+                  <MUIDatePicker
+                    name="start_date"
+                    label="Start Date"
+                    fullWidth
+                  />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MUIDatePicker name="endDate" label="End Date" fullWidth />
+                  <MUIDatePicker name="end_date" label="End Date" fullWidth />
                 </Grid>
               </Grid>
             </CardContent>
@@ -127,15 +228,12 @@ const CreateCoupon = () => {
       </Stack>
       {/* <Stack spacing={3}>
         <MUIForm
-          onSubmit={handleSubmit}
-          resolver={zodResolver(validationSchema)}
+          onSubmit={handleDiscountSubmit}
+          resolver={zodResolver(discountValidationSchema)}
           defaultValues={{
-            name: "",
-            code: "",
-            discount: "",
-            status: "",
-            startDate: "",
-            endDate: "",
+            discount_name: "",
+            discount_status: "",
+            discount_amount: 0,
           }}
         >
           <Card
@@ -149,47 +247,57 @@ const CreateCoupon = () => {
             <CardHeader
               subheader="Create a new discount"
               title="Discount Details"
-              
             />
             <Divider />
             <CardContent sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <MUIInput
-                    name="name"
+                    name="discount_name"
                     label="Discount Name"
                     type="text"
                     fullWidth
                   />
                 </Grid>
 
-
                 <Grid item xs={4}>
-                  <INTSelect name="status" label="Status" items={['Discount', 'Flat']} fullWidth />
+                  <INTSelect
+                    name="discount_status"
+                    label="Status"
+                    items={["Percentage", "Flat"]}
+                    fullWidth
+                  />
                 </Grid>
 
                 <Grid item xs={4}>
                   <MUIInput
-                    name="discount_Amount"
+                    name="discount_amount"
                     label="Discount Amount"
                     type="number"
                     fullWidth
                   />
                 </Grid>
                 <Grid item xs={4}>
-                <Button sx={{marginTop:'15px'}} disabled={loading} type="submit" variant="contained">
-                {loading ? "Creating..." : "Create"}
-              </Button>
+                  <Button
+                    sx={{ marginTop: "15px" }}
+                    disabled={discountLoading}
+                    type="submit"
+                    variant="contained"
+                  >
+                    {discountLoading ? "Creating..." : "Create"}
+                  </Button>
                 </Grid>
-
               </Grid>
             </CardContent>
             <Divider />
             <div className="mt-2">
-              {successMessage && <SuccessMessage message={successMessage} />}
-              {errorMessage && <ErrorMessage message={errorMessage} />}
+              {successDiscountMessage && (
+                <SuccessMessage message={successDiscountMessage} />
+              )}
+              {errorDiscountMessage && (
+                <ErrorMessage message={errorDiscountMessage} />
+              )}
             </div>
-            
           </Card>
         </MUIForm>
       </Stack> */}

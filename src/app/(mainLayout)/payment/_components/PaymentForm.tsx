@@ -7,6 +7,7 @@ import INTSelect from "@/components/Forms/Select";
 import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 import { getCookie } from "@/helpers/Cookies";
+import { useGetDiscountForPaymentQuery } from "@/redux/api/paymentApi";
 import { subscriptions } from "@/types";
 import {
   Button,
@@ -27,11 +28,18 @@ const PaymentForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [selectedValue, setSelectedValue] = useState("bkash");
-  const [totalAmount, setTotalAmount] = useState("");
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+
   const token = getCookie("mui-token");
   const params = useSearchParams();
-const router = useRouter()
+  const router = useRouter();
   const member_type = params.get("member_type");
+
+  const {
+    data: discountAmount,
+    error,
+    isLoading: discountLoading,
+  } = useGetDiscountForPaymentQuery({});
 
   const handleBankChange = (event: { target: { value: string } }) => {
     setSelectedValue(event.target.value);
@@ -63,7 +71,7 @@ const router = useRouter()
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        router.push("/profile")
+        router.push("/profile");
         setIsLoading(false);
       }
       console.log("Response:", response);
@@ -71,7 +79,7 @@ const router = useRouter()
       console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
-        if ([400,401,409, 404, 500].includes(status)) {
+        if ([400, 401, 409, 404, 500].includes(status)) {
           setErrorMessage(data.message);
         } else {
           setErrorMessage(["An unexpected error occurred."]);
@@ -82,12 +90,34 @@ const router = useRouter()
     }
   };
 
-  const handleChang = (value: any) => {
+  const handleChang = (value: string) => {
+    const discountValue = discountAmount?.discount_amount || 0;
+    const discountStatus = discountAmount?.discount_status || "Flat";
+
+    let subscriptionAmount = 0;
+
     if (value === "1 year subscription fee") {
-      setTotalAmount("1000");
+      subscriptionAmount = 500;
+    } else if (value === "2 year subscription fee") {
+      subscriptionAmount = 1000;
     }
-    if (value === "2 year subscription fee") {
-      setTotalAmount("2000");
+
+    if (discountStatus === "Percentage") {
+      if (value === "2 year subscription fee") {
+        setTotalAmount(
+          subscriptionAmount - (subscriptionAmount * discountValue) / 100
+        );
+      } else {
+        setTotalAmount(
+          subscriptionAmount - (subscriptionAmount * discountValue) / 100
+        );
+      }
+    } else {
+      if (value === "2 year subscription fee") {
+        setTotalAmount(subscriptionAmount - discountValue * 2);
+      } else {
+        setTotalAmount(subscriptionAmount - discountValue);
+      }
     }
   };
 
@@ -139,8 +169,9 @@ const router = useRouter()
                 fullWidth
                 margin="normal"
                 disabled={true}
-                value={totalAmount}
+                value={totalAmount.toString()}
               />
+              {totalAmount.toString()}
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <div className="flex items-center gap-x-1 ">
@@ -208,7 +239,11 @@ const router = useRouter()
             {errorMessage && <ErrorMessage message={errorMessage} />}
           </div>
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            {isLoading ? <span>Loading...</span> : <span> Submit</span>}
+            {isLoading || discountLoading ? (
+              <span>Loading...</span>
+            ) : (
+              <span> Submit</span>
+            )}
           </Button>
         </MUIForm>
       </div>
