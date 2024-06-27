@@ -47,10 +47,7 @@ export default function RootLayout({
           <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
         </body>
       </Providers>
-      {/* <BackTopButton /> */}
-      {/* <MessageIcon /> */}
-      {/* <SubscriptionAlert /> */}
-      <MessageIcons />
+       
     </html>
   );
 }

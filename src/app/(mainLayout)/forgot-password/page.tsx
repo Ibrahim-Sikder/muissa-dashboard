@@ -43,7 +43,6 @@ const ForgotPassword = () => {
   const router = useRouter();
 
   const onSubmit = async (data: Record<string, any>) => {
-    console.log(data);
     const { auth } = data;
 
     setSuccessMessage("");
@@ -58,8 +57,6 @@ const ForgotPassword = () => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-
-        // router.push(`/`);
 
         if (typeof auth !== "string") {
           throw new Error("Auth field must be a string");
@@ -138,7 +135,9 @@ const ForgotPassword = () => {
               />
             </Grid>
           </Grid>
-          {successMessage && !successVerifyMessage && <SuccessMessage message={successMessage} />}
+          {successMessage && !successVerifyMessage && (
+            <SuccessMessage message={successMessage} />
+          )}
           {errorMessage && <ErrorMessage message={errorMessage} />}
           {!successMessage && (
             <>

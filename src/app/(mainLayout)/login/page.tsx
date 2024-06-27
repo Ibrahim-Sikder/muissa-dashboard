@@ -4,7 +4,7 @@
 import React, { useState } from "react";
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useForm, FieldValues } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -33,7 +33,7 @@ const validationSchema = z.object({
     .min(6, "Must be at least 6 characters"),
 });
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
+ 
 
 const Login = () => {
   const router = useRouter();
@@ -74,19 +74,19 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login`,
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login/admin`,
         data
       );
 
       if (response?.status === 200) {
+        router.push(`/dashboard`);
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        setCookie("mui-token", response?.data?.data?.token, '10d');
-        router.push(`/`);
+        setCookie("mui-token", response?.data?.data?.token, { expires: 10 });
         setLoading(false);
       }
     } catch (error: any) {
-      console.log(error)
+    
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 500].includes(status)) {
@@ -102,7 +102,7 @@ const Login = () => {
 
   return (
     <div
-      className="lg:h-[900px] h-[500px] my-8 w-full flex items-center justify-center bg-[#f8f8f8]"
+      className="lg:h-[900px] h-[500px] mb-10 w-full flex items-center justify-center bg-[#f8f8f8]"
       style={{
         background: isLargeDevice
           ? "linear-gradient(to left , #002140 50%, white 50%)"
@@ -116,8 +116,8 @@ const Login = () => {
             xs: "100%",
             sm: "100%",
             md: "80%",
-            lg: "60%",
-            xl: "50%",
+            lg: "70%",
+            xl: "60%",
           },
           mx: "auto",
         }}
@@ -144,7 +144,7 @@ const Login = () => {
             potential into performance with seamless, tailored solutions.
           </Typography>
         </Box>
-        <Box className="bg-[#fff] shadow-md px-5 py-16 md:p-20 mx-3 md:m-auto lg:m-0 lg:mx-0 rounded-md md:rounded-none w-full md:w-[600px] flex items-center text-[#002140]">
+        <Box className="bg-[#fff] shadow-md px-5 py-16 md:p-20 mx-3 md:m-auto lg:m-0 lg:mx-0 rounded-md md:rounded-none w-full md:w-[650px] flex items-center text-[#002140]">
           <MUIForm
             onSubmit={handleSubmit}
             resolver={zodResolver(validationSchema)}
@@ -165,7 +165,7 @@ const Login = () => {
                   },
                 }}
               >
-                Login to Muissa!
+                Welcome To Admin !
               </Typography>
               <Box>
                 <MUIInput
@@ -227,18 +227,7 @@ const Login = () => {
                   " Login"
                 )}
               </Button>
-              <Typography
-                sx={{
-                  color: "#002140",
-                  fontSize: "12px",
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "5px",
-                }}
-                component="small"
-              >
-                Don't have an account? <Link href="/register">Register</Link>
-              </Typography>
+              
             </Box>
           </MUIForm>
         </Box>

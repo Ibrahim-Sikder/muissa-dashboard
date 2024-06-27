@@ -1,6 +1,4 @@
-import Footer from "@/components/shared/Footer/Footer";
-import Header from "@/components/shared/Header/Header";
-import Navbar from "@/components/ui/Navbar/index";
+import Header from "@/components/shared/Header/Header"; 
 import LandingPageProvider from "@/lib/LandingPageProvider";
 import React, { ReactNode, Suspense } from "react";
 
@@ -10,7 +8,6 @@ const layout = ({ children }: { children: ReactNode }) => {
       <Suspense fallback={<div>Loading...</div>}>
         <Header />
         {children}
-        <Footer />
       </Suspense>
     </LandingPageProvider>
   );
