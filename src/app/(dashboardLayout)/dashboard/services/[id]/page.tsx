@@ -1,6 +1,6 @@
 "use client";
 
-import { Service } from "@/components/Dashboard/pages/services/ServicesTable";
+
 import Loader from "@/components/Loader";
 import { useGetSingleServiceQuery } from "@/redux/api/serviceApi";
 import {
@@ -50,7 +50,7 @@ const ServiceDetailsPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const service: Service = data;
+  const service = data;
 
   return (
     <Container maxWidth="xl" className="my-10">
