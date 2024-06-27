@@ -14,20 +14,27 @@ import { IoLogOut } from "react-icons/io5";
 
 import { paths } from "@/paths";
 
+import { removeCookie } from "@/helpers/Cookies";
+
 export interface UserPopoverProps {
   anchorEl: Element | null;
   onClose: () => void;
   open: boolean;
+  data: { name: string; auth: string };
 }
 
 export function UserPopover({
   anchorEl,
   onClose,
   open,
+  data,
 }: UserPopoverProps): React.JSX.Element {
   const router = useRouter();
 
-  const handleSignOut = (): void => {};
+  const handleSignOut = (): void => {
+    removeCookie("mui-token");
+    router.push("/");
+  };
 
   return (
     <Popover
@@ -47,9 +54,9 @@ export function UserPopover({
       }}
     >
       <Box sx={{ p: "16px 20px " }}>
-        <Typography variant="subtitle1">Sofia Rivers</Typography>
+        <Typography variant="subtitle1">{data?.name}</Typography>
         <Typography color="text.secondary" variant="body2">
-          sofia.rivers@devias.io
+          {data?.auth}
         </Typography>
       </Box>
       <Divider />

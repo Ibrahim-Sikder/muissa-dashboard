@@ -13,22 +13,78 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import MUIInput from "@/components/Forms/Input";
+import axios from "axios";
+import { getCookie } from "@/helpers/Cookies";
+import { toast } from "sonner";
+import { SuccessMessage } from "@/components/success-message";
+import { ErrorMessage } from "@/components/error-message";
 
 export const validationSchema = z.object({
-  currentPassword: z.string().min(6, "Must be at least 6 characters"),
-  newPassword: z.string().min(6, "Must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "Must be at least 6 characters"),
+  oldPassword: z
+    .string()
+    .min(6, "Old password must be at least 6 characters long"),
+  newPassword: z
+    .string()
+    .min(6, "New password must be at least 6 characters long"),
+  confirmPassword: z
+    .string()
+    .min(6, "Confirm password must be at least 6 characters long"),
 });
 
 export function UpdatePasswordForm(): React.JSX.Element {
-  const handleSubmit = async (data: FieldValues) => {};
+  const [successMessage, setSuccessMessage] = React.useState<string>("");
+
+  const [errorMessage, setErrorMessage] = React.useState<string[]>([]);
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const token = getCookie("mui-token");
+
+  const handleSubmit = async (values: FieldValues) => {
+    setIsLoading(true);
+
+    setSuccessMessage("");
+    setErrorMessage([]);
+
+    try {
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/update-password`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+       
+      if (response?.status === 200) {
+        toast.success(response?.data?.message);
+        setSuccessMessage(response?.data?.message);
+
+        setIsLoading(false);
+      }
+      
+    } catch (error: any) {
+      
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <MUIForm
       onSubmit={handleSubmit}
       resolver={zodResolver(validationSchema)}
       defaultValues={{
-        currentPassword: "",
+        oldPassword: "",
         newPassword: "",
         confirmPassword: "",
       }}
@@ -46,7 +102,7 @@ export function UpdatePasswordForm(): React.JSX.Element {
         <CardContent>
           <Stack spacing={3} sx={{ maxWidth: "sm" }}>
             <MUIInput
-              name="currentPassword"
+              name="oldPassword"
               label="Current Password"
               type="password"
               fullWidth={true}
@@ -67,6 +123,9 @@ export function UpdatePasswordForm(): React.JSX.Element {
           </Stack>
         </CardContent>
         <Divider />
+        {successMessage && <SuccessMessage message={successMessage} />}
+        {errorMessage && <ErrorMessage message={errorMessage} />}
+
         <CardActions
           sx={{
             display: "flex",
@@ -75,7 +134,7 @@ export function UpdatePasswordForm(): React.JSX.Element {
           }}
         >
           <Button type="submit" variant="contained">
-            Update
+            {isLoading ? "Processing..." : "Update Password"}
           </Button>
         </CardActions>
       </Card>

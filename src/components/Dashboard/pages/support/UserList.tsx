@@ -66,7 +66,7 @@ const UserList: React.FC<UserListProps> = ({
     router.push(url);
   };
 
-  console.log(users)
+  
 
 
 

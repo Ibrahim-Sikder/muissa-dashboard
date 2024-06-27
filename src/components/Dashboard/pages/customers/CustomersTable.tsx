@@ -75,7 +75,7 @@ export function CustomersTable({
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-    console.log(newPage);
+     
   };
 
   const handleRowsPerPageChange = (

@@ -36,7 +36,7 @@ const ShowInvoice: React.FC = () => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log(paymentData)
+  
 
   if (!paymentData) {
     return <div>Invoice data not found</div>;

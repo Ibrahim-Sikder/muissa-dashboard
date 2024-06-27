@@ -8,6 +8,11 @@ import Stack from "@mui/material/Stack";
 import { FaBars } from "react-icons/fa";
 import { MobileNav } from "./MobileNav";
 import { UserPopover } from "./UserPropover";
+import { useGetSingleUserQuery } from "@/redux/api/userApi";
+import { getCookie } from "@/helpers/Cookies";
+import Loader from "@/components/Loader";
+import { usePathname } from "next/navigation";
+ 
 
 const MainNav = (): React.JSX.Element => {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
@@ -22,6 +27,23 @@ const MainNav = (): React.JSX.Element => {
   const handleClose = (): void => {
     setOpen(false);
   };
+
+  const token = getCookie("mui-token");
+  const pathName = usePathname();
+
+  const { data, error, isLoading, refetch } = useGetSingleUserQuery({ token });
+
+  React.useEffect(() => {
+    refetch();
+  }, [pathName, refetch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <h1 className="text-center">Data not found </h1>;
+  }
 
   return (
     <React.Fragment>
@@ -60,7 +82,7 @@ const MainNav = (): React.JSX.Element => {
               component="div"
               onClick={handleOpen}
               ref={anchorRef as React.RefObject<HTMLDivElement>}
-              src="/banner-image.jpg"
+              src={data?.profile_pic ? data?.profile_pic : "/src/assets/logo/profile.png"}
               sx={{ cursor: "pointer" }}
             />
           </Stack>
@@ -70,6 +92,7 @@ const MainNav = (): React.JSX.Element => {
         anchorEl={anchorRef.current}
         onClose={handleClose}
         open={open}
+        data={data}
       />
       <MobileNav
         onClose={() => {

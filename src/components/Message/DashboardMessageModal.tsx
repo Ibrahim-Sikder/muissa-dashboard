@@ -24,7 +24,7 @@ const DashboardMessageModal = ({ close }: TProps) => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
+    // console.log(data);
   };
 
 

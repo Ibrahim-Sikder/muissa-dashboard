@@ -32,7 +32,7 @@ const validationSchema = z.object({
 
 const EditPoliciesForm = () => {
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data);
+    // console.log(data);
     // Send data to API or perform any other actions
   };
 

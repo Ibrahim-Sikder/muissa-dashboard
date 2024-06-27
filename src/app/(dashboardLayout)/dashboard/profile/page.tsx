@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -6,7 +7,22 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import { Typography } from "@mui/material";
 import type { Metadata } from "next";
+import Loader from "@/components/Loader";
+import { useGetSingleUserQuery } from "@/redux/api/userApi";
+import { getCookie } from "@/helpers/Cookies";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+
+const isEmailValid = (auth: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(auth);
+};
+
+const isPhoneValid = (auth: string): boolean => {
+  const phoneRegex = /^\d{10,11}$/;
+  return phoneRegex.test(auth);
+};
 export default function UserProfilePage(): React.JSX.Element {
   const user = {
     firstName: "John",
@@ -22,6 +38,35 @@ export default function UserProfilePage(): React.JSX.Element {
     isVerified: true,
     avatarUrl: "https://via.placeholder.com/150",
   };
+
+  
+  const token = getCookie("mui-token");
+  const pathName = usePathname();
+
+  const { data, error, isLoading, refetch } = useGetSingleUserQuery({ token });
+
+
+  let email;
+  let phone;
+
+  if (data) {
+    email = isEmailValid(data.auth) ? data.auth : data.email;
+    phone = isPhoneValid(data.auth) ? data.auth : data.phone;
+  }
+
+
+  React.useEffect(() => {
+    refetch();
+  }, [pathName, refetch]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <h1 className="text-center">Data not found </h1>;
+  }
+
 
   return (
     <>
@@ -44,13 +89,15 @@ export default function UserProfilePage(): React.JSX.Element {
             <Box className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
               <Box className="text-gray-900 flex items-center">
                 <Avatar
-                  src={user.avatarUrl}
-                  alt={`${user.firstName} ${user.lastName}`}
+                  src={data?.profile_pic}
+                  alt={`${data?.name}`}
                   className="mr-4"
                 />
-                {user.firstName} {user.lastName}
+                {data?.name} 
               </Box>
               <Box>
+                <Link href={"/dashboard/settings"}>
+                
                 <Button
                   variant="text"
                   className="font-semibold text-indigo-600 hover:text-indigo-500"
@@ -58,6 +105,7 @@ export default function UserProfilePage(): React.JSX.Element {
                 >
                   Edit
                 </Button>
+                </Link>
               </Box>
             </Box>
           </Box>
@@ -67,9 +115,9 @@ export default function UserProfilePage(): React.JSX.Element {
               Email address
             </Typography>
             <Box className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-              <Box className="text-gray-900">{user.email}</Box>
+              <Box className="text-gray-900">{email}</Box>
               <Box className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                {user.isVerified ? "Verified" : "Not verified"}
+                {data?.isVerified  ? "Verified" : "Not verified"}
               </Box>
             </Box>
           </Box>
@@ -80,12 +128,12 @@ export default function UserProfilePage(): React.JSX.Element {
             </Typography>
             <Box className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
               <Box className="text-gray-900">
-                {user.phone ? user.phone : "Not available"}
+                {phone ? phone : "Not available"}
               </Box>
             </Box>
           </Box>
           <Divider />
-          <Box className="pt-6 sm:flex">
+          {/* <Box className="pt-6 sm:flex">
             <Typography className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
               Date of Birth
             </Typography>
@@ -96,7 +144,7 @@ export default function UserProfilePage(): React.JSX.Element {
                   : "Not available"}
               </Box>
             </Box>
-          </Box>
+          </Box> */}
           <Divider />
           <Box className="pt-6 sm:flex">
             <Typography className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
@@ -104,15 +152,15 @@ export default function UserProfilePage(): React.JSX.Element {
             </Typography>
             <Box className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
               <Box className="text-gray-900">
-                {user.streetAddress}, {user.city}, {user.state},{" "}
-                {user.postalCode}, {user.country}
+                {data?.street_address}, {data?.city}, {data?.state},{" "}
+                {data?.postal_code}, {data?.country}
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
 
-      <Box className="mt-8 bg-white shadow rounded-lg p-6">
+      {/* <Box className="mt-8 bg-white shadow rounded-lg p-6">
         <Box>
           <Typography variant="h4" className="font-semibold text-gray-900">
             Settings
@@ -153,7 +201,7 @@ export default function UserProfilePage(): React.JSX.Element {
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
     </>
   );
 }

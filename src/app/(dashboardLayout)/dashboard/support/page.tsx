@@ -149,7 +149,7 @@ export default function SupportContactPage() {
       });
 
       socket.on("all-admin-conversation", (data) => {
-        console.log("Received all-admin-conversation:", data);
+        // console.log("Received all-admin-conversation:", data);
     
 
         setAllSenderForAdmin(data);
@@ -233,8 +233,8 @@ export default function SupportContactPage() {
     }
   };
 
-  const pathname= usePathname()
-  console.log(pathname)
+  // const pathname= usePathname()
+ 
   return (
     <Box
       maxWidth="lg"

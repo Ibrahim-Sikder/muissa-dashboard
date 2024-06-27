@@ -85,7 +85,7 @@ const UpdateService = ({ id }: { id: string }) => {
 
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
-    console.log("values", id);
+   
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/${id}`,
@@ -116,7 +116,7 @@ const UpdateService = ({ id }: { id: string }) => {
       //   throw new Error("Unexpected response status");
       // }
     } catch (error: any) {
-      console.log(error);
+       
 
       if (error?.data) {
         setErrorMessage([error.data.message]);

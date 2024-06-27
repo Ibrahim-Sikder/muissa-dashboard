@@ -51,7 +51,7 @@ const CreateService = () => {
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
-    console.log(data)
+ 
  
  
     data.priority = Number(data.priority);

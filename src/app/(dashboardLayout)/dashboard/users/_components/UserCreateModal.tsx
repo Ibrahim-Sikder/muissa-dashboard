@@ -15,40 +15,41 @@ import INTSelect from "@/components/Forms/Select";
 import { adminRole, role } from "@/types";
 import axios from "axios";
 
-const userSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  auth: z.string({ required_error: "This field is required." }).refine(
-    (value) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^[0-9]{11,}$/;
-      return emailRegex.test(value) || phoneRegex.test(value);
-    },
-    {
-      message: "Please enter a valid email address or phone number!",
-    }
-  ),
-  password: z.string().min(6, "Must be at least 6 characters"),
-  confirmPassword: z.string().min(6, "Must be at least 6 characters"),
+const userSchema = z
+  .object({
+    name: z.string().min(1, "Name is required"),
+    auth: z.string({ required_error: "This field is required." }).refine(
+      (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]{11,}$/;
+        return emailRegex.test(value) || phoneRegex.test(value);
+      },
+      {
+        message: "Please enter a valid email address or phone number!",
+      }
+    ),
+    password: z.string().min(6, "Must be at least 6 characters"),
+    confirmPassword: z.string().min(6, "Must be at least 6 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
 
-  // dob: z
-  //   .string()
-  //   .refine((val) => !isNaN(Date.parse(val)), 'Invalid date of birth'),
-  // gender: z.enum(['male', 'female', 'others'], {
-  //   message: "Gender must be 'male', 'female', or 'others'",
-  // }),
-  // role: z.enum(['admin', 'manager', 'editor'], {
-  //   message: "Role must be 'admin', 'manager', or 'editor'",
-  // }),
-  // department: z.array(
-  //   z.enum(['content', 'hotel', 'restaurant'], {
-  //     message: "Department must be 'content', 'hotel', or 'restaurant'",
-  //   })
-  // ).min(1, 'At least one department must be selected'),
-});
+    // dob: z
+    //   .string()
+    //   .refine((val) => !isNaN(Date.parse(val)), 'Invalid date of birth'),
+    // gender: z.enum(['male', 'female', 'others'], {
+    //   message: "Gender must be 'male', 'female', or 'others'",
+    // }),
+    // role: z.enum(['admin', 'manager', 'editor'], {
+    //   message: "Role must be 'admin', 'manager', or 'editor'",
+    // }),
+    // department: z.array(
+    //   z.enum(['content', 'hotel', 'restaurant'], {
+    //     message: "Department must be 'content', 'hotel', or 'restaurant'",
+    //   })
+    // ).min(1, 'At least one department must be selected'),
+  });
 
 const defaultValues = {
   name: "",
@@ -66,8 +67,6 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const submitHandler = async (values: FieldValues) => {
-    console.log("Submitted Values: ", values);
-
     values.role = "admin";
 
     try {
@@ -132,7 +131,12 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
             <INTSelect items={adminRole} name="role" label="Role" fullWidth />
           </Grid> */}
         </Grid>
-        <Button disabled={loading} type="submit" variant="contained" color="primary">
+        <Button
+          disabled={loading}
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
           Create a User
         </Button>
       </MUIForm>

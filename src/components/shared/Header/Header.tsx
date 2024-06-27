@@ -33,7 +33,7 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenu((mobileMenu) => !mobileMenu);
-    console.log("menu click ");
+    // console.log("menu click ");
   };
 
  

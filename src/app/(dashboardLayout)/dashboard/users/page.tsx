@@ -80,9 +80,9 @@ const Users = () => {
       minWidth: 150,
       sortable: false,
       renderCell: (params) => {
-        const handleEdit = () => {
-          console.log("Edit:", params.row);
-        };
+        // const handleEdit = () => {
+        //   console.log("Edit:", params.row);
+        // };
 
         const handleDeleteUser = () => {
           handleDelete(params.row._id);

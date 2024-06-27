@@ -20,7 +20,7 @@ export default function Page(): React.JSX.Element {
     limit,
   });
 
-  console.log(data);
+ 
 
   React.useEffect(() => {
     refetch();

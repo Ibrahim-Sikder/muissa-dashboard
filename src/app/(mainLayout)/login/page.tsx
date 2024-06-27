@@ -77,13 +77,13 @@ const Login = () => {
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login/admin`,
         data
       );
-
+    
       if (response?.status === 200) {
-        router.push(`/dashboard`);
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         setCookie("mui-token", response?.data?.data?.token, { expires: 10 });
-        setLoading(false);
+        router.push(`/dashboard`);
+         
       }
     } catch (error: any) {
     

@@ -40,14 +40,14 @@ const CouponsTable = () => {
   if(isLoading){
     return <Loader/>
   }
-  console.log(couponData)
+ 
 
 
 
 
   const handleDelete = (id: number) => {
 
-    console.log(`Deleting coupon with id: ${id}`);
+    // console.log(`Deleting coupon with id: ${id}`);
   };
 
 
