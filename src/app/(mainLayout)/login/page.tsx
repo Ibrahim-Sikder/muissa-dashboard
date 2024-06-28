@@ -33,7 +33,7 @@ const validationSchema = z.object({
     .min(6, "Must be at least 6 characters"),
 });
 
- 
+
 
 const Login = () => {
   const router = useRouter();
@@ -77,16 +77,16 @@ const Login = () => {
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/users/login/admin`,
         data
       );
-    
+
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         setCookie("mui-token", response?.data?.data?.token, { expires: 10 });
         router.push(`/dashboard`);
-         
+
       }
     } catch (error: any) {
-    
+
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 500].includes(status)) {
@@ -102,48 +102,14 @@ const Login = () => {
 
   return (
     <div
-      className="lg:h-[900px] h-[500px] mb-10 w-full flex items-center justify-center bg-[#f8f8f8]"
-      style={{
-        background: isLargeDevice
-          ? "linear-gradient(to left , #002140 50%, white 50%)"
-          : "",
-      }}
+      className="lg:h-screen mb-10 w-full flex items-center justify-center bg-[#f8f8f8]"
+
     >
       <Stack
-        direction="row"
-        sx={{
-          width: {
-            xs: "100%",
-            sm: "100%",
-            md: "80%",
-            lg: "70%",
-            xl: "60%",
-          },
-          mx: "auto",
-        }}
+
+
       >
-        <Box
-          sx={{
-            width: isLargeDevice ? "625px" : "100%",
-            height: isLargeDevice ? "600px" : "auto",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            background: "#002140",
-            color: "#fff",
-            padding: "0px 50px",
-            display: isLargeDevice ? "flex" : "none",
-          }}
-        >
-          <Typography variant="h4" fontWeight="bold">
-            Welcome To Muissa Business Consulting Ltd.
-          </Typography>
-          <Typography component="p" sx={{ marginTop: "10px", color: "#fff" }}>
-            Elevate your business with our expert support in Product, Sales,
-            Marketing, Delivery, IT, Funding, and Investment. Transform
-            potential into performance with seamless, tailored solutions.
-          </Typography>
-        </Box>
+
         <Box className="bg-[#fff] shadow-md px-5 py-16 md:p-20 mx-3 md:m-auto lg:m-0 lg:mx-0 rounded-md md:rounded-none w-full md:w-[650px] flex items-center text-[#002140]">
           <MUIForm
             onSubmit={handleSubmit}
@@ -227,7 +193,7 @@ const Login = () => {
                   " Login"
                 )}
               </Button>
-              
+
             </Box>
           </MUIForm>
         </Box>

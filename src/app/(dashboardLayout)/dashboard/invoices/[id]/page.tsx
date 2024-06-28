@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Container from "@/components/ui/HomePage/Container/Container";
 import { Button, Divider } from "@mui/material";
 import Image from "next/image";
-import "../../../../(mainLayout)/invoice/invoice.css";
+
 import logo from "../../../../../assets/logo/logo.png";
 import { paths } from "@/paths";
 import Link from "next/link";

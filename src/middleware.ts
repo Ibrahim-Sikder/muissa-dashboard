@@ -6,11 +6,9 @@ import { NextResponse } from "next/server";
 const AuthRoutes = ["/"];
 
 const roleBasedPrivateRoutes = {
-  user: [/^\/profile(\/.*)?$/, /^\/membership(\/.*)?$/],
+  user: [/^\/profile(\/.*)?$/,],
   admin: [
-    /^\/profile(\/.*)?$/,
     /^\/dashboard(\/.*)?$/,
-    /^\/membership(\/.*)?$/,
   ],
 };
 
@@ -53,6 +51,5 @@ export const config = {
     "/register",
     "/profile/:path*",
     "/dashboard/:path*",
-    "/membership/:path*",
   ],
 };
