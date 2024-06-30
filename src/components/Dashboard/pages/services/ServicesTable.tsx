@@ -32,12 +32,12 @@ import { FaPencil } from "react-icons/fa6";
 import { useDeleteServiceMutation } from "@/redux/api/serviceApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 import { TServices } from "@/types";
+import { getCookie } from "@/helpers/Cookies";
+import { toast } from "sonner";
 
 function noop(): void {
   // do nothing
 }
-
-
 
 interface ServicesTableProps {
   count?: number;
@@ -45,7 +45,7 @@ interface ServicesTableProps {
   rows?: TServices[];
   rowsPerPage?: number;
   loading: boolean;
-  error: any
+  error: any;
 }
 
 export function ServicesTable({
@@ -53,17 +53,32 @@ export function ServicesTable({
   rows = [],
   page = 0,
   rowsPerPage = 0,
-
 }: ServicesTableProps): React.JSX.Element {
   const [modalOpen, setModalOpen] = React.useState(false);
   const [openSubModal, setOpenSubModal] = React.useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const token = getCookie("mui-token");
+
   const [deleteService, { isLoading: isDeletingService }] =
     useDeleteServiceMutation();
 
-  const handleDeleteService = async (serviceId: string) => {
-    await deleteService(serviceId);
+  // const handleDeleteService = async (serviceId: string) => {
+  //   await deleteService(serviceId);
+  // };
+  const handleDeleteService = async (id: string) => {
+    try {
+      await deleteService({ id, token }).unwrap();
+      toast.success("Service deleted successful!");
+    } catch (error: any) {
+      if (error.data?.message) {
+        toast.error([error.data.message]);
+      } else if (error.message) {
+        toast.error([error.message]);
+      } else {
+        toast.error(["An unexpected error occurred."]);
+      }
+    }
   };
 
   return (
@@ -111,8 +126,6 @@ export function ServicesTable({
         }
       />
 
-
-
       {modalOpen && (
         <MUIModal
           open={modalOpen}
@@ -134,85 +147,83 @@ export function ServicesTable({
         </MUIModal>
       )}
 
-     <Box>
-
-     <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Service Name</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Subctegories</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Published Date</TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell>
-                  <Avatar
-                    alt={row.title}
-                    src={row.service_image}
-                    sx={{ width: 50, height: 50 }}
-                  />
-                </TableCell>
-                <TableCell>{row.title}</TableCell>
-                <TableCell>{row.category}</TableCell>
-                <TableCell>{row.sub_category}</TableCell>
-                <TableCell>{row.priority}</TableCell>
-                <TableCell>
-                  {dayjs(row.createdAt).format("DD MMM YYYY")}
-                </TableCell>
-
-                <TableCell>
-                  <Stack direction="row" spacing={1}>
-                    <Link href={`/dashboard/services/${row._id}`}>
-                      <Button
-                        color="secondary"
-                        variant="outlined"
-                        size="small"
-                        startIcon={<FaEye />}
-                      >
-                        View
-                      </Button>
-                    </Link>
-
-                    <Link href={`/dashboard/services/edit/${row._id}`}>
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        size="small"
-                        startIcon={<FaPencil />}
-                      >
-                        Edit
-                      </Button>
-                    </Link>
-                    <DeleteButtonWithConfirmation
-                      onDelete={() => handleDeleteService(row._id)}
-                      isLoading={isDeletingService}
-                    />
-                  </Stack>
-                </TableCell>
-
+      <Box>
+        <Box sx={{ overflowX: "auto" }}>
+          <Table sx={{ minWidth: "800px" }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Image</TableCell>
+                <TableCell>Service Name</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Subctegories</TableCell>
+                <TableCell>Priority</TableCell>
+                <TableCell>Published Date</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row._id}>
+                  <TableCell>
+                    <Avatar
+                      alt={row.title}
+                      src={row.service_image}
+                      sx={{ width: 50, height: 50 }}
+                    />
+                  </TableCell>
+                  <TableCell>{row.title}</TableCell>
+                  <TableCell>{row.category}</TableCell>
+                  <TableCell>{row.sub_category}</TableCell>
+                  <TableCell>{row.priority}</TableCell>
+                  <TableCell>
+                    {dayjs(row.createdAt).format("DD MMM YYYY")}
+                  </TableCell>
+
+                  <TableCell>
+                    <Stack direction="row" spacing={1}>
+                      <Link href={`/dashboard/services/${row._id}`}>
+                        <Button
+                          color="secondary"
+                          variant="outlined"
+                          size="small"
+                          startIcon={<FaEye />}
+                        >
+                          View
+                        </Button>
+                      </Link>
+
+                      <Link href={`/dashboard/services/edit/${row._id}`}>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                          startIcon={<FaPencil />}
+                        >
+                          Edit
+                        </Button>
+                      </Link>
+                      <DeleteButtonWithConfirmation
+                        onDelete={() => handleDeleteService(row._id)}
+                        isLoading={isDeletingService}
+                      />
+                    </Stack>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+        <Divider />
+        <TablePagination
+          component="div"
+          count={count}
+          onPageChange={noop}
+          onRowsPerPageChange={noop}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
       </Box>
-      <Divider />
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-     </Box>
     </Card>
   );
 }

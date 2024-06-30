@@ -125,7 +125,7 @@ const CreateBlog = () => {
           <Divider />
           <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <MUIInput
                   name="title"
                   label="Blog Title"
@@ -144,7 +144,7 @@ const CreateBlog = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              {/* <Grid item xs={12} md={6}>
                 <MUIInput
                   name="priority"
                   label="Priority"
@@ -152,7 +152,7 @@ const CreateBlog = () => {
                   fullWidth={true}
                   size="medium"
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <MUIInput

@@ -18,9 +18,12 @@ export const reviewApi = baseApi.injectEndpoints({
       }),
     }),
     deleteReview: build.mutation({
-      query: (id) => ({
+      query: ({id, token}) => ({
         url: `/reviews/${id}`,
         method: "DELETE",
+        headers: {
+          Authorization:`Bearer ${token}`
+        }
       }),
       invalidatesTags: ["reviews"],
     }),

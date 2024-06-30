@@ -31,9 +31,12 @@ export const blogApi = baseApi.injectEndpoints({
     }),
 
     deleteBlog: build.mutation({
-      query: (id) => ({
+      query: ({ id, token }) => ({
         url: `/blogs/${id}`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
 
       invalidatesTags: ["blogs"],
