@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
   try {
     decodedData = jwtDecode(accessToken) as any;
   } catch (error) {
-    console.error("Error decoding token:", error);
+     
     return NextResponse.redirect(new URL("/", request.url));
   }
 

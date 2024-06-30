@@ -24,7 +24,6 @@ import { ErrorMessage } from "@/components/error-message";
 import { useGetSingleReviewQuery } from "@/redux/api/reviewApi";
 import Loader from "@/components/Loader";
 
-
 const validationSchema = z.object({
   name: z.string({ required_error: "NAme is required" }),
   designation: z.string({ required_error: "Designation is required" }),
@@ -34,8 +33,6 @@ const validationSchema = z.object({
 });
 
 const UpdateReview = ({ id }: { id: string }) => {
-  const [message, setMessage] = useState<string>("");
-
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -55,7 +52,6 @@ const UpdateReview = ({ id }: { id: string }) => {
 
   useEffect(() => {
     if (review) {
-      setMessage(review?.message);
       setImageUrl(review?.review_image);
     }
   }, [review]);
@@ -67,7 +63,6 @@ const UpdateReview = ({ id }: { id: string }) => {
     setErrorMessage([]);
 
     data.review_image = imageUrl;
-    data.message = message;
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/${id}`,
@@ -78,7 +73,7 @@ const UpdateReview = ({ id }: { id: string }) => {
           },
         }
       );
-      
+
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
@@ -87,7 +82,6 @@ const UpdateReview = ({ id }: { id: string }) => {
         setLoading(false);
       }
     } catch (error: any) {
-      
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -143,14 +137,14 @@ const UpdateReview = ({ id }: { id: string }) => {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              {/* <Grid item xs={12} md={4}>
                 <MUIInput
                   name="priority"
                   label="Priority"
                   type="number"
                   fullWidth={true}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Box>
                   <MUIInput

@@ -125,14 +125,14 @@ const CreateReview = () => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={4}>
+              {/* <Grid item xs={12} md={4}>
                 <MUIInput
                   name="priority"
                   label="Priority"
                   type="number"
                   fullWidth={true}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Box>
                   <MUIInput

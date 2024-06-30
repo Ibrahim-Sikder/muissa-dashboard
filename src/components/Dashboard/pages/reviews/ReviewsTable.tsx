@@ -19,6 +19,8 @@ import { FaPencil } from "react-icons/fa6";
 import dayjs from "dayjs";
 import { useDeleteReviewMutation } from "@/redux/api/reviewApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
+import { getCookie } from "@/helpers/Cookies";
+import { toast } from "sonner";
 
 function noop(): void {
   // do nothing
@@ -54,16 +56,23 @@ export function ReviewsTable({
   onPageChange = noop,
   onRowsPerPageChange = noop,
 }: ReviewsTableProps): React.JSX.Element {
+  const token = getCookie("mui-token");
+
   const [deleteReview, { isLoading }] = useDeleteReviewMutation();
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteReview(id).unwrap();
-    } catch (error) {
-      console.error(error);
+      await deleteReview({ id, token }).unwrap();
+    } catch (error: any) {
+      if (error.data?.message) {
+        toast.error([error.data.message]);
+      } else if (error.message) {
+        toast.error([error.message]);
+      } else {
+        toast.error(["An unexpected error occurred."]);
+      }
     }
   };
-  
 
   return (
     <Card

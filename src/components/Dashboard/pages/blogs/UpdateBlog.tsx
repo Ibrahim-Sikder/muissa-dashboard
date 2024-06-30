@@ -23,9 +23,7 @@ import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import {
-  
-  useGetSingleBlogQuery,
-  useUpdateBlogMutation,
+  useGetSingleBlogQuery
 } from "@/redux/api/blogApi";
 import { autoBatchEnhancer } from "@reduxjs/toolkit";
 import Loader from "@/components/Loader";
@@ -60,15 +58,13 @@ const UpdateBlog = ({ id }: { id: string }) => {
     refetch: refetchBlog,
   } = useGetSingleBlogQuery(id);
 
-  // const [updateBlog, { isLoading: updateBlogLoading }] =
-  //   useUpdateBlogMutation();
 
   const defaultValues = {
     title: blog?.title || "",
     short_description: blog?.short_description || "",
+    description: blog?.description || "",
     author: blog?.author || "",
     blog_image: blog?.blog_image || "",
-    priority: blog?.priority || 1,
   };
 
   useEffect(() => {
@@ -80,7 +76,6 @@ const UpdateBlog = ({ id }: { id: string }) => {
   const token = getCookie("mui-token");
 
   const handleSubmit = async (data: FieldValues) => {
-   
     setLoading(true);
 
     setSuccessMessage("");
@@ -98,17 +93,13 @@ const UpdateBlog = ({ id }: { id: string }) => {
         }
       );
 
-      
-   
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-
+        refetchBlog();
         router.push("/dashboard/blogs");
-        setLoading(false);
       }
     } catch (error: any) {
-       
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -149,7 +140,7 @@ const UpdateBlog = ({ id }: { id: string }) => {
           <Divider />
           <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <MUIInput
                   name="title"
                   label="Blog Title"
@@ -166,14 +157,14 @@ const UpdateBlog = ({ id }: { id: string }) => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              {/* <Grid item xs={12} md={6}>
                 <MUIInput
                   name="priority"
                   label="Priority"
                   type="number"
                   fullWidth={true}
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <MUIInput

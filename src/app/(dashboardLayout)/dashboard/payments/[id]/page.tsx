@@ -16,10 +16,12 @@ import {
 import dayjs from "dayjs";
 import Loader from "@/components/Loader";
 import Link from "next/link";
+import { getCookie } from "@/helpers/Cookies";
 
 const ShowPayment = () => {
   const { id } = useParams();
-  const { data: paymentData, isLoading } = useGetSinglePaymentQuery(id);
+  const token = getCookie("mui-token")
+  const { data: paymentData, isLoading } = useGetSinglePaymentQuery({id, token});
 
   if (isLoading) {
     return <Loader />;

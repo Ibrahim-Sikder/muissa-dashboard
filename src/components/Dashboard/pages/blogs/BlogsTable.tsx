@@ -10,14 +10,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import { Button, CardHeader, Stack, Pagination, Select, MenuItem } from "@mui/material";
+import {
+  Button,
+  CardHeader,
+  Stack,
+  Pagination,
+
+} from "@mui/material";
 import Link from "next/link";
-import { FaEye, FaPlus, FaTrash } from "react-icons/fa";
+import { FaEye, FaPlus } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import dayjs from "dayjs";
 import { useDeleteBlogMutation } from "@/redux/api/blogApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 import { toast } from "sonner";
+import { getCookie } from "@/helpers/Cookies";
 
 export interface Blog {
   _id: string;
@@ -37,7 +44,9 @@ interface BlogsTableProps {
   rows: Blog[];
   rowsPerPage: number;
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
-  onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onRowsPerPageChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 export function BlogsTable({
@@ -46,16 +55,22 @@ export function BlogsTable({
   page,
   rowsPerPage,
   onPageChange,
-  onRowsPerPageChange,
 }: BlogsTableProps): React.JSX.Element {
+  const token = getCookie("mui-token");
   const [deleteBlog, { isLoading }] = useDeleteBlogMutation();
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteBlog(id).unwrap();
-      toast.success('Blog deleted successfully!');
-    } catch (error) {
-      console.error(error);
+      await deleteBlog({ id, token }).unwrap();
+      toast.success("Blog deleted successful!");
+    } catch (error: any) {
+      if (error.data?.message) {
+        toast.error([error.data.message]);
+      } else if (error.message) {
+        toast.error([error.message]);
+      } else {
+        toast.error(["An unexpected error occurred."]);
+      }
     }
   };
 
@@ -103,7 +118,9 @@ export function BlogsTable({
                 </TableCell>
                 <TableCell>{row?.title}</TableCell>
                 <TableCell>{row?.author}</TableCell>
-                <TableCell>{dayjs(row?.createdAt).format("MMMM D, YYYY")}</TableCell>
+                <TableCell>
+                  {dayjs(row?.createdAt).format("MMMM D, YYYY")}
+                </TableCell>
                 <TableCell>{row?.status ? row?.status : "Published"}</TableCell>
                 <TableCell>
                   <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -141,15 +158,14 @@ export function BlogsTable({
         </Table>
       </Box>
       <Divider />
-      <Stack spacing={2} sx={{ padding: 2, alignItems: 'center' }}>
+      <Stack spacing={2} sx={{ padding: 2, alignItems: "center" }}>
         <Pagination
           count={totalPages}
-          page={page + 1} 
+          page={page + 1}
           onChange={onPageChange}
           variant="outlined"
           color="primary"
         />
-       
       </Stack>
     </Card>
   );
