@@ -30,6 +30,8 @@ import {
   useUpdateServiceMutation,
 } from "@/redux/api/serviceApi";
 import Loader from "@/components/Loader";
+import { keywords } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
@@ -253,13 +255,10 @@ const UpdateService = ({ id }: { id: string }) => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MUIInput
-                    name="seo_keyword"
-                    label="Seo Keyword "
-                    type="text"
-                    fullWidth={true}
-                    size="medium"
-                  />
+                <MUIMultipleValue
+                   name="seo_keyword"
+                    label="Seo Keyword"
+                    options={keywords} />
                 </Grid>
 
 

@@ -22,6 +22,8 @@ import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
+import { keywords } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
 const validationSchema = z.object({
   name: z.string({ required_error: "NAme is required" }),
@@ -67,7 +69,7 @@ const CreateReview = () => {
         setLoading(false);
       }
     } catch (error: any) {
-      
+
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -158,45 +160,42 @@ const CreateReview = () => {
               </Grid>
             </Grid>
             <Box sx={{ marginTop: '50px' }}>
-            <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="seo_title"
-                  label="Seo Title"
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
+              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="seo_title"
+                    label="Seo Title"
+                    type="text"
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MUIMultipleValue
+                    name="seo_keyword"
+                    label="Seo Keyword"
+                    options={keywords} />
+                </Grid>
+
+
+
+                <Grid item xs={12}>
+                  <MUIInput
+                    name="seo_description"
+                    label="Seo Description "
+                    type="text"
+                    multiline={true}
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+
+
+
+
               </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="seo_keyword"
-                  label="Seo Keyword "
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
-
-
-
-              <Grid item xs={12}>
-                <MUIInput
-                  name="seo_description"
-                  label="Seo Description "
-                  type="text"
-                  multiline={true}
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
-
-
-
-
-            </Grid>
-          </Box>
+            </Box>
 
           </CardContent>
           <Divider />

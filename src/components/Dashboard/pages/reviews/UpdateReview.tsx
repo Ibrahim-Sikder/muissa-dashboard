@@ -23,6 +23,8 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { useGetSingleReviewQuery } from "@/redux/api/reviewApi";
 import Loader from "@/components/Loader";
+import { keywords } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
 const validationSchema = z.object({
   name: z.string({ required_error: "NAme is required" }),
@@ -182,13 +184,10 @@ const UpdateReview = ({ id }: { id: string }) => {
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="seo_keyword"
-                  label="Seo Keyword "
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
+              <MUIMultipleValue
+                   name="seo_keyword"
+                    label="Seo Keyword"
+                    options={keywords} />
               </Grid>
 
 
