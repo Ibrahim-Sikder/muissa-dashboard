@@ -12,7 +12,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
 import Link from "next/link";
 import INTSelect from "@/components/Forms/Select";
@@ -30,6 +30,8 @@ import {
   useUpdateServiceMutation,
 } from "@/redux/api/serviceApi";
 import Loader from "@/components/Loader";
+import { keywords } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
@@ -85,7 +87,7 @@ const UpdateService = ({ id }: { id: string }) => {
 
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
-   
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/${id}`,
@@ -96,7 +98,7 @@ const UpdateService = ({ id }: { id: string }) => {
           },
         }
       );
- 
+
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
@@ -116,7 +118,7 @@ const UpdateService = ({ id }: { id: string }) => {
       //   throw new Error("Unexpected response status");
       // }
     } catch (error: any) {
-       
+
 
       if (error?.data) {
         setErrorMessage([error.data.message]);
@@ -188,8 +190,8 @@ const UpdateService = ({ id }: { id: string }) => {
                   items={
                     Array.isArray(category)
                       ? category.map(
-                          (cat: { category: string }) => cat?.category
-                        )
+                        (cat: { category: string }) => cat?.category
+                      )
                       : []
                   }
                   onChange={handleCategoryChange}
@@ -238,6 +240,48 @@ const UpdateService = ({ id }: { id: string }) => {
                 />
               </Grid>
             </Grid>
+
+
+            <Box sx={{ marginTop: '50px' }}>
+              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="seo_title"
+                    label="Seo Title"
+                    type="text"
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                <MUIMultipleValue
+                   name="seo_keyword"
+                    label="Seo Keyword"
+                    options={keywords} />
+                </Grid>
+
+
+
+                <Grid item xs={12}>
+                  <MUIInput
+                    name="seo_description"
+                    label="Seo Description "
+                    type="text"
+                    multiline={true}
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+
+
+
+
+              </Grid>
+            </Box>
+
+
+
           </CardContent>
           <Divider />
           <div className="mt-2">
