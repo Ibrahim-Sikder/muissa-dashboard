@@ -12,7 +12,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { Box, Button, Grid, MenuItem, TextField } from "@mui/material";
+import { Box, Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import MUIFileUploader from "@/components/Forms/FileUpload";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -114,7 +114,7 @@ const CreateReview = () => {
           <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
-                <MUIInput name="name" label="Name" type="text" fullWidth />
+                <MUIInput name="name" label="Name" type="text" fullWidth size="medium" />
               </Grid>
               <Grid item xs={12} sm={4}>
                 <MUIInput
@@ -122,6 +122,7 @@ const CreateReview = () => {
                   label="Designation"
                   type="text"
                   fullWidth
+                  size="medium"
                 />
               </Grid>
 
@@ -131,6 +132,7 @@ const CreateReview = () => {
                   label="Priority"
                   type="number"
                   fullWidth={true}
+                  size="medium"
                 />
               </Grid> */}
               <Grid item xs={12}>
@@ -142,6 +144,7 @@ const CreateReview = () => {
                     multiline
                     rows={6}
                     fullWidth
+                    size="medium"
                   />
                 </Box>
               </Grid>
@@ -154,6 +157,47 @@ const CreateReview = () => {
                 />
               </Grid>
             </Grid>
+            <Box sx={{ marginTop: '50px' }}>
+            <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="seo_title"
+                  label="Seo Title"
+                  type="text"
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="seo_keyword"
+                  label="Seo Keyword "
+                  type="text"
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+
+
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="seo_description"
+                  label="Seo Description "
+                  type="text"
+                  multiline={true}
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+
+
+
+
+            </Grid>
+          </Box>
+
           </CardContent>
           <Divider />
           <div className="mt-2">
