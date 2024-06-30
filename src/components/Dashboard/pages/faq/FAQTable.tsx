@@ -22,28 +22,73 @@ import { usePathname } from "next/navigation";
 import { useDeleteFaqMutation, useGetAllFaqsQuery } from "@/redux/api/faqApi";
 import Loader from "@/components/Loader";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
+import { toast } from "sonner";
+import { useCallback } from "react";
+import axios from "axios";
+import { getCookie } from "@/helpers/Cookies";
 
 export default function FAQTable(): React.JSX.Element {
+  const [loading, setLoading] = React.useState<boolean>(false);
+
   const pathName = usePathname();
-  const { data, error, isLoading, refetch } = useGetAllFaqsQuery({});
-  const [deleteFaq, { isLoading: isDeleting }] = useDeleteFaqMutation();
+  const token = getCookie("mui-token");
+  const { data, error, isLoading, refetch }: any = useGetAllFaqsQuery({});
+  // const [deleteFaq, { isLoading: isDeleting }] = useDeleteFaqMutation();
 
   React.useEffect(() => {
     refetch();
   }, [pathName, refetch]);
 
-  if (isLoading || error) {
+  const handleDelete = useCallback(
+    async (id: string) => {
+      setLoading(true);
+
+      try {
+        const response = await axios.delete(
+          `${process.env.NEXT_PUBLIC_BASE_API_URL}/faq/${id}`,
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response?.status === 200) {
+          toast.success(response?.data?.message);
+
+          refetch();
+        }
+      } catch (error: any) {
+        if (error?.data) {
+          toast.error([error.data.message]);
+        } else if (error.message) {
+          toast.error([error.message]);
+        } else {
+          toast.error(["An unexpected error occurred."]);
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [refetch, token]
+  );
+
+  if (isLoading) {
     return <Loader />;
   }
 
-  const handleDelete = async (id: string) => {
-    try {
-      await deleteFaq(id).unwrap();
-      refetch();
-    } catch (error) {
-      console.error(error);
+  if (error) {
+    if (error?.data) {
+      toast.error([error.data.message]);
+    } else if (error.message) {
+      toast.error([error.message]);
+    } else if (error.data) {
+      toast.error([error.data]);
+    } else {
+      toast.error(["An unexpected error occurred."]);
     }
-  };
+  }
 
   return (
     <Card
@@ -96,7 +141,7 @@ export default function FAQTable(): React.JSX.Element {
                     <TableCell>
                       <DeleteButtonWithConfirmation
                         onDelete={() => handleDelete(faq._id)}
-                        isLoading={isDeleting}
+                        isLoading={loading}
                       />
                     </TableCell>
                   </TableRow>
