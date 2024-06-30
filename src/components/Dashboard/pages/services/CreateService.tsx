@@ -185,7 +185,7 @@ const CreateService = () => {
                       : []
                   }
                   onChange={handleCategoryChange}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -207,7 +207,7 @@ const CreateService = () => {
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -217,7 +217,7 @@ const CreateService = () => {
                   label="Priority"
                   type="number"
                   fullWidth={true}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -228,7 +228,7 @@ const CreateService = () => {
                   type="text"
                   multiline={true}
                   fullWidth={true}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -241,51 +241,53 @@ const CreateService = () => {
                   name="service_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
-                   size="medium"
+
                 />
               </Grid>
             </Grid>
 
             <Box sx={{ marginTop: '50px' }}>
               <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="seo_title"
+                    label="Seo Title"
+                    type="text"
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="seo_keyword"
+                    label="Seo Keyword "
+                    type="text"
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+
+
+
+                <Grid item xs={12}>
+                  <MUIInput
+                    name="seo_description"
+                    label="Seo Description "
+                    type="text"
+                    multiline={true}
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+
+
+
+
+              </Grid>
             </Box>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="title"
-                  label="SEO TITLE"
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="title"
-                  label="SEO KEYWORD "
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
 
 
-
-              <Grid item xs={12}>
-                <MUIInput
-                  name="short_description"
-                  label="SEO DESCRIPTION "
-                  type="text"
-                  multiline={true}
-                  fullWidth={true}
-                   size="medium"
-                />
-              </Grid>
-
-
-
-
-            </Grid>
           </CardContent>
 
 
