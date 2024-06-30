@@ -24,12 +24,7 @@ const Users = () => {
     error,
     refetch,
   } = useGetAllUserQuery({ token });
-  // const [deleteUser] = useDeleteUserMutation()
-
-  // const handleDelete = async (userId: string) => {
-  //   await deleteUser(userId);
-  // };
-  // const [deleteUser] = useDeleteUserMutation();
+ 
 
   const handleDelete = useCallback(
     async (id: string) => {
@@ -138,7 +133,7 @@ const Users = () => {
           </Button>
         </Stack>
 
-        <UserCreateModal open={isModalOpen} setOpen={handleClose} />
+        <UserCreateModal open={isModalOpen} setOpen={handleClose} refetch={refetch}/>
 
         <Box sx={{ height: "calc(100vh - 150px)", width: "100%" }}>
           <DataGrid

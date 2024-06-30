@@ -113,7 +113,7 @@ const CouponsTable = () => {
           toast.success(response?.data?.message);
           refetch();
 
-          setLoading(false);
+           
         }
       } catch (error: any) {
         if (error?.data) {

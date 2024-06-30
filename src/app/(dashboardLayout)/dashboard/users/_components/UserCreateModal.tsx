@@ -61,12 +61,15 @@ const defaultValues = {
 export type TProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: any;
 };
 
-const UserCreateModal = ({ open, setOpen }: TProps) => {
+const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const submitHandler = async (values: FieldValues) => {
+    setLoading(true);
+
     values.role = "admin";
 
     try {
@@ -77,13 +80,13 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
 
       if (response?.status === 200) {
         toast.success(response?.data?.message);
+        refetch();
         setOpen(false);
-        setLoading(false);
       }
     } catch (error: any) {
       if (error?.response) {
         const { status, data } = error.response;
-        if ([400, 404, 500].includes(status)) {
+        if ([400, 401, 409, 404, 500].includes(status)) {
           toast.error(data.message);
         } else {
           toast.error(["An unexpected error occurred."]);
@@ -124,12 +127,7 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
               fullWidth
             />
           </Grid>
-          {/* <Grid item xs={12} sm={12} md={4}>
-            <MUIInput name="phone" type="text" label="Phone" fullWidth />
-          </Grid> */}
-          {/* <Grid item xs={12} sm={6} md={4}>
-            <INTSelect items={adminRole} name="role" label="Role" fullWidth />
-          </Grid> */}
+          
         </Grid>
         <Button
           disabled={loading}
@@ -137,7 +135,7 @@ const UserCreateModal = ({ open, setOpen }: TProps) => {
           variant="contained"
           color="primary"
         >
-          Create a User
+          {loading ? "Creating" : "Create a User"}
         </Button>
       </MUIForm>
     </MUIModal>

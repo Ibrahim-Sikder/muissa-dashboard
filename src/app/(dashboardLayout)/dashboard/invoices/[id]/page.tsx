@@ -14,6 +14,8 @@ import { useGetSinglePaymentQuery } from "@/redux/api/paymentApi";
 import dayjs from "dayjs";
 import ReactToPrint from "react-to-print";
 import Loader from "@/components/Loader";
+import { toast } from "sonner";
+import { getCookie } from "@/helpers/Cookies";
 
 interface PaymentData {
   _id: string;
@@ -28,18 +30,37 @@ interface PaymentData {
 
 const ShowInvoice: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: paymentData, isLoading } = useGetSinglePaymentQuery(
-    id as string
-  );
+
+  const token = getCookie("mui-token");
+  const {
+    data: paymentData,
+    error,
+    isLoading,
+  } = useGetSinglePaymentQuery({ id, token });
+
   const componentRef = useRef<HTMLDivElement>(null);
 
   if (isLoading) {
     return <Loader />;
   }
-  
+
+  if (error) {
+    const errorWithData = error as {
+      message?: string;
+      data?: { message?: string };
+    };
+
+    if (errorWithData.data?.message) {
+      toast.error([errorWithData.data.message]);
+    } else if (errorWithData.message) {
+      toast.error([errorWithData.message]);
+    } else {
+      toast.error(["An unexpected error occurred."]);
+    }
+  }
 
   if (!paymentData) {
-    return <div>Invoice data not found</div>;
+    return <div className="text-center">Invoice data not found</div>;
   }
 
   return (
@@ -78,7 +99,8 @@ const ShowInvoice: React.FC = () => {
                   <div className="mt-5 text-sm">
                     <h3 className="text-xl font-semibold mb-2">Muissa</h3>
                     <p>
-                      <strong>Owner Name:</strong>  Muissa Business Consulting Ltd
+                      <strong>Owner Name:</strong> Muissa Business Consulting
+                      Ltd
                     </p>
                     <p>
                       <strong>E-mail:</strong> muissa@gmail.com
@@ -94,7 +116,11 @@ const ShowInvoice: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <Image alt="logo" src={logo} className="w-32 h-32 object-cover" />
+                <Image
+                  alt="logo"
+                  src={logo}
+                  className="w-32 h-32 object-cover"
+                />
               </div>
               <Divider />
               <div className="mt-8 text-sm">
@@ -102,26 +128,31 @@ const ShowInvoice: React.FC = () => {
                   <div>
                     <h4 className="text-xl font-semibold mb-2">Bill To</h4>
                     <p>
-                      <strong>Client Name:</strong> {paymentData.user.name}
+                      <strong>Client Name:</strong> {paymentData?.user?.name}
                     </p>
                     <p>
-                      <strong>E-mail:</strong> {paymentData.user.email}
+                      <strong>E-mail:</strong> {paymentData?.user?.email}
                     </p>
                     <p>
-                      <strong>Phone:</strong>{paymentData.user.phone}
+                      <strong>Phone:</strong>
+                      {paymentData?.user?.phone}
                     </p>
                     <p>
-                      <strong>Address:</strong> {paymentData.user.address}
+                      <strong>Address:</strong>{" "}
+                      {paymentData?.user?.street_address},{" "}
+                      {paymentData?.user?.city} , {paymentData?.user?.country} ,
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold mb-2">Invoice Details</h4>
+                    <h4 className="text-xl font-semibold mb-2">
+                      Invoice Details
+                    </h4>
                     <p>
-                      <strong>Invoice No:</strong> {paymentData._id}
+                      <strong>Invoice No:</strong> {paymentData?.invoice_no}
                     </p>
                     <p>
                       <strong>Invoice Date:</strong>{" "}
-                      {dayjs(paymentData.createdAt).format("DD-MM-YY")}
+                      {dayjs(paymentData?.createdAt).format("DD-MM-YY")}
                     </p>
                     <p>
                       <strong>Due:</strong> N/A
@@ -133,7 +164,6 @@ const ShowInvoice: React.FC = () => {
                 <table className="min-w-full bg-white border border-gray-300">
                   <thead className="bg-gray-200">
                     <tr>
-                    
                       <th className="px-4 py-2 border">Year Subscription</th>
                       <th className="px-4 py-2 border">Rate</th>
                       <th className="px-4 py-2 border">Amount</th>
@@ -141,10 +171,14 @@ const ShowInvoice: React.FC = () => {
                   </thead>
                   <tbody className="text-center">
                     <tr className="text-sm">
-                      
-                      <td className="px-4 py-2 border">  {paymentData.subscription_for}</td>
+                      <td className="px-4 py-2 border">
+                        {" "}
+                        {paymentData?.subscription_for}
+                      </td>
                       <td className="px-4 py-2 border">N/A</td>
-                      <td className="px-4 py-2 border">{paymentData.amount}</td>
+                      <td className="px-4 py-2 border">
+                        {paymentData?.amount}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -154,15 +188,13 @@ const ShowInvoice: React.FC = () => {
                   <div className="flex justify-between mb-2">
                     <div className="flex flex-col space-y-1">
                       <strong>Subtotal:</strong>
-                      
-                  
+
                       <span>Amount paid:</span>
                     </div>
                     <div className="flex flex-col space-y-1 text-right">
-                      <strong>{paymentData.amount}</strong>
-                    
-                  
-                      <strong>{paymentData.amount}</strong>
+                      <strong>{paymentData?.amount}</strong>
+
+                      <strong>{paymentData?.amount}</strong>
                     </div>
                   </div>
                   <Divider />
@@ -173,7 +205,6 @@ const ShowInvoice: React.FC = () => {
                 </div>
               </div>
             </div>
-
 
             <div className="w-[630px] mx-auto flex justify-between mt-8">
               <div className="text-center">
