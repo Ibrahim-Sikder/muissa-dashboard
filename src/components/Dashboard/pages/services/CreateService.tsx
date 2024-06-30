@@ -26,6 +26,9 @@ import { ErrorMessage } from "@/components/error-message";
 import { useRouter } from "next/navigation";
 import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
+import { keywords } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   category: z.string({ required_error: "Category is required." }),
@@ -259,13 +262,10 @@ const CreateService = () => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <MUIInput
+                  <MUIMultipleValue
                     name="seo_keyword"
-                    label="Seo Keyword "
-                    type="text"
-                    fullWidth={true}
-                    size="medium"
-                  />
+                    label="Seo Keyword"
+                    options={keywords} />
                 </Grid>
 
 

@@ -66,6 +66,7 @@ export const supportServices = [
   },
 ];
 
+
 export const support_items = [
   'ইনভেস্টমেন্ট সাপোর্ট',
   'সেলস সাপোর্ট',
@@ -76,6 +77,20 @@ export const support_items = [
   'ডেলিভারি সাপোর্ট',
 
 ]
+
+export const keywords = [
+  { title: 'Business consulting services' },
+  { title: 'Management consulting' },
+  { title: 'Strategic planning' },
+  { title: 'Business growth solutions' },
+  { title: 'Financial advisory services' },
+  { title: 'Marketing consulting' },
+  { title: 'Investment support' },
+  { title: 'IT consulting services' },
+  { title: 'Consulting for startups' },
+  { title: 'Operational efficiency consulting' }
+];
+
 
 
 type Option = {
@@ -152,10 +167,10 @@ export type TServices = {
   _id: string,
   category: string,
   short_description: string,
-  priority: number, 
-  title:string,
-   description:string, 
-   sub_category:string, 
-   createdAt:string, 
-   service_image:string,
+  priority: number,
+  title: string,
+  description: string,
+  sub_category: string,
+  createdAt: string,
+  service_image: string,
 }

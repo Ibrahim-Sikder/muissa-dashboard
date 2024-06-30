@@ -22,6 +22,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
+import { keywords, support_items } from "@/types";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
@@ -129,7 +131,7 @@ const CreateBlog = () => {
                   label="Blog Title"
                   type="text"
                   fullWidth
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -138,7 +140,7 @@ const CreateBlog = () => {
                   label="Blog Author"
                   type="text"
                   fullWidth
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -148,7 +150,7 @@ const CreateBlog = () => {
                   label="Priority"
                   type="number"
                   fullWidth={true}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -160,7 +162,7 @@ const CreateBlog = () => {
                   fullWidth
                   multiline
                   rows={6}
-                   size="medium"
+                  size="medium"
                 />
               </Grid>
 
@@ -183,50 +185,48 @@ const CreateBlog = () => {
             </Grid>
 
             <Box sx={{ marginTop: '50px' }}>
-            <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="seo_title"
-                  label="Seo Title"
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
+              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <MUIInput
+                    name="seo_title"
+                    label="Seo Title"
+                    type="text"
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+
+                  <MUIMultipleValue
+                   name="seo_keyword"
+                    label="Seo Keyword"
+                    options={keywords} />
+                </Grid>
+
+
+
+                <Grid item xs={12}>
+                  <MUIInput
+                    name="seo_description"
+                    label="Seo Description "
+                    type="text"
+                    multiline={true}
+                    fullWidth={true}
+                    size="medium"
+                  />
+                </Grid>
+
+
+
+
               </Grid>
-              <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="seo_keyword"
-                  label="Seo Keyword "
-                  type="text"
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
+            </Box>
 
 
-
-              <Grid item xs={12}>
-                <MUIInput
-                  name="seo_description"
-                  label="Seo Description "
-                  type="text"
-                  multiline={true}
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid>
-
-
-
-
-            </Grid>
-          </Box>
-
-          
           </CardContent>
 
-        
+
 
 
 
