@@ -12,7 +12,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { Box, Button, Grid, TableCell } from "@mui/material";
+import { Box, Button, Grid, TableCell, Typography } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
 import Link from "next/link";
 import INTSelect from "@/components/Forms/Select";
@@ -36,7 +36,7 @@ const validationSchema = z.object({
   }),
   description: z.string({ required_error: "Description is required." }),
   service_image: z.string({ required_error: "Image is required." }),
-  
+
 });
 
 const CreateService = () => {
@@ -51,12 +51,12 @@ const CreateService = () => {
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
- 
- 
- 
+
+
+
     data.priority = Number(data.priority);
     data.service_image = imageUrl;
- 
+
     setLoading(true);
 
     setSuccessMessage("");
@@ -114,7 +114,7 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
- 
+
         resolver={zodResolver(validationSchema)}
         defaultValues={{
           title: "",
@@ -125,18 +125,18 @@ const CreateService = () => {
           description: "",
           service_image: "",
         }}
- 
-        // resolver={zodResolver(validationSchema)}
-        // defaultValues={{
-        //   title: "",
-        //   category: "",
-        //   sub_category: "",
-        //   short_description: "",
-        //   description: "",
-        //   service_image: "",
-        //   priority: ""
-        // }}
- 
+
+      // resolver={zodResolver(validationSchema)}
+      // defaultValues={{
+      //   title: "",
+      //   category: "",
+      //   sub_category: "",
+      //   short_description: "",
+      //   description: "",
+      //   service_image: "",
+      //   priority: ""
+      // }}
+
       >
         <Card
           sx={{
@@ -170,6 +170,7 @@ const CreateService = () => {
                   label="Service Title"
                   type="text"
                   fullWidth={true}
+                  size="medium"
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -179,11 +180,12 @@ const CreateService = () => {
                   items={
                     Array.isArray(category)
                       ? category.map(
-                          (cat: { category: string }) => cat.category
-                        )
+                        (cat: { category: string }) => cat.category
+                      )
                       : []
                   }
                   onChange={handleCategoryChange}
+                   size="medium"
                 />
               </Grid>
 
@@ -205,6 +207,7 @@ const CreateService = () => {
                   items={subCategories?.map(
                     (subCat: { sub_category: string }) => subCat?.sub_category
                   )}
+                   size="medium"
                 />
               </Grid>
 
@@ -214,6 +217,7 @@ const CreateService = () => {
                   label="Priority"
                   type="number"
                   fullWidth={true}
+                   size="medium"
                 />
               </Grid>
 
@@ -224,6 +228,7 @@ const CreateService = () => {
                   type="text"
                   multiline={true}
                   fullWidth={true}
+                   size="medium"
                 />
               </Grid>
 
@@ -236,15 +241,54 @@ const CreateService = () => {
                   name="service_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
+                   size="medium"
                 />
               </Grid>
             </Grid>
+
+            <Box sx={{ marginTop: '50px' }}>
+              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+            </Box>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="title"
+                  label="SEO TITLE"
+                  type="text"
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="title"
+                  label="SEO KEYWORD "
+                  type="text"
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+
+
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="short_description"
+                  label="SEO DESCRIPTION "
+                  type="text"
+                  multiline={true}
+                  fullWidth={true}
+                   size="medium"
+                />
+              </Grid>
+
+
+
+
+            </Grid>
           </CardContent>
-          <Divider />
-          <div className="mt-2">
-            {successMessage && <SuccessMessage message={successMessage} />}
-            {errorMessage && <ErrorMessage message={errorMessage} />}
-          </div>
+
+
           <CardActions
             sx={{
               display: "flex",
