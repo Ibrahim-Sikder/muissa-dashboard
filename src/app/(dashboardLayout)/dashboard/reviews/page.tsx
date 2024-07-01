@@ -20,7 +20,7 @@ export default function ReviewsPage(): React.JSX.Element {
   const page = 0;
   const rowsPerPage = 5;
   const pathName = usePathname();
-  // const paginatedReviews = applyPagination(reviews, page, rowsPerPage);
+ 
 
   const { data, error, isLoading, refetch } = useGetAllReviewsQuery({
     page,

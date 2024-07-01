@@ -27,22 +27,13 @@ import { useRouter } from "next/navigation";
 import {
   useGetAllCategoryQuery,
   useGetSingleServiceQuery,
-  useUpdateServiceMutation,
+ 
 } from "@/redux/api/serviceApi";
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
-const validationSchema = z.object({
-  title: z.string({ required_error: "Title is required." }),
-  category: z.string({ required_error: "Category is required." }),
-  sub_category: z.string({ required_error: "Sub category is required." }),
-  short_description: z.string({
-    required_error: "Short description is required.",
-  }),
-  description: z.string({ required_error: "Description is required." }),
-  service_image: z.string({ required_error: "Image is required." }),
-});
+ 
 
 const UpdateService = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -58,7 +49,15 @@ const UpdateService = ({ id }: { id: string }) => {
     refetch: refetchService,
   } = useGetSingleServiceQuery({ id });
 
-  const [updateService] = useUpdateServiceMutation();
+ 
+
+
+const keyword = Array.isArray(service?.seo_keyword)
+? service?.seo_keyword.map((service:any) => ({ title: service.title || service }))   
+: typeof service?.seo_keyword === 'string'
+? service?.seo_keyword.split(',').map((service:any) => ({ title: service.trim() }))
+: []
+
 
   const defaultValues = {
     title: service?.title,
@@ -68,6 +67,9 @@ const UpdateService = ({ id }: { id: string }) => {
     description: service?.description,
     service_image: service?.service_image,
     priority: service?.priority,
+    seo_title : service?.seo_title || "",
+    seo_keyword : keyword,
+    seo_description: service?.seo_description || ""
   };
 
   useEffect(() => {
@@ -87,6 +89,11 @@ const UpdateService = ({ id }: { id: string }) => {
 
     data.service_image = imageUrl;
     data.priority = Number(data.priority);
+    if (Array.isArray(data.seo_keyword)) {
+      data.seo_keyword = data.seo_keyword.map(
+        (keywordObj: { title: string }) => keywordObj.title
+      );
+    }
 
     try {
       const response = await axios.put(
@@ -107,16 +114,7 @@ const UpdateService = ({ id }: { id: string }) => {
         router.push("/dashboard/services");
         setLoading(false);
       }
-      // refetch();
-      // router.push("/dashboard/services");
-      // if (response?.status === "success") {
-      //   toast.success(response?.message);
-      //   setSuccessMessage(response?.message);
-      //   refetch();
-      //   router.push("/dashboard/services");
-      // } else {
-      //   throw new Error("Unexpected response status");
-      // }
+       
     } catch (error: any) {
 
 
