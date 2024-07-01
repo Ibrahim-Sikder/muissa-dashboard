@@ -29,23 +29,29 @@ import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
-const validationSchema = z.object({
-  title: z.string({ required_error: "Title is required." }),
-  category: z.string({ required_error: "Category is required." }),
-  sub_category: z.string({ required_error: "Sub category is required." }),
-  priority: z.string({ required_error: "Priority is required." }),
-  short_description: z.string({
-    required_error: "Short description is required.",
-  }),
-  description: z.string({ required_error: "Description is required." }),
-  service_image: z.string({ required_error: "Image is required." }),
-
-});
+// const validationSchema = z.object({
+//   title: z.string({ required_error: "Title is required." }),
+//   category: z.string({ required_error: "Category is required." }),
+//   sub_category: z.string({ required_error: "Sub category is required." }),
+//   priority: z.string({ required_error: "Priority is required." }),
+//   short_description: z.string({
+//     required_error: "Short description is required.",
+//   }),
+//   description: z.string({ required_error: "Description is required." }),
+//   service_image: z.string({ required_error: "Image is required." }),
+//   seo_title: z.string({ required_error: "Seo title is required." }),
+//   seo_keyword: z.array(
+//     z.string({ required_error: "Seo keyword is required." })
+//   ),
+//   seo_description: z.string({
+//     required_error: "Seo description is required.",
+//   }),
+// });
 
 const CreateService = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
+
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -54,19 +60,18 @@ const CreateService = () => {
   const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
-
-
-
-    data.priority = Number(data.priority);
-    data.service_image = imageUrl;
-
     setLoading(true);
 
-    setSuccessMessage("");
     setErrorMessage([]);
 
-    data.service_image = imageUrl;
     data.priority = Number(data.priority);
+    data.service_image = imageUrl;
+
+    if (Array.isArray(data.seo_keyword)) {
+      data.seo_keyword = data.seo_keyword.map(
+        (keywordObj: { title: string }) => keywordObj.title
+      );
+    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/create-service`,
@@ -80,12 +85,13 @@ const CreateService = () => {
 
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        setSuccessMessage(response?.data?.message);
+
         refetch();
         router.push("/dashboard/services");
         setLoading(false);
       }
     } catch (error: any) {
+      console.log(error);
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -117,29 +123,30 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   title: "",
+        //   category: "",
+        //   sub_category: "",
+        //   priority: "",
+        //   short_description: "",
+        //   description: "",
+        //   service_image: "",
+        //   seo_title: "",
+        //   seo_keyword: [],
+        //   seo_description: "",
+        // }}
 
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          title: "",
-          category: "",
-          sub_category: "",
-          priority: "",
-          short_description: "",
-          description: "",
-          service_image: "",
-        }}
-
-      // resolver={zodResolver(validationSchema)}
-      // defaultValues={{
-      //   title: "",
-      //   category: "",
-      //   sub_category: "",
-      //   short_description: "",
-      //   description: "",
-      //   service_image: "",
-      //   priority: ""
-      // }}
-
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   title: "",
+        //   category: "",
+        //   sub_category: "",
+        //   short_description: "",
+        //   description: "",
+        //   service_image: "",
+        //   priority: ""
+        // }}
       >
         <Card
           sx={{
@@ -183,8 +190,8 @@ const CreateService = () => {
                   items={
                     Array.isArray(category)
                       ? category.map(
-                        (cat: { category: string }) => cat.category
-                      )
+                          (cat: { category: string }) => cat.category
+                        )
                       : []
                   }
                   onChange={handleCategoryChange}
@@ -244,13 +251,14 @@ const CreateService = () => {
                   name="service_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
-
                 />
               </Grid>
             </Grid>
 
-            <Box sx={{ marginTop: '50px' }}>
-              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+            <Box sx={{ marginTop: "50px" }}>
+              <Typography component="h2" variant="h5" fontWeight="bold">
+                SEO SECTION{" "}
+              </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <MUIInput
@@ -265,10 +273,9 @@ const CreateService = () => {
                   <MUIMultipleValue
                     name="seo_keyword"
                     label="Seo Keyword"
-                    options={keywords} />
+                    options={keywords}
+                  />
                 </Grid>
-
-
 
                 <Grid item xs={12}>
                   <MUIInput
@@ -280,16 +287,10 @@ const CreateService = () => {
                     size="medium"
                   />
                 </Grid>
-
-
-
-
               </Grid>
             </Box>
-
-
           </CardContent>
-
+          {errorMessage && <ErrorMessage message={errorMessage} />}
 
           <CardActions
             sx={{

@@ -25,13 +25,13 @@ import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
-const validationSchema = z.object({
-  name: z.string({ required_error: "NAme is required" }),
-  designation: z.string({ required_error: "Designation is required" }),
+// const validationSchema = z.object({
+//   name: z.string({ required_error: "NAme is required" }),
+//   designation: z.string({ required_error: "Designation is required" }),
 
-  message: z.string({ required_error: "Message is required" }),
-  review_image: z.string({ required_error: "Message is required" }),
-});
+//   message: z.string({ required_error: "Message is required" }),
+//   review_image: z.string({ required_error: "Message is required" }),
+// });
 
 const CreateReview = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -51,6 +51,13 @@ const CreateReview = () => {
     setErrorMessage([]);
 
     data.review_image = imageUrl;
+
+    if (Array.isArray(data.seo_keyword)) {
+      data.seo_keyword = data.seo_keyword.map(
+        (keywordObj: { title: string }) => keywordObj.title
+      );
+    }
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/create-review`,
@@ -87,13 +94,13 @@ const CreateReview = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          name: "",
-          designation: "",
-          message: "",
-          review_image: "",
-        }}
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   name: "",
+        //   designation: "",
+        //   message: "",
+        //   review_image: "",
+        // }}
       >
         <Card
           sx={{

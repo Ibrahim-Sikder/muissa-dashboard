@@ -25,21 +25,21 @@ import { ErrorMessage } from "@/components/error-message";
 import { keywords, support_items } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
-const validationSchema = z.object({
-  title: z.string({ required_error: "Title is required." }),
-  author: z.string({ required_error: "Author is required." }),
+// const validationSchema = z.object({
+//   title: z.string({ required_error: "Title is required." }),
+//   author: z.string({ required_error: "Author is required." }),
 
-  short_description: z.string({
-    required_error: "Short description is required.",
-  }),
-  description: z.string({ required_error: "Description is required." }),
-  blog_image: z.string({ required_error: "Image is required." }),
-  // author: z.string().nonempty(),
-  // content: z.string().nonempty(),
-  // publishDate: z.string().nonempty(),
-  // status: z.string().nonempty(),
-  // image: z.any(),
-});
+//   short_description: z.string({
+//     required_error: "Short description is required.",
+//   }),
+//   description: z.string({ required_error: "Description is required." }),
+//   blog_image: z.string({ required_error: "Image is required." }),
+//   // author: z.string().nonempty(),
+//   // content: z.string().nonempty(),
+//   // publishDate: z.string().nonempty(),
+//   // status: z.string().nonempty(),
+//   // image: z.any(),
+// });
 
 const CreateBlog = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -59,6 +59,11 @@ const CreateBlog = () => {
     setErrorMessage([]);
 
     data.blog_image = imageUrl;
+    if (Array.isArray(data.seo_keyword)) {
+      data.seo_keyword = data.seo_keyword.map(
+        (keywordObj: { title: string }) => keywordObj.title
+      );
+    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/blogs/create-blog`,
@@ -96,14 +101,14 @@ const CreateBlog = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
-        defaultValues={{
-          title: "",
-          author: "",
-          short_description: "",
-          description: "",
-          blog_image: "",
-        }}
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   title: "",
+        //   author: "",
+        //   short_description: "",
+        //   description: "",
+        //   blog_image: "",
+        // }}
       >
         <Card
           sx={{

@@ -26,13 +26,24 @@ import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
-const validationSchema = z.object({
-  name: z.string({ required_error: "NAme is required" }),
-  designation: z.string({ required_error: "Designation is required" }),
+// const validationSchema = z.object({
+//   name: z.string({ required_error: "NAme is required" }),
+//   designation: z.string({ required_error: "Designation is required" }).optional(),
 
-  message: z.string({ required_error: "Message is required" }),
-  review_image: z.string({ required_error: "Message is required" }),
-});
+//   message: z.string({ required_error: "Message is required" }).optional(),
+//   review_image: z.string({ required_error: "Message is required" }).optional(),
+//   seo_title: z
+//       .string({ required_error: 'Seo title is required.' })
+//       .optional(),
+//     seo_keyword: z
+//       .array(z.string({ required_error: 'Seo keyword is required.' }))
+//       .optional(),
+//     seo_description: z
+//       .string({
+//         required_error: 'Seo description is required.',
+//       })
+//       .optional(),
+// });
 
 const UpdateReview = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -45,11 +56,31 @@ const UpdateReview = ({ id }: { id: string }) => {
 
   const { data: review, isLoading, refetch } = useGetSingleReviewQuery(id);
 
+
+  const keyword = Array.isArray(review?.seo_keyword)
+  ? review?.seo_keyword.map((keyword: any) => ({
+      title: keyword.title || keyword,
+    }))
+  : typeof review?.seo_keyword === "string"
+  ? review?.seo_keyword
+      .split(",")
+      .map((keyword: any) => ({ title: keyword.trim() }))
+  : [];
+
+
   const defaultValues = {
     name: review?.name,
     designation: review?.designation,
     message: review?.message,
     review_image: review?.review_image,
+    
+    seo_title: review?.seo_title || "",
+    seo_keyword: keyword,
+    seo_description: review?.seo_description || "",
+
+
+
+
   };
 
   useEffect(() => {
@@ -65,6 +96,11 @@ const UpdateReview = ({ id }: { id: string }) => {
     setErrorMessage([]);
 
     data.review_image = imageUrl;
+    if (Array.isArray(data.seo_keyword)) {
+      data.seo_keyword = data.seo_keyword.map(
+        (keywordObj: { title: string }) => keywordObj.title
+      );
+    }
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/${id}`,
@@ -105,7 +141,7 @@ const UpdateReview = ({ id }: { id: string }) => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        resolver={zodResolver(validationSchema)}
+        // resolver={zodResolver(validationSchema)}
         defaultValues={defaultValues}
       >
         <Card

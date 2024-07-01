@@ -24,21 +24,6 @@ const isPhoneValid = (auth: string): boolean => {
   return phoneRegex.test(auth);
 };
 export default function UserProfilePage(): React.JSX.Element {
-  const user = {
-    firstName: "John",
-    lastName: "Doe",
-    phone: "123-456-7890",
-    email: "john.doe@example.com",
-    streetAddress: "123 Main St",
-    city: "Springfield",
-    state: "IL",
-    postalCode: "62701",
-    country: "USA",
-    dateOfBirth: "1990-01-01",
-    isVerified: true,
-    avatarUrl: "https://via.placeholder.com/150",
-  };
-
   
   const token = getCookie("mui-token");
   const pathName = usePathname();
