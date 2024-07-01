@@ -2,8 +2,7 @@
 
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -16,11 +15,8 @@ import {
   Box,
   Button,
   Grid,
-  MenuItem,
-  TextField,
   Typography,
 } from "@mui/material";
-import RichtextEditor from "@/components/Forms/RichtextEditor";
 import MUIFileUploader from "@/components/Forms/FileUpload";
 import Link from "next/link";
 import { getCookie } from "@/helpers/Cookies";
@@ -31,54 +27,41 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import {
   useGetSingleBlogQuery,
-  useUpdateBlogMutation,
 } from "@/redux/api/blogApi";
-import { autoBatchEnhancer } from "@reduxjs/toolkit";
+import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+import dynamic from "next/dynamic";
+import { joditConfig } from "@/config";
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
-import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const validationSchema = z.object({
   title: z.string({ required_error: "Title is required." }),
   author: z.string({ required_error: "Author is required." }),
-
-  short_description: z.string({
-    required_error: "Short description is required.",
-  }),
+  short_description: z.string({ required_error: "Short description is required." }),
   description: z.string({ required_error: "Description is required." }),
   blog_image: z.string({ required_error: "Image is required." }),
-  // author: z.string().nonempty(),
-  // content: z.string().nonempty(),
-  // publishDate: z.string().nonempty(),
-  // status: z.string().nonempty(),
-  // image: z.any(),
 });
 
 const UpdateBlog = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
-
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const token = getCookie("mui-token")
+  const editor = useRef<any | null>(null);
+  const token = getCookie("mui-token");
+  const { data: blog, isLoading: blogLoading, refetch: refetchBlog } = useGetSingleBlogQuery(id);
 
-  const {
-    data: blog,
-    isLoading: blogLoading,
-    refetch: refetchBlog,
-  } = useGetSingleBlogQuery(id);
+  const [content, setContent] = useState<string>("");
 
+  
+const keyword = Array.isArray(blog?.seo_keyword)
+? blog?.seo_keyword.map((service:any) => ({ title: service.title || service }))   
+: typeof blog?.seo_keyword === 'string'
+? blog?.seo_keyword.split(',').map((service:any) => ({ title: service.trim() }))
+: []
 
-  const keyword = Array.isArray(blog?.seo_keyword)
-    ? blog?.seo_keyword.map((keyword: any) => ({
-        title: keyword.title || keyword,
-      }))
-    : typeof blog?.seo_keyword === "string"
-    ? blog?.seo_keyword
-        .split(",")
-        .map((keyword: any) => ({ title: keyword.trim() }))
-    : [];
 
   const defaultValues = {
     title: blog?.title || "",
@@ -87,29 +70,26 @@ const UpdateBlog = ({ id }: { id: string }) => {
     author: blog?.author || "",
     blog_image: blog?.blog_image || "",
     seo_title: blog?.seo_title || "",
-    seo_keyword: keyword,
+    seo_keyword: keyword || "",
     seo_description: blog?.seo_description || "",
   };
+
 
   useEffect(() => {
     if (blog) {
       setImageUrl(blog.blog_image);
+      setContent(blog.description || "");
     }
   }, [blog]);
 
-
-
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
-
     setSuccessMessage("");
     setErrorMessage([]);
 
     data.blog_image = imageUrl;
     if (Array.isArray(data.seo_keyword)) {
-      data.seo_keyword = data.seo_keyword.map(
-        (keywordObj: { title: string }) => keywordObj.title
-      );
+      data.seo_keyword = data.seo_keyword.map((keywordObj: { title: string }) => keywordObj.title);
     }
     try {
       const response = await axios.put(
@@ -146,9 +126,11 @@ const UpdateBlog = ({ id }: { id: string }) => {
     return <Loader />;
   }
 
+
+
   return (
     <Stack spacing={3}>
-      <MUIForm onSubmit={handleSubmit} defaultValues={defaultValues}>
+      <MUIForm onSubmit={handleSubmit} defaultValues={{ ...defaultValues }}>
         <Card
           sx={{
             display: "flex",
@@ -188,16 +170,6 @@ const UpdateBlog = ({ id }: { id: string }) => {
                 />
               </Grid>
 
-              {/* <Grid item xs={12} md={6}>
-                <MUIInput
-                  name="priority"
-                  label="Priority"
-                  type="number"
-                  fullWidth={true}
-                  size="medium"
-                />
-              </Grid> */}
-
               <Grid item xs={12}>
                 <MUIInput
                   name="short_description"
@@ -211,12 +183,15 @@ const UpdateBlog = ({ id }: { id: string }) => {
               </Grid>
 
               <Grid item xs={12}>
-                <RichtextEditor
-                  name="description"
-                  label="Description"
-                  placeholder="Write your blog post here"
+                <JoditEditor
+                  ref={editor}
+                  value={content}
+                  config={joditConfig}
+                  onBlur={(newContent: string) => setContent(newContent)}
+                  onChange={(newContent: string) => setContent(newContent)}
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <MUIFileUploader
                   name="blog_image"
@@ -227,7 +202,7 @@ const UpdateBlog = ({ id }: { id: string }) => {
             </Grid>
             <Box sx={{ marginTop: "50px" }}>
               <Typography component="h2" variant="h5" fontWeight="bold">
-                SEO SECTION{" "}
+                SEO SECTION
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
@@ -235,7 +210,7 @@ const UpdateBlog = ({ id }: { id: string }) => {
                     name="seo_title"
                     label="Seo Title"
                     type="text"
-                    fullWidth={true}
+                    fullWidth
                     size="medium"
                   />
                 </Grid>
@@ -246,14 +221,13 @@ const UpdateBlog = ({ id }: { id: string }) => {
                     options={keywords}
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <MUIInput
                     name="seo_description"
-                    label="Seo Description "
+                    label="Seo Description"
                     type="text"
-                    multiline={true}
-                    fullWidth={true}
+                    multiline
+                    fullWidth
                     size="medium"
                   />
                 </Grid>
