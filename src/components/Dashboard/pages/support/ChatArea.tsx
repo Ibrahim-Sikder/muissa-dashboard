@@ -10,6 +10,7 @@ import {
   Divider,
   InputAdornment,
   Grid,
+  Button,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
@@ -145,46 +146,47 @@ const ChatArea: React.FC<ChatAreaProps> = ({
         </>
       </Box>
       <Divider />
-      <Box
-        sx={{
-          p: 2,
-          backgroundColor: "white",
-          borderTop: 1,
-          borderColor: "divider",
-        }}
-      >
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col items-start "
-            >
-              <input
-                type="text"
-                placeholder="Compose your message...."
-                className="w-[100%] bg-transparent  h-10 placeholder:text-[14px] "
-                value={message?.text}
-                onChange={handleMessageOnChange}
-              />
-              <div className="pb-2 flex space-x-2 items-center text-[#707584] ">
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => {
-                    const file =
-                      (e.target as HTMLInputElement).files?.[0] || null;
-                    handleFileChange(file);
-                  }}
-                  style={{ display: "none" }}
-                />
-                <label htmlFor="file" className=" cursor-pointer">
-                  <IoLinkOutline className=" chatIcon" />
-                </label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box
+          sx={{
+            p: 2,
+            backgroundColor: "white",
+            borderTop: 1,
+            borderColor: "divider",
+          }}
+        >
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs>
+              <div
 
-                <GraphicEqIcon className=" chatIcon" />
+                className="flex flex-col items-start "
+              >
+                <input
+                  type="text"
+                  placeholder="Compose your message...."
+                  className="w-[100%] bg-transparent  h-10 placeholder:text-[14px] "
+                  value={message?.text}
+                  onChange={handleMessageOnChange}
+                />
+                <div className="pb-2 flex space-x-2 items-center text-[#707584] ">
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => {
+                      const file =
+                        (e.target as HTMLInputElement).files?.[0] || null;
+                      handleFileChange(file);
+                    }}
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="file" className=" cursor-pointer">
+                    <IoLinkOutline className=" chatIcon" />
+                  </label>
+
+                  <GraphicEqIcon className=" chatIcon" />
+                </div>
               </div>
-            </form>
-            {/* <TextField
+              {/* <TextField
               fullWidth
               variant="outlined"
               placeholder="Type your message..."
@@ -205,14 +207,15 @@ const ChatArea: React.FC<ChatAreaProps> = ({
                 ),
               }}
             /> */}
+            </Grid>
+            <Grid item>
+              <Button type='submit' >
+                <SendIcon />
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item>
-            <IconButton color="primary">
-              <SendIcon />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </form>
     </Box>
   );
 };

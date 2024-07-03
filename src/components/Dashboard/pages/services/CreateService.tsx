@@ -28,6 +28,7 @@ import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+import MUIEditor from "@/components/Forms/JodiEditor";
 
 // const validationSchema = z.object({
 //   title: z.string({ required_error: "Title is required." }),
@@ -123,30 +124,30 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-        // resolver={zodResolver(validationSchema)}
-        // defaultValues={{
-        //   title: "",
-        //   category: "",
-        //   sub_category: "",
-        //   priority: "",
-        //   short_description: "",
-        //   description: "",
-        //   service_image: "",
-        //   seo_title: "",
-        //   seo_keyword: [],
-        //   seo_description: "",
-        // }}
+      // resolver={zodResolver(validationSchema)}
+      // defaultValues={{
+      //   title: "",
+      //   category: "",
+      //   sub_category: "",
+      //   priority: "",
+      //   short_description: "",
+      //   description: "",
+      //   service_image: "",
+      //   seo_title: "",
+      //   seo_keyword: [],
+      //   seo_description: "",
+      // }}
 
-        // resolver={zodResolver(validationSchema)}
-        // defaultValues={{
-        //   title: "",
-        //   category: "",
-        //   sub_category: "",
-        //   short_description: "",
-        //   description: "",
-        //   service_image: "",
-        //   priority: ""
-        // }}
+      // resolver={zodResolver(validationSchema)}
+      // defaultValues={{
+      //   title: "",
+      //   category: "",
+      //   sub_category: "",
+      //   short_description: "",
+      //   description: "",
+      //   service_image: "",
+      //   priority: ""
+      // }}
       >
         <Card
           sx={{
@@ -190,8 +191,8 @@ const CreateService = () => {
                   items={
                     Array.isArray(category)
                       ? category.map(
-                          (cat: { category: string }) => cat.category
-                        )
+                        (cat: { category: string }) => cat.category
+                      )
                       : []
                   }
                   onChange={handleCategoryChange}
@@ -243,7 +244,9 @@ const CreateService = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <RichtextEditor name="description" label="Description" />
+                {/* <RichtextEditor name="description" label="Description" /> */}
+                <MUIEditor name="description" label="Description" />
+
               </Grid>
 
               <Grid item xs={12} md={6}>

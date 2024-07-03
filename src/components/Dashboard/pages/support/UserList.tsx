@@ -66,12 +66,12 @@ const UserList: React.FC<UserListProps> = ({
     router.push(url);
   };
 
-  
+
 
 
 
   return (
-    <List className=" cursor-pointer">
+    <List className=" cursor-pointer h-[670px] overflow-y-scroll  ">
       {users?.map((user) => (
         <ListItem
           key={user?._id}
@@ -98,12 +98,12 @@ const UserList: React.FC<UserListProps> = ({
       ))}
       {userForAdmin?.map((user) => (
         <>
-          <div className="flex items-center pr-2">
+          <div className="flex items-center pr-2 ">
 
             <ListItem
               key={user?._id}
               sx={{
-                p: 2,
+                p: 1,
                 backgroundColor:
                   userId === user?.sender?._id ? "#e0e0e0" : "inherit",
               }}
@@ -129,7 +129,7 @@ const UserList: React.FC<UserListProps> = ({
             </ListItem>
 
             <Button
-            sx={{width:'40px', fontSize:'11px', height:'30px'}}
+              sx={{ width: '40px', fontSize: '11px', height: '30px' }}
               onClick={() => handleUserAccept(user?.sender?._id)}
             >
               Accept

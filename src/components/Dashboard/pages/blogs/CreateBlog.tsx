@@ -3,7 +3,7 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -24,6 +24,10 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { keywords, support_items } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+import MUIEditor from "@/components/Forms/JodiEditor";
+import dynamic from "next/dynamic";
+import { joditConfig } from "@/config";
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 // const validationSchema = z.object({
 //   title: z.string({ required_error: "Title is required." }),
@@ -48,6 +52,8 @@ const CreateBlog = () => {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const editor = useRef<any | null>(null);
+  const [content, setContent] = useState<string>("");
 
   const token = getCookie("mui-token");
 
@@ -172,13 +178,22 @@ const CreateBlog = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Box>
+                {/* <Box>
                   <RichtextEditor
                     name="description"
                     label="Description"
                     placeholder="Write your blog post here"
                   />
-                </Box>
+                </Box> */}
+                 <MUIEditor name="description" label="Description" />
+                 {/* <JoditEditor
+                  name="description"
+                  ref={editor}
+                  value={content}
+                  config={joditConfig}
+                  onBlur={(newContent: string) => setContent(newContent)}
+                  onChange={(newContent: string) => setContent(newContent)}
+                /> */}
               </Grid>
               <Grid item xs={12}>
                 <MUIFileUploader

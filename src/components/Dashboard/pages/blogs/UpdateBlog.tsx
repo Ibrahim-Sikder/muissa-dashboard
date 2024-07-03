@@ -33,6 +33,7 @@ import dynamic from "next/dynamic";
 import { joditConfig } from "@/config";
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
+import MUIEditor from "@/components/Forms/JodiEditor";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const validationSchema = z.object({
@@ -52,7 +53,6 @@ const UpdateBlog = ({ id }: { id: string }) => {
   const editor = useRef<any | null>(null);
   const token = getCookie("mui-token");
   const { data: blog, isLoading: blogLoading, refetch: refetchBlog } = useGetSingleBlogQuery(id);
-
   const [content, setContent] = useState<string>("");
 
   
@@ -183,13 +183,8 @@ const keyword = Array.isArray(blog?.seo_keyword)
               </Grid>
 
               <Grid item xs={12}>
-                <JoditEditor
-                  ref={editor}
-                  value={content}
-                  config={joditConfig}
-                  onBlur={(newContent: string) => setContent(newContent)}
-                  onChange={(newContent: string) => setContent(newContent)}
-                />
+              <MUIEditor name="description" label="Description" />
+                
               </Grid>
 
               <Grid item xs={12}>

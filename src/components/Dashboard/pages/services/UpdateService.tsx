@@ -27,13 +27,14 @@ import { useRouter } from "next/navigation";
 import {
   useGetAllCategoryQuery,
   useGetSingleServiceQuery,
- 
+
 } from "@/redux/api/serviceApi";
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+import MUIEditor from "@/components/Forms/JodiEditor";
 
- 
+
 
 const UpdateService = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -49,15 +50,15 @@ const UpdateService = ({ id }: { id: string }) => {
     refetch: refetchService,
   } = useGetSingleServiceQuery({ id });
 
- 
 
-  
 
-const keyword = Array.isArray(service?.seo_keyword)
-? service?.seo_keyword.map((service:any) => ({ title: service.title || service }))   
-: typeof service?.seo_keyword === 'string'
-? service?.seo_keyword.split(',').map((service:any) => ({ title: service.trim() }))
-: []
+
+
+  const keyword = Array.isArray(service?.seo_keyword)
+    ? service?.seo_keyword.map((service: any) => ({ title: service.title || service }))
+    : typeof service?.seo_keyword === 'string'
+      ? service?.seo_keyword.split(',').map((service: any) => ({ title: service.trim() }))
+      : []
 
 
   const defaultValues = {
@@ -68,8 +69,8 @@ const keyword = Array.isArray(service?.seo_keyword)
     description: service?.description,
     service_image: service?.service_image,
     priority: service?.priority,
-    seo_title : service?.seo_title || "",
-    seo_keyword : keyword,
+    seo_title: service?.seo_title || "",
+    seo_keyword: keyword,
     seo_description: service?.seo_description || ""
   };
 
@@ -115,7 +116,7 @@ const keyword = Array.isArray(service?.seo_keyword)
         router.push("/dashboard/services");
         setLoading(false);
       }
-       
+
     } catch (error: any) {
 
 
@@ -228,7 +229,8 @@ const keyword = Array.isArray(service?.seo_keyword)
               </Grid>
 
               <Grid item xs={12}>
-                <RichtextEditor name="description" label="Description" />
+                <MUIEditor name="description" label="Description" />
+
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -254,8 +256,8 @@ const keyword = Array.isArray(service?.seo_keyword)
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                <MUIMultipleValue
-                   name="seo_keyword"
+                  <MUIMultipleValue
+                    name="seo_keyword"
                     label="Seo Keyword"
                     options={keywords} />
                 </Grid>
