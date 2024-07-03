@@ -32,9 +32,6 @@ import {
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
-import MUIEditor from "@/components/Forms/JodiEditor";
-
-
 
 const UpdateService = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -229,7 +226,7 @@ const UpdateService = ({ id }: { id: string }) => {
               </Grid>
 
               <Grid item xs={12}>
-                <MUIEditor name="description" label="Description" />
+                {/* <MUIEditor name="description" label="Description" /> */}
 
               </Grid>
 

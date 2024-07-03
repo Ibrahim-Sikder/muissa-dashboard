@@ -24,9 +24,7 @@ import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 import { keywords, support_items } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
-import MUIEditor from "@/components/Forms/JodiEditor";
 import dynamic from "next/dynamic";
-import { joditConfig } from "@/config";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 // const validationSchema = z.object({
@@ -178,14 +176,14 @@ const CreateBlog = () => {
               </Grid>
 
               <Grid item xs={12}>
-                {/* <Box>
+                <Box>
                   <RichtextEditor
                     name="description"
                     label="Description"
                     placeholder="Write your blog post here"
                   />
-                </Box> */}
-                 <MUIEditor name="description" label="Description" />
+                </Box>
+                 {/* <MUIEditor name="description" label="Description" /> */}
                  {/* <JoditEditor
                   name="description"
                   ref={editor}

@@ -28,7 +28,7 @@ import { useGetAllCategoryQuery } from "@/redux/api/serviceApi";
 
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
-import MUIEditor from "@/components/Forms/JodiEditor";
+
 
 // const validationSchema = z.object({
 //   title: z.string({ required_error: "Title is required." }),
@@ -244,8 +244,8 @@ const CreateService = () => {
               </Grid>
 
               <Grid item xs={12}>
-                {/* <RichtextEditor name="description" label="Description" /> */}
-                <MUIEditor name="description" label="Description" />
+                <RichtextEditor name="description" label="Description" />
+                {/* <MUIEditor name="description" label="Description" /> */}
 
               </Grid>
 

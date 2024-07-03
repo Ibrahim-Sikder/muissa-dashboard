@@ -1,1 +1,1 @@
-export * from "./jodit-editor-config";
+// export * from "./jodit-editor-config";

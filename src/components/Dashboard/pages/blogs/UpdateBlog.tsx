@@ -30,10 +30,9 @@ import {
 } from "@/redux/api/blogApi";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 import dynamic from "next/dynamic";
-import { joditConfig } from "@/config";
 import Loader from "@/components/Loader";
 import { keywords } from "@/types";
-import MUIEditor from "@/components/Forms/JodiEditor";
+import RichtextEditor from "@/components/Forms/RichtextEditor";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 const validationSchema = z.object({
@@ -183,7 +182,11 @@ const keyword = Array.isArray(blog?.seo_keyword)
               </Grid>
 
               <Grid item xs={12}>
-              <MUIEditor name="description" label="Description" />
+              <RichtextEditor
+                    name="description"
+                    label="Description"
+                    placeholder="Write your blog post here"
+                  />
                 
               </Grid>
 
