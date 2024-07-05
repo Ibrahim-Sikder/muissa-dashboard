@@ -15,4 +15,5 @@ export interface NavItemConfig {
     href: string;
   };
   childrenItems?: NavItemConfig[];
+  roles?: string[]
 }

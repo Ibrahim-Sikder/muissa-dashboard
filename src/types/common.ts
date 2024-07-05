@@ -37,7 +37,7 @@ export type IGenericErrorMessage = {
 };
 
 export const role = ["As BUSINESS OWNER", "AS A INVESTOR"];
-export const userRole = ["admin", "superAdmin"];
+export const userRole = ["admin", "super_admin"];
 export const adminRole = ["Admin"];
 
 export const supportServices = [

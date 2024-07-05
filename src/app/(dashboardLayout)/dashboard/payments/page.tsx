@@ -86,6 +86,7 @@ export default function Page(): React.JSX.Element {
   if (isLoading) {
     return <Loader />;
   }
+  console.log(data)
 
   return (
     <Stack spacing={3}>
