@@ -12,7 +12,7 @@ import MUIForm from "@/components/Forms/Form";
 import MUIModal from "@/components/shared/MUIModal/MUIModal";
 import MUIInput from "@/components/Forms/Input";
 import INTSelect from "@/components/Forms/Select";
-import { adminRole, role } from "@/types";
+import { adminRole, role, userRole } from "@/types";
 import axios from "axios";
 
 const userSchema = z
@@ -109,7 +109,10 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
             <MUIInput name="name" label="Name" fullWidth />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <MUIInput name="auth" type="email" label="Email/Phone" fullWidth />
+            <MUIInput name="auth" type="email" label="Email" fullWidth />
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <INTSelect items={userRole} name="role" label="Role" fullWidth />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <MUIInput
@@ -127,7 +130,7 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
               fullWidth
             />
           </Grid>
-          
+
         </Grid>
         <Button
           disabled={loading}
