@@ -15,6 +15,7 @@ export const paths = {
     invoices: "/dashboard/invoices",
     coupons: "/dashboard/coupons",
     users: "/dashboard/users",
+    membership_fee: "/dashboard/membership-fee",
   },
   help: "/contact-us",
   errors: { notFound: "/errors/not-found" },

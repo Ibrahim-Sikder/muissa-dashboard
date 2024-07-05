@@ -10,6 +10,7 @@ import { GrBlog, GrBusinessService } from "react-icons/gr";
 import { MdOutlineReviews, MdPayment, MdPrivacyTip } from "react-icons/md";
 import { FcCustomerSupport } from "react-icons/fc";
 import { paths } from "@/paths";
+import { CurrencyExchange } from "@mui/icons-material";
 
 export const navItems: NavItemConfig[] = [
   {
@@ -210,6 +211,13 @@ export const navItems: NavItemConfig[] = [
         matcher: { type: "startsWith", href: `${paths.dashboard.faqs}/edit` },
       },
     ],
+  },
+  {
+    key: "fee",
+    title: "Create Membership Fee",
+    href: paths.dashboard.membership_fee,
+    icon: <CurrencyExchange />,
+
   },
   {
     key: "user",
