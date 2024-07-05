@@ -88,7 +88,7 @@ export function ReviewsTable({
         }
         subheader="List of all reviews available in the system."
         action={
-          <Link href="/dashboard/reviews/create">
+          <Link href="/dashboard/super_admin/reviews/create">
             <Button
               color="primary"
               size="small"
@@ -145,7 +145,7 @@ export function ReviewsTable({
                         gap: "1rem",
                       }}
                     >
-                      <Link href={`/dashboard/reviews/edit/${row?._id}`}>
+                      <Link href={`/dashboard/super_admin/reviews/edit/${row?._id}`}>
                         <Button
                           color="primary"
                           variant="outlined"

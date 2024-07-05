@@ -10,7 +10,7 @@ const roleBasedPrivateRoutes = {
   admin: [
     /^\/dashboard(\/.*)?$/,
   ],
-  superAdmin: [
+  super_admin: [
     /^\/dashboard(\/.*)?$/,
   ],
 };

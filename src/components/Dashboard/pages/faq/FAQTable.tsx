@@ -104,7 +104,7 @@ export default function FAQTable(): React.JSX.Element {
         }
         subheader="List of frequently asked questions."
         action={
-          <Link href="/dashboard/faqs/create" passHref>
+          <Link href="/dashboard/super_admin/faqs/create" passHref>
             <Button
               variant="contained"
               color="primary"

@@ -96,7 +96,7 @@ export function ServicesTable({
         subheader="List of services provided by the company"
         action={
           <Stack direction={isMobile ? "column" : "row"} spacing={1}>
-            <Link href="/dashboard/services/create">
+            <Link href="/dashboard/super_admin/services/create">
               <Button
                 color="primary"
                 size="small"
@@ -192,7 +192,7 @@ export function ServicesTable({
                         </Button>
                       </Link>
 
-                      <Link href={`/dashboard/services/edit/${row._id}`}>
+                      <Link href={`/dashboard/super_admin/services/edit/${row._id}`}>
                         <Button
                           color="primary"
                           variant="outlined"

@@ -189,7 +189,7 @@ export function PaymentsTable({
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={1}>
-                        <Link href={`/dashboard/payments/${row?._id}`}>
+                        <Link href={`/dashboard/super_admin/payments/${row?._id}`}>
                           <Button
                             color="primary"
                             size="small"

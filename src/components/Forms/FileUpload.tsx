@@ -122,7 +122,7 @@ const MUIFileUploader = ({
                       padding: "10px 15px",
                       border: "none",
                       borderRadius: "5px",
-                      background: "#059065",
+                      background: "#1591A3",
                       color: "#fff",
                       cursor: "pointer",
                     }}

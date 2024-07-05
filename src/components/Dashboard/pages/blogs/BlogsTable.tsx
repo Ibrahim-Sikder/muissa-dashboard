@@ -86,7 +86,7 @@ export function BlogsTable({
         }
         subheader="List of all blogs available in the system."
         action={
-          <Link href="/dashboard/blogs/create">
+          <Link href="/dashboard/super_admin/blogs/create">
             <Button
               color="primary"
               size="small"
@@ -124,7 +124,7 @@ export function BlogsTable({
                 <TableCell>{row?.status ? row?.status : "Published"}</TableCell>
                 <TableCell>
                   <Box sx={{ display: "flex", gap: "1rem" }}>
-                    <Link href={`/dashboard/blogs/${row?._id}`}>
+                    <Link href={`/dashboard/super_admin/blogs/${row?._id}`}>
                       <Button
                         color="secondary"
                         variant="outlined"
@@ -135,7 +135,7 @@ export function BlogsTable({
                         View
                       </Button>
                     </Link>
-                    <Link href={`/dashboard/blogs/edit/${row?._id}`}>
+                    <Link href={`/dashboard/super_admin/blogs/edit/${row?._id}`}>
                       <Button
                         color="primary"
                         variant="outlined"

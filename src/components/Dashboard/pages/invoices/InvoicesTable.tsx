@@ -156,7 +156,7 @@ export function InvoicesTable({
                   </TableCell>
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <Link href={`/dashboard/invoices/${row._id}`}>
+                      <Link href={`/dashboard/super_admin/invoices/${row._id}`}>
                         <Button
                           color="primary"
                           size="small"

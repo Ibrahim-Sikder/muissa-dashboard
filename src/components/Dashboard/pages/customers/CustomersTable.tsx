@@ -169,7 +169,7 @@ export function CustomersTable({
                   </TableCell>
 
                   <TableCell>
-                    <Link href={`/dashboard/customers/${row?._id}`}>
+                    <Link href={`/dashboard/super_admin/customer/${row?._id}`}>
                       <Button color="primary" size="small" variant="outlined">
                         View
                       </Button>

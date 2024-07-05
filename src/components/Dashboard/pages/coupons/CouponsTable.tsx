@@ -150,7 +150,7 @@ const CouponsTable = () => {
           }
           subheader="List of all coupons available in the system."
           action={
-            <Link href="/dashboard/coupons/create">
+            <Link href="/dashboard/super_admin/coupons/create">
               <Button
                 color="primary"
                 size="small"
@@ -221,7 +221,7 @@ const CouponsTable = () => {
           }
           subheader="List of all discount available in the system."
           action={
-            <Link href="/dashboard/coupons/create">
+            <Link href="/dashboard/super_admin/coupons/create">
               <Button
                 color="primary"
                 size="small"
