@@ -24,7 +24,6 @@ const Users = () => {
     error,
     refetch,
   } = useGetAllUserQuery({ token });
- 
 
   const handleDelete = useCallback(
     async (id: string) => {
@@ -48,12 +47,13 @@ const Users = () => {
           setLoading(false);
         }
       } catch (error: any) {
-        if (error?.data) {
-          toast.error([error.data.message]);
-        } else if (error.message) {
-          toast.error([error.message]);
-        } else {
-          toast.error(["An unexpected error occurred."]);
+        if (error?.response) {
+          const { status, data } = error.response;
+          if ([400, 401, 409, 404, 500].includes(status)) {
+            toast.error(data.message);
+          } else {
+            toast.error(["An unexpected error occurred."]);
+          }
         }
       } finally {
         setLoading(false);
@@ -101,8 +101,6 @@ const Users = () => {
     },
   ];
 
- 
-
   const handleClickOpen = () => {
     setIsModalOpen(true);
   };
@@ -133,7 +131,11 @@ const Users = () => {
           </Button>
         </Stack>
 
-        <UserCreateModal open={isModalOpen} setOpen={handleClose} refetch={refetch}/>
+        <UserCreateModal
+          open={isModalOpen}
+          setOpen={handleClose}
+          refetch={refetch}
+        />
 
         <Box sx={{ height: "calc(100vh - 150px)", width: "100%" }}>
           <DataGrid

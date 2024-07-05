@@ -10,6 +10,9 @@ const roleBasedPrivateRoutes = {
   admin: [
     /^\/dashboard(\/.*)?$/,
   ],
+  superAdmin: [
+    /^\/dashboard(\/.*)?$/,
+  ],
 };
 
 type Role = keyof typeof roleBasedPrivateRoutes;

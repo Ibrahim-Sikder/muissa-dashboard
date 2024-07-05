@@ -67,10 +67,12 @@ export type TProps = {
 const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [getRole, setGetRole] = useState("admin");
+
   const submitHandler = async (values: FieldValues) => {
     setLoading(true);
 
-    values.role = "admin";
+    values.role = getRole;
 
     try {
       const response = await axios.post(
@@ -109,10 +111,16 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
             <MUIInput name="name" label="Name" fullWidth />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <MUIInput name="auth" type="email" label="Email" fullWidth />
+            <MUIInput name="auth" label="Email/Phone" fullWidth />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <INTSelect items={userRole} name="role" label="Role" fullWidth />
+            <INTSelect
+              items={userRole}
+              name="role"
+              label="Role"
+              onChange={(value) => setGetRole(value)}
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <MUIInput
@@ -130,7 +138,6 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
               fullWidth
             />
           </Grid>
-
         </Grid>
         <Button
           disabled={loading}
