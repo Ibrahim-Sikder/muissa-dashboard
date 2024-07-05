@@ -25,6 +25,7 @@ import { ErrorMessage } from "@/components/error-message";
 import { keywords, support_items } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 import dynamic from "next/dynamic";
+import MUIEditor from "@/components/Forms/JodiEditor";
 const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
 // const validationSchema = z.object({
@@ -176,22 +177,15 @@ const CreateBlog = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Box>
+                {/* <Box>
                   <RichtextEditor
                     name="description"
                     label="Description"
                     placeholder="Write your blog post here"
                   />
-                </Box>
-                 {/* <MUIEditor name="description" label="Description" /> */}
-                 {/* <JoditEditor
-                  name="description"
-                  ref={editor}
-                  value={content}
-                  config={joditConfig}
-                  onBlur={(newContent: string) => setContent(newContent)}
-                  onChange={(newContent: string) => setContent(newContent)}
-                /> */}
+                </Box> */}
+                 <MUIEditor name="description" label="Description" />
+                 
               </Grid>
               <Grid item xs={12}>
                 <MUIFileUploader

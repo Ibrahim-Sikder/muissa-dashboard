@@ -84,7 +84,7 @@ const ShowInvoice: React.FC = () => {
               </Button>
             )}
             content={() => componentRef.current}
-          />
+          /> 
         </div>
         <div className="">
           <div
