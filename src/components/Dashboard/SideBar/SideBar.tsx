@@ -20,6 +20,7 @@ const SideBar = () => {
 
     fetchUserInfo();
   }, []);
+  
 
   return (
     <Stack
@@ -29,6 +30,7 @@ const SideBar = () => {
       paddingBottom="30px"
       sx={{ background: '#121621', color: '#fff' }}
     >
+
       <Box>
         <Stack
           sx={{ py: 1, mt: 1 }}
@@ -45,7 +47,7 @@ const SideBar = () => {
             fontWeight="bold"
             sx={{ cursor: "pointer", color: '#fff' }}
           >
-            Muissa
+            Muissa Dashboard
           </Typography>
         </Stack>
         <List>

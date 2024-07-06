@@ -1,7 +1,17 @@
 import { USER_ROLE } from "@/constant/role";
 import { DrawerItem, userRole } from "@/types/common";
 import {
+  Book,
   Dashboard,
+  Discount,
+  Group,
+  LiveHelp,
+  LocalConvenienceStore,
+  Paid,
+  Receipt,
+  Reviews,
+  SafetyCheck,
+  SupportAgent,
 
 } from "@mui/icons-material";
 
@@ -19,47 +29,47 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
         {
           title: "Manage Customer",
           path: `${role}/customers`,
-          icon: Dashboard,
+          icon: Group,
         },
         {
           title: "Manage Services",
           path: `${role}/services`,
-          icon: Dashboard,
+          icon: LocalConvenienceStore,
         },
         {
           title: "Manage Blogs",
           path: `${role}/blogs`,
-          icon: Dashboard,
+          icon: Book,
         },
         {
           title: "Manage Coupons & Discount ",
           path: `${role}/coupons`,
-          icon: Dashboard,
+          icon: Discount,
         },
         {
           title: "Manage Reviews",
           path: `${role}/reviews`,
-          icon: Dashboard,
+          icon: Reviews,
         },
         {
           title: "Manage Payments",
           path: `${role}/payments`,
-          icon: Dashboard,
+          icon: Paid,
         },
         {
           title: "Manage Invoices ",
           path: `${role}/invoices`,
-          icon: Dashboard,
+          icon: Receipt,
         },
         {
           title: "Terms & Privacy ",
           path: `${role}/policies`,
-          icon: Dashboard,
+          icon: SafetyCheck,
         },
         {
           title: "Mange FAQs ",
           path: `${role}/faqs`,
-          icon: Dashboard,
+          icon: LiveHelp,
         },
         {
           title: "Membership Fee ",
@@ -69,12 +79,12 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
         {
           title: "User Management  ",
           path: `${role}/users`,
-          icon: Dashboard,
+          icon: Group,
         },
         {
           title: "Support",
           path: `${role}/support`,
-          icon: Dashboard,
+          icon: SupportAgent,
         },
       );
       break;
@@ -87,25 +97,25 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
         }, {
         title: "Manage Customer",
         path: `${role}/customers`,
-        icon: Dashboard,
+        icon: Group,
       },
 
         {
           title: "Manage Blogs",
           path: `${role}/blogs`,
-          icon: Dashboard,
+          icon: Book,
         },
 
         {
           title: "Manage Reviews",
           path: `${role}/reviews`,
-          icon: Dashboard,
+          icon: Reviews,
         },
 
         {
           title: "Support",
           path: `${role}/support`,
-          icon: Dashboard,
+          icon: SupportAgent,
         },
 
 

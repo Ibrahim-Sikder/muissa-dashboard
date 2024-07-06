@@ -15,6 +15,8 @@ import { IoLogOut } from "react-icons/io5";
 import { paths } from "@/paths";
 
 import { removeCookie } from "@/helpers/Cookies";
+import { getUserInfo } from "@/services/action";
+import { UserRole } from "@/types";
 
 export interface UserPopoverProps {
   anchorEl: Element | null;
@@ -35,6 +37,18 @@ export function UserPopover({
     removeCookie("mui-token");
     router.push("/");
   };
+
+  const [userRole, setUserRole] = React.useState<UserRole | null>(null);
+
+  React.useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userInfo = await getUserInfo();
+      console.log('from side bar user info', userInfo);
+      setUserRole(userInfo?.role || null);
+    };
+
+    fetchUserInfo();
+  }, []);
 
   return (
     <Popover
@@ -89,6 +103,7 @@ export function UserPopover({
             <IoLogOut fontSize="var(--icon-fontSize-md)" />
           </ListItemIcon>
           Sign out
+
         </MenuItem>
       </MenuList>
     </Popover>

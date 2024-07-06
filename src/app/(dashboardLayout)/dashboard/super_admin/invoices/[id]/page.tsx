@@ -10,7 +10,7 @@ import { paths } from "@/paths";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams } from "next/navigation";
-import { useGetSinglePaymentQuery } from "@/redux/api/paymentApi";
+import { useGetAllPaymentsQuery, useGetSinglePaymentQuery } from "@/redux/api/paymentApi";
 import dayjs from "dayjs";
 import ReactToPrint from "react-to-print";
 import Loader from "@/components/Loader";
@@ -32,11 +32,17 @@ const ShowInvoice: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const token = getCookie("mui-token");
+  // const {
+  //   data: paymentData,
+  //   error,
+  //   isLoading,
+  // } = useGetSinglePaymentQuery({ id, token });
   const {
     data: paymentData,
     error,
     isLoading,
-  } = useGetSinglePaymentQuery({ id, token });
+  } = useGetAllPaymentsQuery({ id, token });
+
 
   const componentRef = useRef<HTMLDivElement>(null);
 
@@ -74,6 +80,7 @@ const ShowInvoice: React.FC = () => {
               variant="outlined"
               startIcon={<FaArrowLeft />}
             >
+
               Back
             </Button>
           </Link>

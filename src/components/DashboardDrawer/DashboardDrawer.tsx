@@ -25,6 +25,8 @@ import Image from "next/image";
 import { ArrowDownward, NotificationsNone } from "@mui/icons-material";
 import "./DashboardDrawer.css";
 import SideBar from "../Dashboard/SideBar/SideBar";
+import { UserPopover } from "../Dashboard/layout/UserPropover";
+import MainNav from "../Dashboard/layout/MainNav";
 const settings = ["Profile", "Settings", "Hotel", "Content", "Log Out"];
 
 const drawerWidth = 240;
@@ -76,7 +78,7 @@ export default function DashboardDrawer({
   return (
     <Box sx={{ display: "flex", background:'#F2F4F8'}}>
       <CssBaseline />
- 
+
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -122,7 +124,7 @@ export default function DashboardDrawer({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
+        <MainNav/>
         {children}
       </Box>
     </Box>

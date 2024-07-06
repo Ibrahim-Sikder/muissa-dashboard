@@ -28,6 +28,7 @@ const MainNav = (): React.JSX.Element => {
     setOpen(false);
   };
 
+  
   const token = getCookie("mui-token");
   const pathName = usePathname();
 
