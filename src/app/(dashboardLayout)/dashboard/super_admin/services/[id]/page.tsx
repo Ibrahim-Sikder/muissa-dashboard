@@ -116,7 +116,7 @@ const ServiceDetailsPage = ({ params }: { params: { id: string } }) => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => router.push("/dashboard/services")}
+                  onClick={() => router.push("/dashboard/super_admin/services")}
                 >
                   Back to Services
                 </Button>

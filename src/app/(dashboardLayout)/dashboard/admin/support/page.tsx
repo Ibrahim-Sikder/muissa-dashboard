@@ -236,8 +236,7 @@ export default function SupportContactPage() {
   // const pathname= usePathname()
  
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Box
+    <Box
       maxWidth="lg"
       margin={"0px auto 100px"}
       sx={{
@@ -331,6 +330,5 @@ export default function SupportContactPage() {
         </Grid>
       </Grid>
     </Box>
-    </React.Suspense>
   );
 }

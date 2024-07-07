@@ -129,13 +129,13 @@ export default function SupportContactPage() {
       socket.emit("seen", userId);
       // receiver id theke
       socket.on("message-user", (data: UserDetails) => {
-
+   
         setUserDetails(data);
       });
 
       if (userId) {
         socket.on("message", (data) => {
-
+     
           setAllMessage(data);
         });
       }
@@ -150,10 +150,10 @@ export default function SupportContactPage() {
 
       socket.on("all-admin-conversation", (data) => {
         // console.log("Received all-admin-conversation:", data);
-
+    
 
         setAllSenderForAdmin(data);
-
+      
       });
 
       socket.on("error", (data) => {
@@ -234,103 +234,101 @@ export default function SupportContactPage() {
   };
 
   // const pathname= usePathname()
-
+ 
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <Box
+      maxWidth="lg"
+      margin={"0px auto 100px"}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "80vh",
+        backgroundColor: "white",
+        borderRadius: 2,
+      }}
+    >
       <Box
-        maxWidth="lg"
-        margin={"0px auto 100px"}
         sx={{
           display: "flex",
-          flexDirection: "column",
-          height: "80vh",
-          backgroundColor: "white",
-          borderRadius: 2,
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 2,
+          borderBottom: 1,
+          borderColor: "divider",
+          backgroundColor: "#f9f9f9",
         }}
       >
-        <Box
+        {userDetails ? (
+          <div className="flex justify-center">
+            <>
+              <Badge
+                color={
+                  onlineUser.includes(userDetails?._id ?? "")
+                    ? "success"
+                    : "default"
+                }
+                variant="dot"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                overlap="circular"
+              >
+                <Avatar alt={userDetails?.name} src={userDetails.profile_pic} />
+              </Badge>
+              <ListItemText
+                primary={userDetails?.name}
+                secondary={
+                  onlineUser.includes(userDetails?._id ?? "")
+                    ? "online"
+                    : "offline"
+                }
+                sx={{ ml: 2 }}
+              />
+            </>
+          </div>
+        ) : (
+          <Typography variant="h5">Support Chat</Typography>
+        )}
+      </Box>
+      <Grid container sx={{ flexGrow: 1, height: "100%" }}>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          lg={3}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 2,
-            borderBottom: 1,
+            borderRight: 1,
             borderColor: "divider",
+            overflowY: "auto",
             backgroundColor: "#f9f9f9",
           }}
         >
-          {userDetails ? (
-            <div className="flex justify-center">
-              <>
-                <Badge
-                  color={
-                    onlineUser.includes(userDetails?._id ?? "")
-                      ? "success"
-                      : "default"
-                  }
-                  variant="dot"
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  overlap="circular"
-                >
-                  <Avatar alt={userDetails?.name} src={userDetails.profile_pic} />
-                </Badge>
-                <ListItemText
-                  primary={userDetails?.name}
-                  secondary={
-                    onlineUser.includes(userDetails?._id ?? "")
-                      ? "online"
-                      : "offline"
-                  }
-                  sx={{ ml: 2 }}
-                />
-              </>
-            </div>
-          ) : (
-            <Typography variant="h5">Support Chat</Typography>
-          )}
-        </Box>
-        <Grid container sx={{ flexGrow: 1, height: "100%" }}>
-          <Grid
-            item
-            xs={12}
-            md={4}
-            lg={3}
-            sx={{
-              borderRight: 1,
-              borderColor: "divider",
-              overflowY: "auto",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <UserList
-              users={allSenderUser}
-              onlineUser={onlineUser}
-              userId={userId}
-              userForAdmin={allSenderForAdmin}
-              handleUserAccept={handleUserAccept}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            md={8}
-            lg={9}
-            sx={{ display: "flex", flexDirection: "column" }}
-          >
-            <ChatArea
-              message={message}
-              allMessage={allMessage}
-              handleMessageOnChange={handleMessageOnChange}
-              handleSubmit={handleSubmit}
-              onSubmit={onSubmit}
-              senderUser={senderUser}
-              handleFileChange={handleFileChange}
-              handleClearUploadImage={handleClearUploadImage}
-              loading={loading}
-            />
-          </Grid>
+          <UserList
+            users={allSenderUser}
+            onlineUser={onlineUser}
+            userId={userId}
+            userForAdmin={allSenderForAdmin}
+            handleUserAccept={handleUserAccept}
+          />
         </Grid>
-      </Box>
-    </React.Suspense>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          lg={9}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          <ChatArea
+            message={message}
+            allMessage={allMessage}
+            handleMessageOnChange={handleMessageOnChange}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            senderUser={senderUser}
+            handleFileChange={handleFileChange}
+            handleClearUploadImage={handleClearUploadImage}
+            loading={loading}
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

@@ -1,12 +1,15 @@
 
 import DashboardDrawer from '@/components/DashboardDrawer/DashboardDrawer';
-import React, { ReactNode } from 'react';
+import Loader from '@/components/Loader';
+import React, { ReactNode, Suspense } from 'react';
 
 const DashboardLayout = ({children}:{children:ReactNode}) => {
     return (
-        <DashboardDrawer>
+       <Suspense fallback={<Loader/>}>
+         <DashboardDrawer>
            {children} 
         </DashboardDrawer>
+       </Suspense>
     );
 };
 
