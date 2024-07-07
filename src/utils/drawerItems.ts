@@ -82,6 +82,11 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           icon: Group,
         },
         {
+          title: "Contact Message",
+          path: `${role}/contact-message`,
+          icon: Group,
+        },
+        {
           title: "Support",
           path: `${role}/support`,
           icon: SupportAgent,
@@ -110,6 +115,11 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           title: "Manage Reviews",
           path: `${role}/reviews`,
           icon: Reviews,
+        },
+        {
+          title: "Contact Message",
+          path: `${role}/contact-message`,
+          icon: Group,
         },
 
         {
