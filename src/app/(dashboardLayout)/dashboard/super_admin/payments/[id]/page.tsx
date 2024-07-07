@@ -63,7 +63,7 @@ const ShowPayment = () => {
           title="Payment Details"
           className="bg-gray-800 text-white "
           action={
-            <Link href="/dashboard/payments">
+            <Link href="/dashboard/super_admin/payments">
               <Button variant="contained" color="info">
                 Back
               </Button>

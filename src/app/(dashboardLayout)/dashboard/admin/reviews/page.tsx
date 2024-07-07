@@ -15,6 +15,7 @@ import {
 import { usePathname } from "next/navigation";
 import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
 import Loader from "@/components/Loader";
+import { ReviewTableAdmin } from "@/components/Dashboard/pages/reviews/ReviewTableAdmin";
 
 export default function ReviewsPage(): React.JSX.Element {
   const page = 0;
@@ -39,7 +40,7 @@ export default function ReviewsPage(): React.JSX.Element {
 
   return (
     <Stack spacing={3}>
-      <ReviewsTable
+      <ReviewTableAdmin
         count={data?.reviews?.length}
         page={page}
         rows={data?.reviews}

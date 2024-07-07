@@ -29,17 +29,14 @@ export default function Page(): React.JSX.Element {
 
   const [filterType, setFilterType] = React.useState<string>("");
 
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const [currentPage, setCurrentPage] = React.useState(0); // Start from page 0
   const [limit, setLimit] = React.useState(10);
-
-  const page = 0;
-  const rowsPerPage = 10;
 
   const token = getCookie("mui-token");
 
   const { data, error, isLoading } = useGetAllMembersQuery({
     token,
-    page: currentPage,
+    page: currentPage + 1, // Adjust for 1-based indexing
     limit,
     filterType,
   });
@@ -89,23 +86,16 @@ export default function Page(): React.JSX.Element {
             </Stack>
           </Stack>
           <CustomersTable
-            count={data?.members?.length}
-            page={page}
+            count={data?.totalCount}
+            page={currentPage}
             rows={data?.members}
             limit={limit}
             setLimit={setLimit}
             setFilterType={setFilterType}
+            setPage={setCurrentPage}
           />
         </>
       )}
     </Stack>
   );
-}
-
-function applyPagination(
-  rows: Customer[],
-  page: number,
-  rowsPerPage: number
-): Customer[] {
-  return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }

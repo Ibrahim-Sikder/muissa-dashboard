@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useGetAllBlogsQuery } from "@/redux/api/blogApi";
 import Loader from "@/components/Loader";
 import { BlogsTable } from "@/components/Dashboard/pages/blogs/BlogsTable";
+import { BlogTableAdmin } from "@/components/Dashboard/pages/blogs/BlogTableAdmin";
 
 export default function Page(): React.JSX.Element {
   const [currentPage, setCurrentPage] = useState(0);
@@ -35,7 +36,7 @@ export default function Page(): React.JSX.Element {
 
   return (
     <Stack spacing={3}>
-      <BlogsTable
+      <BlogTableAdmin
         count={data?.total || 0}
         page={currentPage}
         rows={data?.blogs || []}

@@ -57,7 +57,7 @@ const CreateFAQForm = () => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
 
-        router.push("/dashboard/faqs");
+        router.push("/dashboard/super_admin/faqs");
         setLoading(false);
       }
     } catch (error: any) {
@@ -98,7 +98,7 @@ const CreateFAQForm = () => {
             subheader="Create a new FAQ"
             title="FAQ Details"
             action={
-              <Link href="/dashboard/faqs">
+              <Link href="/dashboard/super_admin/faqs">
                 <Button variant="outlined">Back to FAQs</Button>
               </Link>
             }

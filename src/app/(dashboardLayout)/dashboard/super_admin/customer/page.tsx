@@ -90,13 +90,15 @@ export default function Page(): React.JSX.Element {
           </Stack>
           <CustomersTable
             count={data?.members?.length}
-            page={page}
+            page={currentPage}
             rows={data?.members}
             limit={limit}
             setLimit={setLimit}
             setFilterType={setFilterType}
+            setPage={setCurrentPage} // Pass setPage here
           />
         </>
+
       )}
     </Stack>
   );

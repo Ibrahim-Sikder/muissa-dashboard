@@ -60,7 +60,7 @@ const EditPoliciesForm = () => {
             subheader="Edit Policies"
             title="Policies Details"
             action={
-              <Link href="/dashboard/policies">
+              <Link href="/dashboard/super_admin/policies">
                 <Button variant="outlined">Back to Policies</Button>
               </Link>
             }

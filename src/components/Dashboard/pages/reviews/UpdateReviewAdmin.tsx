@@ -3,7 +3,7 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
@@ -21,28 +21,74 @@ import axios from "axios";
 import { toast } from "sonner";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
+import { useGetSingleReviewQuery } from "@/redux/api/reviewApi";
+import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
+
 // const validationSchema = z.object({
 //   name: z.string({ required_error: "NAme is required" }),
-//   designation: z.string({ required_error: "Designation is required" }),
+//   designation: z.string({ required_error: "Designation is required" }).optional(),
 
-//   message: z.string({ required_error: "Message is required" }),
-//   review_image: z.string({ required_error: "Message is required" }),
+//   message: z.string({ required_error: "Message is required" }).optional(),
+//   review_image: z.string({ required_error: "Message is required" }).optional(),
+//   seo_title: z
+//       .string({ required_error: 'Seo title is required.' })
+//       .optional(),
+//     seo_keyword: z
+//       .array(z.string({ required_error: 'Seo keyword is required.' }))
+//       .optional(),
+//     seo_description: z
+//       .string({
+//         required_error: 'Seo description is required.',
+//       })
+//       .optional(),
 // });
 
-const CreateReview = () => {
+const UpdateReviewAdmin = ({ id }: { id: string }) => {
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
   const token = getCookie("mui-token");
-  const { refetch } = useGetAllReviewsQuery({});
+
+  const { data: review, isLoading, refetch } = useGetSingleReviewQuery(id);
+
+
+  const keyword = Array.isArray(review?.seo_keyword)
+  ? review?.seo_keyword.map((keyword: any) => ({
+      title: keyword.title || keyword,
+    }))
+  : typeof review?.seo_keyword === "string"
+  ? review?.seo_keyword
+      .split(",")
+      .map((keyword: any) => ({ title: keyword.trim() }))
+  : [];
+
+
+  const defaultValues = {
+    name: review?.name,
+    designation: review?.designation,
+    message: review?.message,
+    review_image: review?.review_image,
+    
+    seo_title: review?.seo_title || "",
+    seo_keyword: keyword,
+    seo_description: review?.seo_description || "",
+
+
+
+
+  };
+
+  useEffect(() => {
+    if (review) {
+      setImageUrl(review?.review_image);
+    }
+  }, [review]);
 
   const handleSubmit = async (data: FieldValues) => {
     setLoading(true);
@@ -51,16 +97,14 @@ const CreateReview = () => {
     setErrorMessage([]);
 
     data.review_image = imageUrl;
-
     if (Array.isArray(data.seo_keyword)) {
       data.seo_keyword = data.seo_keyword.map(
         (keywordObj: { title: string }) => keywordObj.title
       );
     }
-
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/create-review`,
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/reviews/${id}`,
         data,
         {
           headers: {
@@ -68,15 +112,15 @@ const CreateReview = () => {
           },
         }
       );
+
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         refetch();
-        router.push("/dashboard/super_admin/reviews");
+        router.push("/dashboard/admin/reviews");
         setLoading(false);
       }
     } catch (error: any) {
-
       if (error?.response) {
         const { status, data } = error.response;
         if ([400, 404, 401, 409, 500].includes(status)) {
@@ -90,17 +134,16 @@ const CreateReview = () => {
     }
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
         // resolver={zodResolver(validationSchema)}
-        // defaultValues={{
-        //   name: "",
-        //   designation: "",
-        //   message: "",
-        //   review_image: "",
-        // }}
+        defaultValues={defaultValues}
       >
         <Card
           sx={{
@@ -114,7 +157,7 @@ const CreateReview = () => {
             subheader="Create a new review"
             title="Review Details"
             action={
-              <Link href="/dashboard/super_admin/reviews">
+              <Link href="/dashboard/admin/reviews">
                 <Button variant="outlined">Back to Reviews</Button>
               </Link>
             }
@@ -134,7 +177,6 @@ const CreateReview = () => {
                   size="medium"
                 />
               </Grid>
-
               {/* <Grid item xs={12} md={4}>
                 <MUIInput
                   name="priority"
@@ -167,42 +209,42 @@ const CreateReview = () => {
               </Grid>
             </Grid>
             <Box sx={{ marginTop: '50px' }}>
-              <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                  <MUIInput
-                    name="seo_title"
-                    label="Seo Title"
-                    type="text"
-                    fullWidth={true}
-                    size="medium"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <MUIMultipleValue
-                    name="seo_keyword"
+            <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="seo_title"
+                  label="Seo Title"
+                  type="text"
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+              <MUIMultipleValue
+                   name="seo_keyword"
                     label="Seo Keyword"
                     options={keywords} />
-                </Grid>
-
-
-
-                <Grid item xs={12}>
-                  <MUIInput
-                    name="seo_description"
-                    label="Seo Description "
-                    type="text"
-                    multiline={true}
-                    fullWidth={true}
-                    size="medium"
-                  />
-                </Grid>
-
-
-
-
               </Grid>
-            </Box>
+
+
+
+              <Grid item xs={12}>
+                <MUIInput
+                  name="seo_description"
+                  label="Seo Description "
+                  type="text"
+                  multiline={true}
+                  fullWidth={true}
+                  size="medium"
+                />
+              </Grid>
+
+
+
+
+            </Grid>
+          </Box>
 
           </CardContent>
           <Divider />
@@ -216,7 +258,7 @@ const CreateReview = () => {
               type="submit"
               variant="contained"
             >
-              {loading ? "Creating..." : "Create"}
+              {loading ? "Updating..." : "Update Review"}
             </Button>
           </CardActions>
         </Card>
@@ -225,4 +267,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default UpdateReviewAdmin;

@@ -10,9 +10,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { getCookie } from "@/helpers/Cookies";
 
-const defaultValues = {
-  membership_fee: null,
-};
+// const defaultValues = {
+//   membership_fee: null,
+// };
 
 export type TProps = {
   open: boolean;
@@ -20,7 +20,7 @@ export type TProps = {
   refetch: any;
 };
 
-const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
+const MemberFee = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const token = getCookie("mui-token");
 
@@ -42,8 +42,8 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
 
       if (response?.status === 200) {
         toast.success(response?.data?.message);
-        refetch();
-        setOpen(false);
+        // refetch();
+        // setOpen(false);
       }
     } catch (error: any) {
       if (error?.response) {
@@ -60,7 +60,7 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
   };
 
   return (
-    <MUIForm onSubmit={submitHandler} defaultValues={defaultValues}>
+    <MUIForm onSubmit={submitHandler}>
       <Grid container spacing={2} sx={{ my: 2 }}>
         <Grid item xs={12} sm={12} md={4}>
           <MUIInput name="membership_fee" label="Membership Fee" fullWidth />
@@ -78,4 +78,4 @@ const UserCreateModal = ({ open, setOpen, refetch }: TProps) => {
   );
 };
 
-export default UserCreateModal;
+export default MemberFee;

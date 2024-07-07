@@ -3,8 +3,8 @@
 import MUIForm from "@/components/Forms/Form";
 import MUIInput from "@/components/Forms/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import React, { useRef, useState } from "react";
+import { FieldValues } from "react-hook-form";
 import * as z from "zod";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,92 +12,66 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
 import RichtextEditor from "@/components/Forms/RichtextEditor";
-import Link from "next/link";
-import INTSelect from "@/components/Forms/Select";
 import MUIFileUploader from "@/components/Forms/FileUpload";
+import Link from "next/link";
 import { getCookie } from "@/helpers/Cookies";
-import { ServiceCategory } from "./ServiceSubcategoryTable";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
-import { useRouter } from "next/navigation";
-import {
-  useGetAllCategoryQuery,
-  useGetSingleServiceQuery,
-
-} from "@/redux/api/serviceApi";
-import Loader from "@/components/Loader";
-import { keywords } from "@/types";
+import { keywords, support_items } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
+import dynamic from "next/dynamic";
 import MUIEditor from "@/components/Forms/JodiEditor";
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 
-const UpdateService = ({ id }: { id: string }) => {
+// const validationSchema = z.object({
+//   title: z.string({ required_error: "Title is required." }),
+//   author: z.string({ required_error: "Author is required." }),
+
+//   short_description: z.string({
+//     required_error: "Short description is required.",
+//   }),
+//   description: z.string({ required_error: "Description is required." }),
+//   blog_image: z.string({ required_error: "Image is required." }),
+//   // author: z.string().nonempty(),
+//   // content: z.string().nonempty(),
+//   // publishDate: z.string().nonempty(),
+//   // status: z.string().nonempty(),
+//   // image: z.any(),
+// });
+
+const CreateBlogAdmin = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  const {
-    data: service,
-    isLoading: serviceLoading,
-    refetch: refetchService,
-  } = useGetSingleServiceQuery({ id });
-
-
-
-
-
-  const keyword = Array.isArray(service?.seo_keyword)
-    ? service?.seo_keyword.map((service: any) => ({ title: service.title || service }))
-    : typeof service?.seo_keyword === 'string'
-      ? service?.seo_keyword.split(',').map((service: any) => ({ title: service.trim() }))
-      : []
-
-
-  const defaultValues = {
-    title: service?.title,
-    category: service?.category,
-    sub_category: service?.sub_category,
-    short_description: service?.short_description,
-    description: service?.description,
-    service_image: service?.service_image,
-    priority: service?.priority,
-    seo_title: service?.seo_title || "",
-    seo_keyword: keyword,
-    seo_description: service?.seo_description || ""
-  };
-
-  useEffect(() => {
-    if (service) {
-      setSelectedCategory(service?.category);
-      setImageUrl(service?.service_image);
-    }
-  }, [service]);
+  const editor = useRef<any | null>(null);
+  const [content, setContent] = useState<string>("");
 
   const token = getCookie("mui-token");
-  const { data: category, isLoading, refetch } = useGetAllCategoryQuery({});
 
   const handleSubmit = async (data: FieldValues) => {
+
     setLoading(true);
+
     setSuccessMessage("");
     setErrorMessage([]);
 
-    data.service_image = imageUrl;
-    data.priority = Number(data.priority);
+    data.blog_image = imageUrl;
     if (Array.isArray(data.seo_keyword)) {
       data.seo_keyword = data.seo_keyword.map(
         (keywordObj: { title: string }) => keywordObj.title
       );
     }
-
     try {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_BASE_API_URL}/services/${id}`,
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_API_URL}/blogs/create-blog`,
         data,
         {
           headers: {
@@ -109,44 +83,38 @@ const UpdateService = ({ id }: { id: string }) => {
       if (response?.status === 200) {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
-        refetch();
-        refetchService()
-        router.push("/dashboard/super_admin/services");
+
+        router.push("/dashboard/admin/blogs");
         setLoading(false);
       }
-
     } catch (error: any) {
 
-
-      if (error?.data) {
-        setErrorMessage([error.data.message]);
-      } else if (error.message) {
-        setErrorMessage([error.message]);
-      } else {
-        setErrorMessage(["An unexpected error occurred."]);
+      if (error?.response) {
+        const { status, data } = error.response;
+        if ([400, 404, 401, 409, 500].includes(status)) {
+          setErrorMessage(data.message);
+        } else {
+          setErrorMessage(["An unexpected error occurred."]);
+        }
       }
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCategoryChange = (value: string) => {
-    setSelectedCategory(value);
-  };
-
-  if (serviceLoading || isLoading) {
-    return <Loader />;
-  }
-
-  const selectedCategoryData = category?.find(
-    (cat: ServiceCategory) => cat?.category === selectedCategory
-  );
-
-  const subCategories = selectedCategoryData?.sub_category || [];
-
   return (
     <Stack spacing={3}>
-      <MUIForm onSubmit={handleSubmit} defaultValues={defaultValues}>
+      <MUIForm
+        onSubmit={handleSubmit}
+        // resolver={zodResolver(validationSchema)}
+        // defaultValues={{
+        //   title: "",
+        //   author: "",
+        //   short_description: "",
+        //   description: "",
+        //   blog_image: "",
+        // }}
+      >
         <Card
           sx={{
             display: "flex",
@@ -156,90 +124,77 @@ const UpdateService = ({ id }: { id: string }) => {
           }}
         >
           <CardHeader
-            subheader="Service Details"
-            title="Update Service"
+            subheader="Create a new blog post"
+            title="Blog Details"
             action={
-              <Link href="/dashboard/super_admin/services">
-                <Button variant="outlined">Back to Services</Button>
+              <Link href="/dashboard/admin/blogs">
+                <Button variant="outlined">Back to Blogs</Button>
               </Link>
             }
           />
           <Divider />
-          <CardContent
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-            }}
-          >
+          <CardContent sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <MUIInput
                   name="title"
-                  label="Service Title"
+                  label="Blog Title"
                   type="text"
-                  fullWidth={true}
+                  fullWidth
+                  size="medium"
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
-                <INTSelect
-                  name="category"
-                  label="Category"
-                  items={
-                    Array.isArray(category)
-                      ? category.map(
-                        (cat: { category: string }) => cat?.category
-                      )
-                      : []
-                  }
-                  onChange={handleCategoryChange}
+              <Grid item xs={12} md={6}>
+                <MUIInput
+                  name="author"
+                  label="Blog Author"
+                  type="text"
+                  fullWidth
+                  size="medium"
                 />
               </Grid>
 
-              {/* subcategory */}
-              <Grid item xs={12} md={3}>
-                <INTSelect
-                  name="sub_category"
-                  label="Sub Category"
-                  items={subCategories?.map(
-                    (subCat: { sub_category: string }) => subCat?.sub_category
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
+              {/* <Grid item xs={12} md={6}>
                 <MUIInput
                   name="priority"
                   label="Priority"
                   type="number"
                   fullWidth={true}
+                  size="medium"
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <MUIInput
                   name="short_description"
                   label="Short Description"
                   type="text"
-                  multiline={true}
-                  fullWidth={true}
+                  fullWidth
+                  multiline
+                  rows={6}
+                  size="medium"
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <MUIEditor name="description" label="Description" />
-
+                {/* <Box>
+                  <RichtextEditor
+                    name="description"
+                    label="Description"
+                    placeholder="Write your blog post here"
+                  />
+                </Box> */}
+                 <MUIEditor name="description" label="Description" />
+                 
               </Grid>
-
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <MUIFileUploader
-                  name="service_image"
+                  name="blog_image"
                   setImageUrl={setImageUrl}
                   imageUrl={imageUrl}
                 />
               </Grid>
             </Grid>
-
 
             <Box sx={{ marginTop: '50px' }}>
               <Typography component='h2' variant="h5" fontWeight='bold' >SEO SECTION </Typography>
@@ -254,8 +209,9 @@ const UpdateService = ({ id }: { id: string }) => {
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
+
                   <MUIMultipleValue
-                    name="seo_keyword"
+                   name="seo_keyword"
                     label="Seo Keyword"
                     options={keywords} />
                 </Grid>
@@ -280,26 +236,24 @@ const UpdateService = ({ id }: { id: string }) => {
             </Box>
 
 
-
           </CardContent>
+
+
+
+
+
           <Divider />
           <div className="mt-2">
             {successMessage && <SuccessMessage message={successMessage} />}
             {errorMessage && <ErrorMessage message={errorMessage} />}
           </div>
-          <CardActions
-            sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              p: 2,
-            }}
-          >
+          <CardActions sx={{ p: 2 }}>
             <Button
-              disabled={loading || isLoading || !imageUrl}
+              disabled={loading || !imageUrl}
               type="submit"
               variant="contained"
             >
-              {loading ? "Updating..." : "Update"}
+              {loading ? "Creating..." : "Create"}
             </Button>
           </CardActions>
         </Card>
@@ -308,4 +262,4 @@ const UpdateService = ({ id }: { id: string }) => {
   );
 };
 
-export default UpdateService;
+export default CreateBlogAdmin;

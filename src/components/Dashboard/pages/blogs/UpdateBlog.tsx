@@ -21,6 +21,7 @@ import MUIFileUploader from "@/components/Forms/FileUpload";
 import Link from "next/link";
 import { getCookie } from "@/helpers/Cookies";
 import { useRouter } from "next/navigation";
+
 import { toast } from "sonner";
 import axios from "axios";
 import { SuccessMessage } from "@/components/success-message";
@@ -106,7 +107,7 @@ const keyword = Array.isArray(blog?.seo_keyword)
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         refetchBlog();
-        router.push("/dashboard/blogs");
+        router.push("/dashboard/super_admin/blogs");
       }
     } catch (error: any) {
       if (error?.response) {
@@ -143,7 +144,7 @@ const keyword = Array.isArray(blog?.seo_keyword)
             subheader="Update a blog post"
             title="Blog Details"
             action={
-              <Link href="/dashboard/blogs">
+              <Link href="/dashboard/super_admin/blogs">
                 <Button variant="outlined">Back to Blogs</Button>
               </Link>
             }

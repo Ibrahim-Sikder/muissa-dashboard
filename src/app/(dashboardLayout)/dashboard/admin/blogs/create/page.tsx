@@ -1,3 +1,4 @@
+import CreateBlogAdmin from "@/components/Dashboard/pages/blogs/CreateBlogAdmin";
 import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -15,7 +16,7 @@ export default function CreateBlogPage() {
       <div>
         <Typography variant="h4">Create a new service</Typography>
       </div>
-      <CreateBlog />
+      <CreateBlogAdmin />
     </Stack>
   );
 }

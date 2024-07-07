@@ -68,7 +68,7 @@ const ShowInvoice: React.FC = () => {
     <div className="min-h-screen bg-gray-100 py-10">
       <Container>
         <div className="flex justify-between mb-6">
-          <Link href={paths.dashboard.invoices}>
+          <Link href='/dashboard/super_admin/invoices'>
             <Button
               color="primary"
               size="small"

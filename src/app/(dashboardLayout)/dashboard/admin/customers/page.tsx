@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-import type { Metadata } from "next";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -8,32 +7,19 @@ import {
   Customer,
   CustomersTable,
 } from "@/components/Dashboard/pages/customers/CustomersTable";
-import { FaEye, FaPlus } from "react-icons/fa";
-import dayjs from "dayjs";
-import { Box } from "@mui/material";
+import { FaEye } from "react-icons/fa";
 import { getCookie } from "@/helpers/Cookies";
-import axios from "axios";
-import { toast } from "sonner";
-import { ErrorMessage } from "@/components/error-message";
 import { useGetAllMembersQuery } from "@/redux/api/memeberApi";
 import Loader from "@/components/Loader";
-
-// export const metadata = {
-//   title: `Customers | Dashboard | ${process.env.NEXT_PUBLIC_APP_NAME}`,
-// } satisfies Metadata;
+import { ErrorMessage } from "@/components/error-message";
 
 export default function Page(): React.JSX.Element {
-  const [members, serMembers] = React.useState([]);
+  const [members, setMembers] = React.useState([]);
   const [successMessage, setSuccessMessage] = React.useState<string>("");
   const [errorMessage, setErrorMessage] = React.useState<string[]>([]);
-
   const [filterType, setFilterType] = React.useState<string>("");
-
   const [currentPage, setCurrentPage] = React.useState(1);
   const [limit, setLimit] = React.useState(10);
-
-  const page = 0;
-  const rowsPerPage = 10;
 
   const token = getCookie("mui-token");
 
@@ -89,23 +75,16 @@ export default function Page(): React.JSX.Element {
             </Stack>
           </Stack>
           <CustomersTable
-            count={data?.members?.length}
-            page={page}
-            rows={data?.members}
+            count={data?.members?.length || 0}
+            page={currentPage}
+            rows={data?.members || []}
             limit={limit}
             setLimit={setLimit}
             setFilterType={setFilterType}
+            setPage={setCurrentPage}
           />
         </>
       )}
     </Stack>
   );
-}
-
-function applyPagination(
-  rows: Customer[],
-  page: number,
-  rowsPerPage: number
-): Customer[] {
-  return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }

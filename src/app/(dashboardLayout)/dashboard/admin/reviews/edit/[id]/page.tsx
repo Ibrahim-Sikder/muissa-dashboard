@@ -1,3 +1,4 @@
+import UpdateReviewAdmin from "@/components/Dashboard/pages/reviews/UpdateReviewAdmin";
 import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -12,7 +13,7 @@ const UpdateReview = dynamic(
 export default function CreateBlogPage({ params }: { params: { id: string } }) {
   return (
     <Stack spacing={3}>
-      <UpdateReview id={params.id} />
+      <UpdateReviewAdmin id={params.id} />
     </Stack>
   );
 }

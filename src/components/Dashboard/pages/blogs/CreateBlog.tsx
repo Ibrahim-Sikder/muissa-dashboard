@@ -84,7 +84,7 @@ const CreateBlog = () => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
 
-        router.push("/dashboard/blogs");
+        router.push("/dashboard/super_admin/blogs");
         setLoading(false);
       }
     } catch (error: any) {
@@ -127,7 +127,7 @@ const CreateBlog = () => {
             subheader="Create a new blog post"
             title="Blog Details"
             action={
-              <Link href="/dashboard/blogs">
+              <Link href="/dashboard/super_admin/blogs">
                 <Button variant="outlined">Back to Blogs</Button>
               </Link>
             }

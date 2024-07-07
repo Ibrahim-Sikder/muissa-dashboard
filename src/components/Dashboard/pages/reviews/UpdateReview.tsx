@@ -26,6 +26,7 @@ import Loader from "@/components/Loader";
 import { keywords } from "@/types";
 import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 
+
 // const validationSchema = z.object({
 //   name: z.string({ required_error: "NAme is required" }),
 //   designation: z.string({ required_error: "Designation is required" }).optional(),
@@ -116,7 +117,7 @@ const UpdateReview = ({ id }: { id: string }) => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         refetch();
-        router.push("/dashboard/reviews");
+        router.push("/dashboard/super_admin/reviews");
         setLoading(false);
       }
     } catch (error: any) {
@@ -156,7 +157,7 @@ const UpdateReview = ({ id }: { id: string }) => {
             subheader="Create a new review"
             title="Review Details"
             action={
-              <Link href="/dashboard/reviews">
+              <Link href="/dashboard/super_admin/reviews">
                 <Button variant="outlined">Back to Reviews</Button>
               </Link>
             }

@@ -36,7 +36,7 @@ const BlogDetails = () => {
         <Box className="flex items-center space-x-4">
           {" "}
           <Button
-            onClick={() => router.replace("/dashboard/blogs")}
+            onClick={() => router.replace("/dashboard/admin/blogs")}
             variant="contained"
             sx={{ marginBottom: 4 }}
           >

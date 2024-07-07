@@ -80,7 +80,7 @@ const CreateCoupon = () => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
 
-        router.push("/dashboard/coupons");
+        router.push("/dashboard/super_admin/coupons");
         setLoading(false);
       }
     } catch (error: any) {
@@ -120,7 +120,7 @@ const CreateCoupon = () => {
         toast.success(response?.data?.message);
         setSuccessDiscountMessage(response?.data?.message);
 
-        router.push("/dashboard/coupons");
+        router.push("/dashboard/super_admin/coupons");
         setDiscountLoading(false);
       }
     } catch (error: any) {
@@ -164,7 +164,7 @@ const CreateCoupon = () => {
               subheader="Create a new coupon"
               title="Coupon Details"
               action={
-                <Link href="/dashboard/coupons">
+                <Link href="/dashboard/super_admin/coupons">
                   <Button variant="outlined">Back to Coupons</Button>
                 </Link>
               }

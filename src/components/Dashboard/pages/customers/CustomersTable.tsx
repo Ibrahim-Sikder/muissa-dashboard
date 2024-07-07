@@ -4,7 +4,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import Checkbox from "@mui/material/Checkbox";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
@@ -18,10 +17,6 @@ import dayjs from "dayjs";
 import { Button, CardHeader, TextField } from "@mui/material";
 import Link from "next/link";
 
-function noop(): void {
-  // do nothing
-}
-
 export interface Customer {
   id: string;
   avatar: string;
@@ -33,12 +28,30 @@ export interface Customer {
   membershipId: string;
 }
 
+// interface CustomersTableProps {
+//   count?: number;
+//   page?: number;
+//   rows?: BusinessInfo[];
+//   limit: number;
+//   setLimit: (page: number) => void;
+//   setFilterType: (page: string) => void;
+//   setPage: (page: number) => void;
+// }
+
+interface CustomersTableProps {
+  count?: number;
+  page?: number;
+  rows?: BusinessInfo[];
+  limit: number;
+  setLimit: (page: number) => void;
+  setFilterType: (page: string) => void;
+  setPage: (page: number) => void;
+}
+
 interface UserDetails {
   _id: string;
   auth: string;
-
   name: string;
-
   profile_pic: string;
   phone: string;
   email: string;
@@ -55,27 +68,23 @@ interface BusinessInfo {
   createdAt: Date;
 }
 
-interface CustomersTableProps {
-  count?: number;
-  page?: number;
-  rows?: BusinessInfo[];
-  limit: number;
-  setLimit: (page: number) => void;
-  setFilterType: (page: string) => void;
-}
+
+
 export function CustomersTable({
   count = 0,
   rows = [],
   page = 0,
   limit,
   setLimit,
+  
   setFilterType,
+  setPage,
 }: CustomersTableProps): React.JSX.Element {
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
   ) => {
-     
+    setPage(newPage);
   };
 
   const handleRowsPerPageChange = (
@@ -83,6 +92,7 @@ export function CustomersTable({
   ) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
     setLimit(newRowsPerPage);
+    setPage(0); // Reset page to 0 when changing rows per page
   };
 
   return (
@@ -158,7 +168,6 @@ export function CustomersTable({
                       ? row?.userDetails?.email
                       : row?.userDetails?.auth}
                   </TableCell>
-
                   <TableCell>
                     {row?.userDetails?.phone
                       ? row?.userDetails?.phone
@@ -167,7 +176,6 @@ export function CustomersTable({
                   <TableCell>
                     {dayjs(row?.createdAt).format("MMM D, YYYY")}
                   </TableCell>
-
                   <TableCell>
                     <Link href={`/dashboard/super_admin/customer/${row?._id}`}>
                       <Button color="primary" size="small" variant="outlined">
@@ -182,16 +190,6 @@ export function CustomersTable({
         </Table>
       </Box>
       <Divider />
-      {/* <TablePagination
-        component="div"
-        count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-        onChange={(e)=>setLimit(e.target.value)}
-      /> */}
       <TablePagination
         component="div"
         count={count}
@@ -199,7 +197,7 @@ export function CustomersTable({
         onPageChange={handlePageChange}
         rowsPerPage={limit}
         onRowsPerPageChange={handleRowsPerPageChange}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10,15, 20, 25,30, 35, 40 ]}
       />
     </Card>
   );

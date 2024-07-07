@@ -56,7 +56,7 @@ export default function CustomerDetailsPage() {
 
   return (
     <>
-      <Link href="/dashboard/customers" passHref>
+      <Link href="/dashboard/admin/customers" passHref>
         <Button
           startIcon={<ArrowBackIcon />}
           variant="contained"

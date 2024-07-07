@@ -1,5 +1,6 @@
 import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
 import CreateReview from "@/components/Dashboard/pages/reviews/CreateReview";
+import CreateReviewAdmin from "@/components/Dashboard/pages/reviews/CreateReviewAdmin";
 import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
@@ -9,7 +10,7 @@ export default function CreateBlogPage() {
       <div>
         <Typography variant="h4">Add a new review</Typography>
       </div>
-      <CreateReview />
+      <CreateReviewAdmin />
     </Stack>
   );
 }

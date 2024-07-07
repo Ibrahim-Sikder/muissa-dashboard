@@ -89,7 +89,7 @@ const CreateService = () => {
         toast.success(response?.data?.message);
 
         refetch();
-        router.push("/dashboard/services");
+        router.push("/dashboard/super_admin/services");
         setLoading(false);
       }
     } catch (error: any) {
@@ -162,7 +162,7 @@ const CreateService = () => {
             subheader="Service Details"
             title="Create a new service"
             action={
-              <Link href="/dashboard/services">
+              <Link href="/dashboard/super_admin/services">
                 <Button variant="outlined">Back to Services</Button>
               </Link>
             }

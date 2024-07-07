@@ -33,7 +33,7 @@ import { MUIMultipleValue } from "@/components/Forms/MultipleValue";
 //   review_image: z.string({ required_error: "Message is required" }),
 // });
 
-const CreateReview = () => {
+const CreateReviewAdmin = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -72,7 +72,7 @@ const CreateReview = () => {
         toast.success(response?.data?.message);
         setSuccessMessage(response?.data?.message);
         refetch();
-        router.push("/dashboard/super_admin/reviews");
+        router.push("/dashboard/admin/reviews");
         setLoading(false);
       }
     } catch (error: any) {
@@ -114,7 +114,7 @@ const CreateReview = () => {
             subheader="Create a new review"
             title="Review Details"
             action={
-              <Link href="/dashboard/super_admin/reviews">
+              <Link href="/dashboard/admin/reviews">
                 <Button variant="outlined">Back to Reviews</Button>
               </Link>
             }
@@ -225,4 +225,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default CreateReviewAdmin;

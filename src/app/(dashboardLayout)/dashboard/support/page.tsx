@@ -1,4 +1,6 @@
 "use client";
+
+
 import * as React from "react";
 import {
   Avatar,
@@ -9,8 +11,6 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import UserList from "@/components/Dashboard/pages/support/UserList";
-import ChatArea from "@/components/Dashboard/pages/support/ChatArea";
 import type { Metadata } from "next";
 import { useForm } from "react-hook-form";
 import { getCookie } from "@/helpers/Cookies";
@@ -19,6 +19,21 @@ import { ChangeEvent, useEffect, useState } from "react";
 import uploadFile from "@/helpers/uploadFile";
 import { usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+ 
+const UserList = dynamic(
+  () => import("@/components/Dashboard/pages/support/UserList"),
+  {
+    ssr: false,
+  }
+);
+const ChatArea = dynamic(
+  () => import("@/components/Dashboard/pages/support/ChatArea"),
+  {
+    ssr: false,
+  }
+);
+
 import { toast } from "sonner";
 interface Message {
   id: number;
@@ -236,7 +251,8 @@ export default function SupportContactPage() {
   // const pathname= usePathname()
  
   return (
-    <Box
+  <React.Suspense >
+      <Box
       maxWidth="lg"
       margin={"0px auto 100px"}
       sx={{
@@ -330,5 +346,6 @@ export default function SupportContactPage() {
         </Grid>
       </Grid>
     </Box>
+  </React.Suspense>
   );
 }

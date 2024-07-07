@@ -181,7 +181,7 @@ export function ServicesTable({
 
                   <TableCell>
                     <Stack direction="row" spacing={1}>
-                      <Link href={`/dashboard/services/${row._id}`}>
+                      <Link href={`/dashboard/super_admin/services/${row._id}`}>
                         <Button
                           color="secondary"
                           variant="outlined"
