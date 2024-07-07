@@ -1,4 +1,6 @@
 "use client";
+
+
 import * as React from "react";
 import {
   Container,
@@ -39,6 +41,9 @@ export default function CustomerDetailsPage() {
     id,
   });
 
+  console.log(data.user)
+
+
   React.useEffect(() => {
     if (error) {
       const { status, data } = error as any as { status: number; data: any };
@@ -53,6 +58,9 @@ export default function CustomerDetailsPage() {
   if (isLoading) {
     return <Loader />;
   }
+
+  console.log('from customer manage', data)
+
 
   return (
     <>

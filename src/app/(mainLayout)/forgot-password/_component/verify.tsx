@@ -39,7 +39,7 @@ const OTPInput = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, idx: number) => {
     if (e.key === "Backspace" && !e.currentTarget.value && idx > 0) {
-      console.log("Moving focus to previous input");
+  
       inputsRef.current[idx - 1]?.focus();
     }
   };

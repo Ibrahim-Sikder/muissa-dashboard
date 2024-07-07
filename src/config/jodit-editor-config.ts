@@ -7,7 +7,6 @@ export const joditConfig = {
       },
       isSuccess: (resp: any) => !resp.error,
       process: (resp: any) => {
-        console.log('Upload response:', resp); // Debugging log
         return {
           files: resp.data && resp.data.location ? [resp.data.location] : [],
           path: resp.data && resp.data.location,

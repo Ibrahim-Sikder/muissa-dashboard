@@ -22,7 +22,7 @@ const MUIEditor: React.FC<JoditEditorProps> = ({ name, label }) => {
       defaultHandlerSuccess: function (data: any, resp: any) {
         const files = data.files || [];
         if (files.length) {
-          console.log('Inserting image:', files[0]); // Debugging log
+    
           const editorInstance = editor.current;
           if (editorInstance) {
             editorInstance.selection.insertImage(files[0], null, 250);

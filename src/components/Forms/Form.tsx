@@ -34,7 +34,7 @@ const MUIForm = ({
   const { handleSubmit, reset } = methods;
 
   const submit: SubmitHandler<FieldValues> = (data: FieldValues) => {
-    // console.log(data);
+
     onSubmit(data);
   };
 

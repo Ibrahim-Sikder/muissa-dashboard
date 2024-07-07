@@ -14,7 +14,7 @@ const SideBar = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       const userInfo = await getUserInfo();
-      console.log('from side bar user info', userInfo);
+
       setUserRole(userInfo?.role || null);
     };
 

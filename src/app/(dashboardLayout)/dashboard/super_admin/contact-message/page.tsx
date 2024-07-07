@@ -103,7 +103,6 @@ const Users = () => {
         return <div>Something went wrong</div>;
     }
 
-    console.log(clientData)
 
     return (
         <Box>
