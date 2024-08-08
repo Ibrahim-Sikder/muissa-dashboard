@@ -8,6 +8,7 @@ import {
   Card,
   CardHeader,
   Divider,
+  IconButton,
   Stack,
   Table,
   TableBody,
@@ -26,7 +27,9 @@ import ServiceCategoryForm from "./ServiceCategoryForm";
 import ServiceSubcategoryTable from "./ServiceSubcategoryTable";
 import ServiceCategoryTable from "./ServiceCategoryTable";
 import ServiceSubcategoryForm from "./ServiceSubcategoryForm";
-import DOMPurify from "dompurify";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import dayjs from "dayjs";
 import { FaPencil } from "react-icons/fa6";
 import { useDeleteServiceMutation } from "@/redux/api/serviceApi";
@@ -80,6 +83,8 @@ export function ServicesTable({
       }
     }
   };
+
+  const tableCellStyle = { display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '40px 0px' }
 
   return (
     <Card
@@ -149,7 +154,7 @@ export function ServicesTable({
 
       <Box>
         <Box sx={{ overflowX: "auto" }}>
-          <Table sx={{ minWidth: "800px" }}>
+          <Table >
             <TableHead>
               <TableRow>
                 <TableCell>Image</TableCell>
@@ -158,7 +163,7 @@ export function ServicesTable({
                 <TableCell>Subctegories</TableCell>
                 <TableCell>Priority</TableCell>
                 <TableCell>Published Date</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell sx={tableCellStyle}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -179,10 +184,13 @@ export function ServicesTable({
                     {dayjs(row.createdAt).format("DD MMM YYYY")}
                   </TableCell>
 
-                  <TableCell>
-                    <Stack direction="row" spacing={1}>
+
+                  <TableCell sx={tableCellStyle}>
+
+                    <div className="flex items-center gap-2 ">
                       <Link href={`/dashboard/super_admin/services/${row._id}`}>
                         <Button
+                          sx={{ padding: '6px' }}
                           color="secondary"
                           variant="outlined"
                           size="small"
@@ -194,6 +202,7 @@ export function ServicesTable({
 
                       <Link href={`/dashboard/super_admin/services/edit/${row._id}`}>
                         <Button
+                          sx={{ padding: '6px' }}
                           color="primary"
                           variant="outlined"
                           size="small"
@@ -206,7 +215,7 @@ export function ServicesTable({
                         onDelete={() => handleDeleteService(row._id)}
                         isLoading={isDeletingService}
                       />
-                    </Stack>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

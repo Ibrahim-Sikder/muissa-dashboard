@@ -21,6 +21,9 @@ import { useDeleteReviewMutation } from "@/redux/api/reviewApi";
 import DeleteButtonWithConfirmation from "@/components/DeleteButtonWithConfirmation";
 import { getCookie } from "@/helpers/Cookies";
 import { toast } from "sonner";
+import { UserRole } from "@/types";
+import { getUserInfo } from "@/services/action";
+import CreateReviewModal from "@/app/(dashboardLayout)/dashboard/super_admin/reviews/_components/CreateReviewModal";
 
 function noop(): void {
   // do nothing
@@ -74,22 +77,42 @@ export function ReviewsTable({
     }
   };
 
+
+  const [userRole, setUserRole] = React.useState<UserRole | null>(null);
+
+  React.useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userInfo = await getUserInfo();
+
+      setUserRole(userInfo?.role || null);
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
+
   return (
-    <Card
-      sx={{
-        boxShadow: "none",
-      }}
-    >
-      <CardHeader
-        title={
-          <Typography variant="h5" fontWeight={700}>
-            Reviews
-          </Typography>
-        }
-        subheader="List of all reviews available in the system."
-        action={
-          <Link href="/dashboard/super_admin/reviews/create">
+    <>
+      <Card
+        sx={{
+          boxShadow: "none",
+        }}
+      >
+        <CardHeader
+          title={
+            <Typography variant="h5" fontWeight={700}>
+              Reviews
+            </Typography>
+          }
+          subheader="List of all reviews available in the system."
+          action={
+
             <Button
+              onClick={handleOpen}
               color="primary"
               size="small"
               variant="contained"
@@ -97,88 +120,93 @@ export function ReviewsTable({
             >
               Add New Review
             </Button>
-          </Link>
-        }
-      />
-      <Box sx={{ overflowX: "auto" }}>
-        <Table sx={{ minWidth: "800px" }}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Designation</TableCell>
-              <TableCell>Message</TableCell>
-              <TableCell>Publish Date</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => {
-              return (
-                <TableRow hover key={index}>
-                  <TableCell>
-                    <Avatar src={row?.review_image} variant="square" />
-                  </TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.designation}</TableCell>
-                  <TableCell
-                    sx={{
-                      maxWidth: "300px",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    <Tooltip title={row.message}>
-                      <Typography>{row.message}</Typography>
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell>
-                    {dayjs(row.createdAt).format("MMMM D, YYYY")}
-                  </TableCell>
-                  <TableCell>{row.status ? row.status : "Published"}</TableCell>
-                  <TableCell>
-                    <Box
+
+          }
+        />
+        <Box sx={{ overflowX: "auto" }}>
+          <Table sx={{ minWidth: "800px" }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Image</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Designation</TableCell>
+                <TableCell>Message</TableCell>
+                <TableCell>Publish Date</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => {
+                return (
+                  <TableRow hover key={index}>
+                    <TableCell>
+                      <Avatar src={row?.review_image} variant="square" />
+                    </TableCell>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.designation}</TableCell>
+                    <TableCell
                       sx={{
-                        display: "flex",
-                        gap: "1rem",
+                        maxWidth: "300px",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      <Link href={`/dashboard/super_admin/reviews/edit/${row?._id}`}>
-                        <Button
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                          sx={{ textTransform: "none" }}
-                          startIcon={<FaPencil />}
-                        >
-                          Update
-                        </Button>
-                      </Link>
+                      <Tooltip title={row.message}>
+                        <Typography>{row.message}</Typography>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell>
+                      {dayjs(row.createdAt).format("MMMM D, YYYY")}
+                    </TableCell>
+                    <TableCell>{row.status ? row.status : "Published"}</TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: "1rem",
+                        }}
+                      >
+                        <Link href={`/dashboard/${userRole}/reviews/edit/${row?._id}`}>
+                          <Button
+                            color="primary"
+                            variant="outlined"
+                            size="small"
+                            sx={{ textTransform: "none" }}
+                            startIcon={<FaPencil />}
+                          >
+                            Update
+                          </Button>
+                        </Link>
 
-                      <DeleteButtonWithConfirmation
-                        onDelete={() => handleDelete(row._id)}
-                        isLoading={isLoading}
-                      />
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Box>
-      <Divider />
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={onPageChange}
-        onRowsPerPageChange={onRowsPerPageChange}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+                        <DeleteButtonWithConfirmation
+                          onDelete={() => handleDelete(row._id)}
+                          isLoading={isLoading}
+                        />
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </Box>
+        <Divider />
+        <TablePagination
+          component="div"
+          count={count}
+          onPageChange={onPageChange}
+          onRowsPerPageChange={onRowsPerPageChange}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
+      </Card>
+
+      {
+        open && <CreateReviewModal open={open} setOpen={handleClose} />
+      }
+    </>
   );
 }

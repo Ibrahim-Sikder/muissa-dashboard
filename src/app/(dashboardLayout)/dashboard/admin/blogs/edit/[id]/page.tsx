@@ -1,4 +1,4 @@
-import UpdateBlogAdmin from "@/components/Dashboard/pages/blogs/UpdateBlogAdmin";
+
 import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -13,7 +13,7 @@ const UpdateBlog = dynamic(
 export default function CreateBlogPage({ params }: { params: { id: string } }) {
   return (
     <Stack spacing={3}>
-      <UpdateBlogAdmin id={params.id} />
+      <UpdateBlog id={params.id} />
     </Stack>
   );
 }

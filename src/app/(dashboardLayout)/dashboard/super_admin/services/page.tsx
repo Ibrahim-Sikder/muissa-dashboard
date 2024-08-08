@@ -57,8 +57,4 @@ function applyPagination(
   return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 }
 
-// export const metadata: Metadata = {
-//   title: "Muissa Consulting | Services",
-//   description: "Muissa Consulting blogs page ",
-//   keywords: "blogs, Muissa Consulting",
-// };
+

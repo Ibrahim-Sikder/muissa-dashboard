@@ -16,7 +16,13 @@ import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import { Button, CardHeader, TextField } from "@mui/material";
 import Link from "next/link";
-
+import { EditNotifications } from "@mui/icons-material";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { UserRole } from "@/types";
+import { getUserInfo } from "@/services/action";
 export interface Customer {
   id: string;
   avatar: string;
@@ -28,15 +34,7 @@ export interface Customer {
   membershipId: string;
 }
 
-// interface CustomersTableProps {
-//   count?: number;
-//   page?: number;
-//   rows?: BusinessInfo[];
-//   limit: number;
-//   setLimit: (page: number) => void;
-//   setFilterType: (page: string) => void;
-//   setPage: (page: number) => void;
-// }
+
 
 interface CustomersTableProps {
   count?: number;
@@ -70,13 +68,13 @@ interface BusinessInfo {
 
 
 
+
 export function CustomersTable({
   count = 0,
   rows = [],
   page = 0,
   limit,
   setLimit,
-  
   setFilterType,
   setPage,
 }: CustomersTableProps): React.JSX.Element {
@@ -92,8 +90,22 @@ export function CustomersTable({
   ) => {
     const newRowsPerPage = parseInt(event.target.value, 10);
     setLimit(newRowsPerPage);
-    setPage(0); // Reset page to 0 when changing rows per page
+    setPage(0);
   };
+
+  const [userRole, setUserRole] = React.useState<UserRole | null>(null);
+
+  React.useEffect(() => {
+    const fetchUserInfo = async () => {
+      const userInfo = await getUserInfo();
+
+      setUserRole(userInfo?.role || null);
+    };
+
+    fetchUserInfo();
+  }, []);
+
+
 
   return (
     <Card
@@ -176,12 +188,19 @@ export function CustomersTable({
                   <TableCell>
                     {dayjs(row?.createdAt).format("MMM D, YYYY")}
                   </TableCell>
-                  <TableCell>
-                    <Link href={`/dashboard/super_admin/customer/${row?._id}`}>
-                      <Button color="primary" size="small" variant="outlined">
-                        View
-                      </Button>
-                    </Link>
+
+                  <TableCell align="center">
+                    <div className='flex '>
+                      <Link href={`/dashboard/${userRole}/customers/${row?._id}`}>
+                        <IconButton title="See Profile">
+                          <VisibilityIcon className='text-[#00305C]' />
+                        </IconButton>
+                      </Link>
+
+                      <IconButton title="Delete">
+                        <DeleteIcon className='text-red-600' />
+                      </IconButton>
+                    </div>
                   </TableCell>
                 </TableRow>
               );
@@ -197,7 +216,7 @@ export function CustomersTable({
         onPageChange={handlePageChange}
         rowsPerPage={limit}
         onRowsPerPageChange={handleRowsPerPageChange}
-        rowsPerPageOptions={[5, 10,15, 20, 25,30, 35, 40 ]}
+        rowsPerPageOptions={[5, 10, 15, 20, 25, 30, 35, 40]}
       />
     </Card>
   );

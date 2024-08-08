@@ -76,7 +76,7 @@ export default function DashboardDrawer({
   };
 
   return (
-    <Box sx={{ display: "flex", background:'#F2F4F8'}}>
+    <Box sx={{ display: "flex", background: '#F2F4F8', }}>
       <CssBaseline />
 
       <Box
@@ -121,11 +121,14 @@ export default function DashboardDrawer({
         sx={{
           flexGrow: 1,
           p: 3,
+
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <MainNav/>
-        {children}
+        <MainNav />
+        <Box paddingTop='20px'>
+          {children}
+        </Box>
       </Box>
     </Box>
   );

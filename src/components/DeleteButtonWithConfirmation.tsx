@@ -35,6 +35,7 @@ const DeleteButtonWithConfirmation: React.FC<
   return (
     <>
       <Button
+        sx={{ padding: '6px' }}
         color="error"
         variant="outlined"
         size="small"

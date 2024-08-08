@@ -12,12 +12,18 @@ import {
   Reviews,
   SafetyCheck,
   SupportAgent,
-
 } from "@mui/icons-material";
 
 export const drawerItems = (role: userRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
 
+  const defaultMenus = [
+    {
+      title: "Support",
+      path: `${role}/support`,
+      icon: SupportAgent,
+    },
+  ];
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
       roleMenus.push(
@@ -80,30 +86,38 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           title: "User Management  ",
           path: `${role}/users`,
           icon: Group,
+          child: [
+            {
+              title: "Create User ",
+              path: `${role}/users`,
+              icon: Group,
+            },
+            {
+              title: "All User ",
+              path: `${role}/users/alluser`,
+              icon: Group,
+            },
+          ],
         },
         {
           title: "Contact Message",
           path: `${role}/contact-message`,
           icon: Group,
-        },
-        {
-          title: "Support",
-          path: `${role}/support`,
-          icon: SupportAgent,
-        },
+        }
       );
       break;
     case USER_ROLE.ADMIN:
       roleMenus.push(
         {
           title: "Dashboard",
-          path: '/',
+          path: "/",
           icon: Dashboard,
-        }, {
-        title: "Manage Customer",
-        path: `${role}/customers`,
-        icon: Group,
-      },
+        },
+        {
+          title: "Manage Customer",
+          path: `${role}/customers`,
+          icon: Group,
+        },
 
         {
           title: "Manage Blogs",
@@ -120,15 +134,7 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           title: "Contact Message",
           path: `${role}/contact-message`,
           icon: Group,
-        },
-
-        {
-          title: "Support",
-          path: `${role}/support`,
-          icon: SupportAgent,
-        },
-
-
+        }
       );
       break;
 
@@ -136,5 +142,5 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
       break;
   }
 
-  return [...roleMenus];
+  return [...roleMenus, ...defaultMenus];
 };

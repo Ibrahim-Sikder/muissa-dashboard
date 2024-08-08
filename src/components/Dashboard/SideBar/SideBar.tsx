@@ -20,15 +20,17 @@ const SideBar = () => {
 
     fetchUserInfo();
   }, []);
-  
+
 
   return (
     <Stack
       direction="column"
       justifyContent="space-between"
-      height="100vh"
+      height="100%"
       paddingBottom="30px"
-      sx={{ background: '#121621', color: '#fff' }}
+      bgcolor='#121621'
+      color='#fff'
+
     >
 
       <Box>
@@ -40,24 +42,26 @@ const SideBar = () => {
           gap={1}
           component={Link}
           href="/"
+
         >
           <Typography
             variant="h5"
             component="h1"
             fontWeight="bold"
-            sx={{ cursor: "pointer", color: '#fff' }}
+            sx={{ cursor: "pointer", }}
           >
             Muissa Dashboard
           </Typography>
         </Stack>
-        <List>
+        <List >
           {drawerItems(userRole as userRole).map((item, index) => (
-            <SideBarItems key={index} item={item} index={index} />
+            <SideBarItems  key={index} item={item} index={index} />
           ))}
         </List>
       </Box>
       <Box></Box>
     </Stack>
+
   );
 };
 

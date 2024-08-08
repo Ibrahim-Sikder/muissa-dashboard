@@ -4,6 +4,7 @@ import {
   Avatar,
   Badge,
   Box,
+  Container,
   Grid,
   ListItemText,
   Typography,
@@ -40,7 +41,7 @@ interface User {
   status: "online" | "offline";
 }
 
-export default function SupportContactPage() {
+export default function SupportCustomer() {
   // const [messages, setMessages] = useState<Message[]>(mockMessages);
   // const [newMessage, setNewMessage] = useState("");
   // const [selectedUser, setSelectedUser] = useState<User | null>(null);

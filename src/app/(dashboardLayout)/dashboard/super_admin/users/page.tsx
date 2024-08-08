@@ -4,11 +4,10 @@ import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useCallback, useState } from "react";
 import UserCreateModal from "./_components/UserCreateModal";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import Loader from "@/components/Loader";
-import { useDeleteUserMutation, useGetAllUserQuery } from "@/redux/api/userApi";
+import { useGetAllUserQuery } from "@/redux/api/userApi";
 import { getCookie } from "@/helpers/Cookies";
 import { toast } from "sonner";
 import axios from "axios";
@@ -112,11 +111,12 @@ const Users = () => {
   if (isLoading) {
     return <Loader />;
   }
+
   if (error) {
     return <div>Something went wrong</div>;
   }
   return (
-    <Box>
+    <Box marginTop='30px'>
       <Box sx={{ width: "100%", padding: 2 }}>
         <Stack
           direction="row"
@@ -125,17 +125,14 @@ const Users = () => {
           margin="10px 0"
           spacing={{ xs: 2, sm: 0 }}
         >
-          {/* <TextField size="small" label="Search User" variant="outlined" /> */}
-          <Button variant="contained" color="primary" onClick={handleClickOpen}>
-            Create A User
-          </Button>
+
+          <div className="flex justify-end w-full">
+            <Button variant="contained" color="primary" onClick={handleClickOpen}>
+              Create A User
+            </Button>
+          </div>
         </Stack>
 
-        <UserCreateModal
-          open={isModalOpen}
-          setOpen={handleClose}
-          refetch={refetch}
-        />
 
         <Box sx={{ height: "calc(100vh - 150px)", width: "100%" }}>
           <DataGrid
@@ -148,7 +145,7 @@ const Users = () => {
                 paginationModel: { page: 0, pageSize: 5 },
               },
             }}
-            pageSizeOptions={[5, 10]}
+            pageSizeOptions={[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]}
             sx={{
               "& .MuiDataGrid-columnHeaders": {
                 backgroundColor: "#ddffdd",
@@ -157,6 +154,14 @@ const Users = () => {
           />
         </Box>
       </Box>
+      {
+        isModalOpen && <UserCreateModal
+          open={isModalOpen}
+          setOpen={handleClose}
+          refetch={refetch}
+        />
+
+      }
     </Box>
   );
 };

@@ -1,65 +1,12 @@
-"use client";
-import * as React from "react";
-import type { Metadata } from "next";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import { FaPlus } from "react-icons/fa";
-import dayjs from "dayjs";
+import React from 'react';
+import ReviewList from '../../super_admin/reviews/_components/ReviewList';
 
-import Link from "next/link";
-import {
-  Review,
-  ReviewsTable,
-} from "@/components/Dashboard/pages/reviews/ReviewsTable";
-import { usePathname } from "next/navigation";
-import { useGetAllReviewsQuery } from "@/redux/api/reviewApi";
-import Loader from "@/components/Loader";
-import { ReviewTableAdmin } from "@/components/Dashboard/pages/reviews/ReviewTableAdmin";
-
-export default function ReviewsPage(): React.JSX.Element {
-  const page = 0;
-  const rowsPerPage = 5;
-  const pathName = usePathname();
- 
-
-  const { data, error, isLoading, refetch } = useGetAllReviewsQuery({
-    page,
-    limit: rowsPerPage,
-  });
-
-  React.useEffect(() => {
-    refetch();
-  }, [pathName, refetch]);
-
-  if (isLoading || error) {
-    return <Loader />;
-  }
-
- 
-
+const page = () => {
   return (
-    <Stack spacing={3}>
-      <ReviewTableAdmin
-        count={data?.reviews?.length}
-        page={page}
-        rows={data?.reviews}
-        rowsPerPage={rowsPerPage}
-      />
-    </Stack>
+    <>
+      <ReviewList/>
+    </>
   );
-}
+};
 
-function applyPagination(
-  rows: Review[],
-  page: number,
-  rowsPerPage: number
-): Review[] {
-  return rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-}
-
-// export const metadata: Metadata = {
-//   title: "Muissa Consulting | Reviews",
-//   description: "Muissa Consulting blogs page ",
-//   keywords: "blogs, Muissa Consulting",
-// };
+export default page;
