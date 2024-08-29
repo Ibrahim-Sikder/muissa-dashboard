@@ -1,14 +1,9 @@
 
+import UpdateBlog from "@/app/(dashboardLayout)/dashboard/super_admin/blogs/_components/UpdateBlog";
 import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const UpdateBlog = dynamic(
-  () => import("@/components/Dashboard/pages/blogs/UpdateBlog"),
-  {
-    ssr: false,
-  }
-);
 
 export default function CreateBlogPage({ params }: { params: { id: string } }) {
   return (

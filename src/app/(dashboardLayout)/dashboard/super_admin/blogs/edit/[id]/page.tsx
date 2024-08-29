@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import UpdateBlog from "../../_components/UpdateBlog";
 
 // const UpdateBlog = dynamic(
 //   () => import("@/components/Dashboard/pages/blogs/UpdateBlog"),

@@ -1,6 +1,4 @@
-import CreateBlog from "@/components/Dashboard/pages/blogs/CreateBlog";
 import CreateFAQForm from "@/components/Dashboard/pages/faq/FaqForm";
-import CreateReview from "@/components/Dashboard/pages/reviews/CreateReview";
 import { Stack, Typography } from "@mui/material";
 import type { Metadata } from "next";
 
