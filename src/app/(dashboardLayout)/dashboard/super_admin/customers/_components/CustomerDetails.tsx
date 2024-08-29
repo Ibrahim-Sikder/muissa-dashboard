@@ -28,10 +28,27 @@ import { useGetSingleMemberQuery } from "@/redux/api/memeberApi";
 import Loader from "@/components/Loader";
 import { AccessTimeFilled, AddRoad, Approval, Business, CardTravel, Handshake, Language, LocalConvenienceStore, NextWeek, Paid, TimerOff } from "@mui/icons-material";
 import moment from "moment";
+import { UserRole } from "@/types";
+import { getUserInfo } from "@/services/action";
+
 
 
 
 export default function CustomerDetails() {
+    const [userRole, setUserRole] = React.useState<UserRole | null>(null);
+
+    React.useEffect(() => {
+        const fetchUserInfo = async () => {
+            const userInfo = await getUserInfo();
+
+            setUserRole(userInfo?.role || null);
+        };
+
+        fetchUserInfo();
+    }, []);
+
+
+
     const [errorMessage, setErrorMessage] = React.useState<string[]>([]);
     const { id } = useParams();
     const token = getCookie("mui-token");
@@ -73,7 +90,7 @@ export default function CustomerDetails() {
 
     return (
         <>
-            <Link href="/dashboard/customers" passHref>
+            <Link href={`/dashboard/${userRole}/customers`} passHref>
                 <Button
                     startIcon={<ArrowBackIcon />}
                     variant="contained"
