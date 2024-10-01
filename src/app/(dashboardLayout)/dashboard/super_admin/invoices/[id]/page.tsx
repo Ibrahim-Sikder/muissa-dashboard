@@ -147,7 +147,7 @@ const ShowInvoice = () => {
                       <div className="flex flex-col ">
                         <strong>: Muissa Business Consulting Ltd</strong>
                         <strong>: muissa@gmail.com</strong>
-                        <strong>: 34567890</strong>
+                        <strong>: 01403-852850</strong>
                         <strong>: www.muissa.com</strong>
                         <strong>: House-08, Road-07, Block-C, Banasree, Dhaka-1219</strong>
                       </div>
@@ -164,12 +164,12 @@ const ShowInvoice = () => {
               <div className="flex justify-between mt-8">
                 <div className="text-sm">
                   <h4 className="text-xl font-semibold mb-2">Bill To</h4>
-                  <div className="flex justify-between w-[350px] mb-3">
+                  <div className="flex justify-between w-[400px] mb-3">
                     <div className="flex flex-col space-y-">
-                      <p>Client Name</p>
-                      <span>E-mail</span>
-                      <span>Phone</span>
-                      <span>Address</span>
+                      <p className="w-[90px]">Client Name</p>
+                      <p>E-mail</p>
+                      <p>Phone</p>
+                      <p>Address</p>
                     </div>
                     <div className="flex flex-col ">
                       <strong>: {paymentData?.user?.name}</strong>
