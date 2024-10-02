@@ -38,7 +38,7 @@ jobs:
             pm2 reload muissa-dashboard --update-env
           else
             echo "Starting new PM2 process for muissa-dashboard..."
-            pm2 start /var/www/html/muissa-dashboard/server.js --name muissa-dashboard --update-env
+            pm2 start npm --name muissa-dashboard -- start --update-env
           fi
 
       - name: Check pm2 status
