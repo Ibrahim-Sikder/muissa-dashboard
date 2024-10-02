@@ -32,12 +32,13 @@ jobs:
           # Copy all files from the repository root to the server directory
           cp -R * /var/www/html/muissa-dashboard/  # This will copy everything
 
-          if pm2 list | grep -q muissa-client; then
+          # Check if the pm2 process exists
+          if pm2 list | grep -q muissa-dashboard; then
             echo "Reloading existing PM2 process for muissa-dashboard..."
             pm2 reload muissa-dashboard --update-env
           else
-            echo "Starting new PM2 process for muissa-client..."
-            pm2 start npm --name muissa-dashboard -- start --update-env
+            echo "Starting new PM2 process for muissa-dashboard..."
+            pm2 start /var/www/html/muissa-dashboard/server.js --name muissa-dashboard --update-env
           fi
 
       - name: Check pm2 status
