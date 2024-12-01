@@ -136,7 +136,7 @@ const ShowInvoice = () => {
               <div className="flex justify-between items-center mb-10">
                 <div>
                   <div className="mt-8 text-sm">
-                    <div className="flex justify-between w-[470px] mb-3">
+                    <div className="flex  gap-x-5 w-[600px] mb-3">
                       <div className="flex flex-col space-y-">
                         <span>Company Name</span>
                         <span>E-mail</span>
@@ -164,7 +164,7 @@ const ShowInvoice = () => {
               <div className="flex justify-between mt-8">
                 <div className="text-sm">
                   <h4 className="text-xl font-semibold mb-2">Bill To</h4>
-                  <div className="flex justify-between w-[350px] mb-3">
+                  <div className="flex gap-x-5 w-[530px] mb-3">
                     <div className="flex flex-col space-y-">
                       <p>Client Name</p>
                       <span>E-mail</span>
