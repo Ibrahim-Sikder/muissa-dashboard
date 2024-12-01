@@ -136,7 +136,7 @@ const ShowInvoice = () => {
               <div className="flex justify-between items-center mb-10">
                 <div>
                   <div className="mt-8 text-sm">
-                    <div className="flex  gap-x-5 w-[600px] mb-3">
+                    <div className="flex  gap-x-5 w-[530px] mb-3">
                       <div className="flex flex-col space-y-">
                         <span>Company Name</span>
                         <span>E-mail</span>
@@ -146,8 +146,8 @@ const ShowInvoice = () => {
                       </div>
                       <div className="flex flex-col ">
                         <strong>: Muissa Business Consulting Ltd</strong>
-                        <strong>: muissa@gmail.com</strong>
-                        <strong>: 34567890</strong>
+                        <strong>: info@muissa.com</strong>
+                        <strong>: 01403-852850</strong>
                         <strong>: www.muissa.com</strong>
                         <strong>: House-08, Road-07, Block-C, Banasree, Dhaka-1219</strong>
                       </div>
@@ -157,7 +157,7 @@ const ShowInvoice = () => {
                 <Image
                   alt="logo"
                   src={logo}
-                  className="w-44 h-44 object-fill"
+                  className="w-40 h-40 object-fill"
                 />
               </div>
               <Divider />
@@ -166,10 +166,10 @@ const ShowInvoice = () => {
                   <h4 className="text-xl font-semibold mb-2">Bill To</h4>
                   <div className="flex gap-x-5 w-[530px] mb-3">
                     <div className="flex flex-col space-y-">
-                      <p>Client Name</p>
-                      <span>E-mail</span>
-                      <span>Phone</span>
-                      <span>Address</span>
+                      <p className="w-[90px]">Client Name</p>
+                      <p>E-mail</p>
+                      <p>Phone</p>
+                      <p>Address</p>
                     </div>
                     <div className="flex flex-col ">
                       <strong>: {paymentData?.user?.name}</strong>
