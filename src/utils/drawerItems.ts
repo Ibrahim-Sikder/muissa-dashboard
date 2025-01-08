@@ -95,7 +95,7 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
               icon: Group,
             },
             {
-              title: "Metting Book",
+              title: "Investment Metting Book",
               path: `${role}/book-metting`,
               icon: Group,
             },
