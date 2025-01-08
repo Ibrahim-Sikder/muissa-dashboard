@@ -4,6 +4,7 @@ import {
   Book,
   Dashboard,
   Discount,
+  EmojiFoodBeverage,
   Group,
   LiveHelp,
   LocalConvenienceStore,
@@ -25,7 +26,6 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
     },
   ];
 
-  
   switch (role) {
     case USER_ROLE.SUPER_ADMIN:
       roleMenus.push(
@@ -83,6 +83,23 @@ export const drawerItems = (role: userRole): DrawerItem[] => {
           title: "Membership Fee ",
           path: `${role}/membership-fee`,
           icon: Dashboard,
+        },
+        {
+          title: "Metting Book",
+          path: `${role}/users`,
+          icon: EmojiFoodBeverage,
+          child: [
+            {
+              title: "One To One Consultance",
+              path: `${role}/one-to-one-consultance`,
+              icon: Group,
+            },
+            {
+              title: "Metting Book",
+              path: `${role}/book-metting`,
+              icon: Group,
+            },
+          ],
         },
         {
           title: "User Management  ",

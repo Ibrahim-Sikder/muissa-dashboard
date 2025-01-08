@@ -125,30 +125,7 @@ const CreateService = () => {
     <Stack spacing={3}>
       <MUIForm
         onSubmit={handleSubmit}
-      // resolver={zodResolver(validationSchema)}
-      // defaultValues={{
-      //   title: "",
-      //   category: "",
-      //   sub_category: "",
-      //   priority: "",
-      //   short_description: "",
-      //   description: "",
-      //   service_image: "",
-      //   seo_title: "",
-      //   seo_keyword: [],
-      //   seo_description: "",
-      // }}
-
-      // resolver={zodResolver(validationSchema)}
-      // defaultValues={{
-      //   title: "",
-      //   category: "",
-      //   sub_category: "",
-      //   short_description: "",
-      //   description: "",
-      //   service_image: "",
-      //   priority: ""
-      // }}
+      
       >
         <Card
           sx={{
